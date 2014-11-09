@@ -1,0 +1,58 @@
+<form class="search">
+  <input type="text" name="query">
+</form>
+
+<nav>
+  <ul>
+    <% if (!user) { %>
+      <li><a href="#/session/new">Sign In</a></li>
+      <li><a href="#/users/new">Sign Up</a></li>
+    <% } %>
+
+    <% if (user && user.get('isAdmin')) { %>
+      <li><a href="#/add">Add a Series</a></li>
+      <li><a href="#/series">My Series</a></li>
+    <% } %>
+
+    <% if (user) { %>
+      <li><a href="#/users/<%= user.id %>">My Profile</a></li>
+      <li>
+        <form id="sign-out" action="/session" method="post">
+          <input type="hidden" name="authenticity_token">
+          <input type="hidden" name="_method" value="delete">
+          <button>Sign Out</button>
+        </form>
+      </li>
+    <% } %>
+  </ul>
+</nav>
+
+<form class="discover">
+  <h2>Discover</h2>
+
+  <ul class="decades">
+    <% _(Clickster.DECADES).each(function(decade) { %>
+      <li>
+        <label>
+          <input type="checkbox"
+                 name="query[decades][]"
+                 value="<%= decade %>">
+          '<%= decade ? decade : decade + "0" %>s
+        </label>
+      </li>
+    <% }) %>
+  </ul>
+
+  <ul class="genres">
+    <% _(Clickster.GENRES).each(function(genre) { %>
+      <li>
+        <label>
+          <input type="checkbox" name="query[genres][]" value="<%= genre %>">
+          <%= genre %>
+        </label>
+      </li>
+    <% }) %>
+  </ul>
+
+  <button>Search</button>
+</form>

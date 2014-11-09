@@ -1,0 +1,14 @@
+<section id="sidebar"></section>
+<main>
+  <button id="open-sidebar"></button>
+  <section id="main"></section>
+</main>
+
+<script>
+  $(function () {
+    Clickster.initialize({
+      $sidebar: $('#sidebar'),
+      $rootEl: $('#main')
+    });
+  });
+</script>

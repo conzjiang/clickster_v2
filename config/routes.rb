@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'users#index'
+  root to: 'static_pages#root'
 
   resources :users, except: [:edit, :update]
   get 'profile/edit', to: 'users#edit', as: 'edit_user'

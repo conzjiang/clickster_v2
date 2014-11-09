@@ -14,8 +14,14 @@ class SessionsController < ApplicationController
       flash[:notice] = "Successfully signed in!"
       redirect_to root_url
     else
-      flash[:errors] = ["Incorrect username/password combination"]
+      flash.now[:errors] = ["Incorrect username/password combination"]
       render :new
     end
+  end
+
+  def destroy
+    sign_out
+    flash[:notice] = "Successfully signed out!"
+    redirect_to root_url
   end
 end

@@ -1,7 +1,15 @@
 <h1>All Users</h1>
 
-<a href="<%= new_session_url %>">Sign In</a>
-<a href="<%= new_user_url %>">Sign Up</a>
+<% if signed_in? %>
+  <form action="<%= session_url %>" method="post">
+    <%= form_auth %>
+    <input type="hidden" name="_method" value="delete">
+    <button>Sign Out</button>
+  </form>
+<% else %>
+  <a href="<%= new_session_url %>">Sign In</a>
+  <a href="<%= new_user_url %>">Sign Up</a>
+<% end %>
 
 <ul>
 <% @users.each do |user| %>

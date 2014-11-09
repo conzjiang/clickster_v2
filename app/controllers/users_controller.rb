@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
     if @user.save
       sign_in(@user)
-      flash[:notice] = "Successfully signed in!"
+      flash[:notice] = "Successfully signed up!"
       redirect_to root_url
     else
       flash[:errors] = @user.errors.full_messages

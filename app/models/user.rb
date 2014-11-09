@@ -7,6 +7,15 @@ class User < ActiveRecord::Base
 
   after_initialize :ensure_session_token
 
+  def self.find_by_credentials(identifier, password)
+    user = User.where("username = :id OR email = :id", id: identifier).first
+    user.try(:is_password?, password) ? user : nil
+  end
+
+  def is_password?(password)
+    Password.new(self.password_digest).is_password?(password)
+  end
+
   def password=(password)
     @password = password
     self.password_digest = Password.create(password)

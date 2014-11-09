@@ -2,7 +2,6 @@ FactoryGirl.define do
   factory :user do
     email Faker::Internet.email
     username Faker::Internet.user_name
-    password_digest SecureRandom.urlsafe_base64(16)
-    session_token SecureRandom.urlsafe_base64(16)
+    password Faker::Internet.password(6)
   end
 end

@@ -4,6 +4,7 @@ window.Clickster = {
   Views: {},
   Routers: {},
   initialize: function(options) {
+    Clickster.DECADES = JSON.parse($('#decades').html());
     new Clickster.Routers.AppRouter(options);
     Backbone.history.start();
   }

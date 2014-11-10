@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141109235942) do
+ActiveRecord::Schema.define(version: 20141110000430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "tv_decades", force: true do |t|
+    t.integer  "decade"
+    t.integer  "tv_show_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tv_decades", ["decade", "tv_show_id"], name: "index_tv_decades_on_decade_and_tv_show_id", unique: true, using: :btree
 
   create_table "tv_shows", force: true do |t|
     t.string   "title",       null: false

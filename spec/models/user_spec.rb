@@ -6,6 +6,8 @@ describe User do
     it { should validate_uniqueness_of(attribute) }
   end
 
+  it { should have_many(:tv_shows) }
+
   describe "#ensure_session_token" do
     it "should generate session token upon initialization" do
       expect(user.session_token).not_to be_nil

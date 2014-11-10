@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   validates :email, :username, presence: true, uniqueness: true
   validates :password, length: { minimum: 6, allow_nil: true }
 
+  has_many :tv_shows, foreign_key: :admin_id
+
   after_initialize :ensure_session_token
 
   def self.find_by_credentials(identifier, password)

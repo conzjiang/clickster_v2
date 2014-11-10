@@ -14,6 +14,11 @@ gem 'backbone-on-rails'
 gem 'bcrypt', require: 'bcrypt'
 gem 'figaro'
 
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'faker'
+end
+
 group :development do
   gem 'better_errors'
   gem 'pry-rails'
@@ -23,8 +28,6 @@ end
 
 group :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'faker'
   gem 'shoulda-matchers', require: false
 end
 

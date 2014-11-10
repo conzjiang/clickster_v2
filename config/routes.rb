@@ -6,4 +6,11 @@ Rails.application.routes.draw do
   put 'profile/update', to: 'users#update', as: 'update_user'
 
   resource :session, only: [:new, :create, :destroy]
+
+  namespace :api, defaults: { format: :json } do
+    get 'current_user', to: 'api#current'
+
+    resources :users, only: [:create]
+    resource :session, only: [:create]
+  end
 end

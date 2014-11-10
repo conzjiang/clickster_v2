@@ -14,6 +14,7 @@ class SessionsController < ApplicationController
       flash[:notice] = "Successfully signed in!"
       redirect_to root_url
     else
+      @user = User.new(user_params)
       flash.now[:errors] = ["Incorrect username/password combination"]
       render :new
     end
@@ -23,5 +24,13 @@ class SessionsController < ApplicationController
     sign_out
     flash[:notice] = "Successfully signed out!"
     redirect_to root_url
+  end
+
+  private
+  def user_params
+    params[:user][:username] = params[:user][:identifier]
+    params[:user].delete(:identifier)
+
+    params.require(:user).permit(:username, :email, :password)
   end
 end

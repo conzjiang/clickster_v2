@@ -1,16 +1,24 @@
-<h1>Sign In</h1>
-
-<form action="<%= session_url %>" method="post">
+<form class="sign-in" action="<%= session_url %>" method="post">
   <%= form_auth %>
 
-  <label for="user_identifier">Username / Email</label>
-  <input id="user_username"
-         type="text"
-         name="user[identifier]"
-         value="<%= @user.username || @user.email %>">
+  <h2>Sign In</h2>
+  <%= render 'shared/errors' %>
 
-  <label for="user_password">Password</label>
-  <input id="user_username" type="password" name="user[password]">
+  <fieldset>
+    <label for="user_identifier">Username / Email</label>
+    <input id="user_username"
+           type="text"
+           name="user[identifier]"
+           value="<%= @user.username %>">
+  </fieldset>
+
+  <fieldset>
+    <label for="user_password">Password</label>
+    <input id="user_username"
+           type="password"
+           name="user[password]"
+           value="<%= @user.password %>">
+  </fieldset>
 
   <button>Sign In</button>
 </form>

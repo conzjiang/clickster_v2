@@ -4,12 +4,22 @@
   <section id="main"></section>
 </main>
 
+<section class="modal">
+  <div class="overlay"></div>
+  <article class="modal-content"></article>
+</section>
+
 <script>
   $(function () {
     Clickster.initialize({
       $sidebar: $('#sidebar'),
-      $rootEl: $('#main')
+      $rootEl: $('#main'),
+      $modal: $('.modal-content')
     });
+
+    <% if signed_in? %>
+    Clickster.currentUser.fetch();
+    <% end %>
   });
 </script>
 

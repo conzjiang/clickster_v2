@@ -1,0 +1,67 @@
+Clickster.Routers.AppRouter = Backbone.Router.extend({
+  initialize: function (options) {
+    this.$sidebar = options.$sidebar;
+    this.$rootEl = options.$rootEl;
+    this.$modal = options.$modal;
+
+    var sidebarView = new Clickster.Views.Sidebar({ el: this.$sidebar });
+    sidebarView.render();
+
+    $('.overlay').on('click', function () {
+      $('.modal').addClass('fading-out');
+
+      $('.modal').one('transitionend', function () {
+        $(this).removeClass('display');
+        Backbone.history.navigate('');
+      });
+    });
+  },
+
+  routes: {
+    '': 'home',
+    'session/new': 'signIn',
+    'users/new': 'signIn'
+  },
+
+  home: function () {
+this._swapRootEl();
+  },
+
+  signIn: function () {
+    var path, options, signInModal;
+
+    path = window.location.hash.substring(2);
+    options = {};
+    if (path.match(/^users/)) options.newUser = true;
+
+    signInModal = new Clickster.Views.SignIn(options);
+    this._swapModal(signInModal);
+    signInModal.$('input').eq(0).focus();
+  },
+
+  _swapRootEl: function (view) {
+    $('.modal').removeClass('display');
+
+    // this._swapView({
+    //   currentView: this.currentView,
+    //   view: view,
+    //   $el: this.$rootEl
+    // });
+  },
+
+  _swapModal: function (view) {
+    $('.modal').removeClass('fading-out').addClass('display');
+
+    this._swapView({
+      currentView: this.modalView,
+      view: view,
+      $el: this.$modal
+    });
+  },
+
+  _swapView: function (options) {
+    options.currentView && options.currentView.remove();
+    options.currentView = options.view;
+    options.$el.html(options.view.render().$el);
+  }
+});

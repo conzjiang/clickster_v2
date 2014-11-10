@@ -13,3 +13,52 @@
  *= require_tree .
  *= require_self
  */
+
+html, body, h1, h2, form, fieldset, ul, li, section, article, div, input, button, textarea, p, a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font: inherit;
+}
+
+input, button, textarea {
+  display: inline-block;
+  width: auto;
+  color: inherit;
+  background: transparent;
+  -webkit-appearance: none;
+  box-sizing: content-box;
+}
+
+button {
+  vertical-align: baseline;
+  cursor: pointer;
+}
+
+html, body {
+  position: relative;
+  height: 100%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+ul.errors {
+  margin: 20px 0;
+  color: #f00;
+}
+
+p.error {
+  color: #f00;
+}

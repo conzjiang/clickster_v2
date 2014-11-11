@@ -1,7 +1,9 @@
-<section id="sidebar"></section>
+<section class="sidebar"></section>
 <main>
-  <button id="open-sidebar"></button>
+  <button id="open-sidebar"><span class='antenna'></span></button>
   <section id="main"></section>
+
+  <div class="cover"></div>
 </main>
 
 <section class="modal">
@@ -12,7 +14,7 @@
 <script>
   $(function () {
     Clickster.initialize({
-      $sidebar: $('#sidebar'),
+      $sidebar: $('.sidebar'),
       $rootEl: $('#main'),
       $modal: $('.modal-content')
     });

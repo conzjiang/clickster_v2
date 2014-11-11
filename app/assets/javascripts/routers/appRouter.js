@@ -7,14 +7,7 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     var sidebarView = new Clickster.Views.Sidebar({ el: this.$sidebar });
     sidebarView.render();
 
-    $('.overlay').on('click', function () {
-      $('.modal').addClass('fading-out');
-
-      $('.modal').one('transitionend', function () {
-        $(this).removeClass('display');
-        Backbone.history.navigate('');
-      });
-    });
+    this.bindEvents();
   },
 
   routes: {
@@ -24,7 +17,7 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   home: function () {
-this._swapRootEl();
+    this._swapRootEl();
   },
 
   signIn: function () {
@@ -37,6 +30,25 @@ this._swapRootEl();
     signInModal = new Clickster.Views.SignIn(options);
     this._swapModal(signInModal);
     signInModal.$('input').eq(0).focus();
+  },
+
+  bindEvents: function () {
+    $('.overlay').on('click', function () {
+      $('.modal').addClass('fading-out');
+
+      $('.modal').one('transitionend', function () {
+        $(this).removeClass('display');
+        Backbone.history.navigate('');
+      });
+    });
+
+    $('button#open-sidebar').on('click', function () {
+      $('main').addClass('open');
+    });
+
+    $('.cover').on('click', function () {
+      $('main').removeClass('open');
+    });
   },
 
   _swapRootEl: function (view) {

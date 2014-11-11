@@ -3,4 +3,5 @@ class TvShow < ActiveRecord::Base
 
   belongs_to :admin, class_name: "User"
   has_many :tv_decades
+  has_many :tv_genres
 end

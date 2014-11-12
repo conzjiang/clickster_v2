@@ -1,0 +1,123 @@
+/* NAV */
+nav {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* TV HAMBURGER ICON */
+button#open-sidebar {
+  position: relative;
+  float: left;
+  width: 25px;
+  height: 12px;
+  border: 4px solid #000;
+  border-left: 0;
+  border-right: 0;
+  cursor: pointer;
+}
+
+button#open-sidebar:after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 25px;
+  height: 4px;
+  background: #000;
+}
+
+/* antennas */
+button#open-sidebar:before,
+button#open-sidebar > span.antenna {
+  position: absolute;
+  width: 0;
+  height: 7px;
+  top: -11px;
+  border: 2px solid #000;
+  border-radius: 2px;
+}
+
+button#open-sidebar:before {
+  content: "";
+  left: 5px;
+  transform: skewX(30deg);
+}
+
+button#open-sidebar > span.antenna {
+  left: 15px;
+  transform: skewX(-30deg);
+}
+
+/* NAV RIGHT */
+nav > .links {
+  position: relative;
+  float: right;
+}
+
+/* SIGN IN LINKS */
+nav .sign-in > li {
+  float: left;
+  margin: 0 10px;
+}
+
+nav .sign-in > li > a {
+
+}
+
+/* USER PHOTO */
+nav figure {
+  width: 50px;
+  height: 50px;
+  margin-right: 40px;
+  background: #c00;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+nav figure:after {
+  content: '\25BE';
+  position: absolute;
+  top: 15px;
+  left: 60px;
+  margin-left: 5px;
+}
+
+nav .dropdown {
+  display: none;
+}
+
+nav figure.open + .dropdown {
+  display: block;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 150px;
+  border: 1px solid #eee;
+}
+
+nav .dropdown > li {
+  border-bottom: 1px solid #eee;
+}
+
+nav .dropdown > li:last-child {
+  border: 0;
+}
+
+nav .dropdown > li > a,
+nav .dropdown > li button {
+  display: block;
+  padding: 5px 10px;
+  background: #fff;
+  transition: background 0.3s;
+}
+
+nav .dropdown > li button {
+  width: 130px;
+  text-align: left;
+}
+
+nav .dropdown > li > a:hover,
+nav .dropdown > li button:hover {
+  background: pink;
+}

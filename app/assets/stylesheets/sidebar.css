@@ -4,4 +4,32 @@ section.sidebar {
   top: 0;
   left: 0;
   width: 300px;
+  height: 100%;
+  color: #fff;
+  background: #495A66;
+  overflow: scroll;
+}
+
+form.search {
+  padding: 20px;
+}
+
+form.search > input {
+  display: block;
+  width: 200px;
+  margin: auto;
+  padding: 5px;
+  color: #000;
+  font-size: 18px;
+  background: #e7e7e7;
+  opacity: 0.1;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: width 0.5s;
+}
+
+form.search > input.open {
+  width: 250px;
+  opacity: 1;
+  cursor: auto;
 }

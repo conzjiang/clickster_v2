@@ -1,6 +1,10 @@
 <section class="sidebar"></section>
 <main>
-  <button id="open-sidebar"><span class='antenna'></span></button>
+  <nav class='group'>
+    <button id="open-sidebar"><span class='antenna'></span></button>
+    <article class="links"></article>
+  </nav>
+
   <section id="main"></section>
 
   <div class="cover"></div>
@@ -15,6 +19,7 @@
   $(function () {
     Clickster.initialize({
       $sidebar: $('.sidebar'),
+      $navbar: $('nav > .links'),
       $rootEl: $('#main'),
       $modal: $('.modal-content')
     });
@@ -27,4 +32,8 @@
 
 <script id='decades'>
   <%= TvDecade.decades_list.to_json.html_safe %>
+</script>
+
+<script id="genres">
+  <%= TvGenre.genres_list.to_json.html_safe %>
 </script>

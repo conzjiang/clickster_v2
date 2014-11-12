@@ -31,13 +31,11 @@ Clickster.Views.SignIn = Backbone.View.extend({
       data: params,
       dataType: 'json',
       success: function () {
-        console.log('success')
         Clickster.currentUser.fetch();
         Backbone.history.navigate('', { trigger: true });
       },
       error: function (data) {
         that.$('.errors').empty();
-        console.log('error')
         _(data.responseJSON).each(function (error) {
           that.$('.errors').append('<li>' + error + '</li>');
         });
@@ -66,7 +64,7 @@ Clickster.Views.SignIn = Backbone.View.extend({
       setTimeout(function () {
         $('.overlay').trigger('click');
         that.remove();
-      }, 1000);
+      }, 2000);
     }
 
     return this;

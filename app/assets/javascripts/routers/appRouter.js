@@ -1,11 +1,15 @@
 Clickster.Routers.AppRouter = Backbone.Router.extend({
   initialize: function (options) {
     this.$sidebar = options.$sidebar;
+    this.$navbar = options.$navbar;
     this.$rootEl = options.$rootEl;
     this.$modal = options.$modal;
 
     var sidebarView = new Clickster.Views.Sidebar({ el: this.$sidebar });
     sidebarView.render();
+
+    var navbarView = new Clickster.Views.Nav({ el: this.$navbar });
+    navbarView.render();
 
     this.bindEvents();
   },

@@ -4,4 +4,8 @@ class TvGenre < ActiveRecord::Base
   validates :tv_show_id, uniqueness: { scope: :genre }
 
   belongs_to :tv_show
+
+  def self.genres_list
+    self.genres.keys
+  end
 end

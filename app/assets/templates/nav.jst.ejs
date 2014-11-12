@@ -1,0 +1,32 @@
+<% if (signedIn) { %>
+  <figure></figure>
+  <ul class='dropdown'>
+    <% if (!signedIn) { %>
+      <li><a href="#/session/new">Sign In</a></li>
+      <li><a href="#/users/new">New User</a></li>
+    <% } %>
+
+    <% if (signedIn && Clickster.currentUser.get('isAdmin')) { %>
+      <li><a href="#/add">Add a Series</a></li>
+      <li><a href="#/series">My Series</a></li>
+    <% } %>
+
+    <% if (signedIn) { %>
+      <li><a href="#/users/<%= Clickster.currentUser.id %>">My Profile</a></li>
+      <li>
+        <form id="sign-out" action="/session" method="post">
+          <input type="hidden"
+                 name="authenticity_token"
+                 value="<%= Clickster.formAuth %>">
+          <input type="hidden" name="_method" value="delete">
+          <button>Sign Out</button>
+        </form>
+      </li>
+    <% } %>
+  </ul>
+<% } else { %>
+  <ul class='sign-in'>
+    <li><a href="#/session/new">Sign In</a></li>
+    <li><a href="#/users/new">New User</a></li>
+  </ul>
+<% } %>

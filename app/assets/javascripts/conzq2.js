@@ -7,6 +7,7 @@ window.Clickster = {
     Clickster.currentUser = new Clickster.Models.CurrentUser();
     Clickster.formAuth = $('meta[name=csrf-token]').attr("content");
     Clickster.DECADES = JSON.parse($('#decades').html());
+    Clickster.GENRES = JSON.parse($('#genres').html());
 
     new Clickster.Routers.AppRouter(options);
     Backbone.history.start();

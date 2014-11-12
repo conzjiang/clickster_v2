@@ -1,33 +1,6 @@
 <form class="search">
-  <input type="text" name="query">
+  <input type="text" name="query" autocomplete='off'>
 </form>
-
-<nav>
-  <ul>
-    <% if (!signedIn) { %>
-      <li><a href="#/session/new">Sign In</a></li>
-      <li><a href="#/users/new">New User</a></li>
-    <% } %>
-
-    <% if (signedIn && Clickster.currentUser.get('isAdmin')) { %>
-      <li><a href="#/add">Add a Series</a></li>
-      <li><a href="#/series">My Series</a></li>
-    <% } %>
-
-    <% if (signedIn) { %>
-      <li><a href="#/users/<%= Clickster.currentUser.id %>">My Profile</a></li>
-      <li>
-        <form id="sign-out" action="/session" method="post">
-          <input type="hidden"
-                 name="authenticity_token"
-                 value="<%= Clickster.formAuth %>">
-          <input type="hidden" name="_method" value="delete">
-          <button>Sign Out</button>
-        </form>
-      </li>
-    <% } %>
-  </ul>
-</nav>
 
 <form class="discover">
   <h2>Discover</h2>

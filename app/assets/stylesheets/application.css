@@ -14,7 +14,7 @@
  *= require_self
  */
 
-html, body, h1, h2, form, fieldset, ul, li, section, article, div, input, button, textarea, p, a, main, figure, label {
+html, body, h1, h2, form, fieldset, ul, li, section, article, div, input, button, textarea, p, a, main, figure, label, b {
   margin: 0;
   padding: 0;
   border: 0;
@@ -51,6 +51,16 @@ a {
   text-decoration: none;
 }
 
+button {
+  color: #fff;
+  background: #E6626F;
+  border-radius: 3px;
+}
+
+button:hover {
+  background: #CA4C58;
+}
+
 ul {
   list-style: none;
 }
@@ -59,6 +69,19 @@ ul {
   content: "";
   display: block;
   clear: both;
+}
+
+h1 {
+  display: block;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 0.9;
 }
 
 ul.errors {

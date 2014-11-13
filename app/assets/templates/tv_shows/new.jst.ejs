@@ -1,0 +1,80 @@
+<h1>Add a Series</h1>
+
+<form class='new-imdb-tv'>
+  <h2>Autocomplete from IMDB</h2>
+  <input type="text" name="tv_show[title]" placeholder='Series Title'>
+  <button>Autocomplete Form</button>
+</form>
+
+<b class='or'>or</b>
+
+<form class="new-tv">
+  <h2>Add Manually</h2>
+
+  <fieldset>
+    <label for="tv_show_title">Title</label>
+    <input type="text" name="tv_show[title]" value="<%= tv.escape('title') %>">
+  </fieldset>
+
+  <fieldset>
+    <strong>Genre(s)</strong>
+    <ul class='genres'>
+      <% _(Clickster.GENRES).each(function(genre) { %>
+        <li>
+          <input type="checkbox"
+                 name="tv_show[genre_ids][]"
+                 value="<%= genre %>">
+          <label for='genre_<%= genre %>'><%= genre %></label>
+        </li>
+      <% }) %>
+    </ul>
+  </fieldset>
+
+  <fieldset>
+    <label for="tv_show_network">Network (please abbreviate)</label>
+    <input type="text"
+           name="tv_show[network]"
+           value="<%= tv.escape('network') %>">
+  </fieldset>
+
+  <fieldset>
+    <label for="tv_show_num_seasons"># of Seasons</label>
+    <input type="number"
+           name="tv_show[num_seasons]"
+           value="<%= tv.get('num_seasons') %>">
+  </fieldset>
+
+  <fieldset>
+    <label for="tv_show_start_year">Start Year</label>
+    <input type="number"
+           name="tv_show[start_year]"
+           value="<%= tv.get('start_year') %>">
+  </fieldset>
+
+  <fieldset>
+    <label for="tv_show_end_year">
+      End Year (Leave blank if currently airing)
+    </label>
+    <input type="number"
+           name="tv_show[end_year]"
+           value="<%= tv.get('end_year') %>">
+  </fieldset>
+
+  <fieldset>
+    <label for='tv_show_status'>Status</label>
+    <select id='tv_show_status' name="tv_show[status]">
+      <option></option>
+
+      <% _(Clickster.STATUSES).each(function (status) { %>
+        <option value='<%= status %>'><%= status %></option>
+      <% }) %>
+    </select>
+  </fieldset>
+
+  <fieldset>
+    <label for="tv_show_blurb">Description</label>
+    <textarea id='tv_show_blurb' name="tv_show[blurb]"><%= tv.escape('blurb') %></textarea>
+  </fieldset>
+
+  <button>Add Series</button>
+</form>

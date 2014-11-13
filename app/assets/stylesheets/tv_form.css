@@ -1,0 +1,22 @@
+/* AUTOCOMPLETE FORM */
+form.new-imdb-tv {
+  font-size: 20px;
+}
+
+form.new-imdb-tv > input {
+  display: inline-block;
+  width: 490px;
+  padding: 5px;
+  background: #e7e7e7;
+}
+
+form.new-imdb-tv > button {
+  display: inline-block;
+  vertical-align: bottom;
+  padding: 5px 10px;
+}
+
+form.new-imdb-tv > button:active {
+  padding-top: 7px;
+  padding-bottom: 3px;
+}

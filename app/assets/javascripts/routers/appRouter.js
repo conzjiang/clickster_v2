@@ -17,11 +17,12 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     '': 'home',
     'session/new': 'signIn',
-    'users/new': 'signIn'
+    'users/new': 'signIn',
+    'tv_shows/new': 'newTv'
   },
 
   home: function () {
-    this._swapRootEl();
+    // this._swapRootEl();
   },
 
   signIn: function () {
@@ -55,14 +56,19 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     });
   },
 
+  newTv: function () {
+    var newTvView = new Clickster.Views.NewTv();
+    this._swapRootEl(newTvView);
+  },
+
   _swapRootEl: function (view) {
     $('.modal').removeClass('display');
 
-    // this._swapView({
-    //   currentView: this.currentView,
-    //   view: view,
-    //   $el: this.$rootEl
-    // });
+    this._swapView({
+      currentView: this.currentView,
+      view: view,
+      $el: this.$rootEl
+    });
   },
 
   _swapModal: function (view) {

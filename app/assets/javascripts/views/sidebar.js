@@ -1,20 +1,24 @@
 Clickster.Views.Sidebar = Backbone.View.extend({
-  initialize: function () {
-  },
-
   template: JST['sidebar'],
 
   events: {
     'click input[name=query]': 'expandInput',
-    'blur input[name=query]': 'revertInput'
+    'blur input[name=query]': 'revertInput',
+    'submit form.search': 'liveSearch',
+    'submit form.discover': 'runQuery'
   },
 
-  expandInput: function () {
+  expandInput: function (event) {
     $(event.target).addClass('open');
   },
 
-  revertInput: function () {
+  revertInput: function (event) {
     $(event.target).removeClass('open');
+  },
+
+  runQuery: function (event) {
+    event.preventDefault();
+    var query = $(event.target).serializeJSON();
   },
 
   render: function () {

@@ -8,4 +8,8 @@ class TvGenre < ActiveRecord::Base
   def self.genres_list
     self.genres.keys
   end
+
+  def self.top_level_genres
+    self.genres_list.first(10)
+  end
 end

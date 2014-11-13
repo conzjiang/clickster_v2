@@ -3,26 +3,35 @@ section.sidebar {
   position: absolute;
   top: 0;
   left: 0;
-  width: 300px;
+  width: 260px;
   height: 100%;
+  padding: 10px 20px;
   color: #fff;
   background: #495A66;
   overflow: scroll;
 }
 
+section.sidebar h2 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 0.9;
+  color: #000;
+}
+
+/* SEARCH BAR */
 form.search {
-  padding: 20px;
+  margin-bottom: 10px;
 }
 
 form.search > input {
   display: block;
   width: 200px;
-  margin: auto;
   padding: 5px;
   color: #000;
   font-size: 18px;
   background: #e7e7e7;
-  opacity: 0.1;
+  opacity: 0.2;
   border-radius: 5px;
   cursor: pointer;
   transition: width 0.5s;
@@ -32,4 +41,45 @@ form.search > input.open {
   width: 250px;
   opacity: 1;
   cursor: auto;
+}
+
+/* DISCOVER */
+section.sidebar input[type=checkbox] {
+  opacity: 0;
+}
+
+/* DECADES */
+ul.decades > li {
+  float: left;
+  width: 55px;
+  height: 55px;
+  margin: 5px;
+  font-size: 20px;
+  border-radius: 33px;
+  overflow: hidden;
+}
+
+ul.decades > li > label {
+  display: block;
+  padding: 15px 5px;
+  background: #ccc;
+  cursor: pointer;
+}
+
+ul.decades > li:last-child > label {
+  width: 51px;
+  padding: 17px 2px;
+  font-size: 16px;
+}
+
+/* GENRES */
+ul.genres > li {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+ul.genres > li > label {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #ccc;
 }

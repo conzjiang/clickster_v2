@@ -14,7 +14,10 @@ Clickster.Views.Nav = Backbone.View.extend({
     $(event.target).toggleClass('open');
 
     $('body').on('click', function () {
-      if (!$(event.target).closest('.links').length) {
+      var outsideNav = !$(event.target).closest('.links').length;
+      var clickedNavLink = !!$(event.target).closest('.dropdown').length;
+
+      if (outsideNav || clickedNavLink) {
         that.closeMenu();
         $(this).off('click');
       }

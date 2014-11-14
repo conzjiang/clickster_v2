@@ -115,6 +115,8 @@ nav .dropdown > li button {
 nav .dropdown > li button {
   width: 130px;
   text-align: left;
+  color: #000;
+  border-radius: 0;
 }
 
 nav .dropdown > li > a:hover,

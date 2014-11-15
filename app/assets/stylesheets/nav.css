@@ -9,9 +9,11 @@ nav {
 button#open-sidebar {
   position: relative;
   float: left;
-  width: 25px;
-  height: 12px;
-  border: 4px solid #000;
+  top: 7px;
+  left: 10px;
+  width: 35px;
+  height: 18px;
+  border: 7px solid #000;
   border-left: 0;
   border-right: 0;
   cursor: pointer;
@@ -20,10 +22,10 @@ button#open-sidebar {
 button#open-sidebar:after {
   content: "";
   position: absolute;
-  top: 4px;
+  top: 6px;
   left: 0;
-  width: 25px;
-  height: 4px;
+  width: 35px;
+  height: 7px;
   background: #000;
 }
 
@@ -32,20 +34,20 @@ button#open-sidebar:before,
 button#open-sidebar > span.antenna {
   position: absolute;
   width: 0;
-  height: 7px;
-  top: -11px;
-  border: 2px solid #000;
-  border-radius: 2px;
+  height: 8px;
+  top: -18px;
+  border: 4px solid #000;
+  border-radius: 4px;
 }
 
 button#open-sidebar:before {
   content: "";
-  left: 5px;
+  left: 7px;
   transform: skewX(30deg);
 }
 
 button#open-sidebar > span.antenna {
-  left: 15px;
+  left: 20px;
   transform: skewX(-30deg);
 }
 

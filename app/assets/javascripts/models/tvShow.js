@@ -1,3 +1,41 @@
 Clickster.Models.TvShow = Backbone.Model.extend({
-  urlRoot: 'api/tv_shows'
+  initialize: function () {
+    this.set('genres', []);
+  },
+
+  urlRoot: 'api/tv_shows',
+
+  belongsTo: function (genre) {
+    return this.get('genres').indexOf(genre) !== -1;
+  },
+
+  setGenres: function (genreStr) {
+    var genres = genreStr.split(', ');
+    var that = this;
+
+    this.set('genres', []);
+
+    _(genres).each(function (genre) {
+      var tvGenre = genre;
+
+      if (Clickster.GENRES.indexOf(genre) === -1) {
+        tvGenre = _(Clickster.GENRES).find(function (dbGenre) {
+          return dbGenre.match(genre);
+        });
+      }
+
+      that.get('genres').push(tvGenre);
+    });
+  },
+
+  setYears: function (yearStr) {
+    var years = yearStr.split('-');
+    this.set('start_year', parseInt(years[0]));
+    
+    if (years[1]) {
+      this.set('end_year', parseInt(years[0]));
+    } else {
+      this.set('status', 'Currently Airing');
+    }
+  }
 });

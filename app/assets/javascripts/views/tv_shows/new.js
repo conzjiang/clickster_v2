@@ -10,7 +10,8 @@ Clickster.Views.NewTv = Backbone.View.extend({
   template: JST['tv_shows/new'],
 
   events: {
-    'submit .new-imdb-tv': 'autocomplete'
+    'submit .new-imdb-tv': 'autocomplete',
+    'submit .new-tv': 'createTV'
   },
 
   autocomplete: function (event) {
@@ -24,38 +25,89 @@ Clickster.Views.NewTv = Backbone.View.extend({
     };
     var that = this;
 
+    this.tv.clear({ silent: true });
+    this._updateSearchStatus('Searching...');
+
     $.ajax({
       type: 'get',
       url: 'http://omdbapi.com',
       data: params,
       dataType: 'json',
       success: function (data) {
-        that.tv.setYears(data.Year);
-        that.tv.setGenres(data.Genre);
+        if (data.Response === 'False') {
+          that._updateSearchStatus('No results!');
+        } else {
+          that.tv.setYears(data.Year);
+          that.tv.setGenres(data.Genre);
 
-        var attrs = {
-          blurb: data.Plot,
-          title: data.Title,
-          imdb_id: data.imdbID,
-          rating: data.imdbRating
-        };
+          var attrs = {
+            blurb: data.Plot,
+            title: data.Title,
+            imdb_id: data.imdbID,
+            rating: data.imdbRating
+          };
 
-        that.tv.set(attrs);
+          that.searchResult = true;
+          that.tv.set(attrs);
+        }
+      },
+      error: function () {
+        that._updateSearchStatus('No results!');
       }
     });
   },
 
-  render: function () {
+  createTV: function (event) {
+    event.preventDefault();
+    var tvParams = $(event.target).serializeJSON().tv_show;
+    var that = this;
+
+    this.tv.save(tvParams, {
+      success: function (data) {
+        Backbone.history.navigate('tv/' + data.id, { trigger: true });
+      },
+
+      error: function (attrs, data) {
+        var errors = data.responseJSON;
+        var $errorDisplay = that.$('.errors');
+        $errorDisplay.empty();
+
+        if (errors.imdb_id) {
+          $errorDisplay.append('<li>' + errors.imdb_id + '</li>');
+        } else {
+          for (var attr in errors) {
+            var $li = $('<li>');
+            $li.html(Utils.convertToWords(attr) + ' ' + errors[attr][0]);
+            $errorDisplay.append($li);
+
+            that.$('#tv_show_' + attr).parent().addClass('error');
+          }
+        }
+      }
+    });
+  },
+
+  render: function (status) {
     var that = this;
 
     this.$el.html(this.template({ tv: this.tv }));
 
+    if (this.searchResult) {
+      this._updateSearchStatus('Found!');
+      this.searchResult = false;
+    }
+
     _(this.tv.get('genres')).each(function (genre) {
-      that.$('#form_genre_' + genre.replace(/\//g, '')).prop('checked', true);
+      var urlsafeGenre = genre.replace(/\//g, '');
+      that.$('#form_genre_' + urlsafeGenre).prop('checked', true);
     });
 
     $('option[value="' + this.tv.get('status') + '"]').prop('selected', true);
 
     return this;
+  },
+
+  _updateSearchStatus: function (status) {
+    this.$('p.search-status').html(status);
   }
 });

@@ -17,6 +17,7 @@ gem 'figaro'
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'byebug'
 end
 
 group :development do

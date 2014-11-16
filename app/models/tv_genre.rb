@@ -1,5 +1,5 @@
 class TvGenre < ActiveRecord::Base
-  enum genre: %w(Comedy Drama Live-Action Animated Scripted Unscripted/Reality Serialized Procedural Single-cam Multi-cam Action Sci-Fi/Fantasy Thriller Period Workplace Family Crime Western Medical)
+  enum genre: %w(Comedy Drama Live-Action Animated Scripted Unscripted/Reality Serialized Procedural Single-cam Multi-cam Action Sci-Fi/Fantasy Thriller Period Workplace Family Crime Western Medical Romance)
 
   validates :tv_show_id, uniqueness: { scope: :genre }
 

@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
     user.try(:is_password?, password) ? user : nil
   end
 
+  def admin?
+    self.is_admin
+  end
+
   def is_password?(password)
     Password.new(self.password_digest).is_password?(password)
   end

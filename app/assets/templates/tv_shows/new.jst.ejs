@@ -4,12 +4,14 @@
   <h2>Autocomplete from IMDB</h2>
   <input type="text" name="title" placeholder='Series Title'>
   <button>Autocomplete Form</button>
-</form>
 
-<b class='or'>or</b>
+  <p class='search-status'></p>
+</form>
 
 <form class="new-tv">
   <h2>Add Manually</h2>
+
+  <ul class='errors'></ul>
 
   <fieldset>
     <label for="tv_show_title">Title</label>
@@ -26,7 +28,7 @@
         <li>
           <input id="form_genre_<%= genre.replace(/\//g, "") %>"
                  type="checkbox"
-                 name="tv_show[genre_ids][]"
+                 name="tv_show[genres][]"
                  value="<%= genre %>">
           <label for='form_genre_<%= genre.replace(/\//g, "") %>'>
             <%= genre %>
@@ -87,4 +89,6 @@
   </fieldset>
 
   <button>Add Series</button>
+
+  <ul class='errors'></ul>
 </form>

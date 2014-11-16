@@ -24,18 +24,22 @@ Clickster.Models.TvShow = Backbone.Model.extend({
         });
       }
 
-      that.get('genres').push(tvGenre);
+      if (tvGenre) that.get('genres').push(tvGenre);
     });
   },
 
   setYears: function (yearStr) {
-    var years = yearStr.split('-');
+    var years = yearStr.split('–');
     this.set('start_year', parseInt(years[0]));
-    
+
     if (years[1]) {
-      this.set('end_year', parseInt(years[0]));
+      this.set('end_year', parseInt(years[1]));
     } else {
       this.set('status', 'Currently Airing');
     }
+  },
+
+  toJSON: function () {
+    return { tv_show: this.attributes };
   }
 });

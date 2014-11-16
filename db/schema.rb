@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20141115175801) do
     t.datetime "updated_at"
     t.float    "rating"
     t.string   "imdb_id"
+    t.string   "network"
   end
 
   add_index "tv_shows", ["title"], name: "index_tv_shows_on_title", using: :btree

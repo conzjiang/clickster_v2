@@ -3,7 +3,7 @@
 }
 
 .tv-forms form {
-  margin: 30px 0;
+  margin: 50px 0;
 }
 
 .tv-forms .or {
@@ -55,11 +55,26 @@ form.new-tv > fieldset > strong {
   font-size: 20px;
 }
 
+form.new-tv > fieldset.error > label {
+  color: #f00;
+}
+
 form.new-tv input[type=text],
 form.new-tv input[type=number],
 form.new-tv textarea,
 form.new-tv select {
   width: 390px;
+}
+
+form.new-tv > fieldset.error > input[type=text],
+form.new-tv > fieldset.error > input[type=number],
+form.new-tv > fieldset.error > select {
+  padding: 4px;
+  border: 1px solid #f00;
+}
+
+form.new-tv textarea {
+  height: 90px;
 }
 
 form.new-tv .genres > li {

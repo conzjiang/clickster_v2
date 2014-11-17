@@ -13,7 +13,9 @@ ul.genres > li > label {
 }
 
 ul.genres > li > label:hover,
-ul.genres > li > input[type=checkbox]:checked + label {
+ul.genres > li > input[type=checkbox]:checked + label,
+ul.decades > li > label:hover,
+ul.decades > li > input[type=checkbox]:checked + label {
   background: #FF0066;
 }
 

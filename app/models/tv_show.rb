@@ -12,6 +12,14 @@ class TvShow < ActiveRecord::Base
   has_many :tv_decades
   has_many :tv_genres
 
+  scope :decade_search, -> (decade_ids) {
+    joins(:tv_decades).where("tv_decades.decade IN (#{decade_ids.join(',')})")
+  }
+
+  scope :genre_search, -> (genre_ids) {
+    joins(:tv_genres).where("tv_genres.genre IN (#{genre_ids.join(',')})")
+  }
+
   def self.statuses_list
     self.statuses.keys
   end
@@ -24,6 +32,26 @@ class TvShow < ActiveRecord::Base
 
   def genres
     self.tv_genres.map(&:genre)
+  end
+
+  def set_decades
+    if self.start_year.present?
+      decade_range = [self.start_year, self.end_year || Date.current.year]
+
+      decade_range.map! do |decade|
+        decade = decade % 1000
+        decade - (decade % 10)
+      end
+
+      decades = (decade_range.first..decade_range.last).to_a.select do |year|
+        year % 10 == 0
+      end.map(&:to_s)
+
+      decades.each do |decade|
+        decade += '0' if decade.length == 1
+        self.tv_decades.new(decade: decade)
+      end
+    end
   end
 
   private

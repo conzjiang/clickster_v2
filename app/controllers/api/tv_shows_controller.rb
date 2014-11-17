@@ -3,6 +3,7 @@ class Api::TvShowsController < ApplicationController
 
   def create
     tv_show = TvShow.new(tv_params.merge(admin_id: current_user.id))
+    tv_show.set_decades
 
     if tv_show.save
       render json: tv_show, methods: :genres

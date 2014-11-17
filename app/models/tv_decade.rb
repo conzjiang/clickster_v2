@@ -8,4 +8,8 @@ class TvDecade < ActiveRecord::Base
   def self.decades_list
     decades.keys
   end
+
+  def self.get_ids(decade_years)
+    self.decades.values_at(*decade_years)
+  end
 end

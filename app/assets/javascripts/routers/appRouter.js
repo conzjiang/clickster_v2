@@ -19,7 +19,8 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     'session/new': 'signIn',
     'users/new': 'signIn',
     'tv/new': 'newTv',
-    'tv/:id': 'tvShow'
+    'tv/:id': 'tvShow',
+    'search': 'searchResults'
   },
 
   home: function () {
@@ -50,6 +51,11 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     var tv = Clickster.tvShows.getOrFetch(id);
     var tvShowView = new Clickster.Views.TvShow({ tv: tv });
     this._swapRootEl(tvShowView);
+  },
+
+  searchResults: function (data) {
+    var searchView = new Clickster.Views.Search({ params: data });
+    this._swapRootEl(searchView);
   },
 
   bindEvents: function () {

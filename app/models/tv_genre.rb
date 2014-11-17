@@ -12,4 +12,8 @@ class TvGenre < ActiveRecord::Base
   def self.top_level_genres
     self.genres_list.first(10)
   end
+
+  def self.get_ids(genre_names)
+    self.genres.values_at(*genre_names)
+  end
 end

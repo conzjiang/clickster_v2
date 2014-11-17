@@ -17,7 +17,6 @@ class TvShow < ActiveRecord::Base
   end
 
   def genres=(tv_genres)
-    p "GENRE GENRE GENRE #{tv_genres}"
     tv_genres.each do |genre|
       self.tv_genres.new(genre: genre)
     end

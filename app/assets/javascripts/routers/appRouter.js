@@ -23,7 +23,8 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   home: function () {
-    // this._swapRootEl();
+    var homeView = new Clickster.Views.Home();
+    this._swapRootEl(homeView);
   },
 
   signIn: function () {
@@ -58,8 +59,10 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   newTv: function () {
-    var newTvView = new Clickster.Views.NewTv();
-    this._swapRootEl(newTvView);
+    if (Clickster.currentUser.get('is_admin')) {
+      var newTvView = new Clickster.Views.NewTv();
+      this._swapRootEl(newTvView);
+    }
   },
 
   tvShow: function (id) {

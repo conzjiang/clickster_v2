@@ -1,5 +1,5 @@
 Clickster.Collections.TvShows = Backbone.Collection.extend({
-  model: Clickster.Model.TvShow,
+  model: Clickster.Models.TvShow,
 
   url: 'api/tv_shows',
 

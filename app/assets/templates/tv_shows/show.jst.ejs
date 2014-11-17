@@ -1,0 +1,5 @@
+<h1><%= tv.escape('title') %></h1>
+
+<% if (isAdmin) { %>
+<a href="#/tv/<%= tv.id %>/edit">Edit</a>
+<% } %>

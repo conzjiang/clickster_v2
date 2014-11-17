@@ -12,6 +12,6 @@ Rails.application.routes.draw do
 
     resources :users, only: [:create]
     resource :session, only: [:create]
-    resources :tv_shows, only: [:create]
+    resources :tv_shows, only: [:create, :show]
   end
 end

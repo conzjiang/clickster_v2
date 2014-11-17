@@ -1,7 +1,6 @@
 Clickster.Views.SignIn = Backbone.View.extend({
   initialize: function (options) {
     this.newUser = options.newUser;
-    this.listenTo(Clickster.currentUser, 'sync', this.render);
   },
 
   template: JST['signIn'],

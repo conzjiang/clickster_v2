@@ -1,5 +1,5 @@
 class Api::TvShowsController < ApplicationController
-  before_action :require_admin
+  before_action :require_admin, only: [:create]
 
   def create
     tv_show = TvShow.new(tv_params.merge(admin_id: current_user.id))
@@ -9,6 +9,11 @@ class Api::TvShowsController < ApplicationController
     else
       render json: tv_show.errors.messages, status: 422
     end
+  end
+
+  def show
+    @tv = TvShow.find(params[:id])
+    render json: @tv, methods: :genres
   end
 
   private

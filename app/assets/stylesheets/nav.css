@@ -51,6 +51,17 @@ button#open-sidebar > span.antenna {
   transform: skewX(-30deg);
 }
 
+/* NAV CENTER */
+a.logo {
+  display: block;
+  float: left;
+  width: 100px;
+  position: relative;
+  margin-left: 50%;
+  left: -50px;
+  font-size: 24px;
+}
+
 /* NAV RIGHT */
 nav > .links {
   position: relative;

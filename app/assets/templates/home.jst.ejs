@@ -1,1 +1,7 @@
 <h1>Home</h1>
+
+<ul>
+  <% shows.each(function(tv) { %>
+    <li><a href="#/tv/<%= tv.id %>"><%= tv.escape('title') %></a></li>
+  <% }) %>
+</ul>

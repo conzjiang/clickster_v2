@@ -39,6 +39,19 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     signInModal.$('input').eq(0).focus();
   },
 
+  newTv: function () {
+    if (Clickster.currentUser.get('is_admin')) {
+      var newTvView = new Clickster.Views.NewTv();
+      this._swapRootEl(newTvView);
+    }
+  },
+
+  tvShow: function (id) {
+    var tv = Clickster.tvShows.getOrFetch(id);
+    var tvShowView = new Clickster.Views.TvShow({ tv: tv });
+    this._swapRootEl(tvShowView);
+  },
+
   bindEvents: function () {
     $('.overlay').on('click', function () {
       $('.modal').addClass('fading-out');
@@ -56,19 +69,6 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     $('.cover').on('click', function () {
       $('main').removeClass('open');
     });
-  },
-
-  newTv: function () {
-    if (Clickster.currentUser.get('is_admin')) {
-      var newTvView = new Clickster.Views.NewTv();
-      this._swapRootEl(newTvView);
-    }
-  },
-
-  tvShow: function (id) {
-    var tv = Clickster.tvShows.getOrFetch(id);
-    var tvShowView = new Clickster.Views.TvShow({ tv: tv });
-    this._swapRootEl(tvShowView);
   },
 
   _swapRootEl: function (view) {

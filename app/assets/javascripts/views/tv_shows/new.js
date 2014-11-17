@@ -64,6 +64,7 @@ Clickster.Views.NewTv = Backbone.View.extend({
 
     this.tv.save(tvParams, {
       success: function (data) {
+        Clickster.tvShows.add(that.tv, { wait: true });
         Backbone.history.navigate('tv/' + data.id, { trigger: true });
       },
 

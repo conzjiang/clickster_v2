@@ -22,24 +22,28 @@ Clickster.Views.Sidebar = Backbone.View.extend({
 
   runQuery: function (event) {
     event.preventDefault();
-    var query = $(event.target).serializeJSON();
-    var queryString = $(event.target).serialize();
+    var params = $(event.target).serialize();
+    var prevSearch = Clickster.searchResults.findWhere({ params: params });
 
-    $.ajax({
-      type: 'get',
-      url: '/api/search',
-      data: query,
-      dataType: 'json',
-      success: function (data) {
-        var result = new Clickster.Models.SearchResult({
-          results: data,
-          params: queryString
-        });
+    if (prevSearch) {
+      Backbone.history.navigate('search?' + params, { trigger: true });
+    } else {
+      $.ajax({
+        type: 'get',
+        url: '/api/search',
+        data: params,
+        dataType: 'json',
+        success: function (data) {
+          var result = new Clickster.Models.SearchResult({
+            results: data,
+            params: params
+          });
 
-        Clickster.searchResults.add(result);
-        Backbone.history.navigate('search?' + queryString, { trigger: true });
-      }
-    });
+          Clickster.searchResults.add(result);
+          Backbone.history.navigate('search?' + params, { trigger: true });
+        }
+      });
+    }
   },
 
   render: function () {

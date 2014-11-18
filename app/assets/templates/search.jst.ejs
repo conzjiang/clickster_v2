@@ -1,7 +1,11 @@
 <h1>Search Results</h1>
 
-<ul>
-  <% _(results).each(function (tv) { %>
-    <li><a href="#/tv/<%= tv.id %>"><%= tv.title %></a></li>
-  <% }) %>
-</ul>
+<% if (results) { %>
+  <ul>
+    <% _(results).each(function (tv) { %>
+      <li><a href="#/tv/<%= tv.id %>"><%= tv.title %></a></li>
+    <% }) %>
+  </ul>
+<% } else { %>
+  No results!
+<% } %>

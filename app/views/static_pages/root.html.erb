@@ -48,3 +48,11 @@
 <script id='statuses'>
   <%= TvShow.statuses_list.to_json.html_safe %>
 </script>
+
+<script id="tv_shows">
+  <%= TvShow.pluck(:title).to_json.html_safe %>
+</script>
+
+<script id="users">
+  <%= User.pluck(:username).to_json.html_safe %>
+</script>

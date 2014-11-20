@@ -8,42 +8,29 @@ Clickster.Views.Sidebar = Backbone.View.extend({
   events: {
     'click input[name=query]': 'expandInput',
     'blur input[name=query]': 'revertInput',
-    'submit form.search': 'liveSearch',
+    'submit form.search': 'textSearch',
     'submit form.discover': 'runQuery'
   },
 
   expandInput: function (event) {
     $(event.target).addClass('open');
+    $(event.target).val("");
   },
 
   revertInput: function (event) {
     $(event.target).removeClass('open');
   },
 
+  textSearch: function (event) {
+    event.preventDefault();
+    var searchTerm = this.$('input').val();
+    Backbone.history.navigate('search?text=' + searchTerm, { trigger: true });
+  },
+
   runQuery: function (event) {
     event.preventDefault();
     var params = $(event.target).serialize();
-    var prevSearch = Clickster.searchResults.findWhere({ params: params });
-
-    if (prevSearch) {
-      Backbone.history.navigate('search?' + params, { trigger: true });
-    } else {
-      $.ajax({
-        type: 'get',
-        url: '/api/search',
-        data: params,
-        dataType: 'json',
-        success: function (data) {
-          var result = new Clickster.Models.SearchResult({
-            results: data,
-            params: params
-          });
-
-          Clickster.searchResults.add(result);
-          Backbone.history.navigate('search?' + params, { trigger: true });
-        }
-      });
-    }
+    Backbone.history.navigate('search?' + params, { trigger: true });
   },
 
   render: function () {

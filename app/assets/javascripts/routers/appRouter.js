@@ -33,7 +33,7 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
 
     path = window.location.hash.substring(2);
     options = {};
-    if (path.match(/^users/)) options.newUser = true;
+    if (/^users/.test(path)) options.newUser = true;
 
     signInModal = new Clickster.Views.SignIn(options);
     this._swapModal(signInModal);

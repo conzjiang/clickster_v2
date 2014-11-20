@@ -1,8 +1,7 @@
 Clickster.Views.Search = Backbone.View.extend({
   initialize: function (options) {
     this.params = options.params;
-    this.model = options.model ||
-      Clickster.searchResults.getOrFetch(this.params);
+    this.model = Clickster.searchResults.getOrFetch(this.params);
 
     this.listenTo(this.model, 'change', this.render);
   },

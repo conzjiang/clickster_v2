@@ -1,6 +1,29 @@
 <h1>Search Results</h1>
 
-<% if (results) { %>
+<% if (results && results.text) { %>
+  <h2>TV Show Results</h2>
+  <% if (results.tvResults.length > 0) { %>
+    <ul>
+      <% _(results.tvResults).each(function (tv) { %>
+        <li><a href="#/tv/<%= tv.id %>"><%= tv %></a></li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    No results!
+  <% } %>
+
+  <h2>User Results</h2>
+  <% if (results.userResults.length > 0) { %>
+    <ul>
+      <% _(results.userResults).each(function (user) { %>
+        <li><a href="#/users/<%= user.id %>"><%= user %></a></li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    No results!
+  <% } %>
+
+<% } else if (results) { %>
   <ul>
     <% _(results).each(function (tv) { %>
       <li><a href="#/tv/<%= tv.id %>"><%= tv.title %></a></li>

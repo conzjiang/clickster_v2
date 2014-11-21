@@ -1,20 +1,18 @@
 <section class="sidebar"></section>
 <main>
-  <nav class='group'>
-    <div class='button'>
-      <button id="open-sidebar"><span class='antenna'></span></button>
-    </div>
+  <nav>
+    <ul class="links group">
+      <li>
+        <button id="open-sidebar"><span class="antenna"></span></button>
+      </li>
 
-    <article class="links"></article>
-
-    <div class='home-link'>
-      <a class='logo' href="#">TeeBee</a>
-    </div>
+      <li>
+        <button id="open-dropdown">&#128526;</button>
+      </li>
+    </ul>
   </nav>
 
   <section id="main"></section>
-
-  <div class="cover"></div>
 </main>
 
 <section class="modal">
@@ -25,10 +23,10 @@
 <script>
   $(function () {
     Clickster.initialize({
-      $sidebar: $('.sidebar'),
-      $navbar: $('nav > .links'),
-      $rootEl: $('#main'),
-      $modal: $('.modal-content')
+      $sidebar: $(".sidebar"),
+      $navbar: $("nav > .links"),
+      $rootEl: $("#main"),
+      $modal: $(".modal-content")
     });
 
     <% if signed_in? %>
@@ -37,7 +35,7 @@
   });
 </script>
 
-<script id='decades'>
+<script id="decades">
   <%= TvDecade.decades_list.to_json.html_safe %>
 </script>
 
@@ -45,7 +43,7 @@
   <%= TvGenre.genres_list.to_json.html_safe %>
 </script>
 
-<script id='statuses'>
+<script id="statuses">
   <%= TvShow.statuses_list.to_json.html_safe %>
 </script>
 

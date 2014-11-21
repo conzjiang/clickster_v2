@@ -8,8 +8,8 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     var sidebarView = new Clickster.Views.Sidebar({ el: this.$sidebar });
     sidebarView.render();
 
-    var navbarView = new Clickster.Views.Nav({ el: this.$navbar });
-    navbarView.render();
+    // var navbarView = new Clickster.Views.Nav({ el: this.$navbar });
+    // navbarView.render();
 
     this.bindEvents();
   },
@@ -69,11 +69,13 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     });
 
     $('button#open-sidebar').on('click', function () {
-      $('main').addClass('open');
+      $('main').toggleClass('open');
     });
 
-    $('.cover').on('click', function () {
-      $('main').removeClass('open');
+    $('main').on('click', function (e) {
+      if (!$(e.target).is("button") && $('main').hasClass('open')) {
+        $('main').removeClass('open');
+      }
     });
   },
 

@@ -24,7 +24,9 @@ Clickster.Views.Sidebar = Backbone.View.extend({
   textSearch: function (event) {
     event.preventDefault();
     var searchTerm = this.$('input').val();
-    Backbone.history.navigate('search?text=' + searchTerm, { trigger: true });
+    Backbone.history.navigate('search?text=' + searchTerm, {
+      trigger: true
+    });
   },
 
   runQuery: function (event) {

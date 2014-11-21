@@ -38,6 +38,7 @@ button {
 
 html, body {
   position: relative;
+  width: 100%;
   height: 100%;
   overflow: hidden;
 }
@@ -52,13 +53,13 @@ a {
 }
 
 button {
-  color: #fff;
-  background: #E6626F;
+  /*color: #fff;*/
+  /*background: #E6626F;*/
   border-radius: 3px;
 }
 
 button:hover {
-  background: #CA4C58;
+  /*background: #CA4C58;*/
 }
 
 ul {

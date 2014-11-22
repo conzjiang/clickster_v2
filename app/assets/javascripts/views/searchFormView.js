@@ -1,9 +1,9 @@
-Clickster.Views.Sidebar = Backbone.View.extend({
+Clickster.Views.SearchFormView = Backbone.View.extend({
   initialize: function () {
     Clickster.searchResults = new Clickster.Collections.SearchResults();
   },
 
-  template: JST['sidebar'],
+  template: JST["searchForm"],
 
   events: {
     'click input[name=query]': 'expandInput',

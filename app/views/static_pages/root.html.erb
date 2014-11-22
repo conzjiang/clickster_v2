@@ -1,16 +1,5 @@
-<section class="sidebar"></section>
 <main>
-  <nav>
-    <ul class="links group">
-      <li>
-        <button id="open-sidebar"><span class="antenna"></span></button>
-      </li>
-
-      <li>
-        <button id="open-dropdown">&#128526;</button>
-      </li>
-    </ul>
-  </nav>
+  <nav></nav>
 
   <section id="main"></section>
 </main>
@@ -23,8 +12,7 @@
 <script>
   $(function () {
     Clickster.initialize({
-      $sidebar: $(".sidebar"),
-      $navbar: $("nav > .links"),
+      $navbar: $("nav"),
       $rootEl: $("#main"),
       $modal: $(".modal-content")
     });

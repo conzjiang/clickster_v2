@@ -1,15 +1,11 @@
 Clickster.Routers.AppRouter = Backbone.Router.extend({
   initialize: function (options) {
-    this.$sidebar = options.$sidebar;
     this.$navbar = options.$navbar;
     this.$rootEl = options.$rootEl;
     this.$modal = options.$modal;
 
-    var sidebarView = new Clickster.Views.Sidebar({ el: this.$sidebar });
-    sidebarView.render();
-
-    // var navbarView = new Clickster.Views.Nav({ el: this.$navbar });
-    // navbarView.render();
+    var navbarView = new Clickster.Views.Nav({ el: this.$navbar });
+    navbarView.render();
 
     this.bindEvents();
   },
@@ -66,16 +62,6 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
         $(this).removeClass('display');
         Backbone.history.navigate('');
       });
-    });
-
-    $('button#open-sidebar').on('click', function () {
-      $('main').toggleClass('open');
-    });
-
-    $('main').on('click', function (e) {
-      if (!$(e.target).is("button") && $('main').hasClass('open')) {
-        $('main').removeClass('open');
-      }
     });
   },
 

@@ -1,3 +1,34 @@
+// SEARCH FORM CONTAINER
+article.search-form {
+  display: none;
+}
+
+article.search-form.show {
+  display: block;
+  position: relative;
+  top: 10px;
+  left: 2.5%;
+  width: 95%;
+  padding: 20px;
+  background: #eee;
+  box-sizing: border-box;
+
+  div.triangle {
+    position: absolute;
+    top: -50px;
+    left: 23.75%;
+    margin-left: -20px;
+    width: 0;
+    height: 0;
+    border: 25px solid transparent;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom-color: #eee;
+    z-index: 10;
+  }
+}
+
+// FORM GENRES
 ul.genres > li {
   display: inline-block;
   margin: 2px;
@@ -17,19 +48,6 @@ ul.genres > li > input[type=checkbox]:checked + label,
 ul.decades > li > label:hover,
 ul.decades > li > input[type=checkbox]:checked + label {
   background: #FF0066;
-}
-
-/* SIDEBAR */
-section.sidebar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 260px;
-  height: 100%;
-  padding: 10px 20px;
-  color: #000;
-  background: #495A66;
-  overflow: scroll;
 }
 
 /* SEARCH BAR */

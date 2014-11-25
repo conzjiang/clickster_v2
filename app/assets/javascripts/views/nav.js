@@ -6,11 +6,20 @@ Clickster.Views.Nav = Backbone.View.extend({
   template: JST["nav"],
 
   events: {
-    "click #open-search": "openSearch"
+    "click #open-search": "openSearch",
+    "click #sign-in-button": "openSignIn"
   },
 
   openSearch: function () {
-    this.$(".search-form").toggleClass("show");
+    this.$(".pop-out").toggleClass("search");
+    var searchView = new Clickster.Views.SearchFormView();
+    this._swapPopout(searchView);
+  },
+
+  openSignIn: function () {
+    this.$(".pop-out").toggleClass("sign-in");
+    var signInView = new Clickster.Views.SignInView();
+    this._swapPopout(signInView);
   },
 
   toggleMenu: function (e) {
@@ -40,14 +49,18 @@ Clickster.Views.Nav = Backbone.View.extend({
     });
 
     this.$el.html(content);
-    this.$(".search-form").append(this.searchView().render().$el);
-
     return this;
   },
 
   searchView: function () {
     this._searchView = this._searchView || new Clickster.Views.SearchFormView();
     return this._searchView;
+  },
+
+  _swapPopout: function (view) {
+    if (this._currentPopout) this._currentPopout.remove();
+    this._currentPopout = view;
+    this.$(".pop-out").append(this._currentPopout.render().$el);
   },
 
   remove: function () {

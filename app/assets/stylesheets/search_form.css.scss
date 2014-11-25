@@ -1,10 +1,10 @@
 // SEARCH FORM CONTAINER
-
-article.search-form {
+article.pop-out {
   display: none;
 }
 
-article.search-form.show {
+article.pop-out.search,
+article.pop-out.sign-in {
   display: block;
   position: absolute;
   top: 85px;
@@ -17,8 +17,6 @@ article.search-form.show {
   div.triangle {
     position: absolute;
     top: -50px;
-    left: 23.75%;
-    margin-left: -20px;
     width: 0;
     height: 0;
     border: 25px solid transparent;
@@ -33,6 +31,20 @@ article.search-form.show {
     height: 90%;
     padding: 5%;
     overflow: scroll;
+  }
+}
+
+article.pop-out.search {
+  > div.triangle {
+    left: 23.75%;
+    margin-left: -20px;
+  }
+}
+
+article.pop-out.sign-in {
+  > div.triangle {
+    right: 23.75%;
+    margin-right: -20px;
   }
 }
 

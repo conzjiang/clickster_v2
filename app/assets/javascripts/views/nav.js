@@ -1,14 +1,12 @@
 Clickster.Views.Nav = Backbone.View.extend({
   initialize: function () {
-    this.searchView = this.searchView || new Clickster.Views.SearchFormView();
-
-    this.listenTo(Clickster.currentUser, 'sync', this.render);
+    this.listenTo(Clickster.currentUser, "sync", this.render);
   },
 
-  template: JST['nav'],
+  template: JST["nav"],
 
   events: {
-    'click #open-search': 'openSearch'
+    "click #open-search": "openSearch"
   },
 
   openSearch: function () {
@@ -17,21 +15,21 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   toggleMenu: function (e) {
     var that = this;
-    $(event.target).toggleClass('open');
+    $(event.target).toggleClass("open");
 
-    $('body').on('click', function () {
-      var outsideNav = !$(event.target).closest('.links').length;
-      var clickedNavLink = !!$(event.target).closest('.dropdown').length;
+    $("body").on("click", function () {
+      var outsideNav = !$(event.target).closest(".links").length;
+      var clickedNavLink = !!$(event.target).closest(".dropdown").length;
 
       if (outsideNav || clickedNavLink) {
         that.closeMenu();
-        $(this).off('click');
+        $(this).off("click");
       }
     });
   },
 
   closeMenu: function () {
-    this.$('figure').removeClass('open');
+    this.$("figure").removeClass("open");
   },
 
   render: function () {
@@ -42,13 +40,18 @@ Clickster.Views.Nav = Backbone.View.extend({
     });
 
     this.$el.html(content);
-    this.$(".search-form").html(this.searchView.render().$el);
-    
+    this.$(".search-form").append(this.searchView().render().$el);
+
     return this;
   },
 
+  searchView: function () {
+    this._searchView = this._searchView || new Clickster.Views.SearchFormView();
+    return this._searchView;
+  },
+
   remove: function () {
-    if (this.searchView) this.searchView.remove();
+    if (this._searchView) this._searchView.remove();
     return Backbone.View.prototype.remove.apply(this);
   }
 });

@@ -1,11 +1,9 @@
-<div class="triangle"></div>
-
 <form class="search">
   <h2>Search</h2>
   <input type="text"
          name="query"
-         autocomplete='off'
-         placeholder='for TV shows or users'>
+         autocomplete="off"
+         placeholder="for TV shows or users">
 </form>
 
 <form class="discover">
@@ -14,31 +12,31 @@
   <ul class="decades group">
     <% _(Clickster.DECADES).each(function(decade) { %>
       <li>
-        <input id='decade_<%= decade %>'
+        <input id="decade_<%= decade %>"
                type="checkbox"
                name="query[decades][]"
                value="<%= decade %>">
-        <label for='decade_<%= decade %>'>'<%= decade %>s</label>
+        <label for="decade_<%= decade %>">'<%= decade %>s</label>
       </li>
     <% }) %>
 
     <li>
-      <input id='decade_current'
+      <input id="decade_current"
              type="checkbox"
              name="query[status]"
              value="Current">
-      <label for='decade_current'>Today</label>
+      <label for="decade_current">Today</label>
     </li>
   </ul>
 
   <ul class="genres group">
     <% _(Clickster.GENRES).each(function(genre) { %>
       <li>
-        <input id='genre_<%= genre %>'
+        <input id="genre_<%= genre %>"
                type="checkbox"
                name="query[genres][]"
                value="<%= genre %>">
-        <label for='genre_<%= genre %>'><%= genre %></label>
+        <label for="genre_<%= genre %>"><%= genre %></label>
       </li>
     <% }) %>
   </ul>

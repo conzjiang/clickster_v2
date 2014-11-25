@@ -23,7 +23,7 @@
     No results!
   <% } %>
 
-<% } else if (results) { %>
+<% } else if (results && results.length > 0) { %>
   <ul>
     <% _(results).each(function (tv) { %>
       <li><a href="#/tv/<%= tv.id %>"><%= tv.title %></a></li>

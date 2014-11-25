@@ -53,13 +53,13 @@ a {
 }
 
 button {
-  /*color: #fff;*/
-  /*background: #E6626F;*/
+  color: #fff;
+  background: #888;
   border-radius: 3px;
 }
 
 button:hover {
-  /*background: #CA4C58;*/
+  background: #000;
 }
 
 ul {

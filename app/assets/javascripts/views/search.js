@@ -1,7 +1,10 @@
 Clickster.Views.Search = Backbone.View.extend({
   initialize: function (options) {
     this.params = options.params;
-    this.model = Clickster.searchResults.getOrFetch(this.params);
+
+    if (this.params) {
+      this.model = Clickster.searchResults.getOrFetch(this.params);
+    }
 
     this.listenTo(this.model, 'change', this.render);
   },
@@ -9,7 +12,7 @@ Clickster.Views.Search = Backbone.View.extend({
   template: JST['search'],
 
   render: function () {
-    var content = this.template({ results: this.model.get('results') });
+    var content = this.template({ results: this.model.get('results') || [] });
     this.$el.html(content);
     return this;
   }

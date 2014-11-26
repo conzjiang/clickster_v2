@@ -1,3 +1,5 @@
+<% var action; %>
+
 <% if (newUser) { %>
   <% action = '/api/users' %>
   <% text = 'Up' %>
@@ -18,7 +20,7 @@
     <% if (newUser) { %>
       <fieldset>
         <label for="user_email">Email</label>
-        <input id="user_email" type="email" name="user[email]">
+        <input class="first" id="user_email" type="email" name="user[email]">
       </fieldset>
 
       <fieldset>
@@ -28,7 +30,10 @@
     <% } else { %>
       <fieldset>
         <label for="user_identifier">Username or Email</label>
-        <input id="user_identifier" type="text" name="user[identifier]">
+        <input class="first"
+               id="user_identifier"
+               type="text"
+               name="user[identifier]">
       </fieldset>
     <% } %>
 

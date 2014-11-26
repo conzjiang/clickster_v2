@@ -58,8 +58,10 @@ button {
   border-radius: 3px;
 }
 
-button:hover {
-  background: #000;
+@media (min-width: 500px) {
+  button:hover {
+    background: #000;
+  }
 }
 
 ul {
@@ -103,7 +105,7 @@ main {
   top: 0;
   left: 0;
   background: #fff;
-  overflow: scroll;
+  overflow: auto;
   transition: left 0.5s;
 }
 

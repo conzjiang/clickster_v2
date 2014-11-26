@@ -1,7 +1,9 @@
-Clickster.Views.SignIn = Backbone.View.extend({
+Clickster.Views.SignInView = Backbone.View.extend({
   initialize: function (options) {
-    this.newUser = options.newUser;
+    this.newUser = false;
   },
+
+  className: "content",
 
   template: JST['signIn'],
 
@@ -45,6 +47,7 @@ Clickster.Views.SignIn = Backbone.View.extend({
   render: function () {
     var signedIn = !!Clickster.currentUser.id;
     var that = this;
+    var $linkToSelect;
 
     var content = this.template({
       newUser: this.newUser,
@@ -54,17 +57,13 @@ Clickster.Views.SignIn = Backbone.View.extend({
     this.$el.html(content);
 
     if (this.newUser) {
-      this.$('a.sign-up-link').addClass('selected');
+      $linkToSelect = this.$('a.sign-up-link');
     } else {
-      this.$('a.sign-in-link').addClass('selected');
+      $linkToSelect = this.$('a.sign-in-link');
     }
 
-    if (signedIn) {
-      setTimeout(function () {
-        $('.overlay').trigger('click');
-        that.remove();
-      }, 2000);
-    }
+    $linkToSelect.addClass("selected");
+    this.$("input.first").focus();
 
     return this;
   }

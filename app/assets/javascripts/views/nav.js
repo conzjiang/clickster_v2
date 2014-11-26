@@ -11,13 +11,13 @@ Clickster.Views.Nav = Backbone.View.extend({
   },
 
   openSearch: function () {
-    this.$(".pop-out").toggleClass("search");
+    this.$(".pop-out").removeClass("sign-in").toggleClass("search");
     var searchView = new Clickster.Views.SearchFormView();
     this._swapPopout(searchView);
   },
 
   openSignIn: function () {
-    this.$(".pop-out").toggleClass("sign-in");
+    this.$(".pop-out").removeClass("search").toggleClass("sign-in");
     var signInView = new Clickster.Views.SignInView();
     this._swapPopout(signInView);
   },
@@ -61,6 +61,7 @@ Clickster.Views.Nav = Backbone.View.extend({
     if (this._currentPopout) this._currentPopout.remove();
     this._currentPopout = view;
     this.$(".pop-out").append(this._currentPopout.render().$el);
+    this._currentPopout.$("input.first").focus();
   },
 
   remove: function () {

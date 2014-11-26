@@ -20,12 +20,19 @@
     <% if (newUser) { %>
       <fieldset>
         <label for="user_email">Email</label>
-        <input class="first" id="user_email" type="email" name="user[email]">
+        <input class="first"
+               id="user_email"
+               type="email"
+               name="user[email]"
+               autocomplete="off">
       </fieldset>
 
       <fieldset>
         <label for="user_username">Username</label>
-        <input id="user_username" type="text" name="user[username]">
+        <input id="user_username"
+               type="text"
+               name="user[username]"
+               autocomplete="off">
       </fieldset>
     <% } else { %>
       <fieldset>
@@ -33,7 +40,8 @@
         <input class="first"
                id="user_identifier"
                type="text"
-               name="user[identifier]">
+               name="user[identifier]"
+               autocomplete="off">
       </fieldset>
     <% } %>
 

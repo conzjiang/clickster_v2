@@ -7,7 +7,8 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   events: {
     "click #open-search": "openSearch",
-    "click #sign-in-button": "openSignIn"
+    "click #sign-in-button": "openSignIn",
+    "click #open-dropdown": "toggleMenu"
   },
 
   openSearch: function () {
@@ -24,31 +25,32 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   toggleMenu: function (e) {
     var that = this;
-    $(event.target).toggleClass("open");
+    this.$("ul.dropdown").toggleClass("open");
 
-    $("body").on("click", function () {
-      var outsideNav = !$(event.target).closest(".links").length;
-      var clickedNavLink = !!$(event.target).closest(".dropdown").length;
+    if (this.$("ul.dropdown").hasClass("open")) {
+      $("body").on("click", function () {
+        var outsideNav = !$(event.target).closest("nav").length;
+        var clickedNavLink = !!$(event.target).closest(".dropdown").length;
 
-      if (outsideNav || clickedNavLink) {
-        that.closeMenu();
-        $(this).off("click");
-      }
-    });
-  },
-
-  closeMenu: function () {
-    this.$("figure").removeClass("open");
+        if (outsideNav || clickedNavLink) {
+          that.toggleMenu();
+          $(this).off("click");
+        }
+      });
+    }
   },
 
   render: function () {
     var signedIn = !!Clickster.currentUser.id;
+    var isAdmin = Clickster.currentUser.get("is_admin");
 
     var content = this.template({
-      signedIn: signedIn
+      signedIn: signedIn,
+      isAdmin: isAdmin
     });
 
     this.$el.html(content);
+    if (isAdmin) this.$(".dropdown").addClass("admin");
     return this;
   },
 

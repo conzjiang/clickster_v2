@@ -96,3 +96,82 @@ button#open-dropdown:before {
   border: 0;
   background: #ccc;
 }
+
+// POP OUT CONTAINER
+article.pop-out {
+  display: none;
+  position: absolute;
+  top: 14%;
+  left: 2.5%;
+  width: 95%;
+  height: 83%;
+  font-size: 20px;
+  background: #eee;
+}
+
+article.pop-out.search,
+article.pop-out.sign-in {
+  display: block;
+
+  div.content {
+    width: 90%;
+    height: 90%;
+    padding: 5%;
+    overflow: auto;
+  }
+}
+
+div.nav-triangle {
+  position: absolute;
+  top: -50px;
+  width: 0;
+  height: 0;
+  border: 25px solid transparent;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom-color: #eee;
+  z-index: 10;
+}
+
+article.pop-out.search {
+  > div.nav-triangle {
+    left: 23.75%;
+    margin-left: -20px;
+  }
+}
+
+article.pop-out.sign-in {
+  > div.nav-triangle {
+    right: 23.75%;
+    margin-right: -20px;
+  }
+}
+
+ul.dropdown {
+  display: none;
+}
+
+ul.dropdown.open {
+  display: block;
+  background: #888;
+  width: 50%;
+
+  > li {
+    float: left;
+    width: 50%;
+    text-align: center;
+  }
+
+  a {
+    display: block;
+    padding: 20px 0;
+  }
+}
+
+ul.dropdown.admin {
+  width: 100%;
+
+  > li {
+    width: 25%;
+  }
+}

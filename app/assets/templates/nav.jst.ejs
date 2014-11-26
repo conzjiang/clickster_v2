@@ -6,23 +6,6 @@
   <% if (signedIn) { %>
     <li>
       <button id="open-dropdown"></button>
-      <ul class='dropdown'>
-        <% if (Clickster.currentUser.get('is_admin')) { %>
-          <li><a href="#/tv/new">Add a Series</a></li>
-          <li><a href="#/tv">My Series</a></li>
-        <% } %>
-
-        <li><a href="#/users/<%= Clickster.currentUser.id %>">My Profile</a></li>
-        <li>
-          <form id="sign-out" action="/session" method="post">
-            <input type="hidden"
-                   name="authenticity_token"
-                   value="<%= Clickster.formAuth %>">
-            <input type="hidden" name="_method" value="delete">
-            <button>Sign Out</button>
-          </form>
-        </li>
-      </ul>
     </li>
   <% } else { %>
     <li>
@@ -32,5 +15,26 @@
 </ul>
 
 <article class="pop-out">
-  <div class="triangle"></div>
+  <div class="nav-triangle"></div>
 </article>
+
+<ul class="dropdown group">
+  <% if (isAdmin) { %>
+    <li><a href="#/tv/new">Add a Series</a></li>
+    <li><a href="#/tv">My Series</a></li>
+  <% } %>
+
+  <li>
+    <a href="#/users/<%= Clickster.currentUser.id %>">My Profile</a>
+  </li>
+
+  <li>
+    <form id="sign-out" action="/session" method="post">
+      <input type="hidden"
+             name="authenticity_token"
+             value="<%= Clickster.formAuth %>">
+      <input type="hidden" name="_method" value="delete">
+      <button>Sign Out</button>
+    </form>
+  </li>
+</ul>

@@ -37,9 +37,12 @@ Clickster.Views.SignInView = Backbone.View.extend({
       },
       error: function (data) {
         that.$('.errors').empty();
+
         _(data.responseJSON).each(function (error) {
           that.$('.errors').append('<li>' + error + '</li>');
         });
+
+        that.$("input.first").select();
       }
     })
   },

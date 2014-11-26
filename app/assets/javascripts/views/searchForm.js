@@ -1,8 +1,4 @@
 Clickster.Views.SearchFormView = Backbone.View.extend({
-  initialize: function () {
-    Clickster.searchResults = new Clickster.Collections.SearchResults();
-  },
-
   className: "content",
 
   template: JST["searchForm"],

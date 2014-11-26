@@ -1,5 +1,7 @@
 Clickster.Views.Nav = Backbone.View.extend({
   initialize: function () {
+    Clickster.searchResults = new Clickster.Collections.SearchResults();
+
     this.listenTo(Clickster.currentUser, "sync", this.render);
   },
 
@@ -25,9 +27,11 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   toggleMenu: function (e) {
     var that = this;
-    this.$("ul.dropdown").toggleClass("open");
+    var $dropdownMenu = this.$("ul.dropdown");
 
-    if (this.$("ul.dropdown").hasClass("open")) {
+    $dropdownMenu.toggleClass("open");
+
+    if ($dropdownMenu.hasClass("open")) {
       $("body").on("click", function () {
         var outsideNav = !$(event.target).closest("nav").length;
         var clickedNavLink = !!$(event.target).closest(".dropdown").length;

@@ -2,3 +2,5 @@
 
 * Match search without punctuation
 * Distinguish 'and' as '&' in search
+* Clicking other nav button when dropdown open is buggy
+* Click outside dropdown doesn't close dropdown

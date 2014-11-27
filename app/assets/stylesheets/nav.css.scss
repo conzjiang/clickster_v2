@@ -162,6 +162,13 @@ ul.dropdown {
     float: left;
     width: 33.3%;
     text-align: center;
+    border-right: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  > li:nth-child(3),
+  > li:last-child {
+    border: 0;
   }
 
   a {
@@ -195,5 +202,7 @@ ul.dropdown.admin {
   > li:nth-child(4),
   > li:last-child {
     width: 50%;
+    background: #888;
+    border-top: 1px solid #ccc;
   }
 }

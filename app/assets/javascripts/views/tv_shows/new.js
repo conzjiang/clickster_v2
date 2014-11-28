@@ -3,6 +3,7 @@ Clickster.Views.NewTv = Backbone.View.extend({
     this.tv = new Clickster.Models.TvShow();
 
     this.listenTo(this.tv, 'change', this.render);
+    this.listenTo(Clickster.currentUser, "sync", this.render);
   },
 
   className: 'tv-forms',
@@ -89,21 +90,23 @@ Clickster.Views.NewTv = Backbone.View.extend({
   },
 
   render: function (status) {
-    var that = this;
+    if (Clickster.currentUser.get("is_admin")) {
+      var that = this;
 
-    this.$el.html(this.template({ tv: this.tv }));
+      this.$el.html(this.template({ tv: this.tv }));
 
-    if (this.searchResult) {
-      this._updateSearchStatus('Found!');
-      this.searchResult = false;
+      if (this.searchResult) {
+        this._updateSearchStatus('Found!');
+        this.searchResult = false;
+      }
+
+      _(this.tv.get('genres')).each(function (genre) {
+        var urlsafeGenre = genre.replace(/\//g, '');
+        that.$('#form_genre_' + urlsafeGenre).prop('checked', true);
+      });
+
+      $('option[value="' + this.tv.get('status') + '"]').prop('selected', true);
     }
-
-    _(this.tv.get('genres')).each(function (genre) {
-      var urlsafeGenre = genre.replace(/\//g, '');
-      that.$('#form_genre_' + urlsafeGenre).prop('checked', true);
-    });
-
-    $('option[value="' + this.tv.get('status') + '"]').prop('selected', true);
 
     return this;
   },

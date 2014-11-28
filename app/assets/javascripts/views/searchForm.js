@@ -52,6 +52,6 @@ Clickster.Views.SearchFormView = Backbone.View.extend({
   },
 
   _closeMenu: function () {
-    this.$el.closest(".search-form").removeClass("show");
+    Clickster.currentUser.trigger("sync");
   }
 });

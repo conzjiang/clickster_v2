@@ -8,59 +8,47 @@ Clickster.Views.Nav = Backbone.View.extend({
   template: JST["nav"],
 
   events: {
-    "click #open-search": "openSearch",
-    "click #sign-in-button": "openSignIn",
+    "click #open-search": "toggleSearch",
+    "click #sign-in-button": "toggleSignIn",
     "click #open-dropdown": "toggleMenu"
   },
 
-  openSearch: function () {
-    this.$(".pop-out").removeClass("sign-in").toggleClass("search");
-    var searchView = new Clickster.Views.SearchFormView();
-    this._swapPopout(searchView);
+  toggleSearch: function () {
+    var options = {
+      View: Clickster.Views.SearchFormView,
+      class: "search",
+      otherClass: "sign-in"
+    };
+
+    this._togglePopout(options);
   },
 
-  openSignIn: function () {
-    this.$(".pop-out").removeClass("search").toggleClass("sign-in");
-    var signInView = new Clickster.Views.SignInView();
-    this._swapPopout(signInView);
+  toggleSignIn: function () {
+    var options = {
+      View: Clickster.Views.SignInView,
+      class: "sign-in",
+      otherClass: "search"
+    };
+
+    this._togglePopout(options);
   },
 
-  toggleMenu: function (e) {
-    var that = this;
-    var $dropdownMenu = this.$("ul.dropdown");
+  toggleMenu: function () {
+    var options = {
+      View: Clickster.Views.DropdownView,
+      class: "dropdown",
+      otherClass: "search"
+    };
 
-    $dropdownMenu.toggleClass("open");
-
-    if ($dropdownMenu.hasClass("open")) {
-      $("body").on("click", function () {
-        var outsideNav = !$(event.target).closest("nav").length;
-        var clickedNavLink = !!$(event.target).closest(".dropdown").length;
-
-        if (outsideNav || clickedNavLink) {
-          that.toggleMenu();
-          $(this).off("click");
-        }
-      });
-    }
+    this._togglePopout(options);
   },
 
   render: function () {
     var signedIn = !!Clickster.currentUser.id;
-    var isAdmin = Clickster.currentUser.get("is_admin");
-
-    var content = this.template({
-      signedIn: signedIn,
-      isAdmin: isAdmin
-    });
+    var content = this.template({ signedIn: signedIn });
 
     this.$el.html(content);
-    if (isAdmin) this.$(".dropdown").addClass("admin");
     return this;
-  },
-
-  searchView: function () {
-    this._searchView = this._searchView || new Clickster.Views.SearchFormView();
-    return this._searchView;
   },
 
   _swapPopout: function (view) {
@@ -68,10 +56,31 @@ Clickster.Views.Nav = Backbone.View.extend({
     this._currentPopout = view;
     this.$(".pop-out").append(this._currentPopout.render().$el);
     this._currentPopout.$("input.first").focus();
+
+    $("body").on("click", function () {
+      var notFirstClick = !$(event.target).is("button.nav");
+      var outsideNav = !$(event.target).closest("nav").length;
+      var clickedNavLink = !!$(event.target).closest(".dropdown").length;
+
+      if (notFirstClick || outsideNav || clickedNavLink) {
+        that.$(".pop-out").removeClass("search sign-in");
+        $(this).off("click");
+      }
+    });
+  },
+
+  _togglePopout: function (options) {
+    var $popout = this.$(".pop-out");
+    $popout.removeClass(options.otherClass).toggleClass(options.class);
+
+    if ($popout.hasClass(options.class)) {
+      var popoutView = new options.View();
+      this._swapPopout(popoutView);
+    }
   },
 
   remove: function () {
-    if (this._searchView) this._searchView.remove();
+    if (this._currentPopout) this._currentPopout.remove();
     return Backbone.View.prototype.remove.apply(this);
   }
 });

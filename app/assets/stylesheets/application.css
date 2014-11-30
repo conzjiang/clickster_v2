@@ -117,8 +117,14 @@ main.open {
 /* CONTENT CONTAINER */
 section#main {
   width: 100%;
-  max-width: 1000px;
   margin: auto;
-  padding: 50px;
+  padding: 50px 30px;
   box-sizing: border-box;
+}
+
+@media (min-width: 500px) {
+  section#main {
+    max-width: 1000px;
+    padding: 50px;
+  }
 }

@@ -1,12 +1,10 @@
 .tv-forms h2 {
+  font-size: 32px;
   line-height: initial;
 }
 
 .tv-forms form {
   margin: 50px 0;
-}
-
-.tv-forms .or {
   font-size: 20px;
 }
 
@@ -14,10 +12,21 @@
 .tv-forms input[type=number],
 .tv-forms textarea,
 .tv-forms select {
-  display: inline-block;
-  padding: 5px;
+  display: block;
+  width: 95%;
+  padding: 2.5%;
   background: #e7e7e7;
   border-radius: 3px;
+}
+
+@media (min-width: 500px) {
+  .tv-forms input[type=text],
+  .tv-forms input[type=number],
+  .tv-forms textarea,
+  .tv-forms select {
+    display: inline-block;
+    padding: 10px 5px;
+  }
 }
 
 .tv-forms button {
@@ -32,17 +41,28 @@
 }
 
 /* AUTOCOMPLETE FORM */
-form.new-imdb-tv {
-  font-size: 20px;
+form.new-imdb-tv > input {
+  margin: 15px 0;
 }
 
-form.new-imdb-tv > input {
-  width: 490px;
+@media (min-width: 500px) {
+  form.new-imdb-tv > input {
+    width: 490px;
+  }
 }
 
 /* NEW FORM */
-form.new-tv {
-  width: 400px;
+@media (min-width: 500px) {
+  form.new-tv {
+    width: 400px;
+  }
+
+  form.new-tv input[type=text],
+  form.new-tv input[type=number],
+  form.new-tv textarea,
+  form.new-tv select {
+    width: 390px;
+  }
 }
 
 form.new-tv > fieldset {
@@ -52,25 +72,29 @@ form.new-tv > fieldset {
 form.new-tv > fieldset > label,
 form.new-tv > fieldset > strong {
   display: block;
-  font-size: 20px;
 }
 
 form.new-tv > fieldset.error > label {
   color: #f00;
 }
 
-form.new-tv input[type=text],
-form.new-tv input[type=number],
-form.new-tv textarea,
-form.new-tv select {
-  width: 390px;
+form.new-tv > fieldset > label > small {
+  display: block;
+  font-size: 16px;
 }
 
 form.new-tv > fieldset.error > input[type=text],
 form.new-tv > fieldset.error > input[type=number],
 form.new-tv > fieldset.error > select {
-  padding: 4px;
   border: 1px solid #f00;
+}
+
+@media (min-width: 500px) {
+  form.new-tv > fieldset.error > input[type=text],
+  form.new-tv > fieldset.error > input[type=number],
+  form.new-tv > fieldset.error > select {
+    padding: 4px;
+  }
 }
 
 form.new-tv textarea {
@@ -89,9 +113,6 @@ form.new-tv .genres > li > input[type=checkbox] {
 }
 
 form.new-tv .genres label {
+  font-size: 18px;
   background: #eee;
-}
-
-form.new-tv > button {
-  font-size: 20px;
 }

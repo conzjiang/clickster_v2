@@ -12,8 +12,6 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
 
   routes: {
     '': 'home',
-    'session/new': 'signIn',
-    'users/new': 'signIn',
     'tv/new': 'newTv',
     'tv/:id': 'tvShow',
     'search': 'searchResults'
@@ -24,20 +22,8 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     this._swapRootEl(homeView);
   },
 
-  signIn: function () {
-    var path, options, signInModal;
-
-    path = window.location.hash.substring(2);
-    options = {};
-    if (/^users/.test(path)) options.newUser = true;
-
-    signInModal = new Clickster.Views.SignIn(options);
-    this._swapModal(signInModal);
-    signInModal.$('input').eq(0).focus();
-  },
-
   newTv: function () {
-    var newTvView = new Clickster.Views.NewTv();
+    var newTvView = new Clickster.Views.NewTvView();
     this._swapRootEl(newTvView);
   },
 

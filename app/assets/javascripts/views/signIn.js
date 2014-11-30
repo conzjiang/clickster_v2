@@ -14,6 +14,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
 
   toggleForm: function () {
     var $link = $(event.target);
+    
     if (!$link.hasClass('selected')) {
       this.newUser = !this.newUser;
       this.render();

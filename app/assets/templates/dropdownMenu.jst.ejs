@@ -1,13 +1,15 @@
 <ul class="dropdown group">
-  <li><a href="#"><h2>Home</h2></a></li>
+  <li><a class="nav-link" href="#"><h2>Home</h2></a></li>
 
   <% if (isAdmin) { %>
-    <li><a href="#/tv/new"><h2>Add a Series</h2></a></li>
-    <li><a href="#/tv"><h2>My Series</h2></a></li>
+    <li><a class="nav-link" href="#/tv/new"><h2>Add a Series</h2></a></li>
+    <li><a class="nav-link" href="#/tv"><h2>My Series</h2></a></li>
   <% } %>
 
   <li>
-    <a href="#/users/<%= Clickster.currentUser.id %>"><h2>My Profile</h2></a>
+    <a class="nav-link" href="#/users/<%= Clickster.currentUser.id %>">
+      <h2>My Profile</h2>
+    </a>
   </li>
 
   <li>
@@ -16,7 +18,7 @@
              name="authenticity_token"
              value="<%= Clickster.formAuth %>">
       <input type="hidden" name="_method" value="delete">
-      <button><h2>Sign Out</h2></button>
+      <button class="nav-link"><h2>Sign Out</h2></button>
     </form>
   </li>
 </ul>

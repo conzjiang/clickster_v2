@@ -151,13 +151,13 @@ article.pop-out.dropdown {
 
 article.pop-out.dropdown {
   display: inline-block;
-  width: 100%;
   height: auto;
 }
 
 ul.dropdown {
   display: block;
-  width: 100%;
+  width: 90%;
+  margin: 5%;
 
   > li {
     width: 100%;
@@ -166,7 +166,7 @@ ul.dropdown {
 
   a {
     display: block;
-    padding: 10px 0;
+    padding: 10px;
     color: #000;
   }
 
@@ -178,13 +178,20 @@ ul.dropdown {
     color: #000;
     background: none;
   }
+
+  .touch {
+    color: #fff;
+    background: #000;
+    border-radius: 0;
+  }
 }
 
 @media (min-width: 500px) {
-  ul.dropdown.open {
+  ul.dropdown {
     a:hover, button:hover {
       color: #fff;
       background: #000;
+      border-radius: 0;
     }
   }
 }

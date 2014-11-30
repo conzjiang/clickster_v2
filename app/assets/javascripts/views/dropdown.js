@@ -3,6 +3,16 @@ Clickster.Views.DropdownView = Backbone.View.extend({
 
   template: JST["dropdownMenu"],
 
+  events: {
+    "touchstart .nav-link": "mobileTouch",
+    "touchmove .nav-link": "mobileTouch"
+  },
+
+  mobileTouch: function (event) {
+    $(event.target).toggleClass("touch");
+    $(event.target).closest("li").toggleClass("touch");
+  },
+
   render: function () {
     var isAdmin = Clickster.currentUser.get("is_admin");
     var content = this.template({ isAdmin: isAdmin });

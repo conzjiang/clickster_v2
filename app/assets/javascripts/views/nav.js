@@ -52,6 +52,8 @@ Clickster.Views.Nav = Backbone.View.extend({
   },
 
   _swapPopout: function (view) {
+    var that = this;
+
     if (this._currentPopout) this._currentPopout.remove();
     this._currentPopout = view;
     this.$(".pop-out").append(this._currentPopout.render().$el);
@@ -59,11 +61,11 @@ Clickster.Views.Nav = Backbone.View.extend({
 
     $("body").on("click", function () {
       var notFirstClick = !$(event.target).is("button.nav");
-      var outsideNav = !$(event.target).closest("nav").length;
       var clickedNavLink = !!$(event.target).closest(".dropdown").length;
+      var outsideNav = !$(event.target).closest("nav").length;
 
-      if (notFirstClick || outsideNav || clickedNavLink) {
-        that.$(".pop-out").removeClass("search sign-in");
+      if ((notFirstClick && clickedNavLink) || outsideNav) {
+        that.$(".pop-out").removeClass("search sign-in dropdown");
         $(this).off("click");
       }
     });

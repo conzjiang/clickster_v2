@@ -36,6 +36,11 @@ Clickster.Collections.SearchResults = Backbone.Collection.extend({
     return result;
   },
 
+  include: function (title) {
+    var tvShows = this.tvShows.map(function (tv) { return tv.toLowerCase(); });
+    return tvShows.indexOf(title.toLowerCase()) !== -1;
+  },
+
   textSearch: function (searchTerm) {
     var query = new RegExp(searchTerm, "i");
     var tvResults = [];

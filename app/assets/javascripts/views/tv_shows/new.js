@@ -26,6 +26,11 @@ Clickster.Views.NewTvView = Backbone.View.extend({
     };
     var that = this;
 
+    if (Clickster.searchResults.include(title)) {
+      this._updateSearchStatus("Series already exists in the database!");
+      return;
+    }
+    
     this.tv.clear({ silent: true });
     this._updateSearchStatus("Searching...");
 

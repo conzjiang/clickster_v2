@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
 
     if user.save
       sign_in(user)
-      render json: user, status: 200
+      render json: { newUser: true, username: user.username }, status: 200
     else
       render json: user.errors.full_messages, status: 422
     end

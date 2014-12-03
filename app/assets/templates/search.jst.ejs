@@ -5,7 +5,7 @@
   <% if (results.tvResults.length > 0) { %>
     <ul>
       <% _(results.tvResults).each(function (tv) { %>
-        <li><a href="#/tv/<%= tv.id %>"><%= tv %></a></li>
+        <li><a href="#/tv/<%= tv.id %>"><%= tv.title %></a></li>
       <% }) %>
     </ul>
   <% } else { %>

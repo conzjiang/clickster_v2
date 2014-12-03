@@ -22,7 +22,7 @@ Clickster.Views.SearchFormView = Backbone.View.extend({
 
   textSearch: function (event) {
     event.preventDefault();
-    var searchTerm = this.$("input").val();
+    var searchTerm = this.$("input").val().replace(/\s/g, "+");
 
     this._closeMenu();
     Backbone.history.navigate("search?text=" + searchTerm, {

@@ -16,7 +16,7 @@ Clickster.Collections.SearchResults = Backbone.Collection.extend({
       result = new this.model({ params: params });
 
       if (/text=/.test(params)) {
-        var searchTerm = params.split(/text=/).slice(-1);
+        var searchTerm = params.split(/text=/).slice(-1)[0].replace(/\+/g, " ");
         result = this.textSearch(searchTerm);
 
       } else {
@@ -37,7 +37,10 @@ Clickster.Collections.SearchResults = Backbone.Collection.extend({
   },
 
   include: function (title) {
-    var tvShows = this.tvShows.map(function (tv) { return tv.toLowerCase(); });
+    var tvShows = this.tvShows.map(function (tv) {
+      return tv.title.toLowerCase();
+    });
+
     return tvShows.indexOf(title.toLowerCase()) !== -1;
   },
 
@@ -45,9 +48,10 @@ Clickster.Collections.SearchResults = Backbone.Collection.extend({
     var query = new RegExp(searchTerm, "i");
     var tvResults = [];
     var userResults = [];
+    var that = this;
 
     _(this.tvShows).each(function (tvShow) {
-      if (query.test(tvShow)) {
+      if (query.test(tvShow.title) || that._matchAnds(tvShow.title)) {
         tvResults.push(tvShow);
       }
     });
@@ -66,5 +70,21 @@ Clickster.Collections.SearchResults = Backbone.Collection.extend({
         userResults: userResults
       }
     });
+  },
+
+  _matchAnds: function (title) {
+    var and = title.match(/\sand\s/);
+    var ampersand = title.match(/\s\&\s/);
+    var match, matchesAnd;
+
+    if (and) {
+      match = title.replace(/\sand\s/, " & ");
+    } else if (ampersand) {
+      match = title.replace(/\s\&\s/, " and ");
+    }
+
+    if (match) matchesAnd = query.test(match);
+
+    return matchesAnd;
   }
 });

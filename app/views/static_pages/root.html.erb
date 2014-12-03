@@ -31,7 +31,11 @@
 </script>
 
 <script id="tv_shows">
-  <%= TvShow.pluck(:title).to_json.html_safe %>
+  <% tv_shows = TvShow.all.map do |tv_show| %>
+    <% { id: tv_show.id, title: tv_show.title } %>
+  <% end %>
+
+  <%= tv_shows.to_json.html_safe %>
 </script>
 
 <script id="users">

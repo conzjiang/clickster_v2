@@ -45,19 +45,18 @@ Clickster.Collections.SearchResults = Backbone.Collection.extend({
   },
 
   textSearch: function (searchTerm) {
-    var query = new RegExp(searchTerm, "i");
     var tvResults = [];
     var userResults = [];
     var that = this;
 
     _(this.tvShows).each(function (tvShow) {
-      if (query.test(tvShow.title) || that._matchAnds(tvShow.title)) {
+      if (Utils.match(searchTerm, tvShow.title)) {
         tvResults.push(tvShow);
       }
     });
 
     _(this.users).each(function (user) {
-      if (query.test(user)) {
+      if (Utils.match(searchTerm, user)) {
         userResults.push(user);
       }
     });
@@ -70,21 +69,5 @@ Clickster.Collections.SearchResults = Backbone.Collection.extend({
         userResults: userResults
       }
     });
-  },
-
-  _matchAnds: function (title) {
-    var and = title.match(/\sand\s/);
-    var ampersand = title.match(/\s\&\s/);
-    var match, matchesAnd;
-
-    if (and) {
-      match = title.replace(/\sand\s/, " & ");
-    } else if (ampersand) {
-      match = title.replace(/\s\&\s/, " and ");
-    }
-
-    if (match) matchesAnd = query.test(match);
-
-    return matchesAnd;
   }
 });

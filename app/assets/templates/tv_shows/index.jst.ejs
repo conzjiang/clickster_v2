@@ -1,0 +1,7 @@
+<h1>My Series</h1>
+
+<ul>
+  <% tvs.each(function (tv) { %>
+    <li><a href="#/tv/<%= tv.id %>"><%= tv.escape("title") %></a></li>
+  <% }) %>
+</ul>

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     get 'current_user', to: 'api#current'
+    get 'current_tv', to: 'api#current_tv'
 
     resources :users, only: [:create]
     resource :session, only: [:create]

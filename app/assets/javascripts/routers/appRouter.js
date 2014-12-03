@@ -12,6 +12,7 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
 
   routes: {
     '': 'home',
+    'tv': 'tvIndex',
     'tv/new': 'newTv',
     'tv/:id': 'tvShow',
     'search': 'searchResults'
@@ -20,6 +21,11 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   home: function () {
     var homeView = new Clickster.Views.Home();
     this._swapRootEl(homeView);
+  },
+
+  tvIndex: function () {
+    var indexView = new Clickster.Views.TvIndex();
+    this._swapRootEl(indexView);
   },
 
   newTv: function () {

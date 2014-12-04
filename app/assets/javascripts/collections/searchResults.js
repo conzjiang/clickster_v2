@@ -1,12 +1,21 @@
 Clickster.Collections.SearchResults = Backbone.Collection.extend({
   initialize: function () {
-    this.tvShows = JSON.parse($('#tv_shows').html());
+    this.tvShows = new Clickster.Collections.TextResults();
     this.users = JSON.parse($('#users').html());
   },
 
   model: Clickster.Models.SearchResult,
 
   url: 'api/search',
+
+  addTextResult: function (tvShow) {
+    var result = new this.tvShows.model({
+      id: tvShow.id,
+      title: tvShow.get("title")
+    });
+
+    this.tvShows.add(result);
+  },
 
   getOrFetch: function (params) {
     var result = this.findWhere({ params: params });

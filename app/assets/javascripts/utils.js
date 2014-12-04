@@ -1,50 +1,24 @@
 (function (root) {
   var Utils = root.Utils = root.Utils || {};
 
-  var matchesAnd = function (query, string) {
-    var and = string.match(/\sand\s/);
-    var ampersand = string.match(/\s&\s/);
-    var match, matchesAnd;
-
-    if (and) {
-      match = string.replace(/\sand\s/, " & ");
-    } else if (ampersand) {
-      match = string.replace(/\s&\s/, " and ");
-    }
-
-    if (match) matchesAnd = query.test(match);
-
-    return matchesAnd;
-  };
-
   // converts lowercased snakecase to capitalized words
-  Utils.convertToWords = function (string) {
+  Utils.unSnakecase = function (string) {
     var capitalizeFirstLetter = string.charAt(0).toUpperCase();
     var unSnakeCase = string.replace(/\_/g, ' ').slice(1);
     return capitalizeFirstLetter + unSnakeCase;
   };
 
-  Utils.match = function (searchTerm, string) {
-    var query = new RegExp(this.strip(searchTerm), "i");
-    var matchStr = this.strip(string);
-    var isDirectMatch = query.test(matchStr);
-
-    return isDirectMatch ||
-      matchesAnd(query, matchStr) ||
-      matchesNum(query, matchStr);
-  };
-
   Utils.strip = function (string) {
-    return this.stripPunctuation(string).toLowerCase();
+    var str = stripPunctuation(string).toLowerCase().replace(/&/g, "and");
+    return convertNums(str).replace(/\s/g, "");
   };
-
-  Utils.stripPunctuation = function (string) {
-    return string.replace(/[\.,!?:'"]/g, "").replace(/\/\-/g, " ").trim();
-  };
-
 
   // helpers
-  function matchesNum(query, string) {
+  function stripPunctuation(string) {
+    return string.replace(/[\.,!?:'"]/g, "").replace(/[\/\-]/g, " ").trim();
+  };
+
+  function convertNums(string) {
     var oneDigits = [
       "zero",
       "one",
@@ -106,12 +80,11 @@
         digits[0] *= hundred;
       }
 
-      return digits.reduce(function (memo, digit) { return memo + digit; });
+      return digits.reduce(function (sum, digit) { return sum + digit; });
     };
 
     var wordsToNum = function (words) {
       var thousandIndex = words.indexOf("thousand") + 1;
-
       var thousands = convertDigits(words.slice(0, thousandIndex));
       var hundreds = convertDigits(words.slice(thousandIndex));
       var num = thousands * 1000 + hundreds;
@@ -119,48 +92,56 @@
       return num;
     };
 
-    var consecutiveFragments = function (arr) {
+    var allDigits = oneDigits + twoDigits + tensDigits;
+
+    var isNumber = function (word) {
+      return word === "hundred" ||
+        word === "thousand" ||
+        allDigits.indexOf(word) !== -1;
+    };
+
+    var numFragments = function (words) {
       var startIndex = null;
-      var endIndex;
       var fragments = [];
 
-      _(arr).each(function (num, index) {
-        if (num + 1 == arr[index + 1] && startIndex === null) {
-          startIndex = index;
-        } else if (startIndex) {
-          endIndex = index + 1;
-          fragments.push(arr.slice(startIndex, endIndex));
+      _(words).each(function (word, index) {
+        if (isNumber(word)) {
+          if (startIndex === null) startIndex = index;
+          return true;
+        }
+
+        if (startIndex !== null) {
+          fragments.push(words.slice(startIndex, index));
           startIndex = null;
-        } else {
-          fragments.push([num]);
         }
       });
 
       return fragments;
     };
 
-    var matchesNums = function (query, string) {
+    var convertNums = function (string) {
       var words = string.split(" ");
-      var digits = oneDigits + twoDigits + tensDigits;
-      var digitIndices = words.map(function (word, index) {
-        if (digits.indexOf(word) === -1) return -1;
-        return index;
-      }).filter(function (el) { return el !== -1; });
 
-      _(consecutiveFragments(digitIndices)).each(function (indexArr) {
-        var stringFragment = words.slice(indexArr[0], indexArr.slice(-1) + 1);
-        if (stringFragment.indexOf("hundred") === 0 ||
-            stringFragment.indexOf("thousand") === 0) {
-          stringFragment.unshift("one");
+      _(numFragments(words)).each(function (numWords) {
+        var wordIndex;
+
+        if (numWords.indexOf("hundred") === 0 ||
+            numWords.indexOf("thousand") === 0) {
+          numWords.unshift("one");
         }
 
-        words[indexArr[0]] = wordsToNum(stringFragment);
-        if (indexArr.length > 1) words.splice(indexArr[1], indexArr.length);
+        wordIndex = words.indexOf(numWords[0]);
+        words[wordIndex] = wordsToNum(numWords);
+
+        if (numWords.length > 1) {
+          words.splice(wordIndex + 1, numWords.length - 1);
+        }
       });
 
-      return query.test(words.join(" "));
+      return words.join(" ");
     };
-    return matchesNums(query, string);
+
+    return convertNums(string);
   };
 
 })(this);

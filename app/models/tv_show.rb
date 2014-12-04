@@ -45,10 +45,17 @@ class TvShow < ActiveRecord::Base
 
       decades = (decade_range.first..decade_range.last).to_a.select do |year|
         year % 10 == 0
-      end.map(&:to_s)
+      end.map(&:to_s).map { |year| year.length == 2 ? year : year + "0" }
+
+      self_decades = self.tv_decades.pluck(:decade)
+      old_decades = self_decades - decades
+
+      unless old_decades.empty?
+        self.tv_decades.where("decade IN (#{ old_decades })").destroy_all
+      end
 
       decades.each do |decade|
-        decade += '0' if decade.length == 1
+        next if self_decades.include?(decade)
         self.tv_decades.new(decade: decade)
       end
     end

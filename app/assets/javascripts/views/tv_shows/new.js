@@ -10,6 +10,8 @@ Clickster.Views.NewTvView = Backbone.View.extend({
 
   template: JST["tv_shows/new"],
 
+  form: JST["tv_shows/_form"],
+
   events: {
     "submit .new-imdb-tv": "autocomplete",
     "submit .new-tv": "createTV"
@@ -30,7 +32,7 @@ Clickster.Views.NewTvView = Backbone.View.extend({
       this._updateSearchStatus("Series already exists in the database!");
       return;
     }
-    
+
     this.tv.clear({ silent: true });
     this._updateSearchStatus("Searching...");
 
@@ -96,25 +98,34 @@ Clickster.Views.NewTvView = Backbone.View.extend({
   },
 
   render: function (status) {
-    if (Clickster.currentUser.get("is_admin")) {
-      var that = this;
-
-      this.$el.html(this.template({ tv: this.tv }));
-
-      if (this.searchResult) {
-        this._updateSearchStatus("Found!");
-        this.searchResult = false;
-      }
-
-      _(this.tv.get("genres")).each(function (genre) {
-        var urlsafeGenre = genre.replace(/\//g, "");
-        that.$("#form_genre_" + urlsafeGenre).prop("checked", true);
-      });
-
-      $("option[value='" + this.tv.get("status") + "']").prop("selected", true);
-    } else {
+    if (!Clickster.currentUser.get("is_admin")) {
       this.$el.html("You are not allowed to perform this action.");
+      return this;
     }
+
+    var content = this.template({ tv: this.tv });
+    var form = this.form({
+      tv: this.tv,
+      formHeader: "Add Manually",
+      buttonContent: "Add Series"
+    });
+    var that = this;
+
+    this.$el.html(content);
+    this.$el.append(form);
+
+    if (this.searchResult) {
+      this._updateSearchStatus("Found!");
+      this.searchResult = false;
+    }
+
+    _(this.tv.get("genres")).each(function (genre) {
+      var urlsafeGenre = genre.replace(/\//g, "");
+      that.$("#form_genre_" + urlsafeGenre).prop("checked", true);
+    });
+
+    $("option[value='" + this.tv.get("status") + "']").
+      prop("selected", true);
 
     return this;
   },

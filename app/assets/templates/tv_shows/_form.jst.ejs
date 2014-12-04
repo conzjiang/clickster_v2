@@ -1,0 +1,90 @@
+<form class="new-tv">
+  <h2><%= formHeader %></h2>
+
+  <ul class='errors'></ul>
+
+  <fieldset>
+    <label for="tv_show_title">Title</label>
+    <input id="tv_show_title"
+           type="text"
+           name="tv_show[title]"
+           value="<%= tv.escape('title') %>">
+  </fieldset>
+
+  <fieldset>
+    <strong>Genre(s)</strong>
+    <ul class='genres'>
+      <% _(Clickster.GENRES).each(function(genre) { %>
+        <li>
+          <input id="form_genre_<%= genre.replace(/\//g, "") %>"
+                 type="checkbox"
+                 name="tv_show[genres][]"
+                 value="<%= genre %>">
+          <label for='form_genre_<%= genre.replace(/\//g, "") %>'>
+            <%= genre %>
+          </label>
+        </li>
+      <% }) %>
+    </ul>
+  </fieldset>
+
+  <fieldset>
+    <label for="tv_show_network">
+      Network
+      <small>(Please abbreviate)</small>
+    </label>
+
+    <input id="tv_show_network"
+           type="text"
+           name="tv_show[network]"
+           value="<%= tv.escape('network') %>">
+  </fieldset>
+
+  <fieldset>
+    <label for="tv_show_num_seasons"># of Seasons</label>
+    <input id="tv_show_num_seasons"
+           type="number"
+           name="tv_show[num_seasons]"
+           value="<%= tv.get('num_seasons') %>">
+  </fieldset>
+
+  <fieldset>
+    <label for="tv_show_start_year">Start Year</label>
+    <input id="tv_show_start_year"
+           type="number"
+           name="tv_show[start_year]"
+           value="<%= tv.get('start_year') %>">
+  </fieldset>
+
+  <fieldset>
+    <label for="tv_show_end_year">
+      End Year
+      <small>(Leave blank if currently airing)</small>
+    </label>
+
+    <input id="tv_show_end_year"
+           type="number"
+           name="tv_show[end_year]"
+           value="<%= tv.get('end_year') %>">
+  </fieldset>
+
+  <fieldset>
+    <label for='tv_show_status'>Status</label>
+    <select id='tv_show_status' name="tv_show[status]">
+      <option></option>
+
+      <% _(Clickster.STATUSES).each(function (status) { %>
+        <option value='<%= status %>'><%= status %></option>
+      <% }) %>
+    </select>
+  </fieldset>
+
+  <fieldset>
+    <label for="tv_show_blurb">Description</label>
+    <textarea id='tv_show_blurb' name="tv_show[blurb]"><%= tv.escape('blurb') %></textarea>
+  </fieldset>
+
+  <button><%= buttonContent %></button>
+
+  <ul class='errors'></ul>
+</form>

@@ -17,7 +17,7 @@ Clickster.Views.Nav = Backbone.View.extend({
     var options = {
       View: Clickster.Views.SearchFormView,
       class: "search",
-      otherClass: "sign-in"
+      otherClass: "sign-in dropdown"
     };
 
     this._togglePopout(options);
@@ -27,7 +27,7 @@ Clickster.Views.Nav = Backbone.View.extend({
     var options = {
       View: Clickster.Views.SignInView,
       class: "sign-in",
-      otherClass: "search"
+      otherClass: "search dropdown"
     };
 
     this._togglePopout(options);
@@ -37,7 +37,7 @@ Clickster.Views.Nav = Backbone.View.extend({
     var options = {
       View: Clickster.Views.DropdownView,
       class: "dropdown",
-      otherClass: "search"
+      otherClass: "search sign-in"
     };
 
     this._togglePopout(options);

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [:create]
     resource :session, only: [:create]
-    resources :tv_shows, only: [:create, :show]
+    resources :tv_shows, only: [:create, :show, :update]
 
     get 'search', to: 'searches#get'
   end

@@ -75,7 +75,7 @@
         return 0;
       });
 
-      if (digits.indexOf(100) !== -1) {
+      if (digits.indexOf(100) > 0) {
         var hundred = digits.shift();
         digits[0] *= hundred;
       }
@@ -92,12 +92,14 @@
       return num;
     };
 
+    var isHighDenom = function (word) {
+      return word === "hundred" || word === "thousand";
+    };
+
     var allDigits = oneDigits + twoDigits + tensDigits;
 
     var isNumber = function (word) {
-      return word === "hundred" ||
-        word === "thousand" ||
-        allDigits.indexOf(word) !== -1;
+      return isHighDenom(word) || allDigits.indexOf(word) !== -1;
     };
 
     var numFragments = function (words) {
@@ -111,6 +113,7 @@
         }
 
         if (startIndex !== null) {
+          if (isHighDenom(words[startIndex]) && startIndex > 0) startIndex -= 1;
           fragments.push(words.slice(startIndex, index));
           startIndex = null;
         }
@@ -123,19 +126,14 @@
       var words = string.split(" ");
 
       _(numFragments(words)).each(function (numWords) {
-        var wordIndex;
-
-        if (numWords.indexOf("hundred") === 0 ||
-            numWords.indexOf("thousand") === 0) {
-          numWords.unshift("one");
-        }
-
-        wordIndex = words.indexOf(numWords[0]);
-        words[wordIndex] = wordsToNum(numWords);
+        var wordIndex = words.indexOf(numWords[0]);
 
         if (numWords.length > 1) {
           words.splice(wordIndex + 1, numWords.length - 1);
         }
+
+        if (isHighDenom(numWords[0])) numWords.unshift("one");
+        words[wordIndex] = wordsToNum(numWords);
       });
 
       return words.join(" ");

@@ -58,8 +58,8 @@ Clickster.Collections.SearchResults = Backbone.Collection.extend({
     var userResults = [];
     var that = this;
 
-    _(this.tvShows).each(function (tvShow) {
-      if (Utils.match(searchTerm, tvShow.title)) {
+    this.tvShows.each(function (tvShow) {
+      if (Utils.match(searchTerm, tvShow.strippedTitle)) {
         tvResults.push(tvShow);
       }
     });

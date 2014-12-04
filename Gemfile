@@ -30,6 +30,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers', require: false
+  gem 'timecop'
 end
 
 group :production do

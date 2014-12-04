@@ -24,6 +24,11 @@ class TvShow < ActiveRecord::Base
     self.statuses.keys
   end
 
+  def decades
+    self.tv_decades.map(&:decade).
+      sort_by { |decade| TvDecade.decades_list.index(decade) }
+  end
+
   def genres=(tv_genres)
     tv_genres.each do |genre|
       self.tv_genres.new(genre: genre)
@@ -38,24 +43,26 @@ class TvShow < ActiveRecord::Base
     if self.start_year.present?
       decade_range = [self.start_year, self.end_year || Date.current.year]
 
-      decade_range.map! do |decade|
-        decade = decade % 1000
+      decades = ((decade_range.first..decade_range.last).to_a.select do |year|
+        year % 10 == 0
+      end + [self.start_year]).uniq
+
+      decades.map! do |decade|
+        decade = decade % 100
         decade - (decade % 10)
+      end.map!(&:to_s).map! { |year| year.length == 2 ? year : year + "0" }
+
+      old_decades = (self.decades - decades).map do |decade|
+        TvDecade.decades_list.index(decade)
       end
 
-      decades = (decade_range.first..decade_range.last).to_a.select do |year|
-        year % 10 == 0
-      end.map(&:to_s).map { |year| year.length == 2 ? year : year + "0" }
-
-      self_decades = self.tv_decades.pluck(:decade)
-      old_decades = self_decades - decades
-
       unless old_decades.empty?
-        self.tv_decades.where("decade IN (#{ old_decades })").destroy_all
+        self.tv_decades.
+          where("decade IN (#{ old_decades.join(", ") })").destroy_all
       end
 
       decades.each do |decade|
-        next if self_decades.include?(decade)
+        next if self.decades.include?(decade)
         self.tv_decades.new(decade: decade)
       end
     end

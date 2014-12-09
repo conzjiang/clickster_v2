@@ -54,20 +54,14 @@ Clickster.Collections.SearchResults = Backbone.Collection.extend({
   },
 
   textSearch: function (searchTerm) {
-    var tvResults = [];
-    var userResults = [];
-    var that = this;
+    var query = new RegExp(Utils.strip(searchTerm), "i");
 
-    this.tvShows.each(function (tvShow) {
-      if (Utils.match(searchTerm, tvShow.strippedTitle)) {
-        tvResults.push(tvShow);
-      }
+    var tvResults = this.tvShows.filter(function (tvShow) {
+      return query.test(tvShow.strippedTitle);
     });
 
-    _(this.users).each(function (user) {
-      if (Utils.match(searchTerm, user)) {
-        userResults.push(user);
-      }
+    var userResults = this.users.filter(function (user) {
+      return query.test(Utils.strip(user.username));
     });
 
     return new this.model({

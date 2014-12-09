@@ -6,6 +6,42 @@ describe TvShow do
   it { should have_many(:tv_decades) }
   it { should have_many(:tv_genres) }
 
+  it "validates that start year is after 1900" do
+    tv_show.start_year = 1800
+
+    expect(tv_show).not_to be_valid
+    expect(tv_show.errors.full_messages).to include("Start year is invalid")
+  end
+
+  it "validates that start year must exist if end year is given" do
+    tv_show.end_year = 2000
+
+    expect(tv_show).not_to be_valid
+    expect(tv_show.errors.full_messages).to include(
+      "End year is invalid without start year"
+    )
+  end
+
+  it "validates that end year cannot be before start year" do
+    tv_show.start_year = 2000
+    tv_show.end_year = 1999
+
+    expect(tv_show).not_to be_valid
+    expect(tv_show.errors.full_messages).to include(
+      "End year cannot be before start year"
+    )
+  end
+
+  it "validates that status is not current if end year is given" do
+    tv_show.end_year = 2000
+    tv_show.status = "Currently Airing"
+
+    expect(tv_show).not_to be_valid
+    expect(tv_show.errors.full_messages).to include(
+      "Status cannot be Current if series has ended"
+    )
+  end
+
   describe "#genres=" do
     it "creates associated TV genres" do
       tv_show.genres = ["Comedy", "Romance"]

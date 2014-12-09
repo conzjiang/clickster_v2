@@ -12,6 +12,8 @@ class TvShow < ActiveRecord::Base
   has_many :tv_decades
   has_many :tv_genres
 
+  before_save :set_decades
+
   scope :decade_search, -> (decade_ids) {
     joins(:tv_decades).where("tv_decades.decade IN (#{decade_ids.join(',')})")
   }
@@ -24,51 +26,61 @@ class TvShow < ActiveRecord::Base
     self.statuses.keys
   end
 
-  def decades
-    self.tv_decades.map(&:decade).
+  def decades(reload = false)
+    self.tv_decades(reload).map(&:decade).
       sort_by { |decade| TvDecade.decades_list.index(decade) }
   end
 
-  def genres=(tv_genres)
-    tv_genres.each do |genre|
+  def genres=(new_genres)
+    old_genres = (self.genres - new_genres).map do |genre|
+      TvGenre.genres[genre]
+    end
+
+    unless old_genres.empty?
+      self.tv_genres.where(genre: old_genres).destroy_all
+    end
+
+    new_genres.each do |genre|
+      next if self.genres.include?(genre)
       self.tv_genres.new(genre: genre)
     end
   end
 
-  def genres
-    self.tv_genres.map(&:genre)
+  def genres(reload = false)
+    self.tv_genres(reload).map(&:genre)
+  end
+
+  private
+  def decade_range
+    decade_range = [self.start_year, self.end_year || Date.current.year]
+
+    decades = ((decade_range.first..decade_range.last).to_a.select do |year|
+      year % 10 == 0
+    end + [self.start_year]).uniq
+
+    decades.map do |decade|
+      year = ((decade % 100) - (decade % 10)).to_s
+      year.length == 2 ? year : year + "0"
+    end
   end
 
   def set_decades
     if self.start_year.present?
-      decade_range = [self.start_year, self.end_year || Date.current.year]
-
-      decades = ((decade_range.first..decade_range.last).to_a.select do |year|
-        year % 10 == 0
-      end + [self.start_year]).uniq
-
-      decades.map! do |decade|
-        decade = decade % 100
-        decade - (decade % 10)
-      end.map!(&:to_s).map! { |year| year.length == 2 ? year : year + "0" }
-
-      old_decades = (self.decades - decades).map do |decade|
-        TvDecade.decades_list.index(decade)
+      old_decades = (self.decades - decade_range).map do |decade|
+        TvDecade.decades[decade]
       end
 
       unless old_decades.empty?
-        self.tv_decades.
-          where("decade IN (#{ old_decades.join(", ") })").destroy_all
+        self.tv_decades.where(decade: old_decades).destroy_all
       end
 
-      decades.each do |decade|
+      decade_range.each do |decade|
         next if self.decades.include?(decade)
         self.tv_decades.new(decade: decade)
       end
     end
   end
 
-  private
   def valid_years
     if self.start_year && !self.start_year.between?(1900, Date.current.year)
       errors[:start_year] << 'is invalid'

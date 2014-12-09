@@ -22,6 +22,26 @@ function badChar(pattern, word, shift) {
 
 function goodSuffix(pattern, word, shift) {
   var badIndex = diffIndex(pattern, word, shift);
+  var patternSuffix, unexplored, subShift, goodIndex, newShift;
+
+  if (badIndex === -1) return -1;
+  patternSuffix = pattern.slice(badIndex);
+  unexplored = pattern.slice(0, badIndex);
+  subShift = patternSuffix.length - unexplored.length;
+
+  for (var i = unexplored.length - 1; i >= 0; i--) {
+    if (unexplored[i] !== patternSuffix[i + subShift]) break;
+    goodIndex = i;
+  }
+
+  if (goodIndex) {
+    goodIndex = goodIndices.pop();
+    newShift = goodIndex + shift;
+  } else {
+    newShift = pattern.length + shift;
+  }
+
+  return newShift;
 };
 
 function diffIndex(pattern, word, shift) {
@@ -36,3 +56,23 @@ function diffIndex(pattern, word, shift) {
 
   return badIndex;
 };
+
+function findSuffix(unexplored, patternSuffix, shift) {
+  var index, suffixIndex;
+
+  for (var i = 0; i < unexplored.length; i++) {
+    if (!index || index + 1 === patternSuffix.indexOf(unexplored[i])) {
+      index = patternSuffix.indexOf(unexplored[i]);
+      if (index === -1) break;
+      suffixIndex = i;
+    } else {
+      break;
+    }
+  }
+
+  if (!suffixIndex) {
+    return;
+  } else if (suffixIndex !== patternSuffix.length - 1) {
+    findSuffix(unexplored, patternSuffix.slice(suffixIndex))
+  }
+}

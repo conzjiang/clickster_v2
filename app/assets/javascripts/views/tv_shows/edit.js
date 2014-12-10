@@ -25,8 +25,8 @@ Clickster.Views.EditTvView = Backbone.View.extend({
       success: function () {
         Backbone.history.navigate("tv/" + that.tv.id, { trigger: true });
       },
-      error: function (data) {
-        var errors = data.responseJSON;
+      error: function (data, error) {
+        var errors = error.responseJSON;
         var $errorDisplay = that.$(".errors");
         $errorDisplay.empty();
 

@@ -2,9 +2,7 @@ class Api::TvShowsController < ApplicationController
   before_action :require_admin, only: [:create, :update]
 
   def create
-    tv_show = TvShow.includes(:tv_decades).
-      new(tv_params.merge(admin_id: current_user.id))
-    tv_show.set_decades
+    tv_show = current_user.tv_shows.includes(:tv_decades).new(tv_params)
 
     if tv_show.save
       render json: tv_show, methods: :genres
@@ -20,11 +18,6 @@ class Api::TvShowsController < ApplicationController
 
   def update
     tv_show = TvShow.find(params[:id])
-    tv_show.assign_attributes(tv_params)
-
-    unless (tv_show.changed & ["start_year", "end_year"]).empty?
-      tv_show.set_decades
-    end
 
     if tv_show.update(tv_params)
       render json: tv_show, methods: :genres

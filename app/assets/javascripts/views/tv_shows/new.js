@@ -1,20 +1,26 @@
 Clickster.Views.NewTvView = Backbone.View.extend({
-  initialize: function () {
-    this.tv = new Clickster.Models.TvShow();
-
-    this.listenTo(this.tv, "change", this.render);
+  initialize: function (options) {
+    this.tv = options.tv || new Clickster.Models.TvShow();
+    this.action = options.action;
     this.listenTo(Clickster.currentUser, "sync", this.render);
   },
 
   className: "tv-forms",
 
-  template: JST["tv_shows/new"],
+  newTemplate: JST["tv_shows/new"],
 
-  form: JST["tv_shows/_form"],
+  editTemplate: JST["tv_shows/edit"],
+
+  template: function (values) {
+    if (this.action === "new") {
+      return this.newTemplate(values);
+    } else {
+      return this.editTemplate(values);
+    }
+  },
 
   events: {
-    "submit .new-imdb-tv": "autocomplete",
-    "submit .new-tv": "createTV"
+    "submit .new-imdb-tv": "autocomplete"
   },
 
   autocomplete: function (event) {
@@ -55,8 +61,8 @@ Clickster.Views.NewTvView = Backbone.View.extend({
             rating: data.imdbRating
           };
 
-          that.searchResult = true;
           that.tv.set(attrs);
+          that._updateSearchStatus("Found!");
         }
       },
       error: function () {
@@ -65,36 +71,15 @@ Clickster.Views.NewTvView = Backbone.View.extend({
     });
   },
 
-  createTV: function (event) {
-    event.preventDefault();
-    var tvParams = $(event.target).serializeJSON().tv_show;
-    var that = this;
+  form: function () {
+    if (!this._form) {
+      this._form = new Clickster.Views.TvFormView({
+        tv: this.tv,
+        action: this.action
+      });
+    }
 
-    this.tv.save(tvParams, {
-      success: function (data) {
-        Clickster.tvShows.add(that.tv, { wait: true });
-        Clickster.searchResults.addTextResult(that.tv);
-        Backbone.history.navigate("tv/" + data.id, { trigger: true });
-      },
-
-      error: function (attrs, data) {
-        var errors = data.responseJSON;
-        var $errorDisplay = that.$(".errors");
-        $errorDisplay.empty();
-
-        if (errors.imdb_id) {
-          $errorDisplay.append("<li>" + errors.imdb_id + "</li>");
-        } else {
-          for (var attr in errors) {
-            var $li = $("<li>");
-            $li.html(Utils.convertToWords(attr) + " " + errors[attr][0]);
-            $errorDisplay.append($li);
-
-            that.$("#tv_show_" + attr).parent().addClass("error");
-          }
-        }
-      }
-    });
+    return this._form;
   },
 
   render: function (status) {
@@ -103,31 +88,16 @@ Clickster.Views.NewTvView = Backbone.View.extend({
       return this;
     }
 
-    var content = this.template({ tv: this.tv });
-    var form = this.form({
-      tv: this.tv,
-      formHeader: "Add Manually",
-      buttonContent: "Add Series"
-    });
-    var that = this;
-
+    var content = this.template({ tv: this.tv, action: this.action });
     this.$el.html(content);
-    this.$el.append(form);
-
-    if (this.searchResult) {
-      this._updateSearchStatus("Found!");
-      this.searchResult = false;
-    }
-
-    _(this.tv.get("genres")).each(function (genre) {
-      var urlsafeGenre = genre.replace(/\//g, "");
-      that.$("#form_genre_" + urlsafeGenre).prop("checked", true);
-    });
-
-    $("option[value='" + this.tv.get("status") + "']").
-      prop("selected", true);
+    this.$el.append(this.form().render().$el);
 
     return this;
+  },
+
+  remove: function () {
+    this.form().remove();
+    return Backbone.View.prototype.remove.apply(this);
   },
 
   _updateSearchStatus: function (status) {

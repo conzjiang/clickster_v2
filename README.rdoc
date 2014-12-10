@@ -1,4 +1,4 @@
-This is the new and improved version of Clickster (https://github.com/conzjiang/clickster_v2)!
+This is the new and improved version of Clickster (https://github.com/conzjiang/clickster)!
 
 New features:
 

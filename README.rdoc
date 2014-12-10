@@ -1,3 +1,11 @@
+This is the new and improved version of Clickster (https://github.com/conzjiang/clickster_v2)!
+
+New features:
+
+* Mobile-first design!
+* Everything in Backbone!
+* Much more optimized search queries!
+
 == TODO
 
-* Searching with numbers and "&" together in query not yet supported
+* Boyer-Moore algorithm for faster search lookup

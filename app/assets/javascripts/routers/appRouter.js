@@ -36,7 +36,7 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
 
   tvShow: function (id) {
     var tv = Clickster.tvShows.getOrFetch(id);
-    var tvShowView = new Clickster.Views.TvShow({ tv: tv });
+    var tvShowView = new Clickster.Views.TvShowView({ tv: tv });
     this._swapRootEl(tvShowView);
   },
 

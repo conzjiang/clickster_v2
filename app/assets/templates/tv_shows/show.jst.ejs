@@ -1,5 +1,17 @@
-<h1><%= tv.escape('title') %></h1>
+<h1><%= tv.escape("title") %></h1>
+
+<ul>
+  <li>Genres: <%= tv.get("genres").join(", ") %></li>
+  <li>Network: <%= tv.escape("network") %></li>
+  <li># of Seasons: <%= tv.escape("num_seasons") %></li>
+  <% endYear = tv.get("end_year") %>
+  <% if (!endYear) endYear = "present" %>
+  <li>Years: <%= tv.get("start_year") %> - <%= endYear %></li>
+  <li>Status: <%= tv.get("status") %></li>
+  <li>IMDb Rating: <%= tv.get("rating") %></li>
+  <li>Description: <%= tv.escape("blurb") %></li>
+</ul>
 
 <% if (isAdmin) { %>
-<a href="#/tv/<%= tv.id %>/edit">Edit</a>
+  <a href="#/tv/<%= tv.id %>/edit">Edit</a>
 <% } %>

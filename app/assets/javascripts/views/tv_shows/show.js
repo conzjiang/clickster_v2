@@ -1,4 +1,4 @@
-Clickster.Views.TvShow = Backbone.View.extend({
+Clickster.Views.TvShowView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
 

@@ -54,9 +54,9 @@ Clickster.Views.TvFormView = Backbone.View.extend({
       that.$("#form_genre_" + urlsafeGenre).prop("checked", true);
     });
 
-    $("option[value='" + this.tv.get("status") + "']").
+    this.$("option[value='" + this.tv.get("status") + "']").
       prop("selected", true);
-
+      
     return this;
   },
 

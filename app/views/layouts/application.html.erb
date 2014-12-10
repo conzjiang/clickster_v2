@@ -9,14 +9,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body ontouchstart="">
+  <%= filepicker_js_include_tag %>
+  <script>
+    filepicker.setKey("<%= ENV["FILEPICKER_KEY"] %>");
+  </script>
 
-<%= flash[:notice] %>
+  <%= flash[:notice] %>
 
-<% if signed_in? %>
-  <%= current_user.username %>
-<% end %>
+  <% if signed_in? %>
+    <%= current_user.username %>
+  <% end %>
 
-<%= yield %>
+  <%= yield %>
 
 </body>
 </html>

@@ -30,5 +30,7 @@ module Conzq2
         :request_specs => true
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
+
+    config.filepicker_rails.api_key = ENV["FILEPICKER_KEY"]
   end
 end

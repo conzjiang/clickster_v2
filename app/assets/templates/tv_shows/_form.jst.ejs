@@ -12,6 +12,12 @@
   </fieldset>
 
   <fieldset>
+    <label for="tv_show_image_url">Image</label>
+    <img class="tv_show_image" src="<%= tv.get("image_url") %>">
+    <button type="filepicker">Upload Image</button>
+  </fieldset>
+
+  <fieldset>
     <strong>Genre(s)</strong>
     <ul class='genres'>
       <% _(Clickster.GENRES).each(function(genre) { %>

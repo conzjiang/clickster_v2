@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141115175801) do
+ActiveRecord::Schema.define(version: 20141210185252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20141115175801) do
     t.float    "rating"
     t.string   "imdb_id"
     t.string   "network"
+    t.string   "image_url"
   end
 
   add_index "tv_shows", ["title"], name: "index_tv_shows_on_title", using: :btree

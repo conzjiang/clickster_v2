@@ -13,6 +13,7 @@ gem 'spring',        group: :development
 gem 'backbone-on-rails'
 gem 'bcrypt', require: 'bcrypt'
 gem 'figaro'
+gem 'filepicker-rails'
 
 group :development, :test do
   gem 'factory_girl_rails'

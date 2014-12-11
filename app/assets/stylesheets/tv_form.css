@@ -97,6 +97,25 @@ form.new-tv > fieldset.error > select {
   }
 }
 
+form.new-tv label[for=tv_show_image_url] {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+form.new-tv img.tv_show_image {
+  display: block;
+  width: auto;
+  max-width: 400px;
+  max-height: 300px;
+  margin: auto;
+}
+
+form.new-tv .filepicker-upload {
+  padding: 4px 8px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
 form.new-tv textarea {
   height: 90px;
 }

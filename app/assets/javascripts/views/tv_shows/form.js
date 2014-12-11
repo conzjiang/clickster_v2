@@ -8,7 +8,22 @@ Clickster.Views.TvFormView = Backbone.View.extend({
   template: JST["tv_shows/_form"],
 
   events: {
+    "click .filepicker-upload": "uploadImage",
     "submit .new-tv": "saveTV"
+  },
+
+  uploadImage: function (event) {
+    var that = this;
+
+    event.preventDefault();
+
+    filepicker.pick({
+      mimetype: "image/*",
+      services: ["COMPUTER", "URL"]
+    }, function (blob) {
+      that.tv.set("image_url", blob.url);
+      that.$("img").attr("src", blob.url);
+    });
   },
 
   saveTV: function (event) {
@@ -56,7 +71,7 @@ Clickster.Views.TvFormView = Backbone.View.extend({
 
     this.$("option[value='" + this.tv.get("status") + "']").
       prop("selected", true);
-      
+
     return this;
   },
 

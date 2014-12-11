@@ -1,5 +1,7 @@
 <h1><%= tv.escape("title") %></h1>
 
+<img src="<%= tv.escape("image_url") %>">
+
 <ul>
   <li>Genres: <%= tv.get("genres").join(", ") %></li>
   <li>Network: <%= tv.escape("network") %></li>

@@ -16,7 +16,7 @@
   <% if (results.userResults.length > 0) { %>
     <ul>
       <% _(results.userResults).each(function (user) { %>
-        <li><a href="#/users/<%= user.id %>"><%= user.username %></a></li>
+        <li><a href="#/users/<%= user.username %>"><%= user.username %></a></li>
       <% }) %>
     </ul>
   <% } else { %>

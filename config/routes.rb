@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get 'current_tv', to: 'api#current_tv'
 
     resources :users, only: [:create]
+    get 'users/:username', to: 'users#show', as: 'user'
     resource :session, only: [:create]
     resources :tv_shows, only: [:create, :show, :update]
 

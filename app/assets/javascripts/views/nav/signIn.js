@@ -5,7 +5,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
 
   className: "content",
 
-  template: JST['signIn'],
+  template: JST['nav/signIn'],
 
   events: {
     'click a': 'toggleForm',

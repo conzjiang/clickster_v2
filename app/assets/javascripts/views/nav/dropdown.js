@@ -1,7 +1,7 @@
 Clickster.Views.DropdownView = Backbone.View.extend({
   className: "content",
 
-  template: JST["dropdownMenu"],
+  template: JST["nav/dropdownMenu"],
 
   events: {
     "touchstart .nav-link": "mobileTouch",

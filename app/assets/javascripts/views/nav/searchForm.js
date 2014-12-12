@@ -1,7 +1,7 @@
 Clickster.Views.SearchFormView = Backbone.View.extend({
   className: "content",
 
-  template: JST["searchForm"],
+  template: JST["nav/searchForm"],
 
   events: {
     "click input[name=query]": "expandInput",

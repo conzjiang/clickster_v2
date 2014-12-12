@@ -5,7 +5,7 @@ Clickster.Views.Nav = Backbone.View.extend({
     this.listenTo(Clickster.currentUser, "sync", this.render);
   },
 
-  template: JST["nav"],
+  template: JST["nav/nav"],
 
   events: {
     "click #open-search": "toggleSearch",

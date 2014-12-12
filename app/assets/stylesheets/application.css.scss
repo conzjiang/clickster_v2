@@ -10,8 +10,8 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
+ *= require_tree .
  */
 
 
@@ -134,11 +134,18 @@ section#main {
   width: 100%;
   margin: auto;
   box-sizing: border-box;
+
+  > div {
+    padding: 50px 30px;
+  }
 }
 
 @media (min-width: 500px) {
   section#main {
     max-width: 1000px;
-    padding: 50px;
+
+    > div {
+      padding: 50px;
+    }
   }
 }

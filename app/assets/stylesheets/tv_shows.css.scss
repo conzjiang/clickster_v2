@@ -1,4 +1,6 @@
-.tv-show {
+section#main > .tv-show {
+  padding: 0;
+
   .image-block {
     width: 100%;
     position: relative;
@@ -30,6 +32,7 @@
     color: #fff;
     background: #888;
     border-radius: 15px;
+    border: 1px solid #999;
   }
 
   .image-block > a.edit:before {

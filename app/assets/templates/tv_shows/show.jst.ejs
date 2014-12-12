@@ -1,19 +1,35 @@
-<h1><%= tv.escape("title") %></h1>
+<figure class="image-block">
+  <img src="<%= tv.escape("image_url") %>">
+  <div class="cover"></div>
+  <div class="content">
+    <figcaption><%= tv.escape("title") %></figcaption>
+    <ul class="genres group">
+      <% _(tv.get("genres")).each(function (genre) { %>
+        <li><a href="#/<%= genre %>"><%= genre %></a></li>
+      <% }) %>
+    </ul>
+  </div>
 
-<img src="<%= tv.escape("image_url") %>">
+  <% if (isAdmin) { %>
+    <a class="edit" href="#/tv/<%= tv.id %>/edit">Edit</a>
+  <% } %>
+</figure>
 
-<ul>
-  <li>Genres: <%= tv.get("genres").join(", ") %></li>
-  <li>Network: <%= tv.escape("network") %></li>
-  <li># of Seasons: <%= tv.escape("num_seasons") %></li>
-  <% endYear = tv.get("end_year") %>
-  <% if (!endYear) endYear = "present" %>
-  <li>Years: <%= tv.get("start_year") %> - <%= endYear %></li>
-  <li>Status: <%= tv.get("status") %></li>
-  <li>IMDb Rating: <%= tv.get("rating") %></li>
-  <li>Description: <%= tv.escape("blurb") %></li>
-</ul>
+<article class="tv-info">
+  <ul class="info">
+    <li><%= tv.get("status") %></li>
+    <li><label>on</label> <%= tv.escape("network") %></li>
+    <li><label>for</label> <%= tv.escape("num_seasons") %> season(s)</li>
 
-<% if (isAdmin) { %>
-  <a href="#/tv/<%= tv.id %>/edit">Edit</a>
-<% } %>
+    <% endYear = tv.get("end_year") %>
+    <% if (!endYear) endYear = "present" %>
+    <li><label>from</label> <%= tv.get("start_year") %> - <%= endYear %></li>
+  </ul>
+
+  <aside>
+    <p class="rating"><%= tv.get("rating") %></p>
+    on IMDb
+  </aside>
+
+  <p class="blurb"><%= tv.escape("blurb") %></p>
+</article>

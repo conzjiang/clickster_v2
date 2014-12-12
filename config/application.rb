@@ -32,5 +32,7 @@ module Conzq2
     end
 
     config.filepicker_rails.api_key = ENV["FILEPICKER_KEY"]
+
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
   end
 end

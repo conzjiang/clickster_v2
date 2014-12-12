@@ -6,6 +6,8 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     this.listenTo(Clickster.currentUser, "sync", this.render);
   },
 
+  className: "tv-show",
+
   template: JST["tv_shows/show"],
 
   render: function () {

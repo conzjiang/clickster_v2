@@ -14,7 +14,22 @@
  *= require_self
  */
 
-html, body, h1, h2, form, fieldset, ul, li, section, article, div, input, button, textarea, p, a, main, figure, label, b, strong, select {
+
+
+@font-face {
+  font-family: 'Entypo';
+  src:font-url('entypo/entypo.eot');
+  src:font-url('entypo/entypo.eot?#iefix') format('embedded-opentype'),
+    font-url('entypo/entypo.svg') format('svg'),
+    font-url('entypo/entypo.woff') format('woff'),
+    font-url('entypo/entypo.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html, body, h1, h2, form, fieldset, ul, li, section, article, div, input,
+button, textarea, p, a, main, figure, figcaption, label, b, strong, select,
+aside {
   margin: 0;
   padding: 0;
   border: 0;
@@ -118,7 +133,6 @@ main.open {
 section#main {
   width: 100%;
   margin: auto;
-  padding: 50px 30px;
   box-sizing: border-box;
 }
 

@@ -14,6 +14,13 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     var isAdmin = Clickster.currentUser.get("is_admin");
     var content = this.template({ tv: this.tv, isAdmin: isAdmin });
     this.$el.html(content);
+
+    if (this.tv.get("image_url")) {
+      this.$(".image-block").css({
+        "background-image": "url('" + this.tv.get("image_url") + "')"
+      });
+    }
+
     return this;
   }
 });

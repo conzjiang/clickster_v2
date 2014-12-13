@@ -1,5 +1,4 @@
 <figure class="image-block">
-  <img src="<%= tv.escape("image_url") %>">
   <div class="cover"></div>
   <div class="content">
     <figcaption><%= tv.escape("title") %></figcaption>
@@ -33,3 +32,18 @@
 
   <p class="blurb"><%= tv.escape("blurb") %></p>
 </article>
+
+<script>
+  $(function () {
+    $("main").on("scroll", function (e) {
+      var scrollPos = $("main").scrollTop();
+
+      if (scrollPos < 100) {
+        e.preventDefault();
+        $(".image-block").css({
+          "background-position": "0 -" + scrollPos + "px"
+        });
+      }
+    });
+  });
+</script>

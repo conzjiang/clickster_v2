@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true }
 
   has_many :tv_shows, foreign_key: :admin_id
-  has_many :watchlists, inverse_of: :watcher
+  has_many :watchlists, foreign_key: :watcher_id, inverse_of: :watcher
   has_many :watchlist_shows, through: :watchlists, source: :tv_show
 
   after_initialize :ensure_session_token

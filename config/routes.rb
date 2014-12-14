@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   namespace :api, defaults: { format: :json } do
-    get 'current_user', to: 'api#current'
-    get 'current_tv', to: 'api#current_tv'
+    get 'current_user', to: 'current_user#show'
+    get 'current_user/tv_shows', to: 'current_user#tv_shows'
+    post 'current_user/add_watchlist', to: 'current_user#add_watchlist'
 
     resources :users, only: [:create]
     get 'users/:username', to: 'users#show', as: 'user'

@@ -11,11 +11,32 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   template: JST["tv_shows/show"],
 
   events: {
-    "click li.watchlist": "showOptions"
+    "click li.watchlist": "toggleOptions",
+    "click li.list": "addToWatchlist"
   },
 
-  showOptions: function () {
-    this.$(".options > ul").addClass("show");
+  toggleOptions: function () {
+    this.$(".options > ul").toggleClass("show");
+  },
+
+  addToWatchlist: function () {
+    var status = $(event.target).data("option");
+    var $button = $(event.target);
+    var that = this;
+
+    $button.siblings().removeClass("selected");
+
+    Clickster.currentUser.watchlists().create({
+      tv_show_id: this.tv.id,
+      status: status
+    }, {
+      success: function () {
+        var $watchlistButton = that.$(".watchlist");
+        that._scaleAndFadeButton($button.addClass("selected"));
+        $watchlistButton.addClass("selected").attr("data-option", status);
+        $watchlistButton.html(status);
+      }
+    });
   },
 
   render: function () {
@@ -30,5 +51,25 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     }
 
     return this;
+  },
+
+  _scaleAndFadeButton: function ($button) {
+    var $newButton = $button.clone();
+    var transitioning = false;
+    var that = this;
+
+    $button.addClass("select");
+
+    $button.children("strong").on("transitionend", function () {
+      if (transitioning) {
+        $button.replaceWith($newButton);
+        $button.children("strong").off();
+        that.toggleOptions();
+      }
+
+      if (!transitioning) {
+        transitioning = true;
+      }
+    });
   }
 });

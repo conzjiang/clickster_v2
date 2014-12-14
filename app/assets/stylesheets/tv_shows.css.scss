@@ -108,34 +108,32 @@ section#main > .tv-show {
     box-sizing: border-box;
   }
 
-  li.watchlist, li.favorite {
+  li.button {
     width: 50%;
     height: 71px;
     border-bottom: 1px solid #ccc;
   }
 
-  li.watchlist:before {
-    content: "+";
-    position: absolute;
-    top: 3px;
-    display: block;
-    width: 100%;
-    font-size: 30px;
-  }
-
-  li.favorite {
-    width: calc(50% - 1px);
-    border-left: 1px solid #ccc;
-  }
-
-  li.favorite:before {
-    content: "\2661";
+  li.button:before {
     display: block;
     position: absolute;
     top: 1px;
     width: 100%;
     font-family: "Entypo";
     font-size: 45px;
+  }
+
+  li.watchlist:before {
+    content: "\2795";
+  }
+
+  li.favorite:before {
+    content: "\2661";
+  }
+
+  li.favorite {
+    width: calc(50% - 1px);
+    border-left: 1px solid #ccc;
   }
 
   li.list {
@@ -149,7 +147,8 @@ section#main > .tv-show {
     border-left: 1px solid #ccc;
   }
 
-  li.list:before {
+  li.list:before,
+  li.list > strong:before {
     display: block;
     position: absolute;
     top: 3px;
@@ -158,28 +157,50 @@ section#main > .tv-show {
     font-size: 45px;
   }
 
-  li[data-option=current]:before {
+  li.list:before {
+    z-index: 1;
+  }
+
+  li[data-option='Watching']:before,
+  li[data-option='Watching'] > strong:before {
     content: "\2016";
   }
 
-  li[data-option=plan]:before {
+  li[data-option='Plan to Watch']:before,
+  li[data-option='Plan to Watch'] > strong:before {
     content: "\25B6";
   }
 
-  li[data-option=completed]:before {
+  li[data-option='Completed']:before,
+  li[data-option='Completed'] > strong:before {
     content: "\25A0";
   }
 
-  li[data-option=dropped]:before {
+  li[data-option='Dropped']:before,
+  li[data-option='Dropped'] > strong:before {
     content: "\23ED";
   }
 
+  li.list > strong:before {
+    transform: scale(1);
+    opacity: 1;
+    transition: transform 0.5s, opacity 0.7s;
+    z-index: 0;
+  }
 
+  li.list.select > strong:before {
+    transform: scale(2);
+    opacity: 0;
+  }
+
+  li.selected {
+    color: #fff;
+  }
 }
 
 .tv-show > article.tv-info {
   padding: 30px;
-  padding-top: 10px;
+  padding-top: 0;
 
   ul.info {
 

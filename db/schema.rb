@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210185252) do
+ActiveRecord::Schema.define(version: 20141214012840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,5 +64,16 @@ ActiveRecord::Schema.define(version: 20141210185252) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
+
+  create_table "watchlists", force: true do |t|
+    t.integer  "watcher_id"
+    t.integer  "tv_show_id"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "watchlists", ["tv_show_id"], name: "index_watchlists_on_tv_show_id", using: :btree
+  add_index "watchlists", ["watcher_id"], name: "index_watchlists_on_watcher_id", using: :btree
 
 end

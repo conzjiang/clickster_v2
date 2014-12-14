@@ -50,6 +50,13 @@ Clickster.Views.TvShowView = Backbone.View.extend({
       });
     }
 
+    if (this.tv.onWatchlist()) {
+      var status = this.tv.watchStatus;
+      this.$(".watchlist").attr("data-option", status);
+      this.$(".watchlist").html(status);
+      this.$("li[data-option='" + status + "']").addClass("selected");
+    }
+
     return this;
   },
 

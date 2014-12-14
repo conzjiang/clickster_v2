@@ -1,6 +1,5 @@
 class Api::CurrentUserController < ApplicationController
   def show
-    render json: current_user
   end
 
   def tv_shows

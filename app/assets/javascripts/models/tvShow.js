@@ -10,9 +10,7 @@ Clickster.Models.TvShow = Backbone.Model.extend({
   },
 
   onWatchlist: function () {
-    var watchlist = Clickster.currentUser.watchlists().findWhere({
-      tv_show_id: this.id
-    });
+    var watchlist = Clickster.currentUser.watchlists().get(this.id);
 
     if (watchlist) this.watchStatus = watchlist.get("status");
 

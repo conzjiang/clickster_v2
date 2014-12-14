@@ -1,6 +1,17 @@
 Clickster.Models.CurrentUser = Backbone.Model.extend({
   url: 'api/current_user',
 
+  favorites: function () {
+    if (!this._favorites) {
+      this._favorites = new Clickster.Collections.Lists({
+        user: this,
+        url: 'api/current_user/favorites'
+      });
+    }
+
+    return this._favorites;
+  },
+
   parse: function (response) {
     if (response.tv_shows) {
       this.tvShows().set(response.tv_shows);
@@ -10,6 +21,11 @@ Clickster.Models.CurrentUser = Backbone.Model.extend({
     if (response.watchlists) {
       this.watchlists().set(response.watchlists);
       delete response.watchlists;
+    }
+
+    if (response.favorites) {
+      this.favorites().set(response.favorites);
+      delete response.favorites;
     }
 
     return response;
@@ -27,8 +43,9 @@ Clickster.Models.CurrentUser = Backbone.Model.extend({
 
   watchlists: function () {
     if (!this._watchlists) {
-      this._watchlists = new Clickster.Collections.Watchlists({
-        user: this
+      this._watchlists = new Clickster.Collections.Lists({
+        user: this,
+        url: 'api/current_user/watchlists'
       });
     }
 

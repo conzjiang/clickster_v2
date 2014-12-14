@@ -196,6 +196,10 @@ section#main > .tv-show {
   li.selected {
     color: #fff;
   }
+
+  li.favorite.selected:before {
+    content: "\2665";
+  }
 }
 
 .tv-show > .warning {

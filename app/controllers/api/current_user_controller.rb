@@ -6,12 +6,30 @@ class Api::CurrentUserController < ApplicationController
     render json: current_user.tv_shows.order(:title)
   end
 
+  def favorites
+    favorite = current_user.favorites.find_or_initialize_by(
+      tv_show_id: params[:current_user][:tv_show_id]
+    )
+
+    if favorite.persisted?
+      favorite.destroy!
+      render json: { destroyed: true }
+    else
+      favorite.save!
+      render json: favorite
+    end
+  end
+
   def add_watchlist
-    watchlist = current_user.watchlists.
-      find_or_initialize_by(tv_show_id: watchlist_params[:tv_show_id])
+    watchlist = current_user.watchlists.find_or_initialize_by(
+      tv_show_id: watchlist_params[:tv_show_id]
+    )
 
     if watchlist.update(watchlist_params)
-      render json: watchlist
+      render json: {
+        tv_show_id: watchlist.tv_show_id,
+        status: watchlist.status
+      }
     else
       render json: watchlist.errors.full_messages, status: 422
     end

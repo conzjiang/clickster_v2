@@ -12,6 +12,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
 
   events: {
     "click li.watchlist": "toggleOptions",
+    "click li.favorite": "toggleFavorite",
     "click li.list": "addToWatchlist"
   },
 
@@ -26,6 +27,27 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     this.$(".options > ul").toggleClass("show");
   },
 
+  toggleFavorite: function (e) {
+    var signedIn = !!Clickster.currentUser.id;
+    var $button = $(e.target);
+    var favorites = Clickster.currentUser.favorites();
+
+    if (!signedIn) {
+      this._warning();
+      return;
+    }
+
+    favorites.create({ tv_show_id: this.tv.id }, {
+      success: function (data) {
+        if (data.get("destroyed")) {
+          favorites.remove(data);
+        }
+
+        $button.toggleClass("selected");
+      }
+    });
+  },
+
   addToWatchlist: function () {
     var status = $(event.target).data("option");
     var $button = $(event.target);
@@ -37,7 +59,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
       tv_show_id: this.tv.id,
       status: status
     }, {
-      success: function () {
+      success: function (data) {
         var $watchlistButton = that.$(".watchlist");
         that._scaleAndFadeButton($button.addClass("selected"));
         $watchlistButton.addClass("selected").attr("data-option", status);

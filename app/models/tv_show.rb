@@ -12,6 +12,8 @@ class TvShow < ActiveRecord::Base
   has_many :tv_decades
   has_many :tv_genres
   has_many :watchlists
+  has_many :favorites
+  has_many :favoriters, through: :favorites
 
   before_save :set_decades
 

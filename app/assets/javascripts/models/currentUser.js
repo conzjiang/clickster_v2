@@ -20,8 +20,6 @@ Clickster.Models.CurrentUser = Backbone.Model.extend({
       this._tvShows = new Clickster.Collections.TvShows({
         user: this
       });
-      this._tvShows.url = 'api/current_user/tv_shows';
-      this._tvShows.fetch();
     }
 
     return this._tvShows;

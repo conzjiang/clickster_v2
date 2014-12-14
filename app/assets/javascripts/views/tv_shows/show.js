@@ -16,6 +16,13 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   },
 
   toggleOptions: function () {
+    var signedIn = !!Clickster.currentUser.id;
+
+    if (!signedIn) {
+      this._warning();
+      return;
+    }
+
     this.$(".options > ul").toggleClass("show");
   },
 
@@ -78,5 +85,14 @@ Clickster.Views.TvShowView = Backbone.View.extend({
         transitioning = true;
       }
     });
+  },
+
+  _warning: function () {
+    var $warning = this.$(".warning");
+    $warning.addClass("show");
+
+    setTimeout(function () {
+      $warning.removeClass("show");
+    }, 2000);
   }
 });

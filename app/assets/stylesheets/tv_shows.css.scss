@@ -198,6 +198,20 @@ section#main > .tv-show {
   }
 }
 
+.tv-show > .warning {
+  position: relative;
+  top: -25px;
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.tv-show > .warning.show {
+  opacity: 1;
+}
+
 .tv-show > article.tv-info {
   padding: 30px;
   padding-top: 0;

@@ -51,21 +51,39 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   addToWatchlist: function () {
     var status = $(event.target).data("option");
     var $button = $(event.target);
+    var watchlists = Clickster.currentUser.watchlists();
     var that = this;
 
-    $button.siblings().removeClass("selected");
-
-    Clickster.currentUser.watchlists().create({
-      tv_show_id: this.tv.id,
-      status: status
-    }, {
+    var onSuccess = {
       success: function (data) {
         var $watchlistButton = that.$(".watchlist");
         that._scaleAndFadeButton($button.addClass("selected"));
         $watchlistButton.addClass("selected").attr("data-option", status);
         $watchlistButton.html(status);
       }
-    });
+    };
+
+    if ($button.hasClass("selected")) {
+      this.deleteFromWatchlist(function () {
+        $button.removeClass("selected");
+      });
+
+      return;
+    }
+
+    $button.siblings().removeClass("selected");
+
+    if (watchlists.get(this.tv.id)) {
+      watchlists.get(this.tv.id).save({ status: status }, onSuccess);
+    } else {
+      watchlists.create({ tv_show_id: this.tv.id, status: status }, onSuccess);
+    }
+  },
+
+  deleteFromWatchlist: function (callback) {
+    var watchlist = Clickster.currentUser.watchlists().get(this.tv.id);
+    watchlist.set('id', this.tv.id);
+    watchlist.destroy({ success: callback });
   },
 
   render: function () {

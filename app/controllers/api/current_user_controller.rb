@@ -35,6 +35,15 @@ class Api::CurrentUserController < ApplicationController
     end
   end
 
+  def delete_watchlist
+    watchlist = current_user.watchlists.find_by(
+      tv_show_id: params[:tv_show_id]
+    )
+
+    watchlist.destroy!
+    render json: { destroyed: true }
+  end
+
   private
   def watchlist_params
     params.require(:current_user).permit(:tv_show_id, :status)

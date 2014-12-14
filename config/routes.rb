@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     get 'current_user', to: 'current_user#show'
     get 'current_user/tv_shows', to: 'current_user#tv_shows'
     post 'current_user/watchlists', to: 'current_user#add_watchlist'
+    delete 'current_user/watchlists/:tv_show_id',
+      to: 'current_user#delete_watchlist'
     post 'current_user/favorites', to: 'current_user#favorites'
 
     resources :users, only: [:create]

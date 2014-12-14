@@ -79,37 +79,102 @@ section#main > .tv-show {
 .tv-show > .options {
   display: block;
   position: relative;
-  top: -20px;
+  top: -30px;
   width: 95%;
   height: 70px;
   margin: auto;
+  overflow: hidden;
+
+  > ul {
+    width: 100%;
+    position: relative;
+    top: 0;
+    transition: top 0.5s;
+  }
+
+  > ul.show {
+    top: -71px;
+  }
 
   li {
+    position: relative;
     float: left;
-    width: 50%;
-    height: 100%;
+    height: 70px;
+    padding-top: 37px;
     text-align: center;
     color: #ccc;
     background: #888;
+    cursor: pointer;
+    box-sizing: border-box;
   }
 
-  li:first-child:before {
+  li.watchlist, li.favorite {
+    width: 50%;
+    height: 71px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  li.watchlist:before {
     content: "+";
+    position: absolute;
+    top: 3px;
     display: block;
+    width: 100%;
     font-size: 30px;
   }
 
-  li:last-child {
+  li.favorite {
     width: calc(50% - 1px);
     border-left: 1px solid #ccc;
   }
 
-  li:last-child:before {
+  li.favorite:before {
     content: "\2661";
     display: block;
+    position: absolute;
+    top: 1px;
+    width: 100%;
     font-family: "Entypo";
-    font-size: 30px;
+    font-size: 45px;
   }
+
+  li.list {
+    width: 25%;
+    font-size: 12px;
+    padding-top: 39px;
+  }
+
+  li.list ~ li.list {
+    width: calc(25% - 1px);
+    border-left: 1px solid #ccc;
+  }
+
+  li.list:before {
+    display: block;
+    position: absolute;
+    top: 3px;
+    width: 100%;
+    font-family: "Entypo";
+    font-size: 45px;
+  }
+
+  li[data-option=current]:before {
+    content: "\2016";
+  }
+
+  li[data-option=plan]:before {
+    content: "\25B6";
+  }
+
+  li[data-option=completed]:before {
+    content: "\25A0";
+  }
+
+  li[data-option=dropped]:before {
+    content: "\23ED";
+  }
+
+
 }
 
 .tv-show > article.tv-info {

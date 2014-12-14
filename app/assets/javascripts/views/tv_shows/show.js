@@ -10,6 +10,14 @@ Clickster.Views.TvShowView = Backbone.View.extend({
 
   template: JST["tv_shows/show"],
 
+  events: {
+    "click li.watchlist": "showOptions"
+  },
+
+  showOptions: function () {
+    this.$(".options > ul").addClass("show");
+  },
+
   render: function () {
     var isAdmin = Clickster.currentUser.get("is_admin");
     var content = this.template({ tv: this.tv, isAdmin: isAdmin });

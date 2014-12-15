@@ -90,19 +90,9 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     var isAdmin = Clickster.currentUser.get("is_admin");
     var content = this.template({ tv: this.tv, isAdmin: isAdmin });
     this.$el.html(content);
-
-    if (this.tv.get("image_url")) {
-      this.$(".image-block").css({
-        "background-image": "url('" + this.tv.get("image_url") + "')"
-      });
-    }
-
-    if (this.tv.onWatchlist()) {
-      var status = this.tv.watchStatus;
-      this.$(".watchlist").attr("data-option", status);
-      this.$(".watchlist").html(status);
-      this.$("li[data-option='" + status + "']").addClass("selected");
-    }
+    this._setImage();
+    this._setWatchlistStatus();
+    this._setFavorite();
 
     return this;
   },
@@ -125,6 +115,29 @@ Clickster.Views.TvShowView = Backbone.View.extend({
         transitioning = true;
       }
     });
+  },
+
+  _setFavorite: function () {
+    if (this.tv.isFavorite()) {
+      this.$(".favorite").addClass("selected");
+    }
+  },
+
+  _setImage: function () {
+    if (this.tv.get("image_url")) {
+      this.$(".image-block").css({
+        "background-image": "url('" + this.tv.get("image_url") + "')"
+      });
+    }
+  },
+
+  _setWatchlistStatus: function () {
+    if (this.tv.onWatchlist()) {
+      var status = this.tv.watchStatus;
+      this.$(".watchlist").attr("data-option", status);
+      this.$(".watchlist").html(status);
+      this.$("li[data-option='" + status + "']").addClass("selected");
+    }
   },
 
   _warning: function () {

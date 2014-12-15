@@ -17,6 +17,8 @@
 //= require backbone
 //= require conzq2
 //= require_tree ../templates
+//= require ./models/user
+//= require ./models/currentUser
 //= require_tree ./models
 //= require_tree ./collections
 //= require_tree ./views

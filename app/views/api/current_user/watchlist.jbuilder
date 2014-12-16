@@ -1,1 +1,1 @@
-json.partial! @watchlist, partial: '/api/watchlists/watchlist', as: :watchlist
+json.partial! 'api/lists/watchlist', watchlist: @watchlist

@@ -38,21 +38,23 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     var signedIn = !!Clickster.currentUser.id;
     var $button = $(e.target);
     var favorites = Clickster.currentUser.favorites();
+    var favorite = favorites.get(this.tv.id);
+    var onSuccess = {
+      success: function () {
+        $button.toggleClass("selected");
+      }
+    };
 
     if (!signedIn) {
       this._warning();
       return;
     }
 
-    favorites.create({ tv_show_id: this.tv.id }, {
-      success: function (data) {
-        if (data.get("destroyed")) {
-          favorites.remove(data);
-        }
-
-        $button.toggleClass("selected");
-      }
-    });
+    if (favorite) {
+      favorites.remove(favorite, onSuccess);
+    } else {
+      favorites.create({ tv_show_id: this.tv.id }, onSuccess);
+    }
   },
 
   addToWatchlist: function () {

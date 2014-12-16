@@ -9,16 +9,16 @@ class Api::CurrentUserController < ApplicationController
   end
 
   def favorites
-    favorite = current_user.favorites.find_or_initialize_by(
+    @favorite = current_user.favorites.find_or_initialize_by(
       tv_show_id: params[:current_user][:tv_show_id]
     )
 
-    if favorite.persisted?
-      favorite.destroy!
+    if @favorite.persisted?
+      @favorite.destroy!
       render json: { destroyed: true }
     else
-      favorite.save!
-      render json: favorite
+      @favorite.save!
+      render :favorite
     end
   end
 

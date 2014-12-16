@@ -1,6 +1,7 @@
 Clickster.Models.User = Backbone.Model.extend({
   initialize: function (options) {
     this.set("username", options.username);
+    this.isCurrentUser = Clickster.currentUser.id === this.id;
   },
 
   url: function () {
@@ -47,11 +48,17 @@ Clickster.Models.User = Backbone.Model.extend({
     return this._tvShows;
   },
 
-  watchlists: function () {
+  watchlists: function (status) {
     if (!this._watchlists) {
       this._watchlists = new Clickster.Collections.Lists({
         user: this,
         url: 'api/current_user/watchlists'
+      });
+    }
+
+    if (status) {
+      return this._watchlists.filter(function (watchlist) {
+        return watchlist.get("status") === status;
       });
     }
 

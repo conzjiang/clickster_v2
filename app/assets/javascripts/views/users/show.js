@@ -14,7 +14,8 @@ Clickster.Views.UserShowView = Backbone.View.extend({
   },
 
   render: function () {
-    var content = this.template({ user: this.user });
+    var allStatuses = Clickster.LIST_STATUSES.concat(["Favorites"]);
+    var content = this.template({ user: this.user, allStatuses: allStatuses });
 
     if (this.user.notFound) {
       this.error();

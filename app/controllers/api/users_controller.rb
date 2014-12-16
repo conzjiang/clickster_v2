@@ -11,7 +11,8 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by_username(params[:username])
+    @user = User.includes(watchlists: :tv_show, favorites: :tv_show)
+                .find_by_username(params[:username])
 
     if @user
       render :show

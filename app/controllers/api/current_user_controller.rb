@@ -23,17 +23,14 @@ class Api::CurrentUserController < ApplicationController
   end
 
   def add_watchlist
-    watchlist = current_user.watchlists.find_or_initialize_by(
+    @watchlist = current_user.watchlists.find_or_initialize_by(
       tv_show_id: watchlist_params[:tv_show_id]
     )
 
-    if watchlist.update(watchlist_params)
-      render json: {
-        tv_show_id: watchlist.tv_show_id,
-        status: watchlist.status
-      }
+    if @watchlist.update(watchlist_params)
+      render :watchlist
     else
-      render json: watchlist.errors.full_messages, status: 422
+      render json: @watchlist.errors.full_messages, status: 422
     end
   end
 

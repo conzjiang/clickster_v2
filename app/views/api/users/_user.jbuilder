@@ -1,8 +1,5 @@
-json.watchlists user.watchlists do |watchlist|
-  json.tv_show_id watchlist.tv_show_id
-  json.status watchlist.status
-  json.title watchlist.tv_show.title
-end
+json.watchlists user.watchlists,
+  partial: 'api/watchlists/watchlist', as: :watchlist
 
 json.favorites user.favorites do |fav|
   json.tv_show_id fav.tv_show_id

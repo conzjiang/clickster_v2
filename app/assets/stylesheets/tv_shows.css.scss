@@ -19,27 +19,6 @@ section#main > .tv-show {
     background: rgba(30, 30, 30, 0.5);
   }
 
-  .image-block > a.edit {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: inline-block;
-    padding: 5px 10px;
-    font-weight: 700;
-    color: #fff;
-    background: #888;
-    border-radius: 15px;
-    border: 1px solid #999;
-  }
-
-  .image-block > a.edit:before {
-    content: "\1F511";
-    margin-right: 3px;
-    font-family: 'Entypo';
-    font-size: 23px;
-    font-weight: normal;
-  }
-
   .image-block > div.content {
     position: absolute;
     bottom: 15px;
@@ -74,6 +53,27 @@ section#main > .tv-show {
       border-radius: 15px;
     }
   }
+}
+
+a.admin-edit {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: inline-block;
+  padding: 5px 10px;
+  font-weight: 700;
+  color: #fff;
+  background: #888;
+  border-radius: 15px;
+  border: 1px solid #999;
+}
+
+a.admin-edit:before {
+  content: "\1F511";
+  margin-right: 3px;
+  font-family: 'Entypo';
+  font-size: 23px;
+  font-weight: normal;
 }
 
 .tv-show > .options {

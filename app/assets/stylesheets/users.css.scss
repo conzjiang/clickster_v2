@@ -2,6 +2,7 @@ section#main > .user-show {
   padding: 0;
 
   > header {
+    position: relative;
     width: 100%;
     height: 300px;
     padding-top: 50px;
@@ -16,6 +17,20 @@ section#main > .user-show {
       overflow: hidden;
       border: 10px solid #fff;
       border-radius: 85px;
+    }
+  }
+}
+
+.user-show > .lists {
+  padding: 30px;
+
+  > .list {
+    margin: 20px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+
+    h2 {
+      padding-bottom: 10px;
     }
   }
 }

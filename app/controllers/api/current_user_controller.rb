@@ -1,5 +1,7 @@
 class Api::CurrentUserController < ApplicationController
   def show
+    @user = User.includes(watchlists: :tv_show, favorites: :tv_show).
+      find(current_user.id)
   end
 
   def tv_shows

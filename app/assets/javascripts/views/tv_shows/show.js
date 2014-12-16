@@ -39,6 +39,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     var $button = $(e.target);
     var favorites = Clickster.currentUser.favorites();
     var favorite = favorites.get(this.tv.id);
+    var attrs = { tv_show_id: this.tv.id };
     var onSuccess = {
       success: function () {
         $button.toggleClass("selected");
@@ -51,9 +52,9 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     }
 
     if (favorite) {
-      favorites.remove(favorite, onSuccess);
+      favorites.remove(attrs, onSuccess);
     } else {
-      favorites.create({ tv_show_id: this.tv.id }, onSuccess);
+      favorites.create(attrs, onSuccess);
     }
   },
 

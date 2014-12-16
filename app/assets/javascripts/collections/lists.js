@@ -15,6 +15,7 @@ Clickster.Collections.Lists = Backbone.Collection.extend({
       type: "post",
       url: this.url,
       data: model,
+      dataType: "json",
       success: function () {
         Backbone.Collection.prototype.remove.call(that, model);
         if (options.success) options.success();

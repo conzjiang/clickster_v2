@@ -10,7 +10,7 @@ class Api::CurrentUserController < ApplicationController
 
   def favorites
     @favorite = current_user.favorites.find_or_initialize_by(
-      tv_show_id: params[:current_user][:tv_show_id]
+      tv_show_id: params[:tv_show_id]
     )
 
     if @favorite.persisted?

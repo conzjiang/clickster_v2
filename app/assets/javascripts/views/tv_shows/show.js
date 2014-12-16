@@ -12,6 +12,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
 
   events: {
     "click li.watchlist": "toggleOptions",
+    "click .tv-info": "hideOptions",
     "click li.favorite": "toggleFavorite",
     "click li.list": "addToWatchlist"
   },
@@ -25,6 +26,12 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     }
 
     this.$(".options > ul").toggleClass("show");
+  },
+
+  hideOptions: function () {
+    if (this.$(".options > ul").hasClass("show")) {
+      this.toggleOptions();
+    }
   },
 
   toggleFavorite: function (e) {

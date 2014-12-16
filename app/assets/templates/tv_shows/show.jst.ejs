@@ -19,25 +19,12 @@
     <li class="button watchlist">Add to Watchlist</li>
     <li class="button favorite">Favorite</li>
 
-    <li class="list" data-option="Watching">
-      <strong></strong>
-      Watching
-    </li>
-
-    <li class="list" data-option="Plan to Watch">
-      <strong></strong>
-      Plan to Watch
-    </li>
-
-    <li class="list" data-option="Completed">
-      <strong></strong>
-      Completed
-    </li>
-
-    <li class="list" data-option="Dropped">
-      <strong></strong>
-      Dropped
-    </li>
+    <% _(Clickster.LIST_STATUSES).each(function (status) { %>
+      <li class="list" data-option="<%= status %>">
+        <strong></strong>
+        <%= status %>
+      </li>
+    <% }) %>
   </ul>
 </section>
 

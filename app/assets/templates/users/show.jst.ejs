@@ -16,10 +16,13 @@
     <h2><%= status %></h2>
 
     <ul>
-      <% _(user.watchlists(status)).each(function (watchlist) { %>
+      <% var listItems = user.watchlists(status) %>
+      <% if (status === "Favorites") listItems = user.favorites().models %>
+
+      <% _(listItems).each(function (item) { %>
         <li>
-          <a href="#/tv/<%= watchlist.get("tv_show_id") %>">
-            <%= watchlist.escape("title") %>
+          <a href="#/tv/<%= item.get("tv_show_id") %>">
+            <%= item.escape("title") %>
           </a>
         </li>
       <% }) %>

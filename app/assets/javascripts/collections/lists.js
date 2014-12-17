@@ -8,18 +8,26 @@ Clickster.Collections.Lists = Backbone.Collection.extend({
     return this.findWhere({ tv_show_id: tv_show_id });
   },
 
-  remove: function (model, options) {
+  idAttribute: 'tv_show_id',
+
+  send: function (attrs, options) {
     var that = this;
+    var listItem = this.get(attrs.tv_show_id);
 
     $.ajax({
       type: "post",
       url: this.url,
-      data: model,
+      data: attrs,
       dataType: "json",
-      success: function () {
-        Backbone.Collection.prototype.remove.call(that, model);
-        if (options.success) options.success();
+      success: function (data) {
+        if (data.destroyed) {
+          that.remove(listItem);
+        } else {
+          that.add(data);
+        }
+
+        if (options.success) options.success(data);
       }
-    });
+    })
   }
 });

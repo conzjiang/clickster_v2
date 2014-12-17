@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :signed_in?
 
   def current_user
+    return nil unless session[:token]
     @current_user ||= User.find_by(session_token: session[:token])
   end
 

@@ -6,8 +6,6 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
 
     var navbarView = new Clickster.Views.Nav({ el: this.$navbar });
     navbarView.render();
-
-    this.bindEvents();
   },
 
   routes: {
@@ -65,34 +63,11 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     this._swapRootEl(userView);
   },
 
-  bindEvents: function () {
-    $('.overlay').on('click', function () {
-      $('.modal').addClass('fading-out');
-
-      $('.modal').one('transitionend', function () {
-        $(this).removeClass('display');
-        Backbone.history.navigate('');
-      });
-    });
-  },
-
   _swapRootEl: function (view) {
-    $('.modal').removeClass('display');
-
     this._swapView({
       currentView: this.currentView,
       view: view,
       $el: this.$rootEl
-    });
-  },
-
-  _swapModal: function (view) {
-    $('.modal').removeClass('fading-out').addClass('display');
-
-    this._swapView({
-      currentView: this.modalView,
-      view: view,
-      $el: this.$modal
     });
   },
 

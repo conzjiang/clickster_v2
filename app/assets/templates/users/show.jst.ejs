@@ -6,7 +6,7 @@
   <h1><%= user.escape("username") %></h1>
 
   <% if (user.isCurrentUser) { %>
-    <a class="admin-edit" href="#/users/" + <%= user.id %> + "/edit">Edit</a>
+    <a class="admin-edit" href="#/users/edit">Edit</a>
   <% } %>
 </header>
 

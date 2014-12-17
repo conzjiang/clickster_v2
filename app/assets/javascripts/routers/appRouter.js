@@ -2,7 +2,6 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   initialize: function (options) {
     this.$navbar = options.$navbar;
     this.$rootEl = options.$rootEl;
-    this.$modal = options.$modal;
 
     var navbarView = new Clickster.Views.Nav({ el: this.$navbar });
     navbarView.render();
@@ -15,6 +14,7 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     'tv/:id/edit': 'editTv',
     'tv/:id': 'tvShow',
     'search': 'searchResults',
+    'users/edit': 'userEdit',
     'users/:username': 'userShow'
   },
 
@@ -61,6 +61,11 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
 
     var userView = new Clickster.Views.UserShowView({ user: user });
     this._swapRootEl(userView);
+  },
+
+  userEdit: function () {
+    var userEditView = new Clickster.Views.UserEditView();
+    this._swapRootEl(userEditView);
   },
 
   _swapRootEl: function (view) {

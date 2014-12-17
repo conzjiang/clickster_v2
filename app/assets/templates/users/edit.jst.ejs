@@ -1,0 +1,39 @@
+<h1>Edit Profile</h1>
+
+<form>
+  <fieldset>
+    <label for="user_profile_pic">
+      Profile Pic
+      <button class="filepicker-upload">Upload</button>
+    </label>
+
+    <img src="<%= user.escape("image_url") %>">
+  </fieldset>
+
+  <fieldset>
+    <label for="user_email">Email</label>
+    <input id="user_email"
+           type="email"
+           name="user[email]"
+           value="<%= user.escape("email") %>">
+  </fieldset>
+
+  <fieldset>
+    <label for="user_password">Enter your current password</label>
+    <input id="user_password" type="password" name="user[password]">
+  </fieldset>
+
+  <fieldset>
+    <label for="user_new_password">New Password</label>
+    <input id="user_new_password" type="password" name="user[new_password]">
+  </fieldset>
+
+  <fieldset>
+    <label for="user_confirm_password">Confirm Password</label>
+    <input id="user_confirm_password"
+           type="password"
+           name="user[confirm_password]">
+  </fieldset>
+
+  <button>Update Profile</button>
+</form>

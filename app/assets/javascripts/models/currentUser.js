@@ -1,5 +1,7 @@
 Clickster.Models.CurrentUser = Clickster.Models.User.extend({
-  initialize: function () {},
+  initialize: function () {
+    this.isCurrentUser = true;
+  },
 
   url: 'api/current_user',
 

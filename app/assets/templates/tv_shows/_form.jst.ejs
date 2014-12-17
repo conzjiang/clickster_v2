@@ -1,11 +1,12 @@
 <form class="new-tv">
   <h2><%= formHeader %></h2>
 
-  <ul class='errors'></ul>
+  <ul class="errors"></ul>
 
   <fieldset>
     <label for="tv_show_title">Title</label>
     <input id="tv_show_title"
+           class="form-input"
            type="text"
            name="tv_show[title]"
            value="<%= tv.escape('title') %>">
@@ -43,6 +44,7 @@
     </label>
 
     <input id="tv_show_network"
+           class="form-input"
            type="text"
            name="tv_show[network]"
            value="<%= tv.escape('network') %>">
@@ -51,6 +53,7 @@
   <fieldset>
     <label for="tv_show_num_seasons"># of Seasons</label>
     <input id="tv_show_num_seasons"
+           class="form-input"
            type="number"
            name="tv_show[num_seasons]"
            value="<%= tv.get('num_seasons') %>">
@@ -59,6 +62,7 @@
   <fieldset>
     <label for="tv_show_start_year">Start Year</label>
     <input id="tv_show_start_year"
+           class="form-input"
            type="number"
            name="tv_show[start_year]"
            value="<%= tv.get('start_year') %>">
@@ -71,6 +75,7 @@
     </label>
 
     <input id="tv_show_end_year"
+           class="form-input"
            type="number"
            name="tv_show[end_year]"
            value="<%= tv.get('end_year') %>">
@@ -78,7 +83,7 @@
 
   <fieldset>
     <label for='tv_show_status'>Status</label>
-    <select id='tv_show_status' name="tv_show[status]">
+    <select id='tv_show_status' name="tv_show[status]" class="form-input">
       <option></option>
 
       <% _(Clickster.TV_STATUSES).each(function (status) { %>
@@ -89,10 +94,12 @@
 
   <fieldset>
     <label for="tv_show_blurb">Description</label>
-    <textarea id='tv_show_blurb' name="tv_show[blurb]"><%= tv.escape('blurb') %></textarea>
+    <textarea id='tv_show_blurb'
+              name="tv_show[blurb]"
+              class="form-input"><%= tv.escape('blurb') %></textarea>
   </fieldset>
 
-  <button><%= buttonContent %></button>
+  <button class="submit-button"><%= buttonContent %></button>
 
-  <ul class='errors'></ul>
+  <ul class="errors"></ul>
 </form>

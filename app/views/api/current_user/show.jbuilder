@@ -1,4 +1,4 @@
-json.extract! @user, :id, :username, :is_admin
+json.extract! @user, :id, :username, :email, :is_admin
 
 json.tv_shows @user.tv_shows
 

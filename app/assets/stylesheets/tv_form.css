@@ -1,17 +1,14 @@
-.tv-forms h2 {
+.forms h2 {
   font-size: 32px;
   line-height: initial;
 }
 
-.tv-forms form {
+.forms form {
   margin: 50px 0;
   font-size: 20px;
 }
 
-.tv-forms input[type=text],
-.tv-forms input[type=number],
-.tv-forms textarea,
-.tv-forms select {
+.form-input {
   display: block;
   width: 95%;
   padding: 2.5%;
@@ -20,22 +17,18 @@
 }
 
 @media (min-width: 500px) {
-  .tv-forms input[type=text],
-  .tv-forms input[type=number],
-  .tv-forms textarea,
-  .tv-forms select {
+  .form-input {
     display: inline-block;
     padding: 10px 5px;
   }
 }
 
-.tv-forms button {
+.submit-button {
   display: inline-block;
-  vertical-align: bottom;
   padding: 5px 15px;
 }
 
-.tv-forms button:active {
+.submit-button:active {
   padding-top: 6px;
   padding-bottom: 4px;
 }
@@ -48,6 +41,7 @@ form.new-imdb-tv > input {
 @media (min-width: 500px) {
   form.new-imdb-tv > input {
     width: 490px;
+    margin: 0;
   }
 }
 
@@ -65,34 +59,30 @@ form.new-imdb-tv > input {
   }
 }
 
-form.new-tv > fieldset {
+.forms fieldset {
   margin: 15px 0;
 }
 
-form.new-tv > fieldset > label,
-form.new-tv > fieldset > strong {
+.forms fieldset > label,
+.forms fieldset > strong {
   display: block;
 }
 
-form.new-tv > fieldset.error > label {
+.forms fieldset.error > label {
   color: #f00;
 }
 
-form.new-tv > fieldset > label > small {
+.forms fieldset > label > small {
   display: block;
   font-size: 16px;
 }
 
-form.new-tv > fieldset.error > input[type=text],
-form.new-tv > fieldset.error > input[type=number],
-form.new-tv > fieldset.error > select {
+.forms fieldset.error > .form-input {
   border: 1px solid #f00;
 }
 
 @media (min-width: 500px) {
-  form.new-tv > fieldset.error > input[type=text],
-  form.new-tv > fieldset.error > input[type=number],
-  form.new-tv > fieldset.error > select {
+  .forms fieldset.error > .form-input {
     padding: 4px;
   }
 }
@@ -110,7 +100,7 @@ form.new-tv img.tv_show_image {
   margin: auto;
 }
 
-form.new-tv .filepicker-upload {
+button.filepicker-upload {
   padding: 4px 8px;
   font-weight: 700;
   font-size: 12px;

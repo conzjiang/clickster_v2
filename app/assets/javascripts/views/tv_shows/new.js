@@ -5,7 +5,7 @@ Clickster.Views.NewTvView = Backbone.View.extend({
     this.listenTo(Clickster.currentUser, "sync", this.render);
   },
 
-  className: "tv-forms",
+  className: "forms tv-forms",
 
   newTemplate: JST["tv_shows/new"],
 

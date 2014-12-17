@@ -34,3 +34,33 @@ section#main > .user-show {
     }
   }
 }
+
+
+// USER EDIT PAGE
+.user-edit > form {
+  .form-section {
+    margin: 50px 0;
+    border-bottom: 1px solid #ccc;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  fieldset {
+    margin: 50px 0;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  figure {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border: 10px solid #ccc;
+    border-radius: 60px;
+  }
+}

@@ -5,6 +5,8 @@ Clickster.Views.UserEditView = Backbone.View.extend({
     this.listenTo(this.user, "sync", this.render);
   },
 
+  className: "forms user-edit",
+
   template: JST["users/edit"],
 
   render: function () {

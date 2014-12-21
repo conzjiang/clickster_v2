@@ -1,7 +1,6 @@
 Clickster.Views.UserEditView = Backbone.View.extend({
   initialize: function () {
     this.user = Clickster.currentUser;
-
     this.listenTo(this.user, "sync", this.render);
   },
 
@@ -15,7 +14,6 @@ Clickster.Views.UserEditView = Backbone.View.extend({
   },
 
   uploadPic: function (e) {
-    console.log("upload")
     var that = this;
 
     e.preventDefault();
@@ -28,21 +26,26 @@ Clickster.Views.UserEditView = Backbone.View.extend({
 
   updateProfile: function (e) {
     var params = $(e.target).serializeJSON().user;
+    var passwordFields = ["password", "new_password", "password_confirmation"];
+    var that = this;
 
     e.preventDefault();
-
-    this.$(".error").removeClass("error");
-    if (this._validatePassword(params)) return;
+    if (!this._validatePassword(params)) return;
 
     this.user.save(params, {
-      patch: true,
       success: function (data) {
-        Backbone.history.navigate("users/" + data.username, { trigger: true });
+        var username = that.user.get("username");
+
+        _(passwordFields).each(function (field) {
+          that.user.unset(field);
+        });
+
+        Backbone.history.navigate("users/" + username, { trigger: true });
       },
       error: function (model, data) {
-
+        that._displayErrors(data.responseJSON);
       }
-    })
+    });
   },
 
   render: function () {
@@ -59,33 +62,33 @@ Clickster.Views.UserEditView = Backbone.View.extend({
   },
 
   _validatePassword: function (params) {
+    var errors;
+
     if (params.new_password && !params.password) {
-      this._displayError({
-        message: "Please enter your current password before changing your password.",
-        fields: ["user_password"]
-      });
-
-      return true;
+      errors = {
+        password: ["must be provided before changing password."]
+      };
+    } else if (params.new_password !== params.password_confirmation) {
+      errors = {
+        password_confirmation: ["does not match."]
+      };
     }
 
-    if (params.new_password !== params.confirm_password) {
-      this._displayError({
-        message: "Password confirmation does not match.",
-        fields: ["user_new_password", "user_confirm_password"]
-      });
-
-      return true;
+    if (errors) {
+      this._displayErrors(errors);
+      return false;
     }
 
-    return false;
+    return true;
   },
 
-  _displayError: function (options) {
-    var that = this;
-    this.$(".errors").html("<li>" + options.message + "</li>");
+  _displayErrors: function (errors) {
+    this.$(".error").removeClass("error");
 
-    _(options.fields).each(function (field) {
-      that.$("#" + field).parent().addClass("error");
+    Utils.renderErrors({
+      view: this,
+      errors: errors,
+      fieldPrepend: "#user_"
     });
   }
 });

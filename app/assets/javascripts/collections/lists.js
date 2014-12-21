@@ -4,15 +4,13 @@ Clickster.Collections.Lists = Backbone.Collection.extend({
     this.url = options.url;
   },
 
-  get: function (tv_show_id) {
+  getList: function (tv_show_id) {
     return this.findWhere({ tv_show_id: tv_show_id });
   },
 
-  idAttribute: 'tv_show_id',
-
   send: function (attrs, options) {
     var that = this;
-    var listItem = this.get(attrs.tv_show_id);
+    var listItem = this.getList(attrs.tv_show_id);
 
     $.ajax({
       type: "post",

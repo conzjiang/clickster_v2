@@ -10,11 +10,11 @@ Clickster.Models.TvShow = Backbone.Model.extend({
   },
 
   isFavorite: function () {
-    return !!Clickster.currentUser.favorites().get(this.id);
+    return !!Clickster.currentUser.favorites().getList(this.id);
   },
 
   onWatchlist: function () {
-    var watchlist = Clickster.currentUser.watchlists().get(this.id);
+    var watchlist = Clickster.currentUser.watchlists().getList(this.id);
     if (watchlist) this.watchStatus = watchlist.get("status");
     return !!watchlist;
   },

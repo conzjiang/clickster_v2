@@ -28,6 +28,8 @@ Clickster.Views.TvFormView = Backbone.View.extend({
     var tvParams = $(event.target).serializeJSON().tv_show;
     var that = this;
 
+    this.$(".error").removeClass("error");
+
     this.tv.save(tvParams, {
       success: function (data) {
         Clickster.tvShows.add(that.tv, { wait: true });
@@ -43,13 +45,11 @@ Clickster.Views.TvFormView = Backbone.View.extend({
         if (errors.imdb_id) {
           $errorDisplay.append("<li>" + errors.imdb_id + "</li>");
         } else {
-          for (var attr in errors) {
-            var $li = $("<li>");
-            $li.html(Utils.convertToWords(attr) + " " + errors[attr][0]);
-            $errorDisplay.append($li);
-
-            that.$("#tv_show_" + attr).parent().addClass("error");
-          }
+          Utils.renderErrors({
+            view: that,
+            errors: errors,
+            fieldPrepend: "#tv_show_"
+          });
         }
       }
     });

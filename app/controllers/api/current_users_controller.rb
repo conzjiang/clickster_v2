@@ -35,8 +35,6 @@ class Api::CurrentUsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(watchlists: :tv_show, favorites: :tv_show).
-      find(current_user.id)
   end
 
   def tv_shows
@@ -51,7 +49,14 @@ class Api::CurrentUsersController < ApplicationController
     if current_user.update(user_params)
       render :show
     else
-      render json: current_user.errors.full_messages, status: 422
+      errors = current_user.errors.messages
+
+      if errors[:password]
+        errors[:new_password] = errors[:password]
+        errors.delete(:password)
+      end
+
+      render json: errors, status: 422
     end
   end
 
@@ -63,17 +68,21 @@ class Api::CurrentUsersController < ApplicationController
   def validate_password
     password = params[:password]
     new_password = params[:new_password]
-    password_confirmation = params[:confirm_password]
+    password_confirmation = params[:password_confirmation]
 
     return true unless new_password.present?
 
     if !current_user.is_password?(password)
-      render json: ["Password is incorrect."], status: 422
+      render json: {
+        password: ["is incorrect."]
+      }, status: 422
       return false
     end
 
     if new_password != password_confirmation
-      render json: ["Password confirmation does not match."], status: 422
+      render json: {
+        password_confirmation: ["does not match."]
+      }, status: 422
       return false
     end
 

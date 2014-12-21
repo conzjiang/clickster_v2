@@ -1,16 +1,33 @@
 (function (root) {
   var Utils = root.Utils = root.Utils || {};
 
-  // converts lowercased snakecase to capitalized words
-  Utils.unSnakecase = function (string) {
-    var capitalizeFirstLetter = string.charAt(0).toUpperCase();
-    var unSnakeCase = string.replace(/\_/g, ' ').slice(1);
-    return capitalizeFirstLetter + unSnakeCase;
+  Utils.renderErrors = function (options) {
+    var view = options.view;
+    var $errorDisplay = view.$(".errors");
+    var errors = options.errors;
+    var fieldPrepend = options.fieldPrepend || "#";
+
+    $errorDisplay.empty();
+
+    for (var attr in errors) {
+      var $li = $("<li>");
+      $li.html(Utils.unSnakecase(attr) + " " + errors[attr][0]);
+      $errorDisplay.append($li);
+
+      view.$(fieldPrepend + attr).parent().addClass("error");
+    }
   };
 
   Utils.strip = function (string) {
     var str = stripPunctuation(string).toLowerCase().replace(/&/g, "and");
     return convertNums(str).replace(/\s/g, "");
+  };
+
+  // converts lowercased snakecase to capitalized words
+  Utils.unSnakecase = function (string) {
+    var capitalizeFirstLetter = string.charAt(0).toUpperCase();
+    var unSnakeCase = string.replace(/\_/g, ' ').slice(1);
+    return capitalizeFirstLetter + unSnakeCase;
   };
 
   // helpers

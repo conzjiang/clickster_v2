@@ -8,6 +8,10 @@ Clickster.Models.User = Backbone.Model.extend({
     return '/api/users/' + this.get("username");
   },
 
+  favoriteCount: function () {
+    return this.favorites().length;
+  },
+
   favorites: function () {
     if (!this._favorites) {
       this._favorites = new Clickster.Collections.Lists({
@@ -63,5 +67,9 @@ Clickster.Models.User = Backbone.Model.extend({
     }
 
     return this._watchlists;
+  },
+
+  watchNum: function () {
+    return this.watchlists("Watching").length;
   }
 });

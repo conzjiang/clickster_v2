@@ -1,6 +1,12 @@
 (function (root) {
   var Utils = root.Utils = root.Utils || {};
 
+  Utils.pluralize = function (num, word) {
+    var singular = num + " " + word;
+    if (num === 1) return singular;
+    return singular + "s";
+  };
+
   Utils.renderErrors = function (options) {
     var view = options.view;
     var $errorDisplay = view.$(".errors");

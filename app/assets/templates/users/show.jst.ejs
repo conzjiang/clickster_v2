@@ -5,6 +5,14 @@
 
   <h1><%= user.escape("username") %></h1>
 
+  <p class="watching">
+    Watching <%= Utils.pluralize(user.watchNum(), "show") %>
+  </p>
+
+  <p class="favorites">
+    <%= Utils.pluralize(user.favoriteCount(), "favorite show") %>
+  </p>
+
   <% if (user.isCurrentUser) { %>
     <a class="admin-edit" href="#/users/edit">Edit</a>
   <% } %>

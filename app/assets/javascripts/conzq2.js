@@ -14,6 +14,11 @@ window.Clickster = {
     Clickster.TV_STATUSES = JSON.parse($('#statuses').html());
     Clickster.LIST_STATUSES = JSON.parse($('#list-statuses').html());
 
+    Clickster.filepickerOptions = {
+      mimetype: "image/*",
+      services: ["COMPUTER", "URL"]
+    };
+
     new Clickster.Routers.AppRouter(options);
     Backbone.history.start();
   }

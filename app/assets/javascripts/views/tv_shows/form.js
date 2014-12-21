@@ -17,10 +17,7 @@ Clickster.Views.TvFormView = Backbone.View.extend({
 
     event.preventDefault();
 
-    filepicker.pick({
-      mimetype: "image/*",
-      services: ["COMPUTER", "URL"]
-    }, function (blob) {
+    filepicker.pick(Clickster.filepickerOptions, function (blob) {
       that.tv.set("image_url", blob.url);
       that.$("img").attr("src", blob.url);
     });

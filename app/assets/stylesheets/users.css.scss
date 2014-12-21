@@ -62,5 +62,11 @@ section#main > .user-show {
     margin: 0 auto;
     border: 10px solid #ccc;
     border-radius: 60px;
+    overflow: hidden;
+  }
+
+  img {
+    width: 100px;
+    height: auto;
   }
 }

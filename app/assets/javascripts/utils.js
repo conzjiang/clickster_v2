@@ -1,6 +1,27 @@
 (function (root) {
   var Utils = root.Utils = root.Utils || {};
 
+  Utils.capitalize = function (string) {
+    var firstLetter = string.charAt(0).toUpperCase();
+    return firstLetter + string.slice(1);
+  };
+
+  var exceptions = {
+    "unscripted-reality": "Unscripted/Reality",
+    "single-cam": "Single-cam",
+    "multi-cam": "Multi-cam",
+    "sci-fi-fantasy": "Sci-Fi/Fantasy"
+  };
+
+  Utils.dehyphenate = function (hyphenated) {
+    if (_(exceptions).has(hyphenated)) return exceptions[hyphenated];
+    return Utils.capitalize(hyphenated.replace(/-/g, " "));
+  };
+
+  Utils.hyphenate = function (string) {
+    return string.toLowerCase().replace(/[\s\/]/g, "-");
+  };
+
   Utils.pluralize = function (num, word) {
     var singular = num + " " + word;
     if (num === 1) return singular;
@@ -31,9 +52,7 @@
 
   // converts lowercased snakecase to capitalized words
   Utils.unSnakecase = function (string) {
-    var capitalizeFirstLetter = string.charAt(0).toUpperCase();
-    var unSnakeCase = string.replace(/\_/g, ' ').slice(1);
-    return capitalizeFirstLetter + unSnakeCase;
+    return Utils.capitalize(string.replace(/\_/g, ' '));
   };
 
   // helpers

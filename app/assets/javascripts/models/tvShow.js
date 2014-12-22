@@ -1,6 +1,6 @@
 Clickster.Models.TvShow = Backbone.Model.extend({
   initialize: function () {
-    this.set("genres", []);
+    if (!this.get("genres")) this.set("genres", []);
   },
 
   urlRoot: "api/tv_shows",

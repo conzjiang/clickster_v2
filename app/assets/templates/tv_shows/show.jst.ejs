@@ -4,7 +4,9 @@
     <figcaption><%= tv.escape("title") %></figcaption>
     <ul class="genres group">
       <% _(tv.get("genres")).each(function (genre) { %>
-        <li><a href="#/<%= genre %>"><%= genre %></a></li>
+        <li>
+          <a href="#/genres/<%= Utils.hyphenate(genre) %>"><%= genre %></a>
+        </li>
       <% }) %>
     </ul>
   </div>

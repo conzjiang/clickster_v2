@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     get 'users/:username', to: 'users#show'
     resource :session, only: [:create]
     resources :tv_shows, only: [:create, :show, :update]
+    get 'genres/:genre', to: "tv_shows#genre"
 
     get 'search', to: 'searches#get'
   end

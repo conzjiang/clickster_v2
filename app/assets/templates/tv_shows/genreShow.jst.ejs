@@ -1,0 +1,7 @@
+<h1><%= genre %></h1>
+
+<ul>
+  <% _(shows).each(function (tv) { %>
+    <li><a href="#/tv/<%= tv.id %>"><%= tv.get("title") %></a></li>
+  <% }) %>
+</ul>

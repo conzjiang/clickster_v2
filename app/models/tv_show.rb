@@ -25,6 +25,12 @@ class TvShow < ActiveRecord::Base
     joins(:tv_genres).where("tv_genres.genre IN (#{genre_ids.join(',')})")
   }
 
+  def self.by_genre(genre)
+    # raw sql so that `includes` can add another self join
+    joins("JOIN tv_genres AS genres ON genres.tv_show_id = tv_shows.id").
+      where("genres.genre = ?", TvGenre.genres[genre])
+  end
+
   def self.statuses_list
     self.statuses.keys
   end
@@ -49,8 +55,8 @@ class TvShow < ActiveRecord::Base
     end
   end
 
-  def genres(reload = false)
-    self.tv_genres(reload).map(&:genre)
+  def genres
+    self.tv_genres.map(&:genre)
   end
 
   private

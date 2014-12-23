@@ -10,3 +10,4 @@ New features:
 
 * Boyer-Moore algorithm for faster search lookup
 * Sign Out button hover for web is wonky
+* Find better way to rebind dotdotdot on back button

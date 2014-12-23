@@ -21,7 +21,7 @@ Clickster.Views.Search = Backbone.View.extend({
     });
 
     this.$el.html(content);
-    this.$(".content").dotdotdot({ watch: "window" });
+    this.$(".content").dotdotdot();
 
     return this;
   }

@@ -47,8 +47,8 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   searchResults: function (data) {
-    var searchView = new Clickster.Views.Search({ params: data });
-    this._swapRootEl(searchView);
+    this.searchView = new Clickster.Views.Search({ params: data });
+    this._swapRootEl(this.searchView);
   },
 
   userShow: function (username) {
@@ -86,5 +86,9 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     options.currentView && options.currentView.remove();
     options.currentView = options.view;
     options.$el.html(options.view.render().$el);
+
+    if (options.view === this.searchView) {
+      this.searchView.$(".content").dotdotdot();
+    }
   }
 });

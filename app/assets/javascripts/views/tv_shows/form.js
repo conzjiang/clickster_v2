@@ -29,8 +29,10 @@ Clickster.Views.TvFormView = Backbone.View.extend({
     var that = this;
 
     this.$(".error").removeClass("error");
+    this.$(":input").prop("disabled", true);
 
     this.tv.save(tvParams, {
+      wait: true,
       success: function (data) {
         Clickster.tvShows.add(that.tv, { wait: true });
         Clickster.searchResults.addTextResult(that.tv);
@@ -41,6 +43,7 @@ Clickster.Views.TvFormView = Backbone.View.extend({
         var errors = data.responseJSON;
         var $errorDisplay = that.$(".errors");
         $errorDisplay.empty();
+        that.$(":input").prop("disabled", false);
 
         if (errors.imdb_id) {
           $errorDisplay.append("<li>" + errors.imdb_id + "</li>");

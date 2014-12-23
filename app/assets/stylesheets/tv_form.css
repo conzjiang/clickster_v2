@@ -77,6 +77,16 @@ form.new-imdb-tv > input {
   font-size: 16px;
 }
 
+.forms .form-input:disabled {
+  color: #888;
+  background: #eee;
+}
+
+.forms button:disabled {
+  background: #ccc;
+  cursor: default;
+}
+
 .forms fieldset.error > .form-input {
   border: 1px solid #f00;
 }

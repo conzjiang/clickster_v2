@@ -31,6 +31,7 @@ Clickster.Views.UserEditView = Backbone.View.extend({
 
     e.preventDefault();
     if (!this._validatePassword(params)) return;
+    this.$(":input").prop("disabled", true);
 
     this.user.save(params, {
       success: function (data) {
@@ -43,6 +44,7 @@ Clickster.Views.UserEditView = Backbone.View.extend({
         Backbone.history.navigate("users/" + username, { trigger: true });
       },
       error: function (model, data) {
+        that.$(":input").prop("disabled", false);
         that._displayErrors(data.responseJSON);
       }
     });

@@ -6,14 +6,8 @@
     return firstLetter + string.slice(1);
   };
 
-  var exceptions = {
-    "unscripted-reality": "Unscripted/Reality",
-    "single-cam": "Single-cam",
-    "multi-cam": "Multi-cam",
-    "sci-fi-fantasy": "Sci-Fi/Fantasy"
-  };
-
   Utils.dehyphenate = function (hyphenated) {
+    var exceptions = Clickster.genreExceptions;
     if (_(exceptions).has(hyphenated)) return exceptions[hyphenated];
     return Utils.capitalize(hyphenated.replace(/-/g, " "));
   };

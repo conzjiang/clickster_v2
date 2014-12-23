@@ -1,5 +1,6 @@
 class GenreService
   EXCEPTIONS = {
+    "live-action" => "Live-Action",
     "unscripted-reality" => "Unscripted/Reality",
     "single-cam" => "Single-cam",
     "multi-cam" => "Multi-cam",

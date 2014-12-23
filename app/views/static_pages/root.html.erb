@@ -49,3 +49,7 @@
 <script id="list-statuses">
   <%= Watchlist.statuses_list.to_json.html_safe %>
 </script>
+
+<script>
+  Clickster.genreExceptions = <%= @genre_exceptions.to_json.html_safe %>
+</script>

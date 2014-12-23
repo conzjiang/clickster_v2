@@ -2,10 +2,11 @@
 
 <% if (results && results.text) { %>
   <h2>TV Show Results</h2>
-  <% if (results.tvResults.length > 0) { %>
-    <ul>
+
+  <% if (results.tvResults.length) { %>
+    <ul class="results">
       <% _(results.tvResults).each(function (tv) { %>
-        <li><a href="#/tv/<%= tv.id %>"><%= tv.title %></a></li>
+        <%= tvResult({ tv: tv }) %>
       <% }) %>
     </ul>
   <% } else { %>
@@ -13,7 +14,8 @@
   <% } %>
 
   <h2>User Results</h2>
-  <% if (results.userResults.length > 0) { %>
+
+  <% if (results.userResults.length) { %>
     <ul>
       <% _(results.userResults).each(function (user) { %>
         <li><a href="#/users/<%= user.username %>"><%= user.username %></a></li>
@@ -23,10 +25,10 @@
     No results!
   <% } %>
 
-<% } else if (results && results.length > 0) { %>
-  <ul>
+<% } else if (results && results.length) { %>
+  <ul class="results">
     <% _(results).each(function (tv) { %>
-      <li><a href="#/tv/<%= tv.id %>"><%= tv.title %></a></li>
+      <%= tvResult({ tv: tv }) %>
     <% }) %>
   </ul>
 <% } else { %>

@@ -6,14 +6,23 @@ Clickster.Views.Search = Backbone.View.extend({
       this.model = Clickster.searchResults.getOrFetch(this.params);
     }
 
-    this.listenTo(this.model, 'change', this.render);
+    this.listenTo(this.model, "change", this.render);
   },
 
-  template: JST['search'],
+  template: JST["searches/results"],
+  tvResultTemplate: JST["searches/tv"],
+  userResultTemplate: JST["searches/user"],
 
   render: function () {
-    var content = this.template({ results: this.model.get('results') || [] });
+    var content = this.template({
+      results: this.model.get("results") || [],
+      tvResult: this.tvResultTemplate.bind(this),
+      userResult: this.userResultTemplate.bind(this)
+    });
+
     this.$el.html(content);
+    this.$(".content").dotdotdot({ watch: "window" });
+
     return this;
   }
 });

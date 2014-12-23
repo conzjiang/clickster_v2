@@ -24,10 +24,10 @@ class Api::TvShowsController < ApplicationController
   def update
     @tv_show = TvShow.find(params[:id])
 
-    if tv_show.update(tv_params)
+    if @tv_show.update(tv_params)
       render :show
     else
-      render json: tv_show.errors.full_messages, status: 422
+      render json: @tv_show.errors.full_messages, status: 422
     end
   end
 

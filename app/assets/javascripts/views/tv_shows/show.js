@@ -103,6 +103,12 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     return this;
   },
 
+  remove: function () {
+    $("main").off("touchmove");
+    $("main").off("scroll");
+    return Backbone.View.prototype.remove.apply(this);
+  },
+
   _scaleAndFadeButton: function ($button) {
     var $newButton = $button.clone();
     var transitioning = false;

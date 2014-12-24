@@ -27,13 +27,9 @@
       <% if (status === "Favorites") listItems = user.favorites().models %>
 
       <% if (listItems.length) { %>
-        <ul>
+        <ul class="tv-cards group">
           <% _(listItems).each(function (item) { %>
-            <li>
-              <a href="#/tv/<%= item.get("tv_show_id") %>">
-                <%= item.escape("title") %>
-              </a>
-            </li>
+            <%= tvCard({ tv: item }) %>
           <% }) %>
         </ul>
       <% } else { %>

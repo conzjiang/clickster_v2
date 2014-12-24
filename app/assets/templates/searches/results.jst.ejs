@@ -4,7 +4,7 @@
   <h2>TV Show Results</h2>
 
   <% if (results.tvResults.length) { %>
-    <ul class="results">
+    <ul class="tv-results">
       <% _(results.tvResults).each(function (tv) { %>
         <%= tvResult({ tv: tv }) %>
       <% }) %>
@@ -16,9 +16,9 @@
   <h2>User Results</h2>
 
   <% if (results.userResults.length) { %>
-    <ul>
+    <ul class="user-results">
       <% _(results.userResults).each(function (user) { %>
-        <li><a href="#/users/<%= user.username %>"><%= user.username %></a></li>
+        <%= userResult({ user: user }) %>
       <% }) %>
     </ul>
   <% } else { %>
@@ -26,7 +26,7 @@
   <% } %>
 
 <% } else if (results && results.length) { %>
-  <ul class="results">
+  <ul class="tv-results">
     <% _(results).each(function (tv) { %>
       <%= tvResult({ tv: tv }) %>
     <% }) %>

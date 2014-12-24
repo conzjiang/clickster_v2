@@ -1,0 +1,18 @@
+<li class="group">
+  <a class="image-block" href="#/users/<%= user.get("username") %>">
+    <img src="<%= user.escape("image_url") %>">
+  </a>
+
+  <div class="content">
+    <h3>
+      <a href="#/users/<%= user.get("username") %>">
+        <%= user.escape("username") %>
+      </a>
+    </h3>
+
+    <ul class="stats group">
+      <li class="watching"><%= user.watchNum() %></li>
+      <li class="favorites"><%= user.favoriteCount() %></li>
+    </ul>
+  </div>
+</li>

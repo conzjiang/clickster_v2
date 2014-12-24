@@ -37,18 +37,21 @@ section#main > .user-show {
 
     p:before {
       margin: 0 5px;
-      font-family: "Entypo";
-      font-size: 24px;
-    }
-
-    p.watching:before {
-      content: "\1F4BB";
-    }
-
-    p.favorites:before {
-      content: "\2665";
     }
   }
+}
+
+.watching:before, .favorites:before {
+  font-family: "Entypo";
+  font-size: 24px;
+}
+
+.watching:before {
+  content: "\1F4BB";
+}
+
+.favorites:before {
+  content: "\2665";
 }
 
 .user-show > .lists {

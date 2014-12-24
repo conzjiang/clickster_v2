@@ -16,8 +16,8 @@ Clickster.Views.Search = Backbone.View.extend({
   render: function () {
     var content = this.template({
       results: this.model.get("results") || [],
-      tvResult: this.tvResultTemplate.bind(this),
-      userResult: this.userResultTemplate.bind(this)
+      tvResult: this.tvResultTemplate,
+      userResult: this.userResultTemplate
     });
 
     this.$el.html(content);

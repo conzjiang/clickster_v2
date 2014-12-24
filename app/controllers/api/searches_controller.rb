@@ -16,7 +16,17 @@ class Api::SearchesController < ApplicationController
       results = results.where(status: status)
     end
 
-    render json: results
+    render json: { results: results }
+  end
+
+  def ids
+    tv_ids = params[:tv_ids]
+    user_ids = params[:user_ids]
+
+    tv_results = tv_ids ? TvShow.find(tv_ids) : []
+    user_results = user_ids ? User.find(user_ids) : []
+
+    render json: { tv_results: tv_results, user_results: user_results }
   end
 
   private

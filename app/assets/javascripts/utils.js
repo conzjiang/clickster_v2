@@ -44,6 +44,14 @@
     return convertNums(str).replace(/\s/g, "");
   };
 
+  Utils.stripAll = function (items) {
+    _(items).each(function (item) {
+      item.pattern = Utils.strip(item.pattern);
+    });
+
+    return items;
+  };
+
   // converts lowercased snakecase to capitalized words
   Utils.unSnakecase = function (string) {
     return Utils.capitalize(string.replace(/\_/g, ' '));

@@ -40,7 +40,7 @@
 
 <script id="tv_shows">
   <% tv_shows = TvShow.all.map do |tv_show| %>
-    <% { id: tv_show.id, title: tv_show.title } %>
+    <% { id: tv_show.id, title: tv_show.title, pattern: tv_show.title } %>
   <% end %>
 
   <%= tv_shows.to_json.html_safe %>
@@ -48,7 +48,7 @@
 
 <script id="users">
   <% users = User.all.map do |user| %>
-    <% { id: user.id, username: user.username } %>
+    <% { id: user.id, pattern: user.username } %>
   <% end %>
 
   <%= users.to_json.html_safe %>

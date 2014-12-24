@@ -1,44 +1,38 @@
 Clickster.Collections.SearchResults = Backbone.Collection.extend({
   initialize: function () {
-    this.tvShows = new Clickster.Collections.TextResults();
-    this.users = JSON.parse($('#users').html());
+    this.tvShows = Utils.stripAll(JSON.parse($("#tv_shows").html()));
+    this.users = Utils.stripAll(JSON.parse($("#users").html()));
   },
 
   model: Clickster.Models.SearchResult,
 
-  url: 'api/search',
+  url: "api/search",
 
   addTextResult: function (tvShow) {
-    var result = new this.tvShows.model({
+    var title = tvShow.get("title");
+    var result = {
       id: tvShow.id,
-      title: tvShow.get("title")
-    });
+      title: title,
+      pattern: Utils.strip(title)
+    };
 
-    this.tvShows.add(result);
+    this.tvShows.push(result);
   },
 
   getOrFetch: function (params) {
     var result = this.findWhere({ params: params });
-    var that = this;
+    var model;
 
     if (!result) {
-      result = new this.model({ params: params });
-
       if (/text=/.test(params)) {
         var searchTerm = params.split(/text=/).slice(-1)[0].replace(/\+/g, " ");
-        result = this.textSearch(searchTerm);
+        var idData = this.processText(searchTerm);
+        model = new this.model({ params: "text=" + searchTerm });
+        result = this.add(model).textSearch(idData);
 
       } else {
-        $.ajax({
-          type: 'get',
-          url: this.url,
-          data: params,
-          dataType: 'json',
-          success: function (data) {
-            result.set('results', data);
-            that.add(result);
-          }
-        });
+        model = new this.model({ params: params });
+        result = this.add(model).runQuery();
       }
     }
 
@@ -53,24 +47,20 @@ Clickster.Collections.SearchResults = Backbone.Collection.extend({
     return tvShows.indexOf(title.toLowerCase()) !== -1;
   },
 
-  textSearch: function (searchTerm) {
+  processText: function (searchTerm) {
     var query = new RegExp(Utils.strip(searchTerm), "i");
+    var getIds = function (items) {
+      return _(items).filter(function (item) {
+        return query.test(item.pattern);
+      }).map(function (item) { return item.id; });
+    };
 
-    var tvResults = this.tvShows.filter(function (tvShow) {
-      return query.test(tvShow.strippedTitle);
-    });
+    var tvIds = getIds(this.tvShows);
+    var userIds = getIds(this.users);
 
-    var userResults = this.users.filter(function (user) {
-      return query.test(Utils.strip(user.username));
-    });
-
-    return new this.model({
-      params: "text=" + searchTerm,
-      results: {
-        text: true,
-        tvResults: tvResults,
-        userResults: userResults
-      }
-    });
+    return {
+      tvIds: tvIds,
+      userIds: userIds
+    };
   }
 });

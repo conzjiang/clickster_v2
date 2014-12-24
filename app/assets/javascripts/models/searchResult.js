@@ -6,7 +6,7 @@ Clickster.Models.SearchResult = Backbone.Model.extend({
       data: this.get("params"),
       dataType: "json",
       success: function (data) {
-        this.set("results", data);
+        this.set("results", Clickster.tvShows.add(data));
       }.bind(this)
     });
 

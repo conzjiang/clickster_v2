@@ -4,7 +4,15 @@ Clickster.Collections.TvShows = Backbone.Collection.extend({
     this._requestedGenres = {};
   },
 
-  comparator: "title",
+  comparator: function (model) {
+    var title = model.get("title");
+
+    if (/^The/.test(title)) {
+      return title.match(/^The (.*)/)[1];
+    }
+
+    return title;
+  },
 
   model: Clickster.Models.TvShow,
 
@@ -28,6 +36,17 @@ Clickster.Collections.TvShows = Backbone.Collection.extend({
 
     return this.filter(function (tv) {
       return tv.belongsTo(genre);
+    });
+  },
+
+  current: function () {
+    if (!this._requested) {
+      this._requested = true;
+      this.fetch();
+    }
+
+    return this.filter(function (tv) {
+      return tv.get("status") === "Currently Airing";
     });
   },
 

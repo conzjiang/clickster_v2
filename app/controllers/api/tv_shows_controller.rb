@@ -1,6 +1,10 @@
 class Api::TvShowsController < ApplicationController
   before_action :require_admin, only: [:create, :update]
 
+  def index
+    @tv_shows = TvShow.where(status: "Currently Airing")
+  end
+
   def create
     @tv_show = current_user.tv_shows.includes(:tv_decades).new(tv_params)
 

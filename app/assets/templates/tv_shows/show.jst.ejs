@@ -34,13 +34,23 @@
 
 <article class="tv-info">
   <ul class="info">
-    <li><%= tv.get("status") %></li>
-    <li><label>on</label> <%= tv.escape("network") || "n/a" %></li>
-    <li><label>for</label> <%= tv.escape("num_seasons") %> season(s)</li>
+    <li>
+      <%= tv.get("status") %>
+    </li>
+
+    <li>
+      <label>on</label> <%= tv.escape("network") || "n/a" %>
+    </li>
+
+    <li>
+      <label>for</label> <%= Utils.pluralize(tv.get("num_seasons"), "season") %>
+    </li>
 
     <% endYear = tv.get("end_year") %>
     <% if (!endYear) endYear = "present" %>
-    <li><label>from</label> <%= tv.get("start_year") %> - <%= endYear %></li>
+    <li>
+      <label>from</label> <%= tv.get("start_year") %> - <%= endYear %>
+    </li>
   </ul>
 
   <aside>

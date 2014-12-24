@@ -1,9 +1,4 @@
 // TV CARD
-ul.tv-results {
-  margin-bottom: 50px;
-  border-bottom: 1px solid #eee;
-}
-
 ul.tv-results > li {
   width: 100%;
   height: 130px;
@@ -43,6 +38,10 @@ ul.tv-results > li {
   p {
     font-size: 14px;
   }
+}
+
+ul.tv-results > li:last-child {
+  margin-bottom: 50px;
 }
 
 // USER CARD

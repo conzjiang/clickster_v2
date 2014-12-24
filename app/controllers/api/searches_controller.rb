@@ -16,7 +16,7 @@ class Api::SearchesController < ApplicationController
       results = results.where(status: status)
     end
 
-    render json: { results: results }
+    render json: results
   end
 
   def ids

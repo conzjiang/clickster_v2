@@ -1,29 +1,33 @@
 <h1>Search Results</h1>
 
 <% if (results && results.text) { %>
-  <h2>TV Show Results</h2>
+  <article class="results">
+    <h2>TV Show Results</h2>
 
-  <% if (results.tvResults.length) { %>
-    <ul class="tv-results">
-      <% _(results.tvResults).each(function (tv) { %>
-        <%= tvResult({ tv: tv }) %>
-      <% }) %>
-    </ul>
-  <% } else { %>
-    No results!
-  <% } %>
+    <% if (results.tvResults.length) { %>
+      <ul class="tv-results">
+        <% _(results.tvResults).each(function (tv) { %>
+          <%= tvResult({ tv: tv }) %>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p class="none">No results!</p>
+    <% } %>
+  </article>
 
-  <h2>User Results</h2>
+  <article class="results">
+    <h2>User Results</h2>
 
-  <% if (results.userResults.length) { %>
-    <ul class="user-results">
-      <% _(results.userResults).each(function (user) { %>
-        <%= userResult({ user: user }) %>
-      <% }) %>
-    </ul>
-  <% } else { %>
-    No results!
-  <% } %>
+    <% if (results.userResults.length) { %>
+      <ul class="user-results group">
+        <% _(results.userResults).each(function (user) { %>
+          <%= userResult({ user: user }) %>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p class="none">No results!</p>
+    <% } %>
+  </article>
 
 <% } else if (results && results.length) { %>
   <ul class="tv-results">
@@ -32,5 +36,5 @@
     <% }) %>
   </ul>
 <% } else { %>
-  No results!
+  <p class="none">No results!</p>
 <% } %>

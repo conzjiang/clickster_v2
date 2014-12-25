@@ -1,7 +1,7 @@
 <h1>My Series</h1>
 
-<ul>
+<ul class="tv-cards group">
   <% tvs.each(function (tv) { %>
-    <li><a href="#/tv/<%= tv.id %>"><%= tv.escape("title") %></a></li>
+    <%= tvCard({ tv: tv }) %>
   <% }) %>
 </ul>

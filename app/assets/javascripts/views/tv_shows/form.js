@@ -61,8 +61,9 @@ Clickster.Views.TvFormView = Backbone.View.extend({
     $errorDisplay.empty();
     this.$(":input").prop("disabled", false);
 
-    if (errors.imdb_id) {
-      $errorDisplay.append("<li>" + errors.imdb_id + "</li>");
+    if (errors.imdb_id || Array.isArray(errors)) {
+      var error = errors.imdb_id || errors[0];
+      $errorDisplay.append("<li>" + error + "</li>");
     } else {
       Utils.renderErrors({
         view: this,

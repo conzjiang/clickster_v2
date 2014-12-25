@@ -41,7 +41,7 @@ class Api::TvShowsController < ApplicationController
   end
 
   def require_admin
-    unless current_user.is_admin?
+    unless signed_in? && current_user.is_admin?
       render json: ['You are not authorized to perform this action.'],
         status: 422
     end

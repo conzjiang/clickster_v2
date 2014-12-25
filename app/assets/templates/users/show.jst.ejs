@@ -21,10 +21,10 @@
 <section class="lists">
   <% _(allStatuses).each(function (status) { %>
     <article class="list">
-      <h2><%= status %></h2>
-
       <% var listItems = user.watchlists(status) %>
       <% if (status === "Favorites") listItems = user.favorites().models %>
+
+      <h2><%= status %> (<%= listItems.length %>)</h2>
 
       <% if (listItems.length) { %>
         <ul class="tv-cards group">

@@ -22,8 +22,10 @@ Clickster.Models.SearchResult = Backbone.Model.extend({
     var results = {};
     var callback = function (data) {
       results.text = true;
-      results.tvResults = Clickster.tvShows.add(data.tv_results) || [];
-      results.userResults = Clickster.users.add(data.user_results) || [];
+      results.tvResults = Clickster.tvShows.add(data.tv_results);
+      results.userResults = Clickster.users.add(data.user_results, {
+        parse: true
+      });
 
       this.set("results", results);
     }.bind(this);

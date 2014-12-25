@@ -24,7 +24,9 @@ class Api::SearchesController < ApplicationController
     user_ids = params[:user_ids]
 
     @tv_results = tv_ids ? TvShow.find(tv_ids) : []
-    @user_results = user_ids ? User.find(user_ids) : []
+    @user_results = user_ids ? User.
+      includes(watchlists: :tv_show, favorites: :tv_show).
+      find(user_ids) : []
 
     render :text
   end

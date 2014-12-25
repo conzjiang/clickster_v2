@@ -14,6 +14,8 @@ Clickster.Views.TvIndex = Backbone.View.extend({
     });
 
     this.$el.html(content);
+    this.$(".content").dotdotdot();
+
     return this;
   }
 });

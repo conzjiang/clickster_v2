@@ -37,10 +37,6 @@ class Api::CurrentUsersController < ApplicationController
   def show
   end
 
-  def tv_shows
-    render json: current_user.tv_shows.order(:title)
-  end
-
   def update
     if params[:password].present?
       return if !validate_password

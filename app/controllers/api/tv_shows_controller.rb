@@ -2,7 +2,7 @@ class Api::TvShowsController < ApplicationController
   before_action :require_admin, only: [:create, :update]
 
   def index
-    @tv_shows = TvShow.where(status: "Currently Airing")
+    @tv_shows = TvShow.includes(:tv_genres).where(status: "Currently Airing")
   end
 
   def create
@@ -26,7 +26,7 @@ class Api::TvShowsController < ApplicationController
   end
 
   def update
-    @tv_show = TvShow.find(params[:id])
+    @tv_show = TvShow.includes(:tv_decades).find(params[:id])
 
     if @tv_show.update(tv_params)
       render :show

@@ -38,14 +38,14 @@
     "ninety"
   ];
 
-  var allDigits = oneDigits + twoDigits + tensDigits;
+  var isHighDenom = function (word) {
+    return word === "hundred" || word === "thousand";
+  };
+
+  var allDigits = oneDigits.concat(twoDigits).concat(tensDigits);
 
   var isNumber = function (word) {
     return isHighDenom(word) || allDigits.indexOf(word) !== -1;
-  };
-
-  var isHighDenom = function (word) {
-    return word === "hundred" || word === "thousand";
   };
 
   Utils.convertToNums = function(string) {
@@ -69,10 +69,10 @@
     var startIndex = null;
     var fragments = [];
 
-    var addToFragments = function (startIndex, index) {
-      if (startIndex !== null) {
-        if (isHighDenom(words[startIndex]) && startIndex > 0) startIndex -= 1;
-        var split = Utils.splitConsecutive(words.slice(startIndex, index));
+    var addToFragments = function (start, index) {
+      if (start !== null) {
+        if (isHighDenom(words[start]) && start > 0) start -= 1;
+        var split = Utils.splitConsecutive(words.slice(start, index));
         fragments = fragments.concat(split);
         startIndex = null;
       }
@@ -90,6 +90,35 @@
     addToFragments(startIndex, words.length);
 
     return fragments;
+  };
+
+  Utils.splitConsecutive = function (numWords) {
+    var allDigits = [oneDigits, twoDigits, tensDigits];
+    var split = [];
+    var lastIndex = 0;
+
+    numWords.reduce(function (memo, word, index) {
+      var sameDigit = allDigits.some(function (digits) {
+        return digits.indexOf(memo) !== -1 && digits.indexOf(word) !== -1;
+      });
+
+      if (sameDigit) {
+        split.push(numWords.slice(lastIndex, index));
+        lastIndex = index;
+      }
+    });
+
+    if (lastIndex < numWords.length) split.push(numWords.slice(lastIndex));
+    return split;
+  };
+
+  Utils.wordsToNum = function (words) {
+    var thousandIndex = words.indexOf("thousand") + 1;
+    var thousands = Utils.convertDigits(words.slice(0, thousandIndex));
+    var hundreds = Utils.convertDigits(words.slice(thousandIndex));
+    var num = thousands * 1000 + hundreds;
+
+    return num;
   };
 
   Utils.convertDigits = function (digitWords) {
@@ -119,34 +148,5 @@
     }
 
     return digits.reduce(function (sum, digit) { return sum + digit; });
-  };
-
-  Utils.wordsToNum = function (words) {
-    var thousandIndex = words.indexOf("thousand") + 1;
-    var thousands = Utils.convertDigits(words.slice(0, thousandIndex));
-    var hundreds = Utils.convertDigits(words.slice(thousandIndex));
-    var num = thousands * 1000 + hundreds;
-
-    return num;
-  };
-
-  Utils.splitConsecutive = function (numWords) {
-    var digits = [oneDigits, twoDigits, tensDigits];
-    var split = [];
-    var lastIndex = 0;
-
-    numWords.reduce(function (memo, word, index) {
-      var sameDigit = digits.some(function (digits) {
-        return digits.indexOf(memo) !== -1 && digits.indexOf(word) !== -1;
-      });
-
-      if (sameDigit) {
-        split.push(numWords.slice(lastIndex, index));
-        lastIndex = index;
-      }
-    });
-
-    if (lastIndex < numWords.length) split.push(numWords.slice(lastIndex));
-    return split;
   };
 })(this);

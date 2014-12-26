@@ -1,7 +1,7 @@
 <script>
   WebFont.load({
     google: {
-      families: ['Roboto']
+      families: ["Roboto"]
     }
   });
 </script>
@@ -14,6 +14,13 @@
 
 <script>
   $(function () {
+    Clickster.formAuth = $("meta[name=csrf-token]").attr("content");
+    Clickster.DECADES = <%= TvDecade.decades_list.to_json.html_safe %>
+    Clickster.GENRES = <%= TvGenre.genres_list.to_json.html_safe %>
+    Clickster.TV_STATUSES = <%= TvShow.statuses_list.to_json.html_safe %>
+    Clickster.LIST_STATUSES = <%= Watchlist.statuses_list.to_json.html_safe %>
+    Clickster.genreExceptions = <%= @genre_exceptions.to_json.html_safe %>
+
     Clickster.initialize({
       $navbar: $("nav"),
       $rootEl: $("#main"),
@@ -24,18 +31,6 @@
     Clickster.currentUser.fetch();
     <% end %>
   });
-</script>
-
-<script id="decades">
-  <%= TvDecade.decades_list.to_json.html_safe %>
-</script>
-
-<script id="genres">
-  <%= TvGenre.genres_list.to_json.html_safe %>
-</script>
-
-<script id="statuses">
-  <%= TvShow.statuses_list.to_json.html_safe %>
 </script>
 
 <script id="tv_shows">
@@ -52,12 +47,4 @@
   <% end %>
 
   <%= users.to_json.html_safe %>
-</script>
-
-<script id="list-statuses">
-  <%= Watchlist.statuses_list.to_json.html_safe %>
-</script>
-
-<script>
-  Clickster.genreExceptions = <%= @genre_exceptions.to_json.html_safe %>
 </script>

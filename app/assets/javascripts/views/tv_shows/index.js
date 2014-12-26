@@ -1,6 +1,6 @@
 Clickster.Views.TvIndex = Backbone.View.extend({
   initialize: function () {
-    this.tvShows = Clickster.currentUser.tvShows();
+    this.tvShows = Clickster.currentUser.tvShows;
 
     this.listenTo(this.tvShows, "add", this.render);
   },

@@ -1,7 +1,6 @@
 Clickster.Collections.Lists = Backbone.Collection.extend({
   initialize: function (options) {
     this.user = options.user;
-    this.url = options.url;
   },
 
   getList: function (tv_show_id) {

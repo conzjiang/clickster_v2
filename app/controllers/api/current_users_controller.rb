@@ -35,6 +35,9 @@ class Api::CurrentUsersController < ApplicationController
   end
 
   def show
+    unless signed_in?
+      render json: "Not signed in."
+    end
   end
 
   def update

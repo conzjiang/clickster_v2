@@ -48,7 +48,7 @@ describe("User model", function () {
   describe("#watchlists & #favorites", function () {
     it("are instances of Lists", function () {
       [user.watchlists(), user.favorites()].forEach(function (collection) {
-        expect(collection instanceof Clickster.Collections.Lists).to.be.true;
+        expect(collection).to.be.an.instanceof(Clickster.Collections.Lists);
       });
     });
 

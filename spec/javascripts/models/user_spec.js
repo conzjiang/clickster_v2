@@ -36,8 +36,8 @@ describe("User model", function () {
 
   describe("#parse", function () {
     it("sets the correct collections when parsing", function () {
-      expect(user.watchlists().length).to.equal(3);
-      expect(user.favorites().length).to.equal(1);
+      expect(user.watchlists()).to.have.length(3);
+      expect(user.favorites()).to.have.length(1);
     });
 
     it("deletes the parsed fields from the response", function () {
@@ -59,7 +59,7 @@ describe("User model", function () {
 
     it("filters watchlists based on status", function () {
       var completed = user.watchlists("Completed");
-      expect(completed.length).to.equal(1);
+      expect(completed).to.have.length(1);
       expect(completed[0].id).to.equal(2);
     });
 

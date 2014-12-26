@@ -4,7 +4,7 @@ describe("CurrentUser model", function () {
   var currentUser, response;
 
   beforeEach(function () {
-    currentUser = new Clickster.Models.CurrentUser({ id: 1, username: "conz" });
+    currentUser = new Clickster.Models.CurrentUser({ id: 1 });
     response = {
       watchlists: [{ id: 1 }],
       tv_shows: [{ id: 3 }, { id: 4 }]
@@ -28,7 +28,7 @@ describe("CurrentUser model", function () {
 
   describe("#parse", function () {
     it("parses TV shows", function () {
-      expect(currentUser.tvShows.length).to.equal(2);
+      expect(currentUser.tvShows).to.have.length(2);
     });
 
     it("extends User#parse", function () {

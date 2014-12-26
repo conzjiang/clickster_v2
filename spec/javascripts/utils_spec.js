@@ -38,8 +38,8 @@ describe("Utils.pluralize", function () {
 
 describe("Utils.strip", function () {
   it("strips phrases down to the bare minimum", function () {
-    var phrase = "Criminal Minds";
-    expect(Utils.strip(phrase)).to.equal("criminalminds");
+    var title = "Criminal Minds";
+    expect(Utils.strip(title)).to.equal("criminalminds");
   });
 
   it("strips punctuation", function () {
@@ -47,8 +47,32 @@ describe("Utils.strip", function () {
     expect(Utils.strip(title)).to.equal("extrememakeoverhomeedition");
   });
 
+  it("replaces ampersands with `and`", function () {
+    var title = "Law & Order: SVU";
+    expect(Utils.strip(title)).to.equal("lawandordersvu");
+  });
+
   it("converts words to numerals", function () {
     var title = "Brooklyn Nine-Nine";
     expect(Utils.strip(title)).to.equal("brooklyn99");
+  });
+});
+
+describe("Utils.stripAll", function () {
+  it("takes an array of objects and strips their patterns", function () {
+    var objs = [
+      { id: 1, pattern: "Two Guys & a Girl" },
+      { id: 2, pattern: "Fun" }
+    ];
+    var strippedAll = Utils.stripAll(objs);
+
+    expect(strippedAll[0].pattern).to.equal("2guysandagirl");
+    expect(strippedAll[1].pattern).to.equal("fun");
+  });
+});
+
+describe("Utils.unSnakeCase", function () {
+  it("converts a snakecased string to a capitalized string", function () {
+    expect(Utils.unSnakeCase("new_password")).to.equal("New password");
   });
 });

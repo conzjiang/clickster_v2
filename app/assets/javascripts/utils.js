@@ -32,7 +32,7 @@
 
     for (var attr in errors) {
       var $li = $("<li>");
-      $li.html(Utils.unSnakecase(attr) + " " + errors[attr][0]);
+      $li.html(Utils.unSnakeCase(attr) + " " + errors[attr][0]);
       $errorDisplay.append($li);
 
       view.$(fieldPrepend + attr).parent().addClass("error");
@@ -53,7 +53,7 @@
   };
 
   // converts lowercased snakecase to capitalized words
-  Utils.unSnakecase = function (string) {
+  Utils.unSnakeCase = function (string) {
     return Utils.capitalize(string.replace(/\_/g, ' '));
   };
 

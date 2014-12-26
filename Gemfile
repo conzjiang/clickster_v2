@@ -19,6 +19,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'byebug'
+  gem 'konacha'
 end
 
 group :development do

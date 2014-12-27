@@ -22,10 +22,6 @@ describe("CurrentUser model", function () {
     expect(currentUser.isCurrentUser).to.be.true;
   });
 
-  it("correct url", function () {
-    expect(currentUser.url).to.equal("api/current_user");
-  });
-
   describe("#parse", function () {
     it("parses TV shows", function () {
       expect(currentUser.tvShows).to.have.length(2);

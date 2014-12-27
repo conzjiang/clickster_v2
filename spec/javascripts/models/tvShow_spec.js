@@ -12,10 +12,6 @@ describe("TvShow model", function () {
     expect(tvShow.get("genres")).to.eql([]);
   });
 
-  it("correct url", function () {
-    expect(tvShow.urlRoot).to.equal("api/tv_shows");
-  });
-
   it("knows which genres it belongs to", function () {
     tvShow.set({ genres: ["Comedy", "Live-Action", "Scripted"] });
     expect(tvShow.belongsTo("Comedy")).to.be.true;

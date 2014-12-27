@@ -40,11 +40,13 @@ Clickster.Collections.SearchResults = Backbone.Collection.extend({
   },
 
   include: function (title) {
-    var tvShows = this.tvShows.map(function (tv) {
-      return tv.title.toLowerCase();
-    });
+    if (!this.tvShows.lowercase) {
+      this.tvShows.lowercase = this.tvShows.map(function (tv) {
+        return tv.title.toLowerCase();
+      });
+    }
 
-    return tvShows.indexOf(title.toLowerCase()) !== -1;
+    return this.tvShows.lowercase.indexOf(title.toLowerCase()) !== -1;
   },
 
   processText: function (searchTerm) {

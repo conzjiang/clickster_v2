@@ -11,10 +11,6 @@ describe("Users collection", function () {
     ]);
   });
 
-  it("User model", function () {
-    expect(users.first()).to.be.an.instanceof(Clickster.Models.User);
-  });
-
   describe("#getOrFetch", function () {
     var server;
 

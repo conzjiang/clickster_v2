@@ -11,10 +11,6 @@ describe("TvShows collection", function () {
     ]);
   });
 
-  it("TvShow model", function () {
-    expect(tvs.first()).to.be.an.instanceof(Clickster.Models.TvShow);
-  });
-
   it("initializes with an empty requestedGenres object", function () {
     expect(tvs._requestedGenres).to.be.empty;
   });
@@ -26,10 +22,6 @@ describe("TvShows collection", function () {
   it("excludes leading `The`s in title when sorting", function () {
     tvs.add({ id: 4, title: "The Comeback" });
     expect(tvs.pluck("id")).to.eql([3, 1, 4, 2]);
-  });
-
-  it("correct url", function () {
-    expect(tvs.url).to.equal("api/tv_shows");
   });
 
   describe("#byGenre", function () {

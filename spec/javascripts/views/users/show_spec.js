@@ -11,10 +11,22 @@ describe("User show view", function () {
   });
 
   it("displays `User not found` message if user not found", function () {
-    view.render();
     conz.trigger("notFound");
-
     expect(view.$el.html()).to.have.string("User not found");
+  });
+
+  it("displays Edit link if current user", function () {
+    view.render();
+    expect(view.$el.html()).to.have.string("Edit");
+  });
+
+  it("does not display Edit link if not current user", function () {
+    conz = new Clickster.Models.User({ id: 2, username: "conz" });
+    view = new Clickster.Views.UserShowView({ user: conz });
+    view.render();
+
+    expect(view.$el.html()).to.have.string("conz");
+    expect(view.$el.html()).not.to.have.string("Edit");
   });
 
   describe("#render", function () {
@@ -35,7 +47,7 @@ describe("User show view", function () {
       expect(view.$el.html()).to.have.string("Brooklyn 99");
     });
 
-    it("doesn't render template if user doesn't exist", function () {
+    it("does not render template if user doesn't exist", function () {
       conz.notFound = true;
       view.render();
 

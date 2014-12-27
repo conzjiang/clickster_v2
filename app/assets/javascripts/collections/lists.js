@@ -1,5 +1,5 @@
 Clickster.Collections.Lists = Backbone.Collection.extend({
-  initialize: function (options) {
+  initialize: function (models, options) {
     this.user = options.user;
   },
 
@@ -10,6 +10,12 @@ Clickster.Collections.Lists = Backbone.Collection.extend({
   send: function (attrs, options) {
     var that = this;
     var listItem = this.getList(attrs.tv_show_id);
+    var successCallback, errorCallback;
+
+    if (options) {
+      successCallback = options.success;
+      errorCallback = options.error;
+    }
 
     $.ajax({
       type: "post",
@@ -23,8 +29,9 @@ Clickster.Collections.Lists = Backbone.Collection.extend({
           that.add(data);
         }
 
-        if (options.success) options.success(data);
-      }
-    })
+        if (successCallback) successCallback(data);
+      },
+      error: errorCallback
+    });
   }
 });

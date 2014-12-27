@@ -14,7 +14,7 @@ Clickster.Models.User = Backbone.Model.extend({
 
   favorites: function () {
     if (!this._favorites) {
-      this._favorites = new Clickster.Collections.Lists({ user: this });
+      this._favorites = new Clickster.Collections.Lists([], { user: this });
     }
 
     return this._favorites;
@@ -36,7 +36,7 @@ Clickster.Models.User = Backbone.Model.extend({
 
   watchlists: function (status) {
     if (!this._watchlists) {
-      this._watchlists = new Clickster.Collections.Lists({ user: this });
+      this._watchlists = new Clickster.Collections.Lists([], { user: this });
     }
 
     if (status) {

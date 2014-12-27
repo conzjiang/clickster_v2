@@ -48,7 +48,7 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   searchResults: function (data) {
-    var searchView = new Clickster.Views.Search({ params: data });
+    var searchView = new Clickster.Views.SearchResultsView({ params: data });
     this._swapRootEl(searchView);
   },
 

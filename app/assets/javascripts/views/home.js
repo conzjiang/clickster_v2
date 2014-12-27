@@ -1,4 +1,4 @@
-Clickster.Views.Home = Backbone.View.extend({
+Clickster.Views.HomeView = Backbone.View.extend({
   initialize: function () {
     this.listenTo(Clickster.tvShows, "sync", this.render);
   },

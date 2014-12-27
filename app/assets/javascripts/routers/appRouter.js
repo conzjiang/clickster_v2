@@ -21,7 +21,7 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   home: function () {
-    var homeView = new Clickster.Views.Home();
+    var homeView = new Clickster.Views.HomeView();
     this._swapRootEl(homeView);
   },
 
@@ -85,8 +85,10 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
 
   _swapView: function (options) {
     var currentView = this.currentViews[options.currentView];
+
     currentView && currentView.remove();
     this.currentViews[options.currentView] = options.view;
+
     options.$el.html(options.view.render().$el);
     options.view.$(".content").dotdotdot();
   }

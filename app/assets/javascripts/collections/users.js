@@ -7,13 +7,10 @@ Clickster.Collections.Users = Backbone.Collection.extend({
     if (!user) {
       var that = this;
       user = new Clickster.Models.User({ username: username });
+      this.add(user);
 
       user.fetch({
-        success: function () {
-          that.add(user);
-        },
         error: function () {
-          that.add(user);
           user.notFound = true;
           user.trigger("notFound");
         }

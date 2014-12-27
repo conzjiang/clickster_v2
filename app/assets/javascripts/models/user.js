@@ -1,6 +1,6 @@
 Clickster.Models.User = Backbone.Model.extend({
   initialize: function (options) {
-    this.set("username", options.username);
+    if (options) this.set("username", options.username);
     this.isCurrentUser = Clickster.currentUser.id === this.id;
   },
 

@@ -1,6 +1,6 @@
 //= require spec_helper
 
-describe("Search Results View", function () {
+describe("Search Results view", function () {
   beforeEach(function () {
     setUpResultsDom();
 

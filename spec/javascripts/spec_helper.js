@@ -15,3 +15,9 @@ var setUpResultsDom = function () {
     { id: 2, pattern: "pizza" }
   ]));
 };
+
+chai.Assertion.prototype.to.have.content = function (string) {
+  var view = this.__flags.object;
+  this.__flags.object = view.$el.html();
+  this.to.have.string(string);
+};

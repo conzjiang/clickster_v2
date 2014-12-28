@@ -47,8 +47,8 @@ describe("Search Results view", function () {
         params: "decade_ids=6"
       }).render();
 
-      expect(view.$el.html()).to.have.string("Search Results");
-      expect(view.$el.html()).to.have.string("Brooklyn 99");
+      expect(view).to.have.content("Search Results");
+      expect(view).to.have.content("Brooklyn 99");
     });
 
     it("renders two sections when text result", function () {
@@ -56,9 +56,9 @@ describe("Search Results view", function () {
         params: "text=conz"
       }).render();
 
-      expect(view.$el.html()).to.have.string("TV Show Results");
-      expect(view.$el.html()).to.have.string("User Results");
-      expect(view.$el.html()).to.have.string("conz");
+      expect(view).to.have.content("TV Show Results");
+      expect(view).to.have.content("User Results");
+      expect(view).to.have.content("conz");
     });
   });
 });

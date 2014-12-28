@@ -1,4 +1,4 @@
-//= require application
+//= require spec_helper
 
 describe("Home View", function () {
   var view;
@@ -10,6 +10,6 @@ describe("Home View", function () {
 
   it("renders the currently airing shows", function () {
     view.render();
-    expect(view.$el.html()).to.have.string("Currently Airing");
+    expect(view).to.have.content("Currently Airing");
   });
 });

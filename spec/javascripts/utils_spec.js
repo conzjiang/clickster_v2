@@ -36,6 +36,8 @@ describe("Utils.pluralize", function () {
   });
 });
 
+// see User edit view spec for Utils.renderErrors test
+
 describe("Utils.strip", function () {
   it("strips phrases down to the bare minimum", function () {
     var title = "Criminal Minds";

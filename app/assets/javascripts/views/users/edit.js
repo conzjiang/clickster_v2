@@ -54,12 +54,12 @@ Clickster.Views.UserEditView = Backbone.View.extend({
     var signedIn = !!this.user.id;
     var content = this.template({ user: this.user });
 
-    if (!signedIn) {
+    if (signedIn) {
+      this.$el.html(content);
+    } else {
       this.$el.html("You must be signed in to perform this action!");
-      return this;
     }
 
-    this.$el.html(content);
     return this;
   },
 

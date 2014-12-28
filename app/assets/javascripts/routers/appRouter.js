@@ -26,7 +26,7 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   tvIndex: function () {
-    var indexView = new Clickster.Views.TvIndex();
+    var indexView = new Clickster.Views.TvIndexView();
     this._swapRootEl(indexView);
   },
 

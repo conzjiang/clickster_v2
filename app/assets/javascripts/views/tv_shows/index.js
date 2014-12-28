@@ -1,20 +1,25 @@
-Clickster.Views.TvIndex = Backbone.View.extend({
+Clickster.Views.TvIndexView = Backbone.View.extend({
   initialize: function () {
     this.tvShows = Clickster.currentUser.tvShows;
+    this.allowed = Clickster.currentUser.get("is_admin") && this.tvShows;
 
-    this.listenTo(this.tvShows, "add", this.render);
+    if (this.allowed) this.listenTo(this.tvShows, "add", this.render);
   },
 
   template: JST["tv_shows/index"],
 
   render: function () {
-    var content = this.template({
-      tvs: this.tvShows,
-      tvCard: JST["tv_shows/card"]
-    });
+    if (this.allowed) {
+      var content = this.template({
+        tvs: this.tvShows,
+        tvCard: JST["tv_shows/card"]
+      });
 
-    this.$el.html(content);
-    this.$(".content").dotdotdot();
+      this.$el.html(content);
+      this.$(".content").dotdotdot();
+    } else {
+      this.$el.html("You do not have access to this page.");
+    }
 
     return this;
   }

@@ -43,7 +43,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     }
   },
 
-  toggleWatchlist: function () {
+  toggleWatchlist: function (event) {
     var $button = $(event.target);
     var status = $button.data("option");
 

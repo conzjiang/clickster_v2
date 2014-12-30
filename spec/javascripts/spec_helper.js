@@ -1,6 +1,10 @@
 //= require sinon
 //= require application
 
+var appendToBody = function ($el) {
+  $("#konacha").append($el);
+};
+
 var setUpResultsDom = function () {
   $("#konacha").html("<p id='tv_shows'></p><p id='users'></p>");
 

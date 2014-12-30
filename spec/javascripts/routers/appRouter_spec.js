@@ -5,7 +5,7 @@ describe("App Router", function () {
 
   beforeEach(function () {
     $("#konacha").html("<p id='nav'></p><p id='root'></p>");
-    $("#konacha").append("<p id='tv_shows'>[]</p><p id='users'>[]</p>");
+    appendToBody("<p id='tv_shows'>[]</p><p id='users'>[]</p>");
 
     Clickster.currentUser = new Backbone.Model();
     router = new Clickster.Routers.AppRouter({

@@ -9,7 +9,7 @@
            class="form-input"
            type="text"
            name="tv_show[title]"
-           value="<%= tv.escape('title') %>">
+           value="<%= tv.escape("title") %>">
   </fieldset>
 
   <fieldset>
@@ -22,14 +22,14 @@
 
   <fieldset>
     <strong>Genre(s)</strong>
-    <ul class='genres'>
+    <ul class="genres">
       <% _(Clickster.GENRES).each(function(genre) { %>
         <li>
           <input id="form_genre_<%= genre.replace(/\//g, "") %>"
                  type="checkbox"
                  name="tv_show[genres][]"
                  value="<%= genre %>">
-          <label for='form_genre_<%= genre.replace(/\//g, "") %>'>
+          <label for="form_genre_<%= genre.replace(/\//g, "") %>">
             <%= genre %>
           </label>
         </li>
@@ -47,7 +47,7 @@
            class="form-input"
            type="text"
            name="tv_show[network]"
-           value="<%= tv.escape('network') %>">
+           value="<%= tv.escape("network") %>">
   </fieldset>
 
   <fieldset>
@@ -56,7 +56,7 @@
            class="form-input"
            type="number"
            name="tv_show[num_seasons]"
-           value="<%= tv.get('num_seasons') %>">
+           value="<%= tv.get("num_seasons") %>">
   </fieldset>
 
   <fieldset>
@@ -65,7 +65,7 @@
            class="form-input"
            type="number"
            name="tv_show[start_year]"
-           value="<%= tv.get('start_year') %>">
+           value="<%= tv.get("start_year") %>">
   </fieldset>
 
   <fieldset>
@@ -78,25 +78,25 @@
            class="form-input"
            type="number"
            name="tv_show[end_year]"
-           value="<%= tv.get('end_year') %>">
+           value="<%= tv.get("end_year") %>">
   </fieldset>
 
   <fieldset>
-    <label for='tv_show_status'>Status</label>
-    <select id='tv_show_status' name="tv_show[status]" class="form-input">
+    <label for="tv_show_status">Status</label>
+    <select id="tv_show_status" name="tv_show[status]" class="form-input">
       <option></option>
 
       <% _(Clickster.TV_STATUSES).each(function (status) { %>
-        <option value='<%= status %>'><%= status %></option>
+        <option value="<%= status %>"><%= status %></option>
       <% }) %>
     </select>
   </fieldset>
 
   <fieldset>
     <label for="tv_show_blurb">Description</label>
-    <textarea id='tv_show_blurb'
+    <textarea id="tv_show_blurb"
               name="tv_show[blurb]"
-              class="form-input"><%= tv.escape('blurb') %></textarea>
+              class="form-input"><%= tv.escape("blurb") %></textarea>
   </fieldset>
 
   <button class="submit-button"><%= buttonContent %></button>

@@ -174,7 +174,7 @@ ul.dropdown {
   button {
     @extend a;
 
-    width: 100%;
+    width: calc(100% - 19px); // why is there an extra 1px margin-right???
     text-align: left;
     color: #000;
     background: none;

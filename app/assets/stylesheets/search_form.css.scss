@@ -1,7 +1,6 @@
 /* SEARCH BAR */
 form.text-search {
-  margin-top: 20px;
-  margin-bottom: 40px;
+  margin: 40px 0;
 
   > h2 {
     margin-bottom: 10px;
@@ -58,6 +57,7 @@ ul.decades > li > input[type=checkbox]:checked + label {
 /* DECADES */
 form.discover {
   width: 100%;
+  margin: 40px 0;
 
   label {
     background: #ccc;

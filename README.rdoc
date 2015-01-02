@@ -4,10 +4,9 @@ New features:
 
 * Mobile-first design!
 * Everything in Backbone!
-* Much more optimized search queries!
+* More optimized search queries!
 
 == TODO
 
 * Boyer-Moore algorithm for faster search lookup
-* Sign Out button hover for web is wonky
-* Give shows "tags" to make them searchable by other related terms (SVU -> Special Victims Unit)
+* Search for "Law & Order: Special Victims Unit" with `SVU` keyword

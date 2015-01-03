@@ -1,25 +1,40 @@
+$nav_link_color: #ccc;
+
+// HEADER
+main > header {
+  width: 100%;
+  background: #888;
+  box-shadow: 0 1px 3px #aaa;
+}
+
 /* NAV */
 nav {
   width: 100%;
 
+  h1 {
+    display: block;
+    position: relative;
+    float: left;
+    margin: 22px 0 16px 30px;
+    font-size: 28px;
+  }
+
+  h1 > a {
+    color: #eee;
+  }
+
   .links {
     position: relative;
-    width: 100%;
+    float: right;
     height: 75px;
-    background: #888;
-    box-shadow: 0 1px 3px #aaa;
+    margin-right: 20px;
 
     > li {
       position: relative;
       float: left;
-      width: 50%;
+      width: 50px;
       height: 100%;
-      text-align: center;
-    }
-
-    > li:first-child {
-      border-right: 1px solid #eee;
-      box-sizing: border-box;
+      margin-left: 30px;
     }
 
     button:hover {
@@ -28,84 +43,143 @@ nav {
   }
 }
 
-/* TV HAMBURGER ICON */
-button#open-search {
-  display: inline-block;
+@media (min-width: 500px) {
+  nav {
+    max-width: 450px;
+
+    h1 {
+      margin: 16px 0;
+      font-size: 32px;
+    }
+
+    h1:after {
+      content: "\23E9";
+      font-family: "Entypo";
+      position: absolute;
+      top: 5px;
+      margin-left: 10px;
+      font-size: 36px;
+      color: #eee;
+    }
+
+    a {
+      color: #eee;
+    }
+
+    .links {
+      float: right;
+      width: 25%;
+      min-width: 250px;
+    }
+  }
+}
+
+button.nav {
   position: relative;
-  top: 25px;
-  width: 35px;
-  height: 18px;
-  border: 7px solid #ccc;
+  display: block;
+  width: 40px;
+  margin: auto;
+  color: $nav_link_color;
+  z-index: 20;
+}
+
+button.nav:before {
+  font-family: "Entypo";
+  font-size: 70px;
+}
+
+button#open-search:before {
+  content: "\1F50D";
+  position: absolute;
+  top: 5px;
+}
+
+/* TV HAMBURGER ICON */
+button.tv-hamburger {
+  display: block;
+  margin: auto;
+  position: relative;
+  top: 30px;
+  width: 30px;
+  height: 15px;
+  border: 5px solid $nav_link_color;
   border-left: 0;
   border-right: 0;
   cursor: pointer;
   z-index: 20;
 }
 
-button#open-search:after {
+button.tv-hamburger:after {
   content: "";
   position: absolute;
-  top: 6px;
+  top: 5px;
   left: 0;
-  width: 35px;
-  height: 7px;
-  background: #ccc;
+  width: 30px;
+  height: 5px;
+  background: $nav_link_color;
 }
 
 /* antennas */
-button#open-search:before,
-button#open-search > span.antenna {
+button.tv-hamburger:before,
+button.tv-hamburger > span.antenna {
   position: absolute;
   width: 0;
-  height: 8px;
-  top: -18px;
-  border: 4px solid #ccc;
-  border-radius: 4px;
+  height: 5px;
+  top: -15px;
+  border: 3px solid $nav_link_color;
+  border-radius: 3px;
 }
 
-button#open-search:before {
+button.tv-hamburger:before {
   content: "";
-  left: 7px;
+  left: 6px;
   transform: skewX(30deg);
 }
 
-button#open-search > span.antenna {
-  left: 20px;
+button.tv-hamburger > span.antenna {
+  left: 18px;
   transform: skewX(-30deg);
 }
 
-// SIGN IN BUTTON
-button#sign-in-button {
-  display: inline-block;
-}
-
-button#sign-in-button:before {
-  position: relative;
-  display: block;
-  content: "";
-  width: 25px;
-  height: 25px;
-  margin-top: 50%;
-  border: 5px solid #ccc;
-  border-radius: 18px;
-  z-index: 20;
-}
-
 @media (min-width: 500px) {
-  button#open-search,
-  button#sign-in-button:before {
+  button.nav {
     z-index: 14;
   }
-}
 
-/* PROFILE BUTTON */
-button#open-dropdown:before {
-  @extend button#sign-in-button:before;
+  // TV HAMBURGER
+  button.tv-hamburger {
+    top: 25px;
+    width: 24px;
+    height: 12px;
+    border-width: 4px;
+    border-radius: 2px;
+  }
 
-  width: 35px;
-  height: 35px;
-  border: 0;
-  background: #ccc;
+  button.tv-hamburger:after {
+    top: 4px;
+    width: 24px;
+    height: 4px;
+  }
+
+  /* antennas */
+  button.tv-hamburger:before,
+  button.tv-hamburger > span.antenna {
+    height: 5px;
+    top: -13px;
+    border: 3px solid #ccc;
+    border-radius: 3px;
+  }
+
+  button.tv-hamburger:before {
+    content: "";
+    left: 5px;
+    transform: skewX(30deg);
+  }
+
+  button.tv-hamburger > span.antenna {
+    left: 13px;
+    transform: skewX(-30deg);
+  }
 }
 
 // POP OUT CONTAINER
@@ -154,7 +228,11 @@ div.cover {
     left: 0;
   }
 
-  div.cover.show {
+  main.cover {
+    overflow: hidden;
+  }
+
+  main.cover > div.cover {
     display: block;
     position: absolute;
     top: 0;
@@ -163,11 +241,6 @@ div.cover {
     height: 100%;
     background: rgba(109, 109, 109, 0.5);
     z-index: 14;
-  }
-
-  div.cover.show + section#main {
-    height: calc(100% - 75px);
-    overflow: hidden;
   }
 }
 
@@ -182,16 +255,16 @@ div.nav-triangle {
   border-bottom-color: #eee;
 }
 
-@media (min-width: 500px) {
-  div.nav-triangle {
-    display: none;
-  }
-}
-
 article.pop-out.search {
   > div.nav-triangle {
     left: 23.75%;
     margin-left: -20px;
+  }
+
+  @media (min-width: 500px) {
+    > div.nav-triangle {
+      display: none;
+    }
   }
 }
 

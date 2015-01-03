@@ -55,7 +55,7 @@ Clickster.Views.Nav = Backbone.View.extend({
     var $popout = this.$(".pop-out");
     $popout.removeClass(options.otherClass).toggleClass(options.class);
     $popout.removeClass("transition");
-    $(".cover").removeClass("show");
+    $("main").removeClass("cover");
 
     if ($popout.hasClass(options.class)) {
       var popoutView = new options.View();
@@ -73,7 +73,6 @@ Clickster.Views.Nav = Backbone.View.extend({
 
     setTimeout(function () {
       that.$(".pop-out").addClass("transition");
-      $(".cover").addClass("show");
     }, 0);
 
     this._setUpClickListener();
@@ -89,7 +88,7 @@ Clickster.Views.Nav = Backbone.View.extend({
 
       if ((notFirstClick && clickedNavLink) || outsideNav) {
         that.$(".pop-out").removeClass("transition search sign-in dropdown");
-        $(".cover").removeClass("show");
+        $("main").removeClass("cover");
         $(this).off("click");
       }
     });

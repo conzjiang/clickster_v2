@@ -47,6 +47,7 @@ Clickster.Views.SearchFormView = Backbone.View.extend({
   },
 
   render: function () {
+    $("main").addClass("cover");
     this.$el.html(this.template());
     return this;
   },

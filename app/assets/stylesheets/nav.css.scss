@@ -34,42 +34,58 @@ nav {
       float: left;
       width: 50px;
       height: 100%;
-      margin-left: 30px;
+      margin-left: 10px;
+      cursor: pointer;
     }
 
-    button:hover {
-      background: none;
+    a.nav {
+      display: none;
     }
   }
 }
 
 @media (min-width: 500px) {
   nav {
-    max-width: 450px;
+    max-width: 900px;
+    margin: auto;
 
     h1 {
       margin: 16px 0;
       font-size: 32px;
     }
 
-    h1:after {
-      content: "\23E9";
-      font-family: "Entypo";
-      position: absolute;
-      top: 5px;
-      margin-left: 10px;
-      font-size: 36px;
-      color: #eee;
-    }
-
-    a {
-      color: #eee;
-    }
-
     .links {
       float: right;
       width: 25%;
       min-width: 250px;
+      margin-right: 0;
+
+      > li {
+        width: 70px;
+        margin: 0;
+      }
+
+      > li.profile {
+        display: block;
+      }
+
+      > li:hover {
+        background: #000;
+      }
+
+      a.nav {
+        position: absolute;
+        bottom: 10px;
+        display: block;
+        width: 100%;
+        font-size: 12px;
+        color: #eee;
+        text-align: center;
+      }
+
+      button, button:hover {
+        background-color: transparent;
+      }
     }
   }
 }
@@ -78,20 +94,65 @@ button.nav {
   position: relative;
   display: block;
   width: 40px;
+  height: 40px;
   margin: auto;
   color: $nav_link_color;
   z-index: 20;
 }
 
 button.nav:before {
+  position: absolute;
+  left: 0;
   font-family: "Entypo";
+  font-weight: normal;
   font-size: 70px;
 }
 
-button#open-search:before {
+button.open-search:before {
   content: "\1F50D";
-  position: absolute;
   top: 5px;
+  left: 2px;
+}
+
+button.profile-button {
+  top: 18px;
+  border-radius: 20px;
+  background-size: cover;
+}
+
+button.no-image:before {
+  content: "\1F464";
+  top: -11px;
+  font-size: 65px;
+}
+
+@media (min-width: 500px) {
+  button.nav {
+    width: 30px;
+    height: 30px;
+  }
+
+  button.nav:before {
+    font-size: 60px;
+  }
+
+  button.open-search:before {
+    top: 0;
+    left: 0;
+  }
+
+  button.profile-button {
+    top: 13px;
+    border-radius: 15px;
+    background-size: cover;
+  }
+
+  button.no-image:before {
+    content: "\1F464";
+    position: absolute;
+    top: -13px;
+    left: -2px;
+  }
 }
 
 $not_signed_in: #aaa;
@@ -150,43 +211,44 @@ button.tv-hamburger {
 }
 
 @media (min-width: 500px) {
-  button.nav {
+  button.nav,
+  button.tv-hamburger {
     z-index: 14;
   }
 
   // TV HAMBURGER
   button.tv-hamburger {
-    top: 25px;
+    top: 22px;
     width: 24px;
     height: 12px;
     border-width: 4px;
     border-radius: 2px;
-  }
 
-  button.tv-hamburger:after {
-    top: 4px;
-    width: 24px;
-    height: 4px;
-  }
+    &:after {
+      top: 4px;
+      width: 24px;
+      height: 4px;
+    }
 
-  /* antennas */
-  button.tv-hamburger:before,
-  button.tv-hamburger > span.antenna {
-    height: 5px;
-    top: -13px;
-    border: 3px solid #ccc;
-    border-radius: 3px;
-  }
+    // antennas
+    &:before,
+    > span.antenna {
+      height: 5px;
+      top: -13px;
+      border-width: 3px;
+      border-radius: 3px;
+    }
 
-  button.tv-hamburger:before {
-    content: "";
-    left: 5px;
-    transform: skewX(30deg);
-  }
+    &:before {
+      content: "";
+      left: 5px;
+      transform: skewX(30deg);
+    }
 
-  button.tv-hamburger > span.antenna {
-    left: 13px;
-    transform: skewX(-30deg);
+    > span.antenna {
+      left: 13px;
+      transform: skewX(-30deg);
+    }
   }
 }
 
@@ -269,7 +331,7 @@ div.nav-triangle {
 
 article.pop-out.search {
   > div.nav-triangle {
-    right: calc(100px - 5.5%);
+    right: calc(145px - 2.5%);
   }
 
   @media (min-width: 500px) {

@@ -17,8 +17,8 @@ Clickster.Views.Nav = Backbone.View.extend({
   template: JST["nav/nav"],
 
   events: {
-    "click #open-search": "toggleSearch",
-    "click .tv-hamburger": "chooseMenu"
+    "click .surf": "toggleSearch",
+    "click .guide": "chooseMenu"
   },
 
   toggleSearch: function () {
@@ -60,14 +60,27 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   render: function () {
     var signedIn = !!Clickster.currentUser.id;
-    var content = this.template();
+    var content = this.template({ signedIn: signedIn });
     this.$el.html(content);
 
     if (signedIn) {
       this.$(".tv-hamburger").addClass("signed-in");
+      this._renderProfileImage();
     }
 
     return this;
+  },
+
+  _renderProfileImage: function () {
+    var imageUrl = Clickster.currentUser.escape("image_url");
+
+    if (imageUrl) {
+      this.$(".profile-button").css({
+        "background-image": "url('" + imageUrl + "')"
+      });
+    } else {
+      this.$(".profile-button").addClass("no-image");
+    }
   },
 
   _togglePopout: function (options) {
@@ -96,13 +109,19 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   _setUpClickListener: function () {
     var that = this;
+    var firstClick = true;
 
-    $("body").on("click", function () {
-      var notFirstClick = !$(event.target).is("button.nav");
-      var clickedNavLink = !!$(event.target).closest(".dropdown").length;
-      var outsideNav = !$(event.target).closest("nav").length;
+    $("body").on("click", function (event) {
+      if (firstClick) {
+        firstClick = false;
+        return;
+      }
+      var $target = $(event.target);
+      var otherNav = $target.is(".profile-button") || $target.is(".logo");
+      var clickedDropdown = !!$target.closest(".dropdown").length;
+      var outsideNav = !$target.closest("nav").length;
 
-      if ((notFirstClick && clickedNavLink) || outsideNav) {
+      if (otherNav || clickedDropdown || outsideNav) {
         that.$(".pop-out").removeClass(allClasses);
         $("main").removeClass("cover");
         $(this).off("click");

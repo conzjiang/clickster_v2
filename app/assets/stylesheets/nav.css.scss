@@ -94,6 +94,8 @@ button#open-search:before {
   top: 5px;
 }
 
+$not_signed_in: #aaa;
+
 /* TV HAMBURGER ICON */
 button.tv-hamburger {
   display: block;
@@ -102,43 +104,49 @@ button.tv-hamburger {
   top: 30px;
   width: 30px;
   height: 15px;
-  border: 5px solid $nav_link_color;
+  border: 5px solid $not_signed_in;
   border-left: 0;
   border-right: 0;
   cursor: pointer;
   z-index: 20;
-}
 
-button.tv-hamburger:after {
-  content: "";
-  position: absolute;
-  top: 5px;
-  left: 0;
-  width: 30px;
-  height: 5px;
-  background: $nav_link_color;
-}
+  &:after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 30px;
+    height: 5px;
+    background: $not_signed_in;
+  }
 
-/* antennas */
-button.tv-hamburger:before,
-button.tv-hamburger > span.antenna {
-  position: absolute;
-  width: 0;
-  height: 5px;
-  top: -15px;
-  border: 3px solid $nav_link_color;
-  border-radius: 3px;
-}
+  // antennas
+  &:before,
+  > span.antenna {
+    position: absolute;
+    width: 0;
+    height: 5px;
+    top: -15px;
+    border: 3px solid $not_signed_in;
+    border-radius: 3px;
+  }
 
-button.tv-hamburger:before {
-  content: "";
-  left: 6px;
-  transform: skewX(30deg);
-}
+  &:before {
+    content: "";
+    left: 6px;
+    transform: skewX(30deg);
+  }
 
-button.tv-hamburger > span.antenna {
-  left: 18px;
-  transform: skewX(-30deg);
+  > span.antenna {
+    left: 18px;
+    transform: skewX(-30deg);
+  }
+
+  &.signed-in {
+    border-color: $nav_link_color;
+    &:after { background: $nav_link_color; }
+    &:before, span.antenna { border-color: $nav_link_color; }
+  }
 }
 
 @media (min-width: 500px) {
@@ -209,6 +217,10 @@ article.pop-out.dropdown {
   }
 }
 
+article.pop-out.sign-in {
+  height: 450px;
+}
+
 div.cover {
   display: none;
 }
@@ -270,7 +282,7 @@ article.pop-out.search {
 article.pop-out.sign-in,
 article.pop-out.dropdown {
   > div.nav-triangle {
-    right: 23.75%;
+    right: calc(45px - 2.5%);
     margin-right: -20px;
   }
 }
@@ -283,7 +295,7 @@ article.pop-out.dropdown {
 ul.dropdown {
   display: block;
   width: 90%;
-  margin: 5%;
+  padding: 30px 5%;
 
   > li {
     width: 100%;

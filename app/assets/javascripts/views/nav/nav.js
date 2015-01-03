@@ -1,3 +1,5 @@
+var allClasses = "search sign-in dropdown transition";
+
 Clickster.Views.Nav = Backbone.View.extend({
   initialize: function () {
     Clickster.searchResults = new Clickster.Collections.SearchResults();
@@ -9,25 +11,32 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   events: {
     "click #open-search": "toggleSearch",
-    "click #sign-in-button": "toggleSignIn",
-    "click #open-dropdown": "toggleMenu"
+    "click .tv-hamburger": "chooseMenu"
   },
 
   toggleSearch: function () {
     var options = {
       View: Clickster.Views.SearchFormView,
-      class: "search",
-      otherClass: "sign-in dropdown"
+      class: "search"
     };
 
     this._togglePopout(options);
   },
 
+  chooseMenu: function () {
+    var signedIn = !!Clickster.currentUser.id;
+
+    if (signedIn) {
+      this.toggleMenu();
+    } else {
+      this.toggleSignIn();
+    }
+  },
+
   toggleSignIn: function () {
     var options = {
       View: Clickster.Views.SignInView,
-      class: "sign-in",
-      otherClass: "search dropdown"
+      class: "sign-in"
     };
 
     this._togglePopout(options);
@@ -36,8 +45,7 @@ Clickster.Views.Nav = Backbone.View.extend({
   toggleMenu: function () {
     var options = {
       View: Clickster.Views.DropdownView,
-      class: "dropdown",
-      otherClass: "search sign-in"
+      class: "dropdown"
     };
 
     this._togglePopout(options);
@@ -45,16 +53,19 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   render: function () {
     var signedIn = !!Clickster.currentUser.id;
-    var content = this.template({ signedIn: signedIn });
-
+    var content = this.template();
     this.$el.html(content);
+
+    if (signedIn) {
+      this.$(".tv-hamburger").addClass("signed-in");
+    }
+
     return this;
   },
 
   _togglePopout: function (options) {
     var $popout = this.$(".pop-out");
-    $popout.removeClass(options.otherClass).toggleClass(options.class);
-    $popout.removeClass("transition");
+    $popout.removeClass(allClasses).toggleClass(options.class);
     $("main").removeClass("cover");
 
     if ($popout.hasClass(options.class)) {
@@ -64,16 +75,14 @@ Clickster.Views.Nav = Backbone.View.extend({
   },
 
   _swapPopout: function (view) {
-    var that = this;
-
     if (this._currentPopout) this._currentPopout.remove();
     this._currentPopout = view;
-    this.$(".pop-out").append(this._currentPopout.render().$el);
-    this._currentPopout.$("input.first").focus();
+    this.$(".pop-out").append(view.render().$el);
+    view.$("input.first").focus();
 
     setTimeout(function () {
-      that.$(".pop-out").addClass("transition");
-    }, 0);
+      this.$(".pop-out").addClass("transition");
+    }.bind(this), 0);
 
     this._setUpClickListener();
   },
@@ -87,7 +96,7 @@ Clickster.Views.Nav = Backbone.View.extend({
       var outsideNav = !$(event.target).closest("nav").length;
 
       if ((notFirstClick && clickedNavLink) || outsideNav) {
-        that.$(".pop-out").removeClass("transition search sign-in dropdown");
+        that.$(".pop-out").removeClass(allClasses);
         $("main").removeClass("cover");
         $(this).off("click");
       }

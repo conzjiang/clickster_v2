@@ -21,6 +21,10 @@ nav {
       border-right: 1px solid #eee;
       box-sizing: border-box;
     }
+
+    button:hover {
+      background: none;
+    }
   }
 }
 
@@ -87,6 +91,13 @@ button#sign-in-button:before {
   z-index: 20;
 }
 
+@media (min-width: 500px) {
+  button#open-search,
+  button#sign-in-button:before {
+    z-index: 14;
+  }
+}
+
 /* PROFILE BUTTON */
 button#open-dropdown:before {
   @extend button#sign-in-button:before;
@@ -124,6 +135,42 @@ article.pop-out.dropdown {
   }
 }
 
+div.cover {
+  display: none;
+}
+
+@media (min-width: 500px) {
+  article.pop-out.search {
+    width: 25%;
+    min-width: 400px;
+    height: 100%;
+    top: 0;
+    left: calc(-400px - 25%);
+    box-shadow: 2px 0px 10px rgba(109, 109, 109, 0.7);
+    transition: left 0.5s;
+  }
+
+  article.pop-out.search.transition {
+    left: 0;
+  }
+
+  div.cover.show {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(109, 109, 109, 0.5);
+    z-index: 14;
+  }
+
+  div.cover.show + section#main {
+    height: calc(100% - 75px);
+    overflow: hidden;
+  }
+}
+
 div.nav-triangle {
   position: absolute;
   top: -50px;
@@ -133,6 +180,12 @@ div.nav-triangle {
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   border-bottom-color: #eee;
+}
+
+@media (min-width: 500px) {
+  div.nav-triangle {
+    display: none;
+  }
 }
 
 article.pop-out.search {

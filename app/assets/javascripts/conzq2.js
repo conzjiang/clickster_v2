@@ -17,3 +17,9 @@ window.Clickster = {
     Backbone.history.start();
   }
 };
+
+Backbone.View.prototype.dotdotdot = function () {
+  this.$(".content").dotdotdot({
+    watch: "window"
+  });
+};

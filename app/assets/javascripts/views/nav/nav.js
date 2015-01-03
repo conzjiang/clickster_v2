@@ -51,6 +51,18 @@ Clickster.Views.Nav = Backbone.View.extend({
     return this;
   },
 
+  _togglePopout: function (options) {
+    var $popout = this.$(".pop-out");
+    $popout.removeClass(options.otherClass).toggleClass(options.class);
+    $popout.removeClass("transition");
+    $(".cover").removeClass("show");
+
+    if ($popout.hasClass(options.class)) {
+      var popoutView = new options.View();
+      this._swapPopout(popoutView);
+    }
+  },
+
   _swapPopout: function (view) {
     var that = this;
 
@@ -59,30 +71,33 @@ Clickster.Views.Nav = Backbone.View.extend({
     this.$(".pop-out").append(this._currentPopout.render().$el);
     this._currentPopout.$("input.first").focus();
 
+    setTimeout(function () {
+      that.$(".pop-out").addClass("transition");
+      $(".cover").addClass("show");
+    }, 0);
+
+    this._setUpClickListener();
+  },
+
+  _setUpClickListener: function () {
+    var that = this;
+
     $("body").on("click", function () {
       var notFirstClick = !$(event.target).is("button.nav");
       var clickedNavLink = !!$(event.target).closest(".dropdown").length;
       var outsideNav = !$(event.target).closest("nav").length;
 
       if ((notFirstClick && clickedNavLink) || outsideNav) {
-        that.$(".pop-out").removeClass("search sign-in dropdown");
+        that.$(".pop-out").removeClass("transition search sign-in dropdown");
+        $(".cover").removeClass("show");
         $(this).off("click");
       }
     });
   },
 
-  _togglePopout: function (options) {
-    var $popout = this.$(".pop-out");
-    $popout.removeClass(options.otherClass).toggleClass(options.class);
-
-    if ($popout.hasClass(options.class)) {
-      var popoutView = new options.View();
-      this._swapPopout(popoutView);
-    }
-  },
-
   remove: function () {
     if (this._currentPopout) this._currentPopout.remove();
+    $("body").off("click");
     return Backbone.View.prototype.remove.apply(this);
   }
 });

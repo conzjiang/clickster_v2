@@ -16,7 +16,7 @@ Clickster.Views.TvIndexView = Backbone.View.extend({
       });
 
       this.$el.html(content);
-      this.$(".content").dotdotdot();
+      this.dotdotdot();
     } else {
       this.$el.html("You do not have access to this page.");
     }

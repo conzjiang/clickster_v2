@@ -25,7 +25,7 @@ Clickster.Views.UserShowView = Backbone.View.extend({
       this.error();
     } else {
       this.$el.html(content);
-      this.$(".content").dotdotdot();
+      this.dotdotdot();
     }
 
     return this;

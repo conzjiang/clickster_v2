@@ -90,6 +90,6 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     this.currentViews[options.currentView] = options.view;
 
     options.$el.html(options.view.render().$el);
-    options.view.$(".content").dotdotdot();
+    options.view.dotdotdot();
   }
 });

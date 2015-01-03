@@ -257,8 +257,7 @@ div.nav-triangle {
 
 article.pop-out.search {
   > div.nav-triangle {
-    left: 23.75%;
-    margin-left: -20px;
+    right: calc(100px - 5.5%);
   }
 
   @media (min-width: 500px) {

@@ -1,11 +1,13 @@
 //= require sinon
 //= require application
 
-var appendToBody = function ($el) {
+var appendToBody, setUpResultsDom, Assertion;
+
+appendToBody = function ($el) {
   $("#konacha").append($el);
 };
 
-var setUpResultsDom = function () {
+setUpResultsDom = function () {
   $("#konacha").html("<p id='tv_shows'></p><p id='users'></p>");
 
   $("#tv_shows").html(JSON.stringify([
@@ -20,8 +22,22 @@ var setUpResultsDom = function () {
   ]));
 };
 
-chai.Assertion.prototype.to.have.content = function (string) {
-  var view = this.__flags.object;
-  this.__flags.object = view.$el.html();
-  this.to.have.string(string);
-};
+Assertion = chai.Assertion;
+Assertion.addMethod("content", function (string) {
+  var view = this._obj;
+
+  new Assertion(view).to.be.instanceof(Backbone.View);
+  this.assert(
+    !!view.$el.html().match(string),
+    "expected object to be of type Backbone.View but got #{act}",
+    "expected view to have content '#{exp}'",
+    string, // exp
+    view._type // act
+  );
+});
+
+// chai.Assertion.prototype.to.have.content = function (string) {
+//   var view = this.__flags.object;
+//   this.__flags.object = view.$el.html();
+//   this.to.have.string(string);
+// };

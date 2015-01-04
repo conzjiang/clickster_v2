@@ -7,10 +7,17 @@ section#main > .tv-show {
     height: 400px;
     background-size: cover;
     overflow: hidden;
-    transition: background-position 0.5s;
+  }
+
+  @media (min-width: 500px) {
+    .image-block {
+      background-repeat: repeat-x;
+      background-size: auto 100%;
+    }
   }
 
   .image-block > div.cover {
+    display: block;
     position: absolute;
     top: 0;
     left: 0;

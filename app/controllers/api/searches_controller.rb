@@ -13,7 +13,7 @@ class Api::SearchesController < ApplicationController
     end
 
     if status
-      results = results.where(status: [1, 2])
+      results = results.where(status: [0, 1])
     end
 
     render json: results

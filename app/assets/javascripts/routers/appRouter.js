@@ -91,5 +91,6 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
 
     options.$el.html(options.view.render().$el);
     options.view.dotdotdot();
+    $("main").removeClass("cover");
   }
 });

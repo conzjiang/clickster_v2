@@ -60,33 +60,3 @@
 
   <p class="blurb"><%= tv.escape("blurb") %></p>
 </article>
-
-<script>
-  $(function () {
-    var onMobile = false;
-    var scrollEffect = function (e, scrollPos) {
-      if (scrollPos < 150) {
-        $(".image-block").css({
-          "background-position": "0 -" + scrollPos + "px"
-        });
-      }
-    };
-
-    $("main").on("touchmove", function (e) {
-      var scrollPos = $(this).scrollTop();
-      onMobile = true;
-      scrollEffect(e, scrollPos);
-    });
-
-    $("main").on("scroll", function (e) {
-      var scrollPos = $("main").scrollTop();
-
-      if (onMobile) {
-        $("main").off("scroll");
-        return;
-      }
-
-      scrollEffect(e, scrollPos);
-    });
-  });
-</script>

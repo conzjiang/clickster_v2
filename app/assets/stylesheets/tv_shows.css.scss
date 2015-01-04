@@ -5,25 +5,7 @@ section#main > .tv-show {
     width: 100%;
     position: relative;
     height: 400px;
-    background-size: cover;
     overflow: hidden;
-  }
-
-  @media (min-width: 500px) {
-    .image-block {
-      background-repeat: repeat-x;
-      background-size: auto 100%;
-    }
-  }
-
-  .image-block > div.cover {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(30, 30, 30, 0.5);
   }
 
   .image-block > div.content {
@@ -39,6 +21,7 @@ section#main > .tv-show {
       font-weight: 700;
       line-height: 1.1;
       color: #fff;
+      text-shadow: #666 3px 3px 5px;
     }
 
     ul.genres {
@@ -59,6 +42,53 @@ section#main > .tv-show {
       border: 1px solid #888;
       border-radius: 15px;
     }
+  }
+}
+
+ul.image-tiles {
+  width: 100%;
+  height: 100%;
+
+  li {
+    position: relative;
+    float: left;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+  }
+
+  li:first-child {
+    display: block;
+  }
+
+  @media (min-width: 500px) {
+    li {
+      display: block;
+      width: 50%;
+    }
+  }
+
+  @media (min-width: 700px) {
+    li {
+      width: 33.3%;
+    }
+  }
+
+  @media (min-width: 900px) {
+    li {
+      width: 25%;
+    }
+  }
+
+  div.cover {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 30, 30, 0.5);
   }
 }
 
@@ -223,12 +253,28 @@ a.admin-edit:before {
   opacity: 1;
 }
 
-.tv-show > article.tv-info {
+.tv-show > section.tv-info {
   padding: 30px;
   padding-top: 0;
 
-  ul.info {
+  p.blurb {
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
 
+  .stats {
+    padding-top: 30px;
+    text-align: center;
+    border-top: 1px solid #eee;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
   }
 
   ul.info > li {
@@ -236,18 +282,13 @@ a.admin-edit:before {
     font-size: 22px;
   }
 
-  ul.info label {
+  ul.info strong {
     font-size: 16px;
   }
 
   aside {
     display: block;
-    margin: 15px 0;
-    text-align: center;
-    font-size: 14px;
-  }
-
-  p.rating {
-    font-size: 32px;
+    margin: 30px;
+    font-size: 22px;
   }
 }

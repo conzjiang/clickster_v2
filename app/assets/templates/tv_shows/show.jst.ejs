@@ -1,5 +1,11 @@
-<figure class="image-block">
-  <div class="cover"></div>
+<section class="image-block">
+  <ul class="image-tiles group">
+    <li><div class="cover"></div></li>
+    <li><div class="cover"></div></li>
+    <li><div class="cover"></div></li>
+    <li><div class="cover"></div></li>
+  </ul>
+
   <div class="content">
     <figcaption><%= tv.escape("title") %></figcaption>
     <ul class="genres group">
@@ -14,7 +20,7 @@
   <% if (isAdmin) { %>
     <a class="admin-edit" href="#/tv/<%= tv.id %>/edit">Edit</a>
   <% } %>
-</figure>
+</section>
 
 <section class="options">
   <ul class="group">
@@ -32,31 +38,34 @@
 
 <span class="warning">You must be logged in to do that!</span>
 
-<article class="tv-info">
-  <ul class="info">
-    <li>
-      <%= tv.get("status") %>
-    </li>
-
-    <li>
-      <label>on</label> <%= tv.escape("network") || "n/a" %>
-    </li>
-
-    <li>
-      <label>for</label> <%= Utils.pluralize(tv.get("num_seasons"), "season") %>
-    </li>
-
-    <% endYear = tv.get("end_year") %>
-    <% if (!endYear) endYear = "present" %>
-    <li>
-      <label>from</label> <%= tv.get("start_year") %> - <%= endYear %>
-    </li>
-  </ul>
-
-  <aside>
-    <p class="rating"><%= tv.get("rating") %></p>
-    on IMDb
-  </aside>
-
+<section class="tv-info">
   <p class="blurb"><%= tv.escape("blurb") %></p>
-</article>
+
+  <article class="stats group">
+    <label>Stats</label>
+    <ul class="info group">
+      <li>
+        <%= tv.get("status") %>
+      </li>
+
+      <li>
+        <strong>on</strong> <%= tv.escape("network") || "n/a" %>
+      </li>
+
+      <li>
+        <strong>for</strong>
+        <%= Utils.pluralize(tv.get("num_seasons"), "season") %>
+      </li>
+
+      <% var endYear = tv.get("end_year") %>
+      <% if (!endYear) endYear = "present" %>
+      <li>
+        <strong>from</strong> <%= tv.get("start_year") %> - <%= endYear %>
+      </li>
+    </ul>
+
+    <aside>
+      <label>IMDb Rating</label> <%= tv.get("rating") %>
+    </aside>
+  </article>
+</section>

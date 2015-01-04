@@ -1,3 +1,12 @@
+var imageTileColors = [];
+var hue = 30;
+
+while (imageTileColors.length < 6) {
+  var array = [hue, hue, hue, 0.7];
+  imageTileColors.push("rgba(" + array.join(", ") + ")");
+  hue += 30;
+}
+
 Clickster.Views.TvShowView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
@@ -149,8 +158,14 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     var imageUrl = this.tv.get("image_url");
 
     if (imageUrl) {
-      this.$(".image-block").css({
+      var shuffledColors = _.shuffle(imageTileColors);
+
+      this.$(".image-tiles > li").css({
         "background-image": "url('" + imageUrl + "')"
+      });
+
+      this.$("div.cover").each(function () {
+        $(this).css({ "background-color": shuffledColors.pop() });
       });
     }
   },

@@ -263,9 +263,12 @@ a.admin-edit:before {
   }
 
   .stats {
-    padding-top: 30px;
+    width: 75%;
+    margin: auto;
+    padding: 15px;
     text-align: center;
-    border-top: 1px solid #eee;
+    border: 1px solid #ddd;
+    background: #eee;
   }
 
   label {
@@ -289,6 +292,36 @@ a.admin-edit:before {
   aside {
     display: block;
     margin: 30px;
+    margin-bottom: 0;
     font-size: 22px;
+  }
+
+  @media (min-width: 600px) {
+    div.wrapper {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    p.blurb {
+      float: left;
+      display: block;
+      width: 67%;
+      max-width: 500px;
+      padding: 15px;
+      font-size: 18px;
+      box-sizing: border-box;
+    }
+
+    .stats {
+      float: right;
+      width: 33%;
+      max-width: 200px;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    ul.info {
+      line-height: 1.5;
+    }
   }
 }

@@ -38,34 +38,36 @@
 
 <span class="warning">You must be logged in to do that!</span>
 
-<section class="tv-info">
-  <p class="blurb"><%= tv.escape("blurb") %></p>
+<section class="tv-info group">
+  <div class="wrapper">
+    <p class="blurb"><%= tv.escape("blurb") %></p>
 
-  <article class="stats group">
-    <label>Stats</label>
-    <ul class="info group">
-      <li>
-        <%= tv.get("status") %>
-      </li>
+    <article class="stats">
+      <label>Stats</label>
+      <ul class="info">
+        <li>
+          <%= tv.get("status") %>
+        </li>
 
-      <li>
-        <strong>on</strong> <%= tv.escape("network") || "n/a" %>
-      </li>
+        <li>
+          <strong>on</strong> <%= tv.escape("network") || "n/a" %>
+        </li>
 
-      <li>
-        <strong>for</strong>
-        <%= Utils.pluralize(tv.get("num_seasons"), "season") %>
-      </li>
+        <li>
+          <strong>for</strong>
+          <%= Utils.pluralize(tv.get("num_seasons"), "season") %>
+        </li>
 
-      <% var endYear = tv.get("end_year") %>
-      <% if (!endYear) endYear = "present" %>
-      <li>
-        <strong>from</strong> <%= tv.get("start_year") %> - <%= endYear %>
-      </li>
-    </ul>
+        <% var endYear = tv.get("end_year") %>
+        <% if (!endYear) endYear = "present" %>
+        <li>
+          <strong>from</strong> <%= tv.get("start_year") %> - <%= endYear %>
+        </li>
+      </ul>
 
-    <aside>
-      <label>IMDb Rating</label> <%= tv.get("rating") %>
-    </aside>
-  </article>
+      <aside>
+        <label>IMDb Rating</label> <%= tv.get("rating") %>
+      </aside>
+    </article>
+  </div>
 </section>

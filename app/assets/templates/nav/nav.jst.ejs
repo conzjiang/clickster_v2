@@ -11,10 +11,9 @@
     <% var url = "#/users/" + username %>
 
     <li class="profile">
-      <a href="<%= url %>">
-        <button class="nav profile-button" type="button"></button>
-        <a class="nav" href="<%= url %>"><%= username %></a>
-      </a>
+      <a href="<%= url %>" class="cover"></a>
+      <button class="nav profile-button" type="button"></button>
+      <a class="nav" href="<%= url %>"><%= username %></a>
     </li>
   <% } %>
 

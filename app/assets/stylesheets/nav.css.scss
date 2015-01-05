@@ -46,7 +46,8 @@ nav {
 
 @media (min-width: 500px) {
   nav {
-    max-width: 900px;
+    position: relative;
+    max-width: 1000px;
     margin: auto;
 
     h1 {
@@ -258,7 +259,7 @@ article.pop-out.dropdown {
   display: block;
   position: absolute;
   top: 85px;
-  left: 2.5%;
+  right: 2.5%;
   width: 95%;
   height: 83%;
   font-size: 20px;
@@ -349,6 +350,25 @@ article.pop-out.dropdown {
   height: auto;
 }
 
+@media (min-width: 500px) {
+  article.pop-out.sign-in,
+  article.pop-out.dropdown {
+    right: 10px;
+
+    > div.nav-triangle {
+      right: 45px;
+    }
+  }
+
+  article.pop-out.sign-in {
+    width: 400px;
+  }
+
+  article.pop-out.dropdown {
+    width: 250px;
+  }
+}
+
 ul.dropdown {
   display: block;
   width: 90%;
@@ -387,6 +407,10 @@ ul.dropdown {
       color: #fff;
       background: #000;
       border-radius: 0;
+    }
+
+    h2 {
+      font-size: 30px;
     }
   }
 }

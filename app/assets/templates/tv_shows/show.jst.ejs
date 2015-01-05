@@ -22,29 +22,27 @@
   <% } %>
 </section>
 
-<section class="options">
-  <ul class="group">
-    <li class="button watchlist">Add to Watchlist</li>
-    <li class="button favorite">Favorite</li>
-
-    <% _(Clickster.LIST_STATUSES).each(function (status) { %>
-      <li class="list" data-option="<%= status %>">
-        <strong></strong>
-        <%= status %>
-      </li>
-    <% }) %>
-  </ul>
-</section>
-
-<span class="warning">You must be logged in to do that!</span>
-
 <section class="tv-info group">
-  <div class="wrapper">
-    <p class="blurb"><%= tv.escape("blurb") %></p>
+  <div class="wrapper group">
+    <article class="info">
+      <ul class="statuses group">
+        <% _(Clickster.LIST_STATUSES).each(function (status) { %>
+          <li class="list" data-option="<%= status %>">
+            <strong></strong>
+            <%= status %>
+          </li>
+        <% }) %>
+
+        <li class="favorite"><strong></strong>Favorite</li>
+      </ul>
+
+      <span class="warning">You must be logged in to do that!</span>
+      <p class="blurb"><%= tv.escape("blurb") %></p>
+    </article>
 
     <article class="stats">
       <label>Stats</label>
-      <ul class="info">
+      <ul class="stats-info">
         <li>
           <%= tv.get("status") %>
         </li>

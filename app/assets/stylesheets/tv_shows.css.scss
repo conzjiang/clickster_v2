@@ -113,153 +113,135 @@ a.admin-edit:before {
   font-weight: normal;
 }
 
-.tv-show > .options {
-  display: block;
-  position: relative;
-  top: -30px;
-  width: 95%;
-  height: 70px;
-  margin: auto;
-  overflow: hidden;
-
-  > ul {
-    width: 100%;
-    position: relative;
-    top: 0;
-    transition: top 0.5s;
-  }
-
-  > ul.show {
-    top: -71px;
-  }
-
-  li {
-    position: relative;
-    float: left;
-    height: 70px;
-    padding-top: 37px;
-    text-align: center;
-    color: #ccc;
-    background: #888;
-    cursor: pointer;
-    box-sizing: border-box;
-  }
-
-  li.button {
-    width: 50%;
-    height: 71px;
-    border-bottom: 1px solid #ccc;
-  }
-
-  li.button:before {
-    display: block;
-    position: absolute;
-    top: 1px;
-    width: 100%;
-    font-family: "Entypo";
-    font-size: 45px;
-  }
-
-  li.watchlist:before {
-    content: "\2795";
-  }
-
-  li.favorite:before {
-    content: "\2661";
-  }
-
-  li.favorite {
-    width: calc(50% - 1px);
-    border-left: 1px solid #ccc;
-  }
-
-  li.list {
-    width: 25%;
-    font-size: 12px;
-    padding-top: 39px;
-  }
-
-  li.list ~ li.list {
-    width: calc(25% - 1px);
-    border-left: 1px solid #ccc;
-  }
-
-  li.list:before,
-  li.list > strong:before {
-    display: block;
-    position: absolute;
-    top: 3px;
-    width: 100%;
-    font-family: "Entypo";
-    font-size: 45px;
-  }
-
-  li.list:before {
-    z-index: 1;
-  }
-
-  li[data-option='Watching']:before,
-  li[data-option='Watching'] > strong:before {
-    content: "\2016";
-  }
-
-  li[data-option='Plan to Watch']:before,
-  li[data-option='Plan to Watch'] > strong:before {
-    content: "\25B6";
-  }
-
-  li[data-option='Completed']:before,
-  li[data-option='Completed'] > strong:before {
-    content: "\25A0";
-  }
-
-  li[data-option='Dropped']:before,
-  li[data-option='Dropped'] > strong:before {
-    content: "\23ED";
-  }
-
-  li.list > strong:before {
-    transform: scale(1);
-    opacity: 1;
-    transition: transform 0.5s, opacity 0.7s;
-    z-index: 0;
-  }
-
-  li.list.select > strong:before {
-    transform: scale(2);
-    opacity: 0;
-  }
-
-  li.selected {
-    color: #fff;
-  }
-
-  li.favorite.selected:before {
-    content: "\2665";
-  }
-}
-
-.tv-show > .warning {
-  position: relative;
-  top: -25px;
-  display: block;
-  text-align: center;
-  font-size: 12px;
-  opacity: 0;
-  transition: opacity 1s;
-}
-
-.tv-show > .warning.show {
-  opacity: 1;
-}
-
 .tv-show > section.tv-info {
   padding: 30px;
-  padding-top: 0;
 
-  p.blurb {
-    margin-bottom: 30px;
-    line-height: 1.5;
+  @media (min-width: 500px) {
+    div.wrapper {
+      max-width: 800px;
+      margin: auto;
+    }
+  }
+
+  .info {
+    display: block;
+    width: 100%;
+
+    ul.statuses {
+      width: 95%;
+      margin: auto;
+      padding-bottom: 5px;
+    }
+
+    @media (min-width: 500px) {
+      float: left;
+      width: 67%;
+      max-width: 500px;
+      padding-right: 15px;
+      font-size: 18px;
+      box-sizing: border-box;
+    }
+
+    li {
+      position: relative;
+      float: left;
+      width: 20%;
+      height: 70px;
+      padding-top: 39px;
+      font-size: 12px;
+      text-align: center;
+      color: #ccc;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+
+    li:before,
+    li > strong:before {
+      display: block;
+      position: absolute;
+      top: 3px;
+      width: 100%;
+      font-family: "Entypo";
+      font-size: 45px;
+    }
+
+    li:before {
+      z-index: 1;
+    }
+
+    li[data-option='Watching']:before,
+    li[data-option='Watching'] > strong:before {
+      content: "\2016";
+    }
+
+    li[data-option='Plan to Watch']:before,
+    li[data-option='Plan to Watch'] > strong:before {
+      content: "\25B6";
+    }
+
+    li[data-option='Completed']:before,
+    li[data-option='Completed'] > strong:before {
+      content: "\25A0";
+    }
+
+    li[data-option='Dropped']:before,
+    li[data-option='Dropped'] > strong:before {
+      content: "\23ED";
+    }
+
+    li.favorite {
+      border-left: 1px solid #ccc;
+    }
+
+    li.favorite > strong:before {
+      display: none;
+    }
+
+    li.favorite:before,
+    li.favorite.selected > strong:before {
+      content: "\2661";
+    }
+
+    li.selected {
+      color: #666;
+    }
+
+    li.favorite.selected:before,
+    li.favorite > strong:before {
+      content: "\2665";
+    }
+
+    li.list > strong:before {
+      transform: scale(1);
+      opacity: 1;
+      transition: transform 0.5s, opacity 0.7s;
+      z-index: 0;
+    }
+
+    li.list.select > strong:before {
+      display: block;
+      transform: scale(2);
+      opacity: 0;
+    }
+
+    .warning {
+      position: relative;
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+
+    .warning.show {
+      opacity: 1;
+    }
+
+    p.blurb {
+      margin-top: 15px;
+      margin-bottom: 40px;
+      line-height: 1.5;
+    }
   }
 
   .stats {
@@ -269,50 +251,8 @@ a.admin-edit:before {
     text-align: center;
     border: 1px solid #ddd;
     background: #eee;
-  }
 
-  label {
-    display: block;
-    margin-bottom: 15px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #666;
-    text-transform: uppercase;
-  }
-
-  ul.info > li {
-    display: block;
-    font-size: 22px;
-  }
-
-  ul.info strong {
-    font-size: 16px;
-  }
-
-  aside {
-    display: block;
-    margin: 30px;
-    margin-bottom: 0;
-    font-size: 22px;
-  }
-
-  @media (min-width: 600px) {
-    div.wrapper {
-      max-width: 800px;
-      margin: auto;
-    }
-
-    p.blurb {
-      float: left;
-      display: block;
-      width: 67%;
-      max-width: 500px;
-      padding: 15px;
-      font-size: 18px;
-      box-sizing: border-box;
-    }
-
-    .stats {
+    @media (min-width: 500px) {
       float: right;
       width: 33%;
       max-width: 200px;
@@ -320,8 +260,33 @@ a.admin-edit:before {
       box-sizing: border-box;
     }
 
-    ul.info {
+    label {
+      display: block;
+      margin-bottom: 15px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #666;
+      text-transform: uppercase;
+    }
+
+    ul.stats-info {
       line-height: 1.5;
+    }
+
+    ul.stats-info > li {
+      display: block;
+      font-size: 22px;
+    }
+
+    ul.stats-info strong {
+      font-size: 16px;
+    }
+
+    aside {
+      display: block;
+      margin: 30px;
+      margin-bottom: 0;
+      font-size: 22px;
     }
   }
 }

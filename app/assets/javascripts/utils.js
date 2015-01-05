@@ -16,6 +16,15 @@
     return string.toLowerCase().replace(/[\s\/]/g, "-");
   };
 
+  var imageTileColors = Utils.imageTileColors = [];
+  var hue = 30;
+
+  while (imageTileColors.length < 6) {
+    var array = [hue, hue, hue, 0.7];
+    imageTileColors.push("rgba(" + array.join(", ") + ")");
+    hue += 30;
+  }
+
   Utils.pluralize = function (num, word) {
     var singular = num + " " + word;
     if (num === 1) return singular;

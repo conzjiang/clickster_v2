@@ -11,6 +11,10 @@ main > header {
 nav {
   width: 100%;
 
+  &.relative {
+    position: relative;
+  }
+
   h1 {
     display: block;
     position: relative;
@@ -46,7 +50,6 @@ nav {
 
 @media (min-width: 500px) {
   nav {
-    position: relative;
     max-width: 1000px;
     margin: auto;
 

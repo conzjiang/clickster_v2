@@ -27,11 +27,15 @@ Clickster.Views.Nav = Backbone.View.extend({
       class: "search"
     };
 
+    this.$el.removeClass("relative");
+
     this._togglePopout(options);
   },
 
   chooseMenu: function () {
     var signedIn = !!Clickster.currentUser.id;
+
+    this.$el.addClass("relative");
 
     if (signedIn) {
       this.toggleMenu();

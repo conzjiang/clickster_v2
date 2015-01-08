@@ -34,6 +34,13 @@ Clickster.Models.User = Backbone.Model.extend({
     return response;
   },
 
+  showImages: function () {
+    var watchlists = this.watchlists().pluck("image_url");
+    var favorites = this.favorites().pluck("image_url");
+
+    return _.uniq(watchlists.concat(favorites));
+  },
+
   watchlists: function (status) {
     if (!this._watchlists) {
       this._watchlists = new Clickster.Collections.Lists([], { user: this });

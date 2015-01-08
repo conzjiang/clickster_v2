@@ -31,6 +31,10 @@
     return singular + "s";
   };
 
+  Utils.random = function (max) {
+    return Math.floor(Math.random() * max);
+  };
+
   Utils.renderErrors = function (options) {
     var view = options.view;
     var $errorDisplay = view.$(".errors");

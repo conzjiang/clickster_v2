@@ -9,8 +9,16 @@ section#main > .user-show {
     text-align: center;
     color: #fff;
     background: rgba(30, 30, 30, 0.5);
+    overflow: hidden;
+
+    ul.image-tiles {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
     figure {
+      position: relative;
       width: 150px;
       height: 150px;
       margin: auto;
@@ -25,14 +33,18 @@ section#main > .user-show {
     }
 
     h1 {
+      position: relative;
       margin-bottom: 10px;
+      text-shadow: #666 0px 3px 5px;
     }
 
     p {
+      position: relative;
       display: block;
       width: 170px;
       margin: auto;
       text-align: left;
+      text-shadow: #666 0px 1px 5px;
     }
 
     p:before {

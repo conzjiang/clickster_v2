@@ -10,3 +10,4 @@ New features:
 
 * Boyer-Moore algorithm for faster search lookup
 * Search for "Law & Order: Special Victims Unit" with `SVU` keyword
+* Figure out when to clear ellipsis interval

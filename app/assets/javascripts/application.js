@@ -14,7 +14,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.serializejson
-//= require jquery.dotdotdot.min
 //= require underscore
 //= require backbone
 //= require conzq2

@@ -16,6 +16,17 @@
     return string.toLowerCase().replace(/[\s\/]/g, "-");
   };
 
+  Utils.imageDims = function (url) {
+    var width, height;
+
+    $("<img>").attr("src", url).load(function () {
+      width = this.width;
+      height = this.height;
+    });
+
+    return { width: width, height: height };
+  };
+
   var imageTileColors = Utils.imageTileColors = [];
   var hue = 30;
 

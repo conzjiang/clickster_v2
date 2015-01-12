@@ -9,20 +9,22 @@
     return sum;
   };
 
-  var ellipse = function () {
-    var hit, $lastChild, that;
+  var ellipse = function (resized) {
+    var $lastChild, that;
 
     $lastChild = $(this).children().last();
     this.originalText = this.originalText || $lastChild.text();
     that = this;
 
-    while (!hit || (totalHeight($(this).children()) > $(this).height())) {
+    while (resized || (totalHeight($(this).children()) > $(this).height())) {
       $lastChild.text(function (i, text) {
-        if (!hit) text = that.originalText;
+        if (resized) {
+          text = that.originalText;
+          resized = false;
+        }
+
         return text.replace(/\W*\s(\S)*$/, '...');
       });
-
-      hit = true;
     }
   };
 
@@ -33,7 +35,7 @@
 
     $(window).on("resize", function () {
       this.each(function () {
-        ellipse.call(this);
+        ellipse.call(this, true);
       });
     }.bind(this));
   };
@@ -42,6 +44,7 @@
     var remove = this.remove.bind(this);
 
     this.$ellipse = this.$(el || ".content");
+    if (!this.$ellipse.length) return;
     this.$ellipse.ellipsis();
 
     _.extend(this, {

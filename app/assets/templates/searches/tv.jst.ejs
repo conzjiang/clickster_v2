@@ -8,4 +8,6 @@
 
     <p class="blurb"><%= tv.escape("blurb") %></p>
   </div>
+
+  <a href="#/tv/<%= tv.id || tv.get("tv_show_id") %>" class="cover"></a>
 </li>

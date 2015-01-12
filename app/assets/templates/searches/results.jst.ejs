@@ -5,7 +5,7 @@
     <h2>TV Show Results</h2>
 
     <% if (results.tvResults.length) { %>
-      <ul class="tv-results">
+      <ul class="tv-results group">
         <% _(results.tvResults).each(function (tv) { %>
           <%= tvResult({ tv: tv }) %>
         <% }) %>
@@ -30,7 +30,7 @@
   </article>
 
 <% } else if (results && results.length) { %>
-  <ul class="tv-results">
+  <ul class="tv-results group">
     <% _(results).each(function (tv) { %>
       <%= tvResult({ tv: tv }) %>
     <% }) %>

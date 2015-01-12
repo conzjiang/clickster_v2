@@ -85,12 +85,12 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
 
   _swapView: function (options) {
     var currentView = this.currentViews[options.currentView];
-
     currentView && currentView.remove();
+
     this.currentViews[options.currentView] = options.view;
 
     options.$el.html(options.view.render().$el);
-    options.view.dotdotdot();
+    options.view.ellipsis();
     $("main").removeClass("cover");
   }
 });

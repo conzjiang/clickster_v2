@@ -9,24 +9,46 @@
     return sum;
   };
 
-  $.fn.ellipsis = function () {
-    this.interval = setInterval(function () {
-      this.each(function () {
-        var hit, $lastChild, that;
+  var ellipse = function () {
+    var hit, $lastChild, that;
 
-        $lastChild = $(this).children().last();
-        this.originalText = this.originalText || $lastChild.text();
-        that = this;
+    $lastChild = $(this).children().last();
+    this.originalText = this.originalText || $lastChild.text();
+    that = this;
 
-        while (!hit || (totalHeight($(this).children()) > $(this).height())) {
-          $lastChild.text(function (i, text) {
-            if (!hit) text = that.originalText;
-            return text.replace(/\W*\s(\S)*$/, '...');
-          });
-
-          hit = true;
-        }
+    while (!hit || (totalHeight($(this).children()) > $(this).height())) {
+      $lastChild.text(function (i, text) {
+        if (!hit) text = that.originalText;
+        return text.replace(/\W*\s(\S)*$/, '...');
       });
-    }.bind(this), 500);
-  }
+
+      hit = true;
+    }
+  };
+
+  $.fn.ellipsis = function () {
+    this.each(function () {
+      ellipse.call(this);
+    });
+
+    $(window).on("resize", function () {
+      this.each(function () {
+        ellipse.call(this);
+      });
+    }.bind(this));
+  };
+
+  Backbone.View.prototype.ellipsis = function (el) {
+    var remove = this.remove.bind(this);
+
+    this.$ellipse = this.$(el || ".content");
+    this.$ellipse.ellipsis();
+
+    _.extend(this, {
+      remove: function () {
+        $(window).off("resize");
+        remove();
+      }
+    });
+  };
 })(jQuery);

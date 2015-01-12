@@ -26,7 +26,7 @@ Clickster.Views.UserShowView = Backbone.View.extend({
     } else {
       this.$el.html(content);
       this.renderImageTiles();
-      this.dotdotdot();
+      this.ellipsis();
     }
 
     return this;

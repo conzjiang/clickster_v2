@@ -75,6 +75,7 @@ ul.tv-results > li {
       height: 100%;
       padding: 30px;
       box-sizing: border-box;
+      cursor: pointer;
     }
 
     h3 {
@@ -97,13 +98,15 @@ ul.tv-results > li {
       font-size: 16px;
       line-height: 1.5;
       color: #fff;
-      background: rgba(30, 30, 30, 0.7);
-      cursor: pointer;
-      z-index: 2;
     }
 
-    &:hover p {
+    &:hover div.content {
       display: block;
+      background: rgba(30, 30, 30, 0.7);
+
+      p {
+        display: block;
+      }
     }
   }
 }

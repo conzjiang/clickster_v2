@@ -19,7 +19,7 @@ Clickster.Views.SearchResultsView = Backbone.View.extend({
     });
 
     this.$el.html(content);
-    this.dotdotdot();
+    this.ellipsis();
 
     return this;
   }

@@ -111,3 +111,28 @@ form.discover {
     padding-bottom: 3px;
   }
 }
+
+// SEARCH PAGE
+.search-results {
+  h1 {
+    margin-bottom: 30px;
+  }
+}
+
+form#sort-search {
+  display: block;
+  font-size: 20px;
+  text-align: center;
+
+  select {
+    padding: 2px 5px;
+    background: #eee;
+  }
+
+  button {
+    margin-bottom: 1px;
+    padding: 2px 5px;
+    font-size: 18px;
+    vertical-align: bottom;
+  }
+}

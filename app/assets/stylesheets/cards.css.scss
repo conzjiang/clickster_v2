@@ -12,6 +12,14 @@ a.image-block {
   overflow: hidden;
 }
 
+ul.tv-results {
+  margin-bottom: 50px;
+
+  @media (min-width: 500px) {
+    margin-top: 30px;
+  }
+}
+
 // TV RESULT CARD
 ul.tv-results > li {
   width: 100%;
@@ -127,10 +135,6 @@ ul.tv-results > li {
       }
     }
   }
-}
-
-ul.tv-results > li:last-child {
-  margin-bottom: 50px;
 }
 
 // USER RESULT CARD

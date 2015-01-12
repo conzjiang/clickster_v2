@@ -31,8 +31,10 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   newTv: function () {
-    var newTvView = new Clickster.Views.NewTvView({ action: "new" });
-    this._swapRootEl(newTvView);
+    this.authenticate(function () {
+      var newTvView = new Clickster.Views.NewTvView({ action: "new" });
+      this._swapRootEl(newTvView);
+    });
   },
 
   tvShow: function (id) {

@@ -1,5 +1,18 @@
 <h1>Search Results</h1>
 
+<form id="sort-search">
+  <label for="search_sort_by">Sort by:</label>
+  <select id="search_sort_by" name="sort">
+    <option></option>
+
+    <% ["A-Z", "Rating"].forEach(function (comparator) { %>
+      <option value="<%= comparator %>"><%= comparator %></option>
+    <% }) %>
+  </select>
+
+  <button>Go</button>
+</form>
+
 <% if (results && results.text) { %>
   <article class="results">
     <h2>TV Show Results</h2>

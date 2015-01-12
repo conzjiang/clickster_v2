@@ -129,7 +129,7 @@ main.open {
 }
 
 /* CONTENT CONTAINER */
-section#main {
+section.main {
   width: 100%;
   margin: auto;
   box-sizing: border-box;
@@ -140,7 +140,7 @@ section#main {
 }
 
 @media (min-width: 500px) {
-  section#main {
+  section.main {
     max-width: 1000px;
 
     > div {

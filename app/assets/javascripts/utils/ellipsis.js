@@ -12,6 +12,8 @@
   var ellipse = function (resized) {
     var $lastChild, that;
 
+    if ($(this).hasClass("ignore")) return;
+
     $lastChild = $(this).children().last();
     this.originalText = this.originalText || $lastChild.text();
     that = this;

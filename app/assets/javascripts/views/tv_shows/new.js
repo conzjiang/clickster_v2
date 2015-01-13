@@ -30,7 +30,8 @@ Clickster.Views.NewTvView = Backbone.View.extend({
     var params = {
       plot: "short",
       r: "json",
-      t: title
+      t: title,
+      type: "series"
     };
     var that = this;
 

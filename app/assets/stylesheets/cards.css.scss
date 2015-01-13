@@ -48,6 +48,7 @@ ul.tv-results > li {
 
   h3 {
     display: inline;
+    line-height: 1;
   }
 
   h4 {
@@ -82,6 +83,7 @@ ul.tv-results > li {
 
     a.image-block {
       float: initial;
+      width: 100%;
     }
 
     cover {

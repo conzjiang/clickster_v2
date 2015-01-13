@@ -3,6 +3,7 @@
     var sum = 0;
 
     $els.each(function () {
+      if ($(this).hasClass("ignore")) return;
       sum += $(this).outerHeight();
     });
 

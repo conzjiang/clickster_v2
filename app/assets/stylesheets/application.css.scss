@@ -25,9 +25,9 @@
   font-style: normal;
 }
 
-html, body, h1, h2, h3, form, fieldset, ul, li, section, article, div, input,
-button, textarea, p, a, main, figure, figcaption, label, b, strong, select,
-aside {
+html, body, h1, h2, h3, h4, form, fieldset, ul, li, section, article, div,
+input, button, textarea, p, a, main, figure, figcaption, label, b, strong,
+select, aside {
   margin: 0;
   padding: 0;
   border: 0;
@@ -90,9 +90,9 @@ ul {
 
 h1 {
   display: block;
-  font-size: 50px;
+  font-size: 30px;
   font-weight: 700;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 h2 {
@@ -140,6 +140,10 @@ section.main {
 }
 
 @media (min-width: 500px) {
+  h1 {
+    font-size: 50px;
+  }
+
   section.main {
     max-width: 1000px;
 

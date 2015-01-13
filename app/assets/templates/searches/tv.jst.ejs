@@ -1,13 +1,17 @@
 <li class="group">
-  <a class="image-block" href="#/tv/<%= tv.id %>">
-    <img src="<%= tv.escape("image_url") %>">
+  <a class="image-block"
+     href="#/tv/<%= tv.id %>"
+     style="background-image: url(<%= tv.escape("image_url") %>)">
   </a>
 
   <div class="content">
-    <h3><a href="#/tv/<%= tv.id %>"><%= tv.escape("title") %></a></h3>
+    <div class="title group">
+      <h3><a href="#/tv/<%= tv.id %>"><%= tv.escape("title") %></a></h3>
+      <h4><small>Rating</small> <%= tv.get("rating") || "n/a" %></h4>
+    </div>
 
     <p class="blurb"><%= tv.escape("blurb") %></p>
   </div>
 
-  <a href="#/tv/<%= tv.id || tv.get("tv_show_id") %>" class="cover"></a>
+  <a href="#/tv/<%= tv.id %>" class="cover"></a>
 </li>

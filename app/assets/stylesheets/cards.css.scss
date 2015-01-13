@@ -1,7 +1,6 @@
 $image-overlay: rgba(30, 30, 30, 0.5);
 
 h3 {
-  display: block;
   font-weight: 700;
   font-size: 18px;
 }
@@ -31,12 +30,7 @@ ul.tv-results > li {
     float: left;
     width: 100px;
     height: 100%;
-  }
-
-  img {
-    display: block;
-    width: 100%;
-    height: auto;
+    background-size: cover;
   }
 
   div.content {
@@ -47,8 +41,28 @@ ul.tv-results > li {
     padding: 10px 20px;
   }
 
-  h3 {
+  div.title {
+    display: block;
     padding: 10px 0;
+  }
+
+  h3 {
+    display: inline;
+  }
+
+  h4 {
+    display: inline;
+    margin-left: 3px;
+  }
+
+  h4:before {
+    content: "/";
+    margin-right: 5px;
+    font-size: 14px;
+  }
+
+  small {
+    font-size: 12px;
   }
 
   p {
@@ -61,21 +75,13 @@ ul.tv-results > li {
 
   @media (min-width: 500px) {
     position: relative;
-    width: auto;
-    height: auto;
-    margin: 5px;
+    width: 250px;
+    height: 350px;
+    margin: 25px;
     float: left;
 
     a.image-block {
       float: initial;
-      width: auto;
-      min-width: 200px;
-      height: auto;
-      min-height: 300px;
-    }
-
-    img {
-      width: auto;
     }
 
     cover {
@@ -95,14 +101,38 @@ ul.tv-results > li {
       cursor: pointer;
     }
 
-    h3 {
+    div.title {
       position: absolute;
       bottom: 30px;
       right: 0;
+      padding: 0;
+      text-align: right;
+    }
+
+    h3 {
+      display: block;
       padding: 10px;
       z-index: 1;
       background: #000;
       color: #fff;
+    }
+
+    h4 {
+      @extend h3;
+
+      display: inline-block;
+      margin: 0;
+      margin-top: 5px;
+      padding: 5px 8px 5px 10px;
+      font-size: 18px;
+    }
+
+    h4:before {
+      content: none;
+    }
+
+    small {
+      font-size: 14px;
     }
 
     p {
@@ -113,7 +143,8 @@ ul.tv-results > li {
       float: initial;
       width: calc(100% - 60px);
       font-size: 16px;
-      line-height: 1.5;
+      line-height: 1.8;
+      text-shadow: #000 1px 1px 3px;
       color: #fff;
     }
 

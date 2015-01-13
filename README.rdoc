@@ -11,3 +11,4 @@ New features:
 * Boyer-Moore algorithm for faster search lookup
 * Search for "Law & Order: Special Victims Unit" with `SVU` keyword
 * Going back when search form is open keeps search bar on the page
+* Ugh, can't find a nice way to render title block above rating in search results

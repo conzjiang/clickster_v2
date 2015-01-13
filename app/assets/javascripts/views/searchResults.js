@@ -35,10 +35,10 @@ Clickster.Views.SearchResultsView = Backbone.View.extend({
     };
 
     if (Array.isArray(results)) {
-      sortedResults = _(results).sortBy(compare);
+      sortedResults = _(results).sortBy(compareFunc);
     } else {
       sortedResults = results;
-      sortedResults.tvResults = _(results.tvResults).sortBy(compare);
+      sortedResults.tvResults = _(results.tvResults).sortBy(compareFunc);
     }
 
     this.model.set("results", sortedResults);

@@ -328,13 +328,13 @@ div.cover {
 
 div.nav-triangle {
   position: absolute;
-  top: -50px;
+  top: -25px;
   width: 0;
   height: 0;
-  border: 25px solid transparent;
+  border-top: 0;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-  border-bottom-color: #eee;
+  border-bottom: 25px solid #eee;
 }
 
 article.pop-out.search {

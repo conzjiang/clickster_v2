@@ -1,9 +1,16 @@
-<a class="image-block"
-   href="#/tv/<%= tv.id %>"
-   style="background-image: url(<%= tv.escape("image_url") %>)">
-</a>
+<a class="image-block" href="#/tv/<%= tv.id %>"></a>
 
-<ul class="buttons"></ul>
+<ul class="buttons">
+  <li>
+    <button class="watchlist" type="button"></button>
+    <ul class="statuses">
+      <% _(Clickster.LIST_STATUSES).each(function (status) { %>
+        <li data-option="<%= status %>"><%= status %></li>
+      <% }) %>
+    </ul>
+  </li>
+  <li><button class="favorite" type="button"></button></li>
+</ul>
 
 <div class="content">
   <div class="title group">

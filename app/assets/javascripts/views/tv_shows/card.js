@@ -12,6 +12,13 @@ Clickster.Views.TvCardView = Backbone.View.extend({
   render: function () {
     var content = this.template({ tv: this.tv });
     this.$el.html(content);
+
+    if (this.tv.get("image_url")) {
+      this.$(".image-block").css({
+        "background-image": "url(" + this.tv.escape("image_url") + ")"
+      });
+    }
+
     return this;
   }
 });

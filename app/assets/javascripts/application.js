@@ -17,6 +17,7 @@
 //= require filepicker
 //= require underscore
 //= require backbone
+//= require_tree ./utils
 //= require conzq2
 //= require_tree ../templates
 //= require ./models/user

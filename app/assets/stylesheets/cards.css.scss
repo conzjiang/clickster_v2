@@ -21,6 +21,7 @@ ul.tv-results {
 
 // TV RESULT CARD
 ul.tv-results > li {
+  position: relative;
   width: 100%;
   height: 130px;
   margin: 30px 0;
@@ -170,6 +171,46 @@ ul.tv-results > li {
   }
 }
 
+// STATUS BUTTONS
+ul.tv-results .buttons {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100px;
+  font-size: 28px;
+  line-height: 0.6;
+  text-align: center;
+
+  li {
+    display: inline-block;
+    margin: 0 5px;
+  }
+
+  button {
+//    background: #;
+  }
+
+  button:before {
+    font-family: "Entypo";
+  }
+
+  .watchlist:before {
+    content: "\1F4BB";
+  }
+
+  .favorite:before {
+    content: "\2665";
+  }
+
+  .is-favorite:before {
+    content: "\2665";
+  }
+
+  .statuses {
+    display: none;
+  }
+}
+
 // USER RESULT CARD
 ul.user-results > li {
   float: left;
@@ -209,7 +250,7 @@ ul.user-results > li {
   }
 }
 
-// TV CARD
+// TV MINI CARD
 ul.tv-cards > li {
   float: left;
   width: 120px;

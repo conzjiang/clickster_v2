@@ -4,7 +4,7 @@ Clickster.Views.SearchResultsView = Backbone.View.extend({
       this.model = Clickster.searchResults.getOrFetch(options.params);
     }
 
-    this.subviews = [];
+    this.useTvCards();
     this.listenTo(this.model, "change", this.render);
   },
 
@@ -58,7 +58,6 @@ Clickster.Views.SearchResultsView = Backbone.View.extend({
 
     this.$el.html(content);
     if (results) this.renderResults();
-    this.ellipsis();
 
     if (this.sort) {
       this.$("option[value='" + this.sort + "']").prop("selected", true);
@@ -68,44 +67,21 @@ Clickster.Views.SearchResultsView = Backbone.View.extend({
   },
 
   renderResults: function () {
-    var results, twoPlyResults, tvResults, userCardTemplate;
+    var results, twoPlyResults, tvResults, userCardTemplate, that;
 
     results = this.model.get("results");
     tvResults = results.tvResults || results;
-    that = this;
-
-    tvResults.forEach(function (tv) {
-      var tvCardView = new Clickster.Views.TvCardView({ tv: tv });
-      that.addSubview({
-        $container: that.$("ul.tv-results"),
-        view: tvCardView
-      });
-    });
+    this.renderCards(tvResults);
 
     twoPlyResults = results && results.text;
 
     if (twoPlyResults) {
+      that = this;
       userCardTemplate = JST["searches/user"];
 
       results.userResults.forEach(function (user) {
         that.$("ul.user-results").append(userCardTemplate({ user: user }));
       });
     }
-  },
-
-  addSubview: function (options) {
-    options.$container.append(options.view.render().$el);
-    this.subviews.push(options.view);
-  },
-
-  removeSubviews: function () {
-    this.subviews.forEach(function (view) {
-      view.remove();
-    });
-  },
-
-  remove: function () {
-    this.removeSubviews();
-    return Backbone.View.prototype.remove.call(this);
   }
 });

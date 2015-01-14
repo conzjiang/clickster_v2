@@ -12,7 +12,7 @@ Clickster.Views.TvIndexView = Backbone.View.extend({
     if (this.allowed) {
       var content = this.template({
         tvs: this.tvShows,
-        tvCard: JST["tv_shows/card"]
+        tvCard: JST["tv_shows/miniCard"]
       });
 
       this.$el.html(content);

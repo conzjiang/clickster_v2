@@ -1,0 +1,11 @@
+<li class="content">
+  <a class="image-block" href="#/tv/<%= tv.id || tv.get("tv_show_id") %>">
+    <img src="<%= tv.escape("image_url") %>">
+  </a>
+
+  <h3>
+    <a href="#/tv/<%= tv.id || tv.get("tv_show_id") %>">
+      <%= tv.escape("title") %>
+    </a>
+  </h3>
+</li>

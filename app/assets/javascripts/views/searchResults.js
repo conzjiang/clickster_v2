@@ -4,13 +4,13 @@ Clickster.Views.SearchResultsView = Backbone.View.extend({
       this.model = Clickster.searchResults.getOrFetch(options.params);
     }
 
+    this.subviews = [];
     this.listenTo(this.model, "change", this.render);
   },
 
   className: "search-results",
+
   template: JST["searches/results"],
-  tvResultTemplate: JST["searches/tv"],
-  userResultTemplate: JST["searches/user"],
 
   events: {
     "submit form": "sort"
@@ -45,13 +45,19 @@ Clickster.Views.SearchResultsView = Backbone.View.extend({
   },
 
   render: function () {
-    var content = this.template({
-      results: this.model.get("results") || [],
-      tvResult: this.tvResultTemplate,
-      userResult: this.userResultTemplate
+    var results, twoPlyResults, content;
+
+    this.removeSubviews();
+
+    results = this.model.get("results");
+    twoPlyResults = results && results.text;
+    content = this.template({
+      results: results,
+      twoPlyResults: twoPlyResults
     });
 
     this.$el.html(content);
+    if (results) this.renderResults();
     this.ellipsis();
 
     if (this.sort) {
@@ -59,5 +65,47 @@ Clickster.Views.SearchResultsView = Backbone.View.extend({
     }
 
     return this;
+  },
+
+  renderResults: function () {
+    var results, twoPlyResults, tvResults, userCardTemplate;
+
+    results = this.model.get("results");
+    tvResults = results.tvResults || results;
+    that = this;
+
+    tvResults.forEach(function (tv) {
+      var tvCardView = new Clickster.Views.TvCardView({ tv: tv });
+      that.addSubview({
+        $container: that.$("ul.tv-results"),
+        view: tvCardView
+      });
+    });
+
+    twoPlyResults = results && results.text;
+
+    if (twoPlyResults) {
+      userCardTemplate = JST["searches/user"];
+
+      results.userResults.forEach(function (user) {
+        that.$("ul.user-results").append(userCardTemplate({ user: user }));
+      });
+    }
+  },
+
+  addSubview: function (options) {
+    options.$container.append(options.view.render().$el);
+    this.subviews.push(options.view);
+  },
+
+  removeSubviews: function () {
+    this.subviews.forEach(function (view) {
+      view.remove();
+    });
+  },
+
+  remove: function () {
+    this.removeSubviews();
+    return Backbone.View.prototype.remove.call(this);
   }
 });

@@ -18,7 +18,7 @@ Clickster.Views.UserShowView = Backbone.View.extend({
     var content = this.template({
       user: this.user,
       allStatuses: allStatuses,
-      tvCard: JST["tv_shows/card"]
+      tvCard: JST["tv_shows/miniCard"]
     });
 
     if (this.user.notFound) {

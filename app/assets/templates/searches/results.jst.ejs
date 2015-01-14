@@ -13,16 +13,12 @@
   <button>Go</button>
 </form>
 
-<% if (results && results.text) { %>
+<% if (twoPlyResults) { %>
   <article class="results">
     <h2>TV Show Results</h2>
 
     <% if (results.tvResults.length) { %>
-      <ul class="tv-results group">
-        <% _(results.tvResults).each(function (tv) { %>
-          <%= tvResult({ tv: tv }) %>
-        <% }) %>
-      </ul>
+      <ul class="tv-results group"></ul>
     <% } else { %>
       <p class="none">No results!</p>
     <% } %>
@@ -32,22 +28,14 @@
     <h2>User Results</h2>
 
     <% if (results.userResults.length) { %>
-      <ul class="user-results group">
-        <% _(results.userResults).each(function (user) { %>
-          <%= userResult({ user: user }) %>
-        <% }) %>
-      </ul>
+      <ul class="user-results group"></ul>
     <% } else { %>
       <p class="none">No results!</p>
     <% } %>
   </article>
 
 <% } else if (results && results.length) { %>
-  <ul class="tv-results group">
-    <% _(results).each(function (tv) { %>
-      <%= tvResult({ tv: tv }) %>
-    <% }) %>
-  </ul>
+  <ul class="tv-results group"></ul>
 <% } else { %>
   <p class="none">No results!</p>
 <% } %>

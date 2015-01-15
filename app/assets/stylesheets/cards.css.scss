@@ -55,6 +55,8 @@ ul.tv-results > li {
     overflow: hidden;
     white-space: nowrap;
     background: #fff;
+    cursor: pointer;
+    box-shadow: 0 -1px 5px #aaa;
   }
 
   div.content.open {
@@ -217,11 +219,13 @@ ul.tv-results .buttons {
     padding: 9px 0 7px 0;
     font-size: 40px;
     line-height: 0.6;
+    cursor: pointer;
   }
 
   li:before {
     display: block;
     font-family: "Entypo";
+    color: #aaa;
   }
 
   .watchlist:before {
@@ -230,6 +234,11 @@ ul.tv-results .buttons {
 
   .favorite:before {
     content: "\2665";
+  }
+
+  .on-watchlist:before,
+  .is-favorite:before {
+    color: #000;
   }
 
   .statuses {

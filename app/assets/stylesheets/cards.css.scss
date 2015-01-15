@@ -23,28 +23,48 @@ ul.tv-results {
 ul.tv-results > li {
   position: relative;
   width: 100%;
-  height: 130px;
+  height: 200px;
   margin: 30px 0;
   box-shadow: 0 1px 2px 1px #ccc;
+  overflow: hidden;
 
   a.image-block {
-    float: left;
-    width: 100px;
+    width: 100%;
     height: 100%;
     background-size: cover;
+    background-position: 0 -30px;
   }
 
   div.content {
-    float: left;
+    position: absolute;
+    top: 111px;
+    left: 0;
     display: block;
-    width: calc(100% - 140px);
-    height: calc(100% - 20px);
-    padding: 10px 20px;
+    width: 100%;
+    height: 160px;
+    box-sizing: border-box;
+    background: rgba(30, 30, 30, 0.7);
+    transition: top 0.5s;
   }
 
   div.title {
     display: block;
-    padding: 10px 0;
+    padding: 15px 20px;
+    width: calc(100% - 40px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    background: #fff;
+  }
+
+  div.content.open {
+    top: 0;
+
+    div.title {
+      white-space: initial;
+      overflow: initial;
+      text-overflow: initial;
+    }
   }
 
   h3 {
@@ -68,11 +88,20 @@ ul.tv-results > li {
   }
 
   p {
-    font-size: 14px;
+    padding: 15px 20px;
+    font-size: 16px;
+    line-height: 1.5;
+    text-shadow: #000 1px 1px 3px;
+    color: #fff;
   }
 
   a.cover {
-    display: none;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 111px;
   }
 
   @media (min-width: 500px) {
@@ -174,27 +203,24 @@ ul.tv-results > li {
 // STATUS BUTTONS
 ul.tv-results .buttons {
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
   left: 0;
-  width: 100px;
-  font-size: 28px;
-  line-height: 0.6;
+  width: 100%;
+  height: 40px;
   text-align: center;
+  background: #eee;
 
   > li {
     position: relative;
-    display: inline-block;
-    margin: 0 2px;
+    float: left;
+    width: 50%;
+    padding: 9px 0 7px 0;
+    font-size: 40px;
+    line-height: 0.6;
   }
 
-  button {
-    border-radius: 15px;
-    box-shadow: 0px 2px 5px #000;
-  }
-
-  button:before {
+  li:before {
     display: block;
-    padding: 5px 4px 4px 5px;
     font-family: "Entypo";
   }
 
@@ -203,10 +229,6 @@ ul.tv-results .buttons {
   }
 
   .favorite:before {
-    content: "\2665";
-  }
-
-  .is-favorite:before {
     content: "\2665";
   }
 

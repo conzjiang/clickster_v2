@@ -15,7 +15,7 @@
 
     if ($(this).hasClass("ignore")) return;
 
-    $lastChild = $(this).children().last();
+    $lastChild = $(this).children(":not(.ignore)").last();
     this.originalText = this.originalText || $lastChild.text();
     that = this;
 

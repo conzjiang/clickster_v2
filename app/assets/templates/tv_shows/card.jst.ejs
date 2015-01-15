@@ -1,17 +1,5 @@
 <a class="image-block" href="#/tv/<%= tv.id %>"></a>
 
-<ul class="buttons">
-  <li>
-    <button class="watchlist" type="button"></button>
-    <ul class="statuses">
-      <% _(Clickster.LIST_STATUSES).each(function (status) { %>
-        <li data-option="<%= status %>"><%= status %></li>
-      <% }) %>
-    </ul>
-  </li>
-  <li><button class="favorite" type="button"></button></li>
-</ul>
-
 <div class="content">
   <div class="title group">
     <h3><a href="#/tv/<%= tv.id %>"><%= tv.escape("title") %></a></h3>
@@ -19,6 +7,16 @@
   </div>
 
   <p class="blurb"><%= tv.escape("blurb") %></p>
+  <a href="#/tv/<%= tv.id %>" class="cover ignore"></a>
 </div>
 
-<a href="#/tv/<%= tv.id %>" class="cover"></a>
+<ul class="buttons group">
+  <li class="watchlist">
+    <ul class="statuses">
+      <% _(Clickster.LIST_STATUSES).each(function (status) { %>
+        <li data-option="<%= status %>"><%= status %></li>
+      <% }) %>
+    </ul>
+  </li>
+  <li class="favorite"></li>
+</ul>

@@ -3,6 +3,10 @@ class Api::TvShowsController < ApplicationController
 
   def index
     @tv_shows = TvShow.includes(:tv_genres).where(status: "Currently Airing")
+
+    if signed_in?
+      @user = User.includes(:watchlists, :favorites).find(current_user.id)
+    end
   end
 
   def create

@@ -18,29 +18,6 @@ describe("TvShow model", function () {
     expect(tvShow.belongsTo("Drama")).to.be.false;
   });
 
-  it("knows if favorited by current user", function () {
-    expect(tvShow.isFavorite()).to.be.false;
-
-    user.favorites().set({ tv_show_id: tvShow.id });
-    expect(tvShow.isFavorite()).to.be.true;
-  });
-
-  describe("#onWatchlist", function () {
-    it("knows if it's on the current user's watchlist", function () {
-      expect(tvShow.onWatchlist()).to.be.false;
-
-      user.watchlists().set({ tv_show_id: tvShow.id });
-      expect(tvShow.onWatchlist()).to.be.true;
-    });
-
-    it("sets watchStatus when function is called", function () {
-      user.watchlists().set({ tv_show_id: tvShow.id, status: "Dropped" });
-      tvShow.onWatchlist();
-
-      expect(tvShow.watchStatus).to.equal("Dropped");
-    });
-  });
-
   describe("#setGenres", function () {
     beforeEach(function () {
       Clickster.GENRES = ["Comedy", "Drama", "Romance", "Sci-Fi/Fantasy"];

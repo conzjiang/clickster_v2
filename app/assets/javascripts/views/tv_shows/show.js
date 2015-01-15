@@ -140,8 +140,13 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     var content = this.template({ tv: this.tv, isAdmin: isAdmin });
     this.$el.html(content);
     this._setImage();
-    if (this.tv.onWatchlist()) this._setWatchlistStatus(this.tv.watchStatus);
-    if (this.tv.isFavorite()) this._setFavorite();
+
+    if (this.tv.get("on_watchlist")) {
+      this._setWatchlistStatus(this.tv.get("watch_status"));
+    }
+
+    if (this.tv.get("is_favorite")) this._setFavorite();
+
     return this;
   },
 

@@ -18,6 +18,7 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   events: {
     "click .surf": "toggleSearch",
+    "click .profile": "goToProfile",
     "click .guide": "chooseMenu"
   },
 
@@ -30,6 +31,11 @@ Clickster.Views.Nav = Backbone.View.extend({
     this.$el.removeClass("relative");
 
     this._togglePopout(options);
+  },
+
+  goToProfile: function () {
+    var username = Clickster.currentUser.get("username");
+    Backbone.history.navigate("users/" + username, { trigger: true });
   },
 
   chooseMenu: function () {

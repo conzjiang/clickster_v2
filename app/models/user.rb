@@ -27,6 +27,14 @@ class User < ActiveRecord::Base
     Password.new(self.password_digest).is_password?(password)
   end
 
+  def likes?(tv_show)
+    self.favorites.exists?(tv_show_id: tv_show.id)
+  end
+
+  def listed?(tv_show)
+    self.watchlists.exists?(tv_show_id: tv_show.id)
+  end
+
   def password=(password)
     @password = password
     self.password_digest = Password.create(password)

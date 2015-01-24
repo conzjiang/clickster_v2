@@ -59,11 +59,11 @@ Clickster.Views.TvShowView = Backbone.View.extend({
 
     watchlist.set('id', this.tv.id);
     watchlist.destroy({
-      success: this._removeWatchlistStatus.bind(this)
+      success: this.removeWatchlistStatus.bind(this)
     });
   },
 
-  _removeWatchlistStatus: function () {
+  removeWatchlistStatus: function () {
     var $buttons = this.$("li.list");
     var $watchlistButton = this.$(".watchlist");
 
@@ -80,8 +80,8 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     var watchlist = watchlists.getList(this.tv.id);
     var onSuccess = {
       success: function (data) {
-        this._scaleAndFadeButton($button.addClass("selected"));
-        this._setWatchlistStatus(status);
+        this.scaleAndFadeButton($button.addClass("selected"));
+        this.setWatchlistStatus(status);
       }.bind(this)
     };
 
@@ -94,7 +94,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     }
   },
 
-  _scaleAndFadeButton: function ($button) {
+  scaleAndFadeButton: function ($button) {
     var $newButton = $button.clone();
     var transitioning = false;
     var that = this;
@@ -114,7 +114,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     });
   },
 
-  _setWatchlistStatus: function (status) {
+  setWatchlistStatus: function (status) {
     this.$(".watchlist").attr("data-option", status);
     this.$(".watchlist").html(status);
     this.$("li[data-option='" + status + "']").addClass("selected");
@@ -131,7 +131,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     }
 
     favorites.send({ tv_show_id: this.tv.id }, {
-      success: this._setFavorite.bind(this)
+      success: this.setFavorite.bind(this)
     });
   },
 
@@ -139,18 +139,17 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     var isAdmin = Clickster.currentUser.isAdmin(this.tv);
     var content = this.template({ tv: this.tv, isAdmin: isAdmin });
     this.$el.html(content);
-    this._setImage();
+    this.setImage();
+    this.setFavorite();
 
     if (this.tv.get("on_watchlist")) {
-      this._setWatchlistStatus(this.tv.get("watch_status"));
+      this.setWatchlistStatus(this.tv.get("watch_status"));
     }
-
-    if (this.tv.get("is_favorite")) this._setFavorite();
 
     return this;
   },
 
-  _setImage: function () {
+  setImage: function () {
     var imageUrl = this.tv.get("image_url");
 
     if (imageUrl) {
@@ -166,8 +165,10 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     }
   },
 
-  _setFavorite: function () {
-    this.$(".favorite").toggleClass("selected");
+  setFavorite: function () {
+    if (this.tv.get("is_favorite")) {
+      this.$(".favorite").toggleClass("selected");
+    }
   },
 
   remove: function () {

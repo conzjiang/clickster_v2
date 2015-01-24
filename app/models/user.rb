@@ -28,11 +28,11 @@ class User < ActiveRecord::Base
   end
 
   def likes?(tv_show)
-    self.favorites.include?(tv_show_id: tv_show.id)
+    self.favorite_shows.to_a.include?(tv_show)
   end
 
   def listed?(tv_show)
-    self.watchlists.include?(tv_show_id: tv_show.id)
+    self.watchlist_shows.to_a.include?(tv_show)
   end
 
   def password=(password)

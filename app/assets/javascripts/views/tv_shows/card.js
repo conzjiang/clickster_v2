@@ -36,13 +36,30 @@ Clickster.Views.TvCardView = Backbone.View.extend({
   render: function () {
     var content = this.template({ tv: this.tv });
     this.$el.html(content);
+    this.setImage();
+    this.setWatchlistStatus();
+    this.setFavorite();
 
+    return this;
+  },
+
+  setImage: function () {
     if (this.tv.get("image_url")) {
       this.$(".image-block").css({
         "background-image": "url(" + this.tv.escape("image_url") + ")"
       });
     }
+  },
 
-    return this;
+  setWatchlistStatus: function () {
+    if (this.tv.get("on_watchlist")) {
+      this.$(".watchlist").addClass("on-watchlist");
+    }
+  },
+
+  setFavorite: function () {
+    if (this.tv.get("is_favorite")) {
+      this.$(".favorite").addClass("is-favorite");
+    }
   }
 });

@@ -14,3 +14,4 @@ New features:
 * Ugh, can't find a nice way to render title block above rating in search results
 * Simulate latency on search/sign-in/etc so that the processes don't feel so abrupt
 * Ability to remove image from TV show
+* Find more elegant way to sign in and fetch everything again to get updated data related to current user (ex. tv_show#is_favorite)

@@ -1,6 +1,7 @@
 Clickster.Views.HomeView = Backbone.View.extend({
   initialize: function () {
     this.useTvCards();
+
     this.listenTo(Clickster.tvShows, "sync", this.render);
   },
 

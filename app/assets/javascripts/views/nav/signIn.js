@@ -35,7 +35,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
       dataType: 'json',
       success: function (data) {
         if (data.newUser) Clickster.searchResults.users.push(data.username);
-        Clickster.currentUser.fetch();
+        window.location.reload();
       },
       error: function (data) {
         that.$('.errors').empty();

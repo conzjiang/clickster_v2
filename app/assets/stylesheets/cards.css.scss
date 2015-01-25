@@ -244,27 +244,40 @@ ul.tv-results .buttons {
 
   .statuses {
     display: none;
+    position: absolute;
+    bottom: 45px;
+    left: 50%;
+    margin-left: -60px;
+    width: 120px;
+    background: #ccc;
+    z-index: 10;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px #888;
 
     li {
-      padding: 5px 10px;
+      width: 100px;
+      padding: 8px 10px;
+      font-size: 16px;
+      line-height: initial;
+      text-align: left;
     }
-  }
 
-  .statuses.show {
-    display: block;
-    position: absolute;
-    top: 28px;
-    left: 7px;
-    width: 110px;
-    font-size: 14px;
-    line-height: initial;
-    text-align: left;
-    background: #eee;
-    z-index: 10;
-  }
+    &.show {
+      display: block;
+    }
 
-  li.show .statuses {
-    @extend .statuses.show;
+    &.show:before {
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      margin-left: -10px;
+      content: "";
+      width: 0;
+      border: 10px solid #ccc;
+      border-bottom: 0;
+      border-left-color: transparent;
+      border-right-color: transparent;
+    }
   }
 }
 

@@ -12,6 +12,8 @@ Clickster.Views.TvCardView = Backbone.View.extend({
   events: {
     "touchmove .title": "toggleBlurb",
     "click .title": "toggleBlurb",
+    "click .watchlist": "toggleWatchlist",
+    "click .status": "setStatus",
     "click .favorite": "toggleFavorite"
   },
 
@@ -32,6 +34,14 @@ Clickster.Views.TvCardView = Backbone.View.extend({
         this.closing = false;
       }.bind(this));
     }
+  },
+
+  toggleWatchlist: function () {
+    this.$(".statuses").toggleClass("show");
+  },
+
+  setStatus: function (e) {
+    e.stopPropagation();
   },
 
   toggleFavorite: function () {

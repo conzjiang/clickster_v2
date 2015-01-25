@@ -12,6 +12,8 @@
   </header>
 
   <section class="main"></section>
+
+  <div class="banner"></div>
   <div class="cover"></div>
 </main>
 
@@ -27,7 +29,7 @@
     Clickster.initialize({
       $navbar: $("nav"),
       $rootEl: $(".main"),
-      $modal: $(".modal-content")
+      $banner: $(".banner")
     });
 
     <% if signed_in? %>

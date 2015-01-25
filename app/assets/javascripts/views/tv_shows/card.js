@@ -35,12 +35,26 @@ Clickster.Views.TvCardView = Backbone.View.extend({
   },
 
   toggleFavorite: function () {
-    this.tv.favorite({
+    var options = {
       success: function () {
         this.$(".favorite").toggleClass("is-favorite");
         this.$(".favorite").scaleAndFade();
       }.bind(this)
+    };
+
+    this.authenticate(function () {
+      this.tv.favorite(options);
     });
+  },
+
+  authenticate: function (callback) {
+    var signedIn = !!Clickster.currentUser.id;
+
+    if (signedIn) {
+      callback.call(this);
+    } else {
+      Clickster.errorManager.trigger("signIn");
+    }
   },
 
   feedback: function (message, options) {

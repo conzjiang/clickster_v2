@@ -111,6 +111,25 @@ p.error {
   color: #f00;
 }
 
+// BANNER
+.banner {
+  display: none;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+  background: #ccc;
+  border-bottom: 1px solid #000;
+  z-index: 1000;
+  transition: top 0.5s;
+
+  &.show {
+    display: block;
+  }
+}
+
 /* MAIN CONTAINER */
 main {
   width: 100%;

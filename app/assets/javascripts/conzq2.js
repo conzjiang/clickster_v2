@@ -4,14 +4,17 @@ window.Clickster = {
   Views: {},
   Routers: {},
   initialize: function(options) {
-    Clickster.currentUser = new Clickster.Models.CurrentUser();
-    Clickster.tvShows = new Clickster.Collections.TvShows();
-    Clickster.users = new Clickster.Collections.Users();
+    this.currentUser = new Clickster.Models.CurrentUser();
+    this.tvShows = new Clickster.Collections.TvShows();
+    this.users = new Clickster.Collections.Users();
 
-    Clickster.filepickerOptions = {
+    this.filepickerOptions = {
       mimetype: "image/*",
       services: ["COMPUTER", "URL"]
     };
+
+    this.errorManager = new Clickster.ErrorManager({ $el: options.$banner });
+    delete options.$banner;
 
     new Clickster.Routers.AppRouter(options);
     Backbone.history.start();

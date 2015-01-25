@@ -18,14 +18,17 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   },
 
   toggleOptions: function () {
+    this.authenticate(function () {
+      this.$(".options > ul").toggleClass("show");
+    });
+  },
+
+  authenticate: function (callback) {
     var signedIn = !!Clickster.currentUser.id;
 
-    if (!signedIn) {
-      this.warning();
-      return;
+    if (signedIn) {
+      callback.call(this);
     }
-
-    this.$(".options > ul").toggleClass("show");
   },
 
   warning: function () {
@@ -121,17 +124,13 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   },
 
   toggleFavorite: function (e) {
-    var signedIn = !!Clickster.currentUser.id;
-    var $button = $(e.target);
-    var favorites = Clickster.currentUser.favorites();
+    this.authenticate(function () {
+      var $button = $(e.target);
+      var favorites = Clickster.currentUser.favorites();
 
-    if (!signedIn) {
-      this.warning();
-      return;
-    }
-
-    favorites.send({ tv_show_id: this.tv.id }, {
-      success: this.setFavorite.bind(this)
+      favorites.send({ tv_show_id: this.tv.id }, {
+        success: this.setFavorite.bind(this)
+      });
     });
   },
 

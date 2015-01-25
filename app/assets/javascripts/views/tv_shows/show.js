@@ -125,10 +125,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
 
   toggleFavorite: function (e) {
     this.authenticate(function () {
-      var $button = $(e.target);
-      var favorites = Clickster.currentUser.favorites();
-
-      favorites.send({ tv_show_id: this.tv.id }, {
+      this.tv.favorite({
         success: this.setFavorite.bind(this)
       });
     });
@@ -166,7 +163,9 @@ Clickster.Views.TvShowView = Backbone.View.extend({
 
   setFavorite: function () {
     if (this.tv.get("is_favorite")) {
-      this.$(".favorite").toggleClass("selected");
+      this.$(".favorite").addClass("selected");
+    } else {
+      this.$(".favorite").removeClass("selected");
     }
   },
 

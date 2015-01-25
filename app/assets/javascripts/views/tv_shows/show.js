@@ -21,14 +21,14 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     var signedIn = !!Clickster.currentUser.id;
 
     if (!signedIn) {
-      this._warning();
+      this.warning();
       return;
     }
 
     this.$(".options > ul").toggleClass("show");
   },
 
-  _warning: function () {
+  warning: function () {
     var $warning = this.$(".warning");
     $warning.addClass("show");
 
@@ -126,7 +126,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     var favorites = Clickster.currentUser.favorites();
 
     if (!signedIn) {
-      this._warning();
+      this.warning();
       return;
     }
 

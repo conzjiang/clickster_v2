@@ -16,8 +16,12 @@ Rails.application.routes.draw do
 
     resources :users, only: [:create]
     get 'users/:username', to: 'users#show'
+
     resource :session, only: [:create]
+
     resources :tv_shows, only: [:index, :create, :show, :update]
+    post 'tv_shows/:id/favorite', to: "tv_shows#favorite"
+
     get 'genres/:genre', to: "tv_shows#genre"
 
     get 'search', to: 'searches#get'

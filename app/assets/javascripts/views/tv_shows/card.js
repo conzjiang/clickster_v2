@@ -11,7 +11,8 @@ Clickster.Views.TvCardView = Backbone.View.extend({
 
   events: {
     "touchmove .title": "toggleBlurb",
-    "click .title": "toggleBlurb"
+    "click .title": "toggleBlurb",
+    "click .favorite": "toggleFavorite"
   },
 
   toggleBlurb: function (e) {
@@ -31,6 +32,28 @@ Clickster.Views.TvCardView = Backbone.View.extend({
         this.closing = false;
       }.bind(this));
     }
+  },
+
+  toggleFavorite: function () {
+    this.tv.favorite({
+      success: function () {
+        this.$(".favorite").toggleClass("is-favorite");
+        this.$(".favorite").scaleAndFade();
+      }.bind(this)
+    });
+  },
+
+  feedback: function (message, options) {
+    var $feedback;
+
+    this.$(".feedback").addClass("show").html(message);
+    if (options) this.$(".feedback").addClass(options.class);
+
+    $feedback = this.$(".feedback");
+
+    setTimeout(function () {
+      $feedback.removeClass("show");
+    }, 1000);
   },
 
   render: function () {

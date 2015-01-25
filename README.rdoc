@@ -12,3 +12,5 @@ New features:
 * Search for "Law & Order: Special Victims Unit" with `SVU` keyword
 * Going back when search form is open keeps search bar on the page
 * Ugh, can't find a nice way to render title block above rating in search results
+* Simulate latency on search/sign-in/etc so that the processes don't feel so abrupt
+* Ability to remove image from TV show

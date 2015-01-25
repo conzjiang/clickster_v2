@@ -9,6 +9,19 @@ Clickster.Models.TvShow = Backbone.Model.extend({
     return this.get("genres").indexOf(genre) !== -1;
   },
 
+  favorite: function (options) {
+    $.ajax({
+      type: "post",
+      url: this.url() + "/favorite",
+      dataType: "json",
+      success: function (data) {
+        this.set(data);
+
+        if (options.success) options.success();
+      }.bind(this)
+    });
+  },
+
   setGenres: function (genreStr) {
     var genres = genreStr.split(", ");
     var that = this;

@@ -41,6 +41,21 @@ class Api::TvShowsController < ApplicationController
     end
   end
 
+  def favorite
+    favorite = current_user.favorites.
+      find_or_initialize_by(tv_show_id: params[:id])
+
+    if favorite.persisted?
+      favorite.destroy!
+      is_favorite = false
+    else
+      favorite.save!
+      is_favorite = true
+    end
+
+    render json: { is_favorite: is_favorite }
+  end
+
   private
   def process_genre(genre)
     GenreService.new(genre).process

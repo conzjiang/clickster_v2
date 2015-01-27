@@ -39,9 +39,21 @@ Clickster.Views.TvCardView = Backbone.View.extend({
   },
 
   toggleWatchlist: function () {
-    if (!this.settingStatus) {
-      this.$(".statuses").toggleClass("show");
-      this.setClickHandler();
+    this.authenticate(function () {
+      if (!this.settingStatus) {
+        this.$(".statuses").toggleClass("show");
+        this.setClickHandler();
+      }
+    });
+  },
+
+  authenticate: function (callback) {
+    var signedIn = !!Clickster.currentUser.id;
+
+    if (signedIn) {
+      callback.call(this);
+    } else {
+      Clickster.eventManager.trigger("signIn");
     }
   },
 
@@ -91,16 +103,6 @@ Clickster.Views.TvCardView = Backbone.View.extend({
     this.authenticate(function () {
       this.tv.favorite(options);
     });
-  },
-
-  authenticate: function (callback) {
-    var signedIn = !!Clickster.currentUser.id;
-
-    if (signedIn) {
-      callback.call(this);
-    } else {
-      Clickster.eventManager.trigger("signIn");
-    }
   },
 
   feedback: function (message, options) {

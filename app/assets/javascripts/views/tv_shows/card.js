@@ -147,7 +147,7 @@ Clickster.Views.TvCardView = Backbone.View.extend({
       $option.addClass("choose");
     } else {
       this.$(".watchlist").removeClass("on-watchlist");
-      $(".choose").removeClass("choose");
+      this.$(".choose").removeClass("choose");
     }
   },
 

@@ -6,7 +6,14 @@ Clickster.Models.TvShow = Backbone.Model.extend({
   urlRoot: "api/tv_shows",
 
   addToWatchlist: function (options) {
-    this.sendData(this.url() + "/watchlist", options);
+    this.sendData(this.url() + "/watchlist", {
+      data: options.data,
+      success: function (data) {
+        var watchlists = Clickster.currentUser.watchlists();
+        data.on_watchlist ? watchlists.add(this) : watchlists.remove(this);
+        if (options && options.success) options.success();
+      }.bind(this)
+    });
   },
 
   sendData: function (url, options) {
@@ -17,8 +24,7 @@ Clickster.Models.TvShow = Backbone.Model.extend({
       dataType: "json",
       success: function (data) {
         this.set(data);
-
-        if (options.success) options.success();
+        if (options.success) options.success(data);
       }.bind(this)
     });
   },
@@ -28,7 +34,13 @@ Clickster.Models.TvShow = Backbone.Model.extend({
   },
 
   favorite: function (options) {
-    this.sendData(this.url() + "/favorite", options)
+    this.sendData(this.url() + "/favorite", {
+      success: function (data) {
+        var favorites = Clickster.currentUser.favorites();
+        data.is_favorite ? favorites.add(this) : favorites.remove(this);
+        if (options && options.success) options.success();
+      }
+    });
   },
 
   setGenres: function (genreStr) {

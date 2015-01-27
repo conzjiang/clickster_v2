@@ -5,14 +5,15 @@ Clickster.Models.TvShow = Backbone.Model.extend({
 
   urlRoot: "api/tv_shows",
 
-  belongsTo: function (genre) {
-    return this.get("genres").indexOf(genre) !== -1;
+  addToWatchlist: function (options) {
+    this.sendData(this.url() + "/watchlist", options);
   },
 
-  favorite: function (options) {
+  sendData: function (url, options) {
     $.ajax({
       type: "post",
-      url: this.url() + "/favorite",
+      url: url,
+      data: options.data,
       dataType: "json",
       success: function (data) {
         this.set(data);
@@ -20,6 +21,14 @@ Clickster.Models.TvShow = Backbone.Model.extend({
         if (options.success) options.success();
       }.bind(this)
     });
+  },
+
+  belongsTo: function (genre) {
+    return this.get("genres").indexOf(genre) !== -1;
+  },
+
+  favorite: function (options) {
+    this.sendData(this.url() + "/favorite", options)
   },
 
   setGenres: function (genreStr) {

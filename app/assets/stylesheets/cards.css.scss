@@ -262,6 +262,21 @@ ul.tv-results .buttons {
       text-align: left;
     }
 
+    li:first-child {
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+    }
+
+    li:last-child {
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+
+    .choose {
+      color: #fff;
+      background: #000;
+    }
+
     &.show {
       display: block;
     }

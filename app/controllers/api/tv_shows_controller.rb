@@ -56,6 +56,14 @@ class Api::TvShowsController < ApplicationController
     render json: { is_favorite: is_favorite }
   end
 
+  def watchlist
+    list = current_user.watchlists.
+      find_or_initialize_by(tv_show_id: params[:id])
+
+    list.update!(status: params[:status])
+    render json: { status: list.status }
+  end
+
   private
   def process_genre(genre)
     GenreService.new(genre).process

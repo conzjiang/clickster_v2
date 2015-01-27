@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
     resources :tv_shows, only: [:index, :create, :show, :update]
     post 'tv_shows/:id/favorite', to: "tv_shows#favorite"
+    post 'tv_shows/:id/watchlist', to: "tv_shows#watchlist"
 
     get 'genres/:genre', to: "tv_shows#genre"
 

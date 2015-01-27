@@ -60,8 +60,17 @@ class Api::TvShowsController < ApplicationController
     list = current_user.watchlists.
       find_or_initialize_by(tv_show_id: params[:id])
 
-    list.update!(status: params[:status])
-    render json: { status: list.status }
+    if list.status == params[:status]
+      list.destroy!
+      on_watchlist = false
+      status = nil
+    else
+      list.update!(status: params[:status])
+      on_watchlist = true
+      status = list.status
+    end
+
+    render json: { on_watchlist: on_watchlist, watch_status: status }
   end
 
   private

@@ -13,7 +13,7 @@ window.Clickster = {
       services: ["COMPUTER", "URL"]
     };
 
-    this.errorManager = new Clickster.ErrorManager({ $el: options.$banner });
+    this.eventManager = new Clickster.EventManager({ $el: options.$banner });
     delete options.$banner;
 
     new Clickster.Routers.AppRouter(options);

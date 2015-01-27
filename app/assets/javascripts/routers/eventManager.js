@@ -1,4 +1,4 @@
-Clickster.ErrorManager = function (options) {
+Clickster.EventManager = function (options) {
   _.extend(this, Backbone.Events);
   this.$el = options.$el;
   this.clickNamespace = 0;
@@ -6,11 +6,11 @@ Clickster.ErrorManager = function (options) {
   this.on("signIn", this.signInError, this);
 };
 
-Clickster.ErrorManager.prototype.signInError = function () {
+Clickster.EventManager.prototype.signInError = function () {
   this.showError("Please sign in first.");
 };
 
-Clickster.ErrorManager.prototype.showError = function (message) {
+Clickster.EventManager.prototype.showError = function (message) {
   var viewportTop = $("main").scrollTop()
   this.$el.addClass("show").css({ top: (viewportTop - 50) + "px" });
   this.$el.html(message);
@@ -29,7 +29,7 @@ Clickster.ErrorManager.prototype.showError = function (message) {
   }.bind(this), 2000);
 };
 
-Clickster.ErrorManager.prototype.clickOut = function (options) {
+Clickster.EventManager.prototype.clickOut = function (options) {
   var clickNamespace = "click." + this.clickNamespace,
       firstClick = true,
       isOutside = options.isOutside,
@@ -49,6 +49,6 @@ Clickster.ErrorManager.prototype.clickOut = function (options) {
   });
 };
 
-Clickster.ErrorManager.prototype.offClick = function (clickNamespace) {
+Clickster.EventManager.prototype.offClick = function (clickNamespace) {
   $("body").off(clickNamespace);
 };

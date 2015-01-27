@@ -43,7 +43,7 @@ Clickster.Views.TvCardView = Backbone.View.extend({
 
   setClickHandler: function () {
     if (this.$(".statuses").hasClass("show")) {
-      Clickster.errorManager.clickOut({
+      Clickster.eventManager.clickOut({
         isOutside: function ($target) {
           var otherPopout = $target.data("id") !== this.tv.id,
               outside = !$target.closest(".statuses").length;
@@ -90,7 +90,7 @@ Clickster.Views.TvCardView = Backbone.View.extend({
     if (signedIn) {
       callback.call(this);
     } else {
-      Clickster.errorManager.trigger("signIn");
+      Clickster.eventManager.trigger("signIn");
     }
   },
 

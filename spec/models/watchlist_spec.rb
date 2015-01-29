@@ -14,5 +14,6 @@ describe Watchlist do
     )
 
     expect(bad_watchlist).not_to be_valid
+    expect(bad_watchlist.errors.keys).to include(:tv_show)
   end
 end

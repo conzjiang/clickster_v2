@@ -12,6 +12,7 @@ describe TvDecade do
     )
 
     expect(bad_tv_decade).not_to be_valid
+    expect(bad_tv_decade.errors.keys).to include(:tv_show_id)
   end
 
   describe "::decades_list" do

@@ -13,5 +13,6 @@ describe Favorite do
     )
 
     expect(bad_favorite).not_to be_valid
+    expect(bad_favorite.errors.keys).to include(:favoriter)
   end
 end

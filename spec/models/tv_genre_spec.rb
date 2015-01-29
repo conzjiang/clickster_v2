@@ -12,6 +12,7 @@ describe TvGenre do
     )
 
     expect(bad_tv_genre).not_to be_valid
+    expect(bad_tv_genre.errors.keys).to include(:tv_show_id)
   end
 
   describe "::genres_list" do

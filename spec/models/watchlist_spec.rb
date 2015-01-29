@@ -2,6 +2,7 @@ describe Watchlist do
   subject(:watchlist) { create(:watchlist) }
 
   it { should define_enum_for(:status) }
+  it { should validate_presence_of(:status) }
   it { should belong_to(:watcher) }
   it { should belong_to(:tv_show) }
 

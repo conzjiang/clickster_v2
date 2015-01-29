@@ -11,6 +11,11 @@ class User < ActiveRecord::Base
   has_many :watchlist_shows, through: :watchlists, source: :tv_show
   has_many :favorites, foreign_key: :favoriter_id
   has_many :favorite_shows, through: :favorites, source: :tv_show
+  has_many :follows, foreign_key: :follower_id, inverse_of: :follower,
+    dependent: :destroy
+  has_many :idols, through: :follows, source: :idol
+  has_many :followings, foreign_key: :idol_id, dependent: :destroy
+  has_many :followers, through: :followings
 
   after_initialize :ensure_session_token
 

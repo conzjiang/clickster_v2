@@ -1,19 +1,7 @@
 describe TvGenre do
-  subject(:tv_genre) { create(:tv_genre) }
-
   it { should belong_to(:tv_show) }
   it { should define_enum_for(:genre) }
-
-  it "validates scoped uniqueness of tv_show_id vs. genre" do
-    bad_tv_genre = build(
-      :tv_genre,
-      tv_show_id: tv_genre.tv_show_id,
-      genre: tv_genre.genre
-    )
-
-    expect(bad_tv_genre).not_to be_valid
-    expect(bad_tv_genre.errors.keys).to include(:tv_show_id)
-  end
+  it { should validate_uniqueness_of(:tv_show_id).scoped_to(:genre) }
 
   describe "::genres_list" do
     it "returns an array" do

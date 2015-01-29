@@ -7,9 +7,10 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true }
 
   has_many :tv_shows, foreign_key: :admin_id
-  has_many :watchlists, foreign_key: :watcher_id, inverse_of: :watcher
+  has_many :watchlists, foreign_key: :watcher_id, inverse_of: :watcher,
+    dependent: :destroy
   has_many :watchlist_shows, through: :watchlists, source: :tv_show
-  has_many :favorites, foreign_key: :favoriter_id
+  has_many :favorites, foreign_key: :favoriter_id, dependent: :destroy
   has_many :favorite_shows, through: :favorites, source: :tv_show
   has_many :follows, foreign_key: :follower_id, inverse_of: :follower,
     dependent: :destroy

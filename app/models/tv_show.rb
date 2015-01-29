@@ -9,10 +9,10 @@ class TvShow < ActiveRecord::Base
   validate :valid_years
 
   belongs_to :admin, class_name: "User"
-  has_many :tv_decades
-  has_many :tv_genres
-  has_many :watchlists
-  has_many :favorites
+  has_many :tv_decades, dependent: :destroy
+  has_many :tv_genres, dependent: :destroy
+  has_many :watchlists, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   has_many :favoriters, through: :favorites
 
   before_save :set_decades

@@ -14,6 +14,6 @@ class TvGenre < ActiveRecord::Base
   end
 
   def self.get_ids(genre_names)
-    self.genres.values_at(*genre_names)
+    self.genres.values_at(*genre_names).compact
   end
 end

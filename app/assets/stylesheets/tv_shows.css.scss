@@ -155,8 +155,7 @@ a.admin-edit:before {
       box-sizing: border-box;
     }
 
-    li:before,
-    li > strong:before {
+    li:before {
       display: block;
       position: absolute;
       top: 3px;
@@ -169,23 +168,19 @@ a.admin-edit:before {
       z-index: 1;
     }
 
-    li[data-option='Watching']:before,
-    li[data-option='Watching'] > strong:before {
+    li[data-option='Watching']:before {
       content: "\2016";
     }
 
-    li[data-option='Plan to Watch']:before,
-    li[data-option='Plan to Watch'] > strong:before {
+    li[data-option='Plan to Watch']:before {
       content: "\25B6";
     }
 
-    li[data-option='Completed']:before,
-    li[data-option='Completed'] > strong:before {
+    li[data-option='Completed']:before {
       content: "\25A0";
     }
 
-    li[data-option='Dropped']:before,
-    li[data-option='Dropped'] > strong:before {
+    li[data-option='Dropped']:before {
       content: "\23ED";
     }
 
@@ -193,35 +188,17 @@ a.admin-edit:before {
       border-left: 1px solid #ccc;
     }
 
-    li.favorite > strong:before {
-      display: none;
-    }
-
-    li.favorite:before,
-    li.favorite.selected > strong:before {
+    li.favorite:before {
       content: "\2661";
     }
 
-    li.selected {
+    li.selected,
+    li.is-favorite {
       color: #666;
     }
 
-    li.favorite.selected:before,
-    li.favorite > strong:before {
+    li.is-favorite:before {
       content: "\2665";
-    }
-
-    li.list > strong:before {
-      transform: scale(1);
-      opacity: 1;
-      transition: transform 0.5s, opacity 0.7s;
-      z-index: 0;
-    }
-
-    li.list.select > strong:before {
-      display: block;
-      transform: scale(2);
-      opacity: 0;
     }
 
     .warning {

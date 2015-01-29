@@ -11,7 +11,7 @@ Clickster.Models.TvShow = Backbone.Model.extend({
       success: function (data) {
         var watchlists = Clickster.currentUser.watchlists();
         data.on_watchlist ? watchlists.add(this) : watchlists.remove(this);
-        if (options && options.success) options.success();
+        if (options && options.success) options.success(data);
       }.bind(this)
     });
   },
@@ -38,7 +38,7 @@ Clickster.Models.TvShow = Backbone.Model.extend({
       success: function (data) {
         var favorites = Clickster.currentUser.favorites();
         data.is_favorite ? favorites.add(this) : favorites.remove(this);
-        if (options && options.success) options.success();
+        if (options && options.success) options.success(data);
       }
     });
   },

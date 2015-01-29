@@ -11,15 +11,22 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   template: JST["tv_shows/show"],
 
   events: {
-    "click li.watchlist": "toggleOptions",
-    "click .tv-info": "hideOptions",
     "click li.list": "toggleWatchlist",
     "click li.favorite": "toggleFavorite"
   },
 
-  toggleOptions: function () {
+  toggleWatchlist: function (event) {
     this.authenticate(function () {
-      this.$(".options > ul").toggleClass("show");
+      var $button = $(event.target),
+          status = $button.data("option"),
+          that = this;
+
+      this.tv.addToWatchlist({
+        data: { status: status },
+        success: function () {
+          $button.scaleAndFade(that.setWatchlistStatus.bind(that));
+        }
+      });
     });
   },
 
@@ -28,6 +35,8 @@ Clickster.Views.TvShowView = Backbone.View.extend({
 
     if (signedIn) {
       callback.call(this);
+    } else {
+      this.warning();
     }
   },
 
@@ -40,94 +49,14 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     }, 2000);
   },
 
-  hideOptions: function () {
-    if (this.$(".options > ul").hasClass("show")) {
-      this.toggleOptions();
-    }
-  },
-
-  toggleWatchlist: function (event) {
-    var $button = $(event.target);
-    var status = $button.data("option");
-
-    if ($button.hasClass("selected")) {
-      this.deleteFromWatchlist();
-    } else {
-      this.addToWatchlist(status);
-    }
-  },
-
-  deleteFromWatchlist: function () {
-    var watchlist = Clickster.currentUser.watchlists().getList(this.tv.id);
-
-    watchlist.set('id', this.tv.id);
-    watchlist.destroy({
-      success: this.removeWatchlistStatus.bind(this)
-    });
-  },
-
-  removeWatchlistStatus: function () {
-    var $buttons = this.$("li.list");
-    var $watchlistButton = this.$(".watchlist");
-
-    $buttons.removeClass("selected");
-    $watchlistButton.removeClass("selected").removeAttr("data-option");
-    $watchlistButton.html("Add to Watchlist");
-
-    setTimeout(this.toggleOptions.bind(this), 500);
-  },
-
-  addToWatchlist: function (status) {
-    var $button = this.$("li.list[data-option='" + status + "']");
-    var watchlists = Clickster.currentUser.watchlists();
-    var watchlist = watchlists.getList(this.tv.id);
-    var onSuccess = {
-      success: function (data) {
-        this.scaleAndFadeButton($button.addClass("selected"));
-        this.setWatchlistStatus(status);
-      }.bind(this)
-    };
-
-    $button.siblings().removeClass("selected");
-
-    if (watchlist) {
-      watchlist.save({ status: status }, onSuccess);
-    } else {
-      watchlists.create({ tv_show_id: this.tv.id, status: status }, onSuccess);
-    }
-  },
-
-  scaleAndFadeButton: function ($button) {
-    var $newButton = $button.clone();
-    var transitioning = false;
-    var that = this;
-
-    $button.addClass("select");
-
-    $button.children("strong").on("transitionend", function () {
-      if (transitioning) {
-        $button.replaceWith($newButton);
-        $button.children("strong").off();
-        that.toggleOptions();
-      }
-
-      if (!transitioning) {
-        transitioning = true;
-      }
-    });
-  },
-
-  setWatchlistStatus: function (status) {
-    this.$(".watchlist").attr("data-option", status);
-    this.$(".watchlist").html(status);
-    this.$("li[data-option='" + status + "']").addClass("selected");
-  },
-
   toggleFavorite: function (e) {
+    var that = this,
+        toggleButton = function () {
+          that.$(".favorite").scaleAndFade(that.setFavorite.bind(that));
+        };
+
     this.authenticate(function () {
-      this.tv.favorite({
-        success: this.setFavorite.bind(this)
-      });
+      this.tv.favorite({ success: toggleButton });
     });
   },
 
@@ -137,10 +66,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     this.$el.html(content);
     this.setImage();
     this.setFavorite();
-
-    if (this.tv.get("on_watchlist")) {
-      this.setWatchlistStatus(this.tv.get("watch_status"));
-    }
+    this.setWatchlistStatus();
 
     return this;
   },
@@ -163,15 +89,23 @@ Clickster.Views.TvShowView = Backbone.View.extend({
 
   setFavorite: function () {
     if (this.tv.get("is_favorite")) {
-      this.$(".favorite").addClass("selected");
+      this.$(".favorite").addClass("is-favorite");
     } else {
-      this.$(".favorite").removeClass("selected");
+      this.$(".favorite").removeClass("is-favorite");
     }
   },
 
-  remove: function () {
-    $("main").off("touchmove");
-    $("main").off("scroll");
-    return Backbone.View.prototype.remove.apply(this);
+  setWatchlistStatus: function () {
+    var status, $button;
+
+    if (this.tv.get("on_watchlist")) {
+      status = this.tv.escape("watch_status");
+      $button = this.$("li[data-option='" + status + "']");
+
+      $button.addClass("selected");
+      $button.siblings(".selected").removeClass("selected");
+    } else {
+      this.$("li.list").removeClass("selected");
+    }
   }
 });

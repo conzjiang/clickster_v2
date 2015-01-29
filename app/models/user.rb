@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   has_many :follows, foreign_key: :follower_id, inverse_of: :follower,
     dependent: :destroy
   has_many :idols, through: :follows, source: :idol
-  has_many :followings, foreign_key: :idol_id, dependent: :destroy
+  has_many :followings, class_name: "Follow", foreign_key: :idol_id,
+    dependent: :destroy
   has_many :followers, through: :followings
 
   after_initialize :ensure_session_token

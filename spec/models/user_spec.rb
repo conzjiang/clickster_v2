@@ -7,6 +7,10 @@ describe User do
   end
 
   it { should have_many(:tv_shows) }
+  it { should have_many(:follows) }
+  it { should have_many(:idols) }
+  it { should have_many(:followings) }
+  it { should have_many(:followers) }
 
   describe "#username" do
     it "validates minimum length of 3" do

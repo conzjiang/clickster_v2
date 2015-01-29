@@ -7,6 +7,10 @@ describe User do
   end
 
   it { should have_many(:tv_shows) }
+  it { should have_many(:watchlists) }
+  it { should have_many(:watchlist_shows) }
+  it { should have_many(:favorites) }
+  it { should have_many(:favorite_shows) }
   it { should have_many(:follows) }
   it { should have_many(:idols) }
   it { should have_many(:followings) }

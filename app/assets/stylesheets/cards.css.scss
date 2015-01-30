@@ -117,6 +117,7 @@ ul.tv-results > li {
     a.image-block {
       float: initial;
       width: 100%;
+      background-position: 0 0;
     }
 
     cover {
@@ -133,15 +134,20 @@ ul.tv-results > li {
       float: initial;
       padding: 30px;
       box-sizing: border-box;
+      background: none;
       cursor: pointer;
     }
 
     div.title {
       position: absolute;
-      bottom: 30px;
+      bottom: 50px;
       right: 0;
+      width: auto;
       padding: 0;
       text-align: right;
+      white-space: normal;
+      background: none;
+      box-shadow: none;
     }
 
     h3 {
@@ -173,8 +179,8 @@ ul.tv-results > li {
     p {
       display: none;
       position: absolute;
-      top: 30px;
-      left: 30px;
+      top: 15px;
+      left: 10px;
       float: initial;
       width: calc(100% - 60px);
       font-size: 16px;

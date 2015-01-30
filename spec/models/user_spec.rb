@@ -15,6 +15,7 @@ describe User do
   it { should have_many(:idols) }
   it { should have_many(:followings) }
   it { should have_many(:followers) }
+  it { should have_many(:feed_items) }
 
   describe "#username" do
     it "validates minimum length of 3" do

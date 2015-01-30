@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :followings, class_name: "Follow", foreign_key: :idol_id,
     dependent: :destroy
   has_many :followers, through: :followings
+  has_many :feed_items
 
   after_initialize :ensure_session_token
 

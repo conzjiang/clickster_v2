@@ -22,8 +22,8 @@
     while (resized || (totalHeight($(this).children()) > $(this).height())) {
       $lastChild.text(function (i, text) {
         if (resized) {
-          text = that.originalText;
           resized = false;
+          return that.originalText;
         }
 
         return text.replace(/\W*\s(\S)*$/, '...');

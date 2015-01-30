@@ -38,6 +38,12 @@ section.main > .user-show {
       text-shadow: #666 0px 3px 5px;
     }
 
+    @media (min-width: 500px) {
+      h1 {
+        margin: 5px 0;
+      }
+    }
+
     p {
       position: relative;
       display: block;
@@ -70,10 +76,9 @@ section.main > .user-show {
       background: #aaa;
     }
 
-    .me {
-      @extend .is-following;
-
+    button.me {
       text-transform: uppercase;
+      background: #fff;
       cursor: default;
     }
   }

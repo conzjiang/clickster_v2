@@ -29,7 +29,8 @@ ActiveRecord::Schema.define(version: 20150130034303) do
   create_table "feed_items", force: true do |t|
     t.integer  "user_id"
     t.integer  "idol_id"
-    t.integer  "tv_show_id"
+    t.integer  "subject_id"
+    t.string   "subject_type"
     t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"

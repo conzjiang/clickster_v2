@@ -3,7 +3,8 @@ class CreateFeedItems < ActiveRecord::Migration
     create_table :feed_items do |t|
       t.integer :user_id
       t.integer :idol_id
-      t.integer :tv_show_id
+      t.integer :subject_id
+      t.string :subject_type
       t.string :message
       t.timestamps
     end

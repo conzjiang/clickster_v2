@@ -14,6 +14,7 @@ gem 'backbone-on-rails'
 gem 'bcrypt', require: 'bcrypt'
 gem 'figaro'
 gem 'filepicker-rails'
+gem "activerecord-import"
 
 group :development, :test do
   gem 'factory_girl_rails'

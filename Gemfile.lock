@@ -21,6 +21,8 @@ GEM
       activemodel (= 4.1.4)
       activesupport (= 4.1.4)
       arel (~> 5.0.0)
+    activerecord-import (0.7.0)
+      activerecord (>= 3.0)
     activeresource (4.0.0)
       activemodel (~> 4.0)
       activesupport (~> 4.0)
@@ -207,6 +209,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   backbone-on-rails
   bcrypt
   better_errors

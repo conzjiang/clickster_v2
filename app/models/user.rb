@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     self.is_admin
   end
 
+  def following?(user)
+    follows.exists?(idol_id: user.id)
+  end
+
   def is_password?(password)
     Password.new(self.password_digest).is_password?(password)
   end

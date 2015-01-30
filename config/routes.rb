@@ -9,13 +9,10 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resource :current_user, only: [:show, :update]
-    post 'current_user/watchlists', to: 'current_users#add_watchlist'
-    delete 'current_user/watchlists/:tv_show_id',
-      to: 'current_users#delete_watchlist'
-    post 'current_user/favorites', to: 'current_users#favorites'
 
     resources :users, only: [:create]
     get 'users/:username', to: 'users#show'
+    post "users/:username/follow", to: "users#follow"
 
     resource :session, only: [:create]
 

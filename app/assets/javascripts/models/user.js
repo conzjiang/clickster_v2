@@ -1,7 +1,6 @@
 Clickster.Models.User = Backbone.Model.extend({
   initialize: function (options) {
     if (options) this.set("username", options.username);
-    this.isCurrentUser = Clickster.currentUser.id === this.id;
   },
 
   url: function () {
@@ -18,6 +17,20 @@ Clickster.Models.User = Backbone.Model.extend({
     }
 
     return this._favorites;
+  },
+
+  follow: function (options) {
+    var that = this;
+
+    $.ajax({
+      type: "post",
+      url: this.url() + "/follow",
+      dataType: "json",
+      success: function (data) {
+        that.set(data);
+        if (options && options.success) options.success(data);
+      }
+    });
   },
 
   parse: function (response) {

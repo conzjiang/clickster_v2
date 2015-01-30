@@ -21,6 +21,21 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def follow
+    user = User.find_by(username: params[:username])
+    follow = current_user.follows.find_or_initialize_by(idol_id: user.id)
+
+    if follow.persisted?
+      follow.destroy!
+      is_following = false
+    else
+      follow.save!
+      is_following = true
+    end
+
+    render json: { is_following: is_following }
+  end
+
   private
   def user_params
     params.require(:user).permit(:email, :username, :password, :image_url)

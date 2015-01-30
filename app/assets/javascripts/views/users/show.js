@@ -9,8 +9,27 @@ Clickster.Views.UserShowView = Backbone.View.extend({
 
   template: JST["users/show"],
 
-  error: function () {
-    this.$el.html("User not found");
+  events: {
+    "click .follow": "toggleFollow"
+  },
+
+  toggleFollow: function () {
+    var message, followCallback;
+
+    message = this.user.get("is_following") ? "Unfollowing..." : "Following...";
+
+    this.$(".follow").html(message).prop("disabled", true);
+
+    followCallback = function () {
+      this.$(".follow").prop("disabled", false);
+      this.setFollowStatus();
+    }.bind(this);
+
+    this.user.follow({
+      success: function () {
+        setTimeout(followCallback, 1000);
+      }
+    });
   },
 
   render: function () {
@@ -26,10 +45,15 @@ Clickster.Views.UserShowView = Backbone.View.extend({
     } else {
       this.$el.html(content);
       this.renderImageTiles();
+      this.setFollowStatus();
       this.ellipsis();
     }
 
     return this;
+  },
+
+  error: function () {
+    this.$el.html("User not found");
   },
 
   renderImageTiles: function () {
@@ -47,5 +71,15 @@ Clickster.Views.UserShowView = Backbone.View.extend({
         $(this).css({ "background-image": "url(" + images[imageIndex] + ")" });
       }
     });
+  },
+
+  setFollowStatus: function () {
+    if (this.user.get("is_following")) {
+      this.$(".follow").addClass("is-following").html("Following");
+    } else if (this.user.get("is_current_user")) {
+      this.$(".follow").addClass("me").prop("disabled", true).html("Me");
+    } else {
+      this.$(".follow").removeClass("is-following").html("Follow");
+    }
   }
 });

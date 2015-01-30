@@ -20,7 +20,9 @@
     <%= Utils.pluralize(user.favoriteCount(), "favorite show") %>
   </p>
 
-  <% if (user.isCurrentUser) { %>
+  <button type="button" class="follow"></button>
+
+  <% if (user.get("is_current_user")) { %>
     <a class="admin-edit" href="#/users/edit">Edit</a>
   <% } %>
 </header>

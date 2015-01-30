@@ -1,3 +1,11 @@
-<h1>Currently Airing</h1>
+<% if (signedIn) { %>
+  <article class="home-section">
+    <h1>Currently Playing</h1>
+    <ul class="feed"></ul>
+  </article>
+<% } %>
 
-<ul class="tv-results group"></ul>
+<article class="home-section">
+  <h1>Currently Airing</h1>
+  <ul class="tv-results group"></ul>
+</article>

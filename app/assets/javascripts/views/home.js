@@ -2,6 +2,7 @@ Clickster.Views.HomeView = Backbone.View.extend({
   initialize: function () {
     this.useTvCards();
 
+    this.listenTo(Clickster.currentUser, "sync", this.render);
     this.listenTo(Clickster.tvShows, "sync", this.render);
   },
 
@@ -9,11 +10,12 @@ Clickster.Views.HomeView = Backbone.View.extend({
 
   render: function () {
     var content = this.template({
-      shows: Clickster.tvShows.current(),
-      tvCard: JST["searches/tv"]
+      signedIn: !!Clickster.currentUser.id,
+      shows: Clickster.tvShows.current()
     });
 
     this.$el.html(content);
+    this.renderFeed();
     this.renderCards(Clickster.tvShows.current());
     return this;
   }

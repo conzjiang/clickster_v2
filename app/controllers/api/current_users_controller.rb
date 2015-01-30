@@ -1,39 +1,4 @@
 class Api::CurrentUsersController < ApplicationController
-  def add_watchlist
-    @watchlist = current_user.watchlists.find_or_initialize_by(
-      tv_show_id: watchlist_params[:tv_show_id]
-    )
-
-    if @watchlist.update(watchlist_params)
-      render :watchlist
-    else
-      render json: @watchlist.errors.full_messages, status: 422
-    end
-  end
-
-  def delete_watchlist
-    watchlist = current_user.watchlists.find_by(
-      tv_show_id: params[:tv_show_id]
-    )
-
-    watchlist.destroy!
-    render json: { destroyed: true }
-  end
-
-  def favorites
-    @favorite = current_user.favorites.find_or_initialize_by(
-      tv_show_id: params[:tv_show_id]
-    )
-
-    if @favorite.persisted?
-      @favorite.destroy!
-      render json: { destroyed: true }
-    else
-      @favorite.save!
-      render :favorite
-    end
-  end
-
   def show
     unless signed_in?
       render json: "Not signed in."
@@ -87,9 +52,5 @@ class Api::CurrentUsersController < ApplicationController
 
     current_user.password = new_password
     true
-  end
-
-  def watchlist_params
-    params.require(:current_user).permit(:tv_show_id, :status)
   end
 end

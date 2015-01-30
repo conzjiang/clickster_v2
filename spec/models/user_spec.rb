@@ -77,4 +77,52 @@ describe User do
       expect(user.reset_session_token!).not_to eq(original_token)
     end
   end
+
+  describe "#following?" do
+    it "returns true if user is following other user" do
+      idol = create(:user)
+      create(:follow, follower_id: user.id, idol_id: idol.id)
+
+      expect(user.following?(idol)).to be_true
+    end
+
+    it "returns false if user is not following other user" do
+      other_user = create(:user)
+      create(:follow, follower_id: user.id)
+
+      expect(user.following?(other_user)).to be_false
+    end
+  end
+
+  describe "#likes?" do
+    it "returns true if user has favorited TV show" do
+      fav_tv_show = create(:tv_show)
+      create(:favorite, favoriter_id: user.id, tv_show_id: fav_tv_show.id)
+
+      expect(user.likes?(fav_tv_show)).to be_true
+    end
+
+    it "returns false if user has not favorited TV show" do
+      tv_show = create(:tv_show)
+      create(:favorite, favoriter_id: user.id)
+
+      expect(user.likes?(tv_show)).to be_false
+    end
+  end
+
+  describe "#listed?" do
+    it "returns true if user has added TV show to watchlist" do
+      list_show = create(:tv_show)
+      create(:watchlist, watcher_id: user.id, tv_show_id: list_show.id)
+
+      expect(user.listed?(list_show)).to be_true
+    end
+
+    it "returns false if user has not added TV show to watchlist" do
+      tv_show = create(:tv_show)
+      create(:watchlist, watcher_id: user.id)
+
+      expect(user.listed?(tv_show)).to be_false
+    end
+  end
 end

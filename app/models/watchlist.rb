@@ -25,4 +25,8 @@ class Watchlist < ActiveRecord::Base
       " stopped watching "
     end
   end
+
+  def user
+    watcher
+  end
 end

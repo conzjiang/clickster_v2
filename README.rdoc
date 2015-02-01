@@ -15,3 +15,4 @@ New features:
 * Simulate latency on search/sign-in/etc so that the processes don't feel so abrupt
 * Ability to remove image from TV show
 * Find more elegant way to sign in and fetch everything again to get updated data related to current user (ex. tv_show#is_favorite)
+* Restructure styles for statuses strip on TV show view so that scaleAndFade only affects icon and not whole li

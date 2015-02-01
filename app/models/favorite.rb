@@ -10,4 +10,8 @@ class Favorite < ActiveRecord::Base
   def feed_message
     " favorited "
   end
+
+  def user
+    favoriter
+  end
 end

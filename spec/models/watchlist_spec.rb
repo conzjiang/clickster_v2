@@ -13,20 +13,11 @@ describe Watchlist do
     expect(watchlist.feed_message).to eq(" plans to watch ")
   end
 
-  describe "after save" do
+  it_behaves_like "a feed item subject" do
+    let(:subject) { :follow }
+    let(:user_id) { :follower_id }
     let(:follower) { create(:user) }
-    before { create(:follow, idol_id: watcher.id, follower_id: follower.id) }
-
-    it "creates feed items for its watcher's followers" do
-      create(:watchlist, watcher_id: watcher.id)
-      expect(follower.feed_items).not_to be_empty
-    end
-
-    it "doesn't create any feed items if watcher has no followers" do
-      Follow.destroy_all
-      create(:watchlist, watcher_id: watcher.id)
-      expect(FeedItem.all).to be_empty
-    end
+    let(:user) { watcher }
 
     it "destroys any feed items that were created within the minute" do
       watchlist = create(:watchlist, watcher_id: watcher.id, status: 1)
@@ -46,5 +37,4 @@ describe Watchlist do
       expect(FeedItem.count).to eq(2)
     end
   end
-
 end

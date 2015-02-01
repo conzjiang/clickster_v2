@@ -44,11 +44,15 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 end
 
+def factory_name(instance)
+  instance.class.to_s.underscore.to_sym
+end
+
 RSpec::Matchers.define :validate_scoped_uniqueness_of do |user_id, scope|
   # need to associate with actual user so shoulda's matcher doesn't work
   match do |subject|
     user = create(:user)
-    factory = subject.class.to_s.underscore.to_sym
+    factory = factory_name(subject)
     subject = create(factory, user_id => user.id)
     bad_subject = build(
       factory,
@@ -61,5 +65,40 @@ RSpec::Matchers.define :validate_scoped_uniqueness_of do |user_id, scope|
 
   failure_message do |subject|
     "expected that #{user_id} would be unique against #{scope}"
+  end
+end
+
+shared_examples "a feed item subject" do
+  before { create(:follow, idol_id: user.id, follower_id: follower.id) }
+
+  context "after save" do
+    it "creates feed items for its user's followers after save" do
+      create(subject, user_id => user.id)
+      expect(follower.feed_items).not_to be_empty
+    end
+
+    it "doesn't create any feed items if watcher has no followers" do
+      Follow.destroy_all
+      create(subject, user_id => user.id)
+      expect(FeedItem.all).to be_empty
+    end
+
+    it "destroys any recent feed items on destruction" do
+      new_subject = create(subject, user_id => user.id)
+      new_subject.destroy!
+      expect(FeedItem.all).to be_empty
+    end
+
+    it "doesn't destroy feed items if destroyed more than a minute later" do
+      new_subject = nil
+
+      Timecop.travel(2.minutes.ago) do
+        new_subject = create(subject, user_id => user.id)
+      end
+
+      new_subject.destroy!
+
+      expect(FeedItem.count).to eq(1)
+    end
   end
 end

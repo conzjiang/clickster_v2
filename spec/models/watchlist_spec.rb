@@ -20,6 +20,11 @@ describe Watchlist do
     expect(bad_watchlist.errors.keys).to include(:tv_show_id)
   end
 
+  it "#feed_message is dependent on its status" do
+    watchlist = build(:watchlist, status: 1)
+    expect(watchlist.feed_message).to eq(" plans to watch ")
+  end
+
   describe "after save" do
     let(:follower) { create(:user) }
     before { create(:follow, idol_id: watcher.id, follower_id: follower.id) }
@@ -33,11 +38,6 @@ describe Watchlist do
       Follow.destroy_all
       create(:watchlist, watcher_id: watcher.id)
       expect(FeedItem.all).to be_empty
-    end
-
-    it "creates a message based off its status" do
-      create(:watchlist, watcher_id: watcher.id, status: 1)
-      expect(follower.feed_items.first.message).to eq(" plans to watch ")
     end
 
     it "destroys any feed items that were created within the minute" do

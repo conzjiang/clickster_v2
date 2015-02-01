@@ -4,21 +4,9 @@ describe Watchlist do
   it { should define_enum_for(:status) }
   it { should validate_presence_of(:status) }
   it { should validate_presence_of(:watcher) }
+  it { should validate_scoped_uniqueness_of(:watcher_id, :tv_show_id) }
   it { should belong_to(:watcher) }
   it { should belong_to(:tv_show) }
-
-  it "validates scoped uniqueness of tv_show_id vs. watcher_id" do
-    # shoulda-matchers keeps failing other validations when testing this one
-    watchlist = create(:watchlist, watcher_id: watcher.id)
-    bad_watchlist = build(
-      :watchlist,
-      watcher_id: watcher.id,
-      tv_show_id: watchlist.tv_show_id
-    )
-
-    expect(bad_watchlist).not_to be_valid
-    expect(bad_watchlist.errors.keys).to include(:tv_show_id)
-  end
 
   it "#feed_message is dependent on its status" do
     watchlist = build(:watchlist, status: 1)

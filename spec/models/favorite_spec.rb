@@ -2,21 +2,9 @@ describe Favorite do
   let(:favoriter) { create(:user) }
 
   it { should validate_presence_of(:tv_show) }
+  it { should validate_scoped_uniqueness_of(:favoriter_id, :tv_show_id) }
   it { should belong_to(:tv_show) }
   it { should belong_to(:favoriter) }
-
-  it "validates scoped uniqueness of favoriter_id vs. tv_show_id" do
-    # shoulda-matchers keeps failing other validations when testing this one
-    favorite = create(:favorite, favoriter_id: favoriter.id)
-    bad_favorite = build(
-      :favorite,
-      favoriter_id: favoriter.id,
-      tv_show_id: favorite.tv_show_id
-    )
-
-    expect(bad_favorite).not_to be_valid
-    expect(bad_favorite.errors.keys).to include(:favoriter_id)
-  end
 
   describe "feed items" do
     let(:follower) { create(:user) }

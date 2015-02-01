@@ -43,3 +43,23 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
 end
+
+RSpec::Matchers.define :validate_scoped_uniqueness_of do |user_id, scope|
+  # need to associate with actual user so shoulda's matcher doesn't work
+  match do |subject|
+    user = create(:user)
+    factory = subject.class.to_s.underscore.to_sym
+    subject = create(factory, user_id => user.id)
+    bad_subject = build(
+      factory,
+      user_id => user.id,
+      scope => subject.send(scope)
+    )
+
+    !bad_subject.valid? && bad_subject.errors.keys.include?(user_id)
+  end
+
+  failure_message do |subject|
+    "expected that #{user_id} would be unique against #{scope}"
+  end
+end

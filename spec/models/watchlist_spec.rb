@@ -29,7 +29,7 @@ describe Watchlist do
     let(:follower) { create(:user) }
     before { create(:follow, idol_id: watcher.id, follower_id: follower.id) }
 
-    it "creates a feed item for its watcher's followers" do
+    it "creates feed items for its watcher's followers" do
       create(:watchlist, watcher_id: watcher.id)
       expect(follower.feed_items).not_to be_empty
     end

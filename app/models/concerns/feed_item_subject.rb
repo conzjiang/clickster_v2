@@ -19,6 +19,7 @@ module FeedItemSubject
   private
   def create_feed_items
     purge_quick_switches
+
     follower_ids = user.followings.pluck(:follower_id)
     feed_items = follower_ids.map do |follower_id|
       FeedItem.new(
@@ -33,7 +34,10 @@ module FeedItemSubject
   end
 
   def purge_quick_switches
-    mistake_items = feed_items.where("created_at > ?", 1.minute.ago)
-    mistake_items.destroy_all if mistake_items.exists?
+    recent_items.destroy_all
+  end
+
+  def recent_items
+    feed_items.where("created_at > ?", 1.minute.ago)
   end
 end

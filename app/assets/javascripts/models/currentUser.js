@@ -1,4 +1,8 @@
 Clickster.Models.CurrentUser = Clickster.Models.User.extend({
+  initialize: function () {
+    this.feed = new Clickster.Collections.Feed();
+  },
+
   url: 'api/current_user',
 
   isAdmin: function (tv) {
@@ -14,12 +18,6 @@ Clickster.Models.CurrentUser = Clickster.Models.User.extend({
 
       this.tvShows.set(response.tv_shows);
       delete response.tv_shows;
-    }
-
-    if (response.feed) {
-      this.feed = new Clickster.Collections.Feed();
-      this.feed.set(response.feed);
-      delete response.feed;
     }
 
     return Clickster.Models.User.prototype.parse.call(this, response);

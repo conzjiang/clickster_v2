@@ -1,6 +1,16 @@
 class Api::CurrentUsersController < ApplicationController
   def feed
-    @feed_items = current_user.feed_items
+    last_fetched = params[:last_fetched].to_datetime + 1.second || Time.now
+    feed_items = current_user.feed_items.where("created_at > ?", last_fetched)
+
+    tv_items = feed_items.
+      where(subject_type: ["Watchlist", "Favorite"]).
+      includes(subject: :tv_show)
+    user_items = feed_items.
+      where(subject_type: "Follow").
+      includes(subject: :idol)
+
+    @feed_items = (tv_items + user_items).sort_by(&:created_at)
   end
 
   def show

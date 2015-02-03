@@ -1,9 +1,11 @@
 Clickster.Views.HomeView = Backbone.View.extend({
   initialize: function () {
+    this.feed = Clickster.currentUser.feed;
     this.useTvCards();
 
     this.listenTo(Clickster.currentUser, "sync", this.render);
     this.listenTo(Clickster.tvShows, "sync", this.render);
+    this.listenTo(this.feed, "update", this.renderFeed);
   },
 
   template: JST['home'],
@@ -19,7 +21,7 @@ Clickster.Views.HomeView = Backbone.View.extend({
     });
 
     this.$el.html(content);
-    if (signedIn) this.renderFeed(Clickster.currentUser.feed.models);
+    if (signedIn) this.feed.fetchNew();
     this.renderCards(currentShows);
     return this;
   },
@@ -34,5 +36,19 @@ Clickster.Views.HomeView = Backbone.View.extend({
     });
 
     $(".timeago").timeago();
+    this.setFeedUpdateInterval();
+  },
+
+  setFeedUpdateInterval: function () {
+    if (!this.interval) {
+      this.interval = setInterval(function () {
+        this.feed.fetchNew();
+      }.bind(this), 50000);
+    }
+  },
+
+  remove: function () {
+    if (this.interval) clearInterval(this.interval);
+    Backbone.View.prototype.remove.call(this);
   }
 });

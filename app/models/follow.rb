@@ -12,7 +12,7 @@ class Follow < ActiveRecord::Base
   validates :follower_id, uniqueness: { scope: :idol_id }
 
   def feed_message
-    " is now following "
+    "is now following"
   end
 
   def user

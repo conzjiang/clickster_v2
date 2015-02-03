@@ -8,7 +8,7 @@ class Favorite < ActiveRecord::Base
   belongs_to :tv_show
 
   def feed_message
-    " favorited "
+    "favorited"
   end
 
   def user

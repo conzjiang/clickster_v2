@@ -1,3 +1,31 @@
 .home-section {
   margin-bottom: 50px;
 }
+
+.feed {
+  li {
+    width: 158px;
+    height: 68px;
+    float: left;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 3px #eee;
+  }
+
+  p {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  a {
+    font-weight: 700;
+  }
+
+  time {
+    display: block;
+    font-size: 12px;
+    color: #ccc;
+  }
+}

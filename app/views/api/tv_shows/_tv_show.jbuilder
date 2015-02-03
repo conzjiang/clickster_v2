@@ -5,14 +5,14 @@ json.genres tv_show.genres
 if signed_in?
   user = (@user || current_user)
 
-  json.is_favorite current_user.likes?(tv_show)
+  json.is_favorite user.likes?(tv_show)
 
-  on_watchlist = current_user.listed?(tv_show)
+  on_watchlist = user.listed?(tv_show)
   json.on_watchlist on_watchlist
 
   if on_watchlist
     json.watch_status(
-      current_user.watchlists.find_by(tv_show_id: tv_show.id).status
+      user.watchlists.find { |list| list.tv_show_id == tv_show.id }.status
     )
   end
 end

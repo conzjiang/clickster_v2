@@ -16,13 +16,13 @@ class Watchlist < ActiveRecord::Base
   def feed_message
     case status
     when "Watching"
-      " is watching "
+      "is watching"
     when "Plan to Watch"
-      " plans to watch "
+      "plans to watch"
     when "Completed"
-      " has finished watching "
+      "has finished watching"
     when "Dropped"
-      " stopped watching "
+      "stopped watching"
     end
   end
 

@@ -6,7 +6,7 @@ class Api::TvShowsController < ApplicationController
 
     if signed_in?
       @user = User.
-        includes(:watchlist_shows, :favorite_shows).
+        includes(:watchlists, :favorites).
         find(current_user.id)
     end
   end

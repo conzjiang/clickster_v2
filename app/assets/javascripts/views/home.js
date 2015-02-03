@@ -9,17 +9,30 @@ Clickster.Views.HomeView = Backbone.View.extend({
   template: JST['home'],
 
   render: function () {
-    var currentShows, content;
+    var currentShows, signedIn, content;
 
     currentShows = Clickster.tvShows.current();
+    signedIn = !!Clickster.currentUser.id;
     content = this.template({
-      signedIn: !!Clickster.currentUser.id,
+      signedIn: signedIn,
       shows: currentShows
     });
 
     this.$el.html(content);
-    this.renderFeed();
+    if (signedIn) this.renderFeed(Clickster.currentUser.feed.models);
     this.renderCards(currentShows);
     return this;
+  },
+
+  renderFeed: function (items) {
+    var itemTemplate = JST["feedItem"],
+        $feed = this.$(".feed");
+
+    _(items).each(function (feedItem) {
+      var $item = itemTemplate({ item: feedItem });
+      $feed.prepend($item);
+    });
+
+    $(".timeago").timeago();
   }
 });

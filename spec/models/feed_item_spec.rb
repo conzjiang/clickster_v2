@@ -6,6 +6,19 @@ describe FeedItem do
   it { should belong_to(:subject) }
 
   describe "#feed_message" do
+    it "returns a full message" do
+      tv_show = create(:tv_show, title: "Blue")
+      user = create(:user, username: "conz")
+      feed_item = create(
+        :feed_item,
+        idol: user,
+        subject: build(:watchlist, tv_show_id: tv_show.id),
+        message: " is now watching "
+      )
+
+      expect(feed_item.feed_message).to eq("conz is now watching Blue")
+    end
+
     it "message subject is idol" do
       idol = create(:user)
       feed_item = create(:feed_item, idol: idol)

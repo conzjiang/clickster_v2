@@ -21,8 +21,13 @@ Clickster.Views.HomeView = Backbone.View.extend({
     });
 
     this.$el.html(content);
-    if (signedIn) this.feed.fetchNew();
     this.renderCards(currentShows);
+
+    if (signedIn) {
+      this.feed.isEmpty() ?
+        this.feed.fetchNew() : this.renderFeed(this.feed.models);
+    }
+
     return this;
   },
 

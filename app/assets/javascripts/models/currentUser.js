@@ -16,6 +16,12 @@ Clickster.Models.CurrentUser = Clickster.Models.User.extend({
       delete response.tv_shows;
     }
 
+    if (response.feed) {
+      this.feed = new Clickster.Collections.Feed();
+      this.feed.set(response.feed);
+      delete response.feed;
+    }
+
     return Clickster.Models.User.prototype.parse.call(this, response);
   }
 });

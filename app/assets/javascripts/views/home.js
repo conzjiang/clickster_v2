@@ -9,14 +9,17 @@ Clickster.Views.HomeView = Backbone.View.extend({
   template: JST['home'],
 
   render: function () {
-    var content = this.template({
+    var currentShows, content;
+
+    currentShows = Clickster.tvShows.current();
+    content = this.template({
       signedIn: !!Clickster.currentUser.id,
-      shows: Clickster.tvShows.current()
+      shows: currentShows
     });
 
     this.$el.html(content);
     this.renderFeed();
-    this.renderCards(Clickster.tvShows.current());
+    this.renderCards(currentShows);
     return this;
   }
 });

@@ -1,4 +1,8 @@
 class Api::CurrentUsersController < ApplicationController
+  def feed
+    @feed_items = current_user.feed_items
+  end
+
   def show
     unless signed_in?
       render json: "Not signed in."

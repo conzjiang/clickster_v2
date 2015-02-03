@@ -55,8 +55,8 @@ class TvShow < ActiveRecord::Base
     end
   end
 
-  def genres
-    self.tv_genres.map(&:genre)
+  def genres(reload = false)
+    self.tv_genres(reload).map(&:genre)
   end
 
   private

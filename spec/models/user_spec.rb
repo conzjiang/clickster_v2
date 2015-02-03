@@ -84,14 +84,14 @@ describe User do
       idol = create(:user)
       create(:follow, follower_id: user.id, idol_id: idol.id)
 
-      expect(user.following?(idol)).to be_true
+      expect(user.following?(idol)).to be true
     end
 
     it "returns false if user is not following other user" do
       other_user = create(:user)
       create(:follow, follower_id: user.id)
 
-      expect(user.following?(other_user)).to be_false
+      expect(user.following?(other_user)).to be false
     end
   end
 
@@ -100,14 +100,14 @@ describe User do
       fav_tv_show = create(:tv_show)
       create(:favorite, favoriter_id: user.id, tv_show_id: fav_tv_show.id)
 
-      expect(user.likes?(fav_tv_show)).to be_true
+      expect(user.likes?(fav_tv_show)).to be true
     end
 
     it "returns false if user has not favorited TV show" do
       tv_show = create(:tv_show)
       create(:favorite, favoriter_id: user.id)
 
-      expect(user.likes?(tv_show)).to be_false
+      expect(user.likes?(tv_show)).to be false
     end
   end
 
@@ -116,14 +116,14 @@ describe User do
       list_show = create(:tv_show)
       create(:watchlist, watcher_id: user.id, tv_show_id: list_show.id)
 
-      expect(user.listed?(list_show)).to be_true
+      expect(user.listed?(list_show)).to be true
     end
 
     it "returns false if user has not added TV show to watchlist" do
       tv_show = create(:tv_show)
       create(:watchlist, watcher_id: user.id)
 
-      expect(user.listed?(tv_show)).to be_false
+      expect(user.listed?(tv_show)).to be false
     end
   end
 end

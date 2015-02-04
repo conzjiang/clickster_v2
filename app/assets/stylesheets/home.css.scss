@@ -2,15 +2,20 @@
   margin-bottom: 50px;
 }
 
+.feed-wrapper {
+  width: 100%;
+  max-height: 200px;
+  overflow: auto;
+}
+
 .feed {
   li {
-    width: 158px;
-    height: 68px;
-    float: left;
-    margin: 10px;
-    padding: 20px;
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
     border: 1px solid #eee;
     box-shadow: 0 0 3px #eee;
+    box-sizing: border-box;
   }
 
   p {
@@ -27,5 +32,18 @@
     display: block;
     font-size: 12px;
     color: #ccc;
+  }
+
+  @media (min-width: 500px) {
+    max-height: none;
+
+    li {
+      width: 158px;
+      height: 68px;
+      float: left;
+      margin: 10px;
+      padding: 20px;
+      box-sizing: content-box;
+    }
   }
 }

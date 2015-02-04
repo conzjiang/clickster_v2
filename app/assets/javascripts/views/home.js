@@ -49,11 +49,22 @@ Clickster.Views.HomeView = Backbone.View.extend({
       this.interval = setInterval(function () {
         this.feed.fetchNew();
       }.bind(this), 50000);
+
+      $(window).on("resize", function () {
+        if ($(window).width() > 500) {
+          this.$(".feed").css({ width: this.feed.length * 220 + "px" });
+        } else {
+          this.$(".feed").removeAttr("style");
+        }
+      }.bind(this));
     }
   },
 
   remove: function () {
-    if (this.interval) clearInterval(this.interval);
+    if (this.interval) {
+      clearInterval(this.interval);
+      $(window).off("resize");
+    }
     Backbone.View.prototype.remove.call(this);
   }
 });

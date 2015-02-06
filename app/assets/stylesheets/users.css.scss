@@ -99,6 +99,10 @@ section.main > .user-show {
 
 .user-show > .lists {
   padding: 30px;
+  background: #eee;
+  border: 1px solid #e8e8e8;
+  border-top: 0;
+  border-bottom: 0;
 
   > .list {
     margin: 20px 0;
@@ -110,7 +114,6 @@ section.main > .user-show {
     }
   }
 }
-
 
 // USER EDIT PAGE
 .user-edit > form {

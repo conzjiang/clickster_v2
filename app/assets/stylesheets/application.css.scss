@@ -153,16 +153,16 @@ main.open {
 /* CONTENT CONTAINER */
 section.main {
   width: 100%;
-  box-sizing: border-box;
 
   > div {
     width: 100%;
     padding: 50px 30px;
+    box-sizing: border-box;
   }
 
   @media (min-width: 500px) {
     > div {
-      max-width: 1000px - 100px;
+      max-width: 1000px;
       margin: auto;
       padding: 50px;
     }

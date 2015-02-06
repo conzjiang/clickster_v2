@@ -1,4 +1,5 @@
 $button_color: #003249;
+$shadow: #333;
 
 // NAV
 //$header_color: #e09891;
@@ -6,9 +7,8 @@ $header_color: #5c0029;
 $nav_link_color: #fff;
 $nav_link_hover: #8e294e;
 $not_signed_in: #E8CFC7;
-$header_shadow: #333;
 
-$genre_hover: #4da1a9;
+$genre_color: #4da1a9;
 
 // TV CARDS
 $image-overlay: rgba(30, 30, 30, 0.5);
@@ -16,3 +16,6 @@ $image-overlay: rgba(30, 30, 30, 0.5);
 // STATUSES
 $watchlist_button: #22a7f0;
 $favorite_button: #d64541;
+
+// ADMIN
+$edit_button: #611c35;

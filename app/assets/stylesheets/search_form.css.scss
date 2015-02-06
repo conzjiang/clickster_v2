@@ -43,15 +43,20 @@ ul.genres > li > label {
   cursor: pointer;
 }
 
+genre {
+  color: #fff;
+  background: $genre_color;
+}
+
 ul.genres > li > input[type=checkbox]:checked + label,
 ul.decades > li > input[type=checkbox]:checked + label {
-  background: $genre_hover;
+  @extend genre;
 }
 
 @media (min-width: 500px) {
   ul.genres > li > label:hover,
   ul.decades > li > label:hover {
-    background: $genre_hover;
+    @extend genre;
   }
 }
 

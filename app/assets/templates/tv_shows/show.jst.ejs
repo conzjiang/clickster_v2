@@ -8,7 +8,14 @@
 
   <div class="title-wrapper">
     <div class="title">
-      <figcaption><%= tv.escape("title") %></figcaption>
+      <figcaption>
+        <%= tv.escape("title") %>
+
+        <% if (isAdmin) { %>
+          <a class="admin-edit" href="#/tv/<%= tv.id %>/edit">Edit</a>
+        <% } %>
+      </figcaption>
+
       <ul class="genres group">
         <% _(tv.get("genres")).each(function (genre) { %>
           <li>
@@ -18,10 +25,6 @@
       </ul>
     </div>
   </div>
-
-  <% if (isAdmin) { %>
-    <a class="admin-edit" href="#/tv/<%= tv.id %>/edit">Edit</a>
-  <% } %>
 </section>
 
 <section class="tv-info main-content group">

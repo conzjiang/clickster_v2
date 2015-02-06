@@ -1,5 +1,8 @@
+@import "utils/variables";
+
 .tv-show {
   .image-block {
+    position: relative;
     width: 100%;
     height: 400px;
     overflow: hidden;
@@ -14,7 +17,7 @@
 
   .title {
     position: absolute;
-    bottom: 15px;
+    bottom: 5px;
     left: 0;
     padding: 20px;
 
@@ -39,13 +42,46 @@
 
     ul.genres > li > a {
       display: inline-block;
-      padding: 5px 10px;
+      padding: 7px 10px;
       font-size: 14px;
       color: #fff;
-      background: #666;
-      border: 1px solid #888;
+      background: $genre_color;
       border-radius: 15px;
     }
+  }
+
+  a.admin-edit {
+    position: absolute;
+    bottom: 333px;
+    right: 20px;
+    display: inline-block;
+    padding: 4px 10px 3px 10px;
+    vertical-align: middle;
+    font-weight: 300;
+    font-size: 24px;
+    color: #fff;
+    background: $edit_button;
+    box-shadow: 0 1px 3px $shadow;
+    text-shadow: none;
+  }
+
+  @media (min-width: 500px) {
+    .title {
+      bottom: 15px;
+    }
+
+    a.admin-edit {
+      position: static;
+      margin-left: 10px;
+    }
+  }
+
+  a.admin-edit:before {
+    content: "\1F511";
+    margin-right: 3px;
+    font-family: 'Entypo';
+    font-size: 32px;
+    font-weight: normal;
   }
 }
 
@@ -94,27 +130,6 @@ ul.image-tiles {
     height: 100%;
     background: rgba(30, 30, 30, 0.5);
   }
-}
-
-a.admin-edit {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: inline-block;
-  padding: 5px 10px;
-  font-weight: 700;
-  color: #fff;
-  background: #888;
-  border-radius: 15px;
-  border: 1px solid #999;
-}
-
-a.admin-edit:before {
-  content: "\1F511";
-  margin-right: 3px;
-  font-family: 'Entypo';
-  font-size: 23px;
-  font-weight: normal;
 }
 
 section.tv-info {

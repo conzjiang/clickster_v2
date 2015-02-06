@@ -30,10 +30,8 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   newTv: function () {
-    this.authenticate(function () {
-      var newTvView = new Clickster.Views.NewTvView({ action: "new" });
-      this._swapRootEl(newTvView);
-    });
+    var newTvView = new Clickster.Views.NewTvView({ action: "new" });
+    this._swapRootEl(newTvView);
   },
 
   tvShow: function (id) {
@@ -92,6 +90,7 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
 
     options.$el.html(options.view.render().$el);
     options.view.ellipsis();
-    $("main").removeClass("cover");
+    options.view.$(".timeago").timeago();
+    Clickster.eventManager.trigger("offSearch");
   }
 });

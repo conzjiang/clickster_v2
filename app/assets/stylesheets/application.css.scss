@@ -157,16 +157,25 @@ section.main {
   box-sizing: border-box;
 
   > div {
+    width: 100%;
+    max-width: 1000px;
     padding: 50px 30px;
   }
-}
 
-@media (min-width: 500px) {
-  section.main {
-    max-width: 1000px;
-
+  @media (min-width: 500px) {
     > div {
       padding: 50px;
+    }
+  }
+
+  > div.max {
+    max-width: none;
+    padding: 0;
+
+    .main-content {
+      max-width: 1000px - 60px;
+      margin: auto;
+      padding: 30px;
     }
   }
 }

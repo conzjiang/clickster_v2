@@ -1,6 +1,4 @@
-section.main > .tv-show {
-  padding: 0;
-
+.tv-show {
   .image-block {
     width: 100%;
     position: relative;
@@ -113,9 +111,7 @@ a.admin-edit:before {
   font-weight: normal;
 }
 
-.tv-show > section.tv-info {
-  padding: 30px;
-
+section.tv-info {
   @media (min-width: 500px) {
     div.wrapper {
       max-width: 800px;

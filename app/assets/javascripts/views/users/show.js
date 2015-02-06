@@ -5,7 +5,7 @@ Clickster.Views.UserShowView = Backbone.View.extend({
     this.listenTo(this.user, "notFound", this.error);
   },
 
-  className: "user-show",
+  className: "user-show max",
 
   template: JST["users/show"],
 

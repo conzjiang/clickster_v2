@@ -96,7 +96,7 @@ Clickster.Views.Nav = Backbone.View.extend({
   _togglePopout: function (options) {
     var $popout = this.$(".pop-out");
     $popout.removeClass(minusClass(options.class)).toggleClass(options.class);
-    $("main").removeClass("cover");
+    this._closeSearch();
 
     if ($popout.hasClass(options.class)) {
       var popoutView = new options.View();
@@ -133,10 +133,14 @@ Clickster.Views.Nav = Backbone.View.extend({
 
       if (otherNav || clickedDropdown || outsideNav) {
         that.$(".pop-out").removeClass(allClasses);
-        $("main").removeClass("cover");
+        that._closeSearch();
         $(this).off("click");
       }
     });
+  },
+
+  _closeSearch: function () {
+    Clickster.eventManager.trigger("offSearch");
   },
 
   remove: function () {

@@ -1,3 +1,5 @@
+@import "utils/variables";
+
 /* SEARCH BAR */
 form.text-search {
   margin: 40px 0;
@@ -43,13 +45,13 @@ ul.genres > li > label {
 
 ul.genres > li > input[type=checkbox]:checked + label,
 ul.decades > li > input[type=checkbox]:checked + label {
-  background: #FF0066;
+  background: $genre_hover;
 }
 
 @media (min-width: 500px) {
   ul.genres > li > label:hover,
   ul.decades > li > label:hover {
-    background: #FF0066;
+    background: $genre_hover;
   }
 }
 

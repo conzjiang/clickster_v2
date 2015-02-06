@@ -14,6 +14,8 @@
  *= require_tree .
  */
 
+@import "utils/variables";
+
 @font-face {
   font-family: 'Entypo';
   src:font-url('entypo/entypo.eot');
@@ -70,7 +72,7 @@ a {
 
 button {
   color: #fff;
-  background: #888;
+  background: $button_color;
   border-radius: 3px;
 }
 

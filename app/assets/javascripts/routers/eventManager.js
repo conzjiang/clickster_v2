@@ -4,6 +4,8 @@ Clickster.EventManager = function (options) {
   this.clickNamespace = 0;
 
   this.on("signIn", this.signInError, this);
+  this.on("search", this.openSearch, this);
+  this.on("offSearch", this.closeSearch, this);
 };
 
 Clickster.EventManager.prototype.signInError = function () {
@@ -27,6 +29,16 @@ Clickster.EventManager.prototype.showError = function (message) {
       this.$el.removeAttr("style");
     }.bind(this));
   }.bind(this), 2000);
+};
+
+Clickster.EventManager.prototype.openSearch = function () {
+  $("main").addClass("cover");
+  $("main > header").addClass("open-search");
+};
+
+Clickster.EventManager.prototype.closeSearch = function () {
+  $("main").removeClass("cover");
+  $("main > header").removeClass("open-search");
 };
 
 Clickster.EventManager.prototype.clickOut = function (options) {

@@ -1,12 +1,18 @@
 .tv-show {
   .image-block {
     width: 100%;
-    position: relative;
     height: 400px;
     overflow: hidden;
   }
 
-  .image-block > div.content {
+  .title-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 860px;
+    margin: auto;
+  }
+
+  .title {
     position: absolute;
     bottom: 15px;
     left: 0;

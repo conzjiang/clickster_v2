@@ -6,15 +6,17 @@
     <li><div class="cover"></div></li>
   </ul>
 
-  <div class="content">
-    <figcaption><%= tv.escape("title") %></figcaption>
-    <ul class="genres group">
-      <% _(tv.get("genres")).each(function (genre) { %>
-        <li>
-          <a href="#/genres/<%= Utils.hyphenate(genre) %>"><%= genre %></a>
-        </li>
-      <% }) %>
-    </ul>
+  <div class="title-wrapper">
+    <div class="title">
+      <figcaption><%= tv.escape("title") %></figcaption>
+      <ul class="genres group">
+        <% _(tv.get("genres")).each(function (genre) { %>
+          <li>
+            <a href="#/genres/<%= Utils.hyphenate(genre) %>"><%= genre %></a>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
   </div>
 
   <% if (isAdmin) { %>

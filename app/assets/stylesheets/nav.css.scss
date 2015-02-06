@@ -1,9 +1,9 @@
-$nav_link_color: #ccc;
+@import "utils/variables";
 
 // HEADER
 main > header {
   width: 100%;
-  background: #888;
+  background: $header_color;
   box-shadow: 0 1px 3px #aaa;
 }
 
@@ -24,7 +24,7 @@ nav {
   }
 
   h1 > a {
-    color: #eee;
+    color: $nav_link_color;
   }
 
   .links {
@@ -69,7 +69,7 @@ nav {
       }
 
       > li:hover {
-        background: #000;
+        background: $header_block_hover;
       }
 
       a.cover {
@@ -87,7 +87,7 @@ nav {
         display: block;
         width: 100%;
         font-size: 12px;
-        color: #eee;
+        color: $nav_link_color;
         text-align: center;
       }
 
@@ -162,8 +162,6 @@ button.no-image:before {
     left: -2px;
   }
 }
-
-$not_signed_in: #aaa;
 
 /* TV HAMBURGER ICON */
 button.tv-hamburger {

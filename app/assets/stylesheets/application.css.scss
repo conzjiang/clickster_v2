@@ -59,6 +59,8 @@ html, body {
 body {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
+  color: #333;
+  background: #f7f7f7;
 }
 
 a {
@@ -137,7 +139,6 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-  background: #fff;
   overflow: auto;
   transition: left 0.5s;
 }
@@ -159,10 +160,6 @@ section.main {
 }
 
 @media (min-width: 500px) {
-  h1 {
-    font-size: 50px;
-  }
-
   section.main {
     max-width: 1000px;
 

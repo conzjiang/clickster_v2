@@ -77,7 +77,7 @@ Clickster.Views.UserShowView = Backbone.View.extend({
     if (this.user.get("is_following")) {
       this.$(".follow").addClass("is-following").html("Following");
     } else if (this.user.get("is_current_user")) {
-      this.$(".follow").addClass("me").prop("disabled", true).html("Me");
+      this.$(".follow").addClass("me");
     } else {
       this.$(".follow").removeClass("is-following").html("Follow");
     }

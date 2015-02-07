@@ -54,15 +54,12 @@
     position: absolute;
     bottom: 333px;
     right: 20px;
-    display: inline-block;
-    padding: 4px 10px 3px 10px;
-    vertical-align: middle;
-    font-weight: 300;
     font-size: 24px;
-    color: #fff;
-    background: $edit_button;
-    box-shadow: 0 1px 3px $shadow;
-    text-shadow: none;
+    vertical-align: middle;
+
+    &:before {
+      font-size: 32px;
+    }
   }
 
   @media (min-width: 500px) {
@@ -75,12 +72,21 @@
       margin-left: 10px;
     }
   }
+}
 
-  a.admin-edit:before {
+a.admin-edit {
+  display: inline-block;
+  padding: 4px 10px 3px 10px;
+  font-weight: 300;
+  color: #fff;
+  background: $edit_button;
+  box-shadow: 0 1px 3px $shadow;
+  text-shadow: none;
+
+  &:before {
     content: "\1F511";
     margin-right: 3px;
     font-family: 'Entypo';
-    font-size: 32px;
     font-weight: normal;
   }
 }

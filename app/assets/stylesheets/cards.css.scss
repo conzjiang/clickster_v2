@@ -156,10 +156,15 @@ ul.tv-results > li {
           display: block;
           z-index: 2;
         }
+
+        div.title {
+          display: block;
+        }
       }
     }
 
     div.title {
+      display: none;
       position: absolute;
       bottom: 10px;
       right: 0;

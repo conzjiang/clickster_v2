@@ -91,22 +91,10 @@ shared_examples "a feed item subject" do
       expect(FeedItem.all).to be_empty
     end
 
-    it "destroys any recent feed items on destruction" do
+    it "destroys associated feed items on destruction" do
       new_subject = create(subject, user_id => user.id)
       new_subject.destroy!
       expect(FeedItem.all).to be_empty
-    end
-
-    it "doesn't destroy feed items if destroyed more than a minute later" do
-      new_subject = nil
-
-      Timecop.travel(2.minutes.ago) do
-        new_subject = create(subject, user_id => user.id)
-      end
-
-      new_subject.destroy!
-
-      expect(FeedItem.count).to eq(1)
     end
   end
 end

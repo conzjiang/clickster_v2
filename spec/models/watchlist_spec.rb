@@ -10,7 +10,7 @@ describe Watchlist do
 
   it "#feed_message is dependent on its status" do
     watchlist = build(:watchlist, status: 1)
-    expect(watchlist.feed_message).to eq(" plans to watch ")
+    expect(watchlist.feed_message).to eq("plans to watch")
   end
 
   it_behaves_like "a feed item subject" do

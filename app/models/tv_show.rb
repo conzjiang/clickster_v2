@@ -1,7 +1,7 @@
 class TvShow < ActiveRecord::Base
   enum status: ['Currently Airing', 'Current', 'Ended', 'Cancelled']
 
-  validates :title, presence: true
+  validates :title, :image_url, presence: true
   validates :imdb_id, allow_nil: true, uniqueness: {
     message: "Series already exists in the database"
   }

@@ -1,5 +1,6 @@
 class Api::TvShowsController < ApplicationController
   before_action :require_admin, only: [:create, :update]
+  before_action :require_sign_in, only: [:favorite, :watchlist]
 
   def index
     @tv_shows = TvShow.includes(:tv_genres).where(status: "Currently Airing")
@@ -82,6 +83,12 @@ class Api::TvShowsController < ApplicationController
     unless signed_in? && current_user.is_admin?
       render json: ['You are not authorized to perform this action.'],
         status: 422
+    end
+  end
+
+  def require_sign_in
+    unless signed_in?
+      render json: ["Please sign in first!"], status: 422
     end
   end
 

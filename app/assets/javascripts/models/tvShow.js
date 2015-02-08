@@ -39,7 +39,7 @@ Clickster.Models.TvShow = Backbone.Model.extend({
         var favorites = Clickster.currentUser.favorites();
         data.is_favorite ? favorites.add(this) : favorites.remove(this);
         if (options && options.success) options.success(data);
-      }
+      }.bind(this)
     });
   },
 

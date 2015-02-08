@@ -1,3 +1,5 @@
+@import "utils/variables";
+
 .forms {
   h1 {
     text-align: center;
@@ -97,16 +99,29 @@ form.new-tv {
     margin-bottom: 5px;
   }
 
+  a.image-url {
+    font-size: 18px;
+    color: $button_color;
+  }
+
+  a.image-url:hover {
+    text-decoration: underline;
+  }
+
+  #tv_show_image_url {
+    display: none;
+  }
+
+  #tv_show_image_url.show {
+    display: inline-block;
+  }
+
   img.tv_show_image {
     display: block;
     width: auto;
     max-width: 400px;
     max-height: 300px;
-    margin: auto;
-  }
-
-  textarea {
-    height: 90px;
+    margin: 5px auto;
   }
 
   .genres > li {
@@ -124,10 +139,15 @@ form.new-tv {
     font-size: 18px;
     background: #eee;
   }
+
+  textarea {
+    height: 90px;
+  }
 }
 
 button.filepicker-upload {
   padding: 4px 8px;
   font-weight: 700;
   font-size: 12px;
+  vertical-align: middle;
 }

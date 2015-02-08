@@ -233,6 +233,7 @@ ul.tv-results .buttons {
     width: 50%;
     padding: 9px 0 7px 0;
     font-size: 40px;
+    color: #aaa;
     line-height: 0.6;
     cursor: pointer;
   }
@@ -240,7 +241,6 @@ ul.tv-results .buttons {
   li:before {
     display: block;
     font-family: "Entypo";
-    color: #aaa;
   }
 
   .watchlist:before {
@@ -267,6 +267,7 @@ ul.tv-results .buttons {
       width: 100px;
       padding: 8px 10px;
       font-size: 16px;
+      color: #333;
       line-height: initial;
       text-align: left;
     }

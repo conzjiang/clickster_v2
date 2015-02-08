@@ -95,7 +95,7 @@ Clickster.Views.TvFormView = Backbone.View.extend({
 
   success: function (isNew) {
     if (isNew) {
-      Clickster.currentUser.tvShows.add(this.tv);
+      Clickster.currentUser.tvShows().add(this.tv);
       Clickster.tvShows.add(this.tv, { wait: true });
       Clickster.searchResults.addTextResult(this.tv);
     }

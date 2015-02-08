@@ -13,7 +13,7 @@ Clickster.Views.GenreShowView = Backbone.View.extend({
     this.$el.html(content);
 
     shows = Clickster.tvShows.byGenre(this.genre);
-    this.setMiniCards(shows);
+    this.useMiniCards(shows);
 
     return this;
   }

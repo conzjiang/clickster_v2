@@ -1,4 +1,4 @@
-Backbone.View.prototype.setMiniCards = function (tvs) {
+Backbone.View.prototype.useMiniCards = function (tvs) {
   var $cards = this.$(".tv-cards"),
       template = JST["tv_shows/miniCard"];
 

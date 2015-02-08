@@ -17,7 +17,7 @@ class Api::TvShowsController < ApplicationController
     if @tv_show.save
       render :show
     else
-      render json: tv_show.errors.messages, status: 422
+      render json: @tv_show.errors.messages, status: 422
     end
   end
 

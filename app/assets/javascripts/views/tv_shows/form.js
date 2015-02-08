@@ -72,27 +72,28 @@ Clickster.Views.TvFormView = Backbone.View.extend({
   },
 
   saveTV: function (event) {
+    var tvParams, that;
+
     event.preventDefault();
-    var tvParams = $(event.target).serializeJSON().tv_show;
-    var that = this;
+    tvParams = $(event.target).serializeJSON().tv_show;
+    if (!tvParams.image_url) delete tvParams.image_url;
 
     this.$(".error").removeClass("error");
     this.$(":input").prop("disabled", true);
+    that = this;
 
     this.tv.save(tvParams, {
       wait: true,
       success: function () {
-        console.log("success")
-        this.success.bind(this, this.tv.isNew())()
+        this.success(this.tv.isNew());
       }.bind(this),
       error: function (attrs, data) {
-        console.log("error", data)
-        this.renderErrors.bind(this)(attrs, data)
+        this.renderErrors(attrs, data);
       }.bind(this)
     });
   },
 
-  success: function (isNew, data) {
+  success: function (isNew) {
     if (isNew) {
       Clickster.currentUser.tvShows.add(this.tv);
       Clickster.tvShows.add(this.tv, { wait: true });

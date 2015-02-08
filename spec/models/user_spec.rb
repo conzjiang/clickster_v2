@@ -41,6 +41,20 @@ describe User do
     end
   end
 
+  describe "#password" do
+    it "validates length of 6" do
+      expect(build(:user, password: "abcde")).not_to be_valid
+    end
+
+    it "allows nil" do
+      expect(build(:user, password: nil)).to be_valid
+    end
+
+    it "automatically generates password digest" do
+      expect(user.password_digest).not_to be_nil
+    end
+  end
+
   describe "::find_by_credentials" do
     it "searches by username" do
       found_user = User.find_by_credentials(user.username, user.password)
@@ -58,24 +72,15 @@ describe User do
     end
   end
 
-  describe "#password" do
-    it "validates length of 6" do
-      expect(build(:user, password: "abcde")).not_to be_valid
+  describe "#admins?" do
+    it "returns true if current_user admins tv show" do
+      tv_show = create(:tv_show, admin_id: user.id)
+      expect(user.admins?(tv_show)).to be true
     end
 
-    it "allows nil" do
-      expect(build(:user, password: nil)).to be_valid
-    end
-
-    it "automatically generates password digest" do
-      expect(user.password_digest).not_to be_nil
-    end
-  end
-
-  describe "#reset_session_token!" do
-    it "generates a new session token" do
-      original_token = user.session_token
-      expect(user.reset_session_token!).not_to eq(original_token)
+    it "returns false if current_user doesn't admin tv show" do
+      tv_show = create(:tv_show)
+      expect(user.admins?(tv_show)).to be false
     end
   end
 
@@ -124,6 +129,13 @@ describe User do
       create(:watchlist, watcher_id: user.id)
 
       expect(user.listed?(tv_show)).to be false
+    end
+  end
+
+  describe "#reset_session_token!" do
+    it "generates a new session token" do
+      original_token = user.session_token
+      expect(user.reset_session_token!).not_to eq(original_token)
     end
   end
 end

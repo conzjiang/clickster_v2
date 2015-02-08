@@ -14,7 +14,7 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     'tv/:id/edit': 'editTv',
     'tv/:id': 'tvShow',
     'search': 'searchResults',
-    'users/edit': 'userEdit',
+    'user/edit': 'userEdit',
     'users/:username': 'userShow',
     'genres/:genre': 'genreShow'
   },

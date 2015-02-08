@@ -22,18 +22,23 @@ class Api::TvShowsController < ApplicationController
     end
   end
 
+  def show
+    @tv_show = TvShow.find(params[:id])
+  end
+
+  def admin
+    @tv_shows = current_user.tv_shows
+    render :index
+  end
+
   def genre
     genre = process_genre(params[:genre])
     @tv_shows = TvShow.by_genre(genre).includes(:tv_genres)
     render :index
   end
 
-  def show
-    @tv_show = TvShow.find(params[:id])
-  end
-
   def update
-    @tv_show = TvShow.includes(:tv_decades).find(params[:id])
+    @tv_show = current_user.tv_shows.includes(:tv_decades).find(params[:id])
 
     if @tv_show.update(tv_params)
       render :show

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resource :session, only: [:create]
 
     resources :tv_shows, only: [:index, :create, :show, :update]
+    get 'tv_shows/admin', to: 'tv_shows#admin'
     post 'tv_shows/:id/favorite', to: "tv_shows#favorite"
     post 'tv_shows/:id/watchlist', to: "tv_shows#watchlist"
 

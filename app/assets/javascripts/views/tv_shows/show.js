@@ -61,7 +61,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   },
 
   render: function () {
-    var isAdmin = Clickster.currentUser.isAdmin(this.tv);
+    var isAdmin = this.tv.get("belongs_to_admin");
     var content = this.template({ tv: this.tv, isAdmin: isAdmin });
     this.$el.html(content);
     this.setImage();

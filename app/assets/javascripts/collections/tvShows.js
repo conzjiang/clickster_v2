@@ -18,6 +18,30 @@ Clickster.Collections.TvShows = Backbone.Collection.extend({
 
   url: 'api/tv_shows',
 
+  admin: function () {
+    var that;
+
+    if (Clickster.currentUser.isNew()) return;
+
+    if (!this._fetchedAdmin) {
+      this._fetchedAdmin = true;
+      that = this;
+
+      $.ajax({
+        type: "get",
+        url: this.url + "/admin",
+        dataType: "json",
+        success: function (data) {
+          that.add(data);
+        }
+      });
+    }
+
+    return this.filter(function (tv) {
+      return tv.get("belongs_to_admin");
+    });
+  },
+
   byGenre: function (genre) {
     var that = this;
 

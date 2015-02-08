@@ -3,7 +3,7 @@ Clickster.Views.TvIndexView = Backbone.View.extend({
     this.tvShows = Clickster.currentUser.tvShows();
 
     this.listenTo(Clickster.currentUser, "sync", this.render);
-    this.listenTo(this.tvShows, "add", this.render);
+    this.listenTo(Clickster.tvShows, "add", this.render);
   },
 
   template: JST["tv_shows/index"],

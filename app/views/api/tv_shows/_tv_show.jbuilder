@@ -15,4 +15,6 @@ if signed_in?
       user.watchlists.find { |list| list.tv_show_id == tv_show.id }.status
     )
   end
+
+  json.belongs_to_admin user.admins?(tv_show) if user.is_admin?
 end

@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
     user.try(:is_password?, password) ? user : nil
   end
 
-  def admin?
-    self.is_admin
+  def admins?(tv_show)
+    tv_shows.pluck(:id).include?(tv_show.id)
   end
 
   def following?(user)

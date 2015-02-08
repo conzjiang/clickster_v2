@@ -359,16 +359,18 @@ ul.user-results > li {
 }
 
 // TV MINI CARD
+$mini_card_size: 140px;
+
 ul.tv-cards > li {
   position: relative;
   float: left;
-  width: 120px;
-  height: 160px;
+  width: $mini_card_size;
+  height: 190px;
   margin: 5px;
 
   a.image-block {
-    width: 120px;
-    height: 120px;
+    width: $mini_card_size;
+    height: $mini_card_size;
   }
 
   img {
@@ -378,65 +380,32 @@ ul.tv-cards > li {
   }
 
   h3 {
-    padding: 3px 1px;
+    padding: 3px 0 0 1px;
     font-weight: 300;
     font-size: 12px;
   }
-}
 
-ul.status-buttons {
-  position: absolute;
-  top: 5px;
-  right: 4px;
-
-  &:hover {
-    width: 70px;
-  }
-
-  li {
+  strong {
     display: none;
-    float: right;
-    margin: 0 1px;
-    background: #eee;
-    border-radius: 13px;
-    box-shadow: 1px 1px 3px $shadow;
   }
 
-  li:before {
+  .on-watchlist,
+  .is-favorite {
     display: inline-block;
-    font-family: "Entypo";
-    font-weight: normal;
-    line-height: 0.5;
   }
 
-  .on-watchlist, .is-favorite {
-    display: block;
-  }
-
-  .on-watchlist:before {
-    content: $watchlist_button;
-    padding: 5px 3px 4px 3px;
-    font-size: 24px;
-  }
-
-  .on-watchlist:hover:after {
-    content: attr(status);
-    position: absolute;
-    top: -20px;
-    right: 0;
-    display: inline-block;
-    padding: 1px 2px;
-    text-align: center;
+  .on-watchlist {
+    padding: 2px 3px;
     font-size: 10px;
-    color: #fff;
-    background: #333;
-    border-radius: 2px;
+    background: #eee;
   }
 
   .is-favorite:before {
     content: $favorite_button;
-    padding: 3px;
-    padding-bottom: 0;
-    font-size: 28px;
+    font-family: "Entypo";
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 0;
+    vertical-align: middle;
   }
 }

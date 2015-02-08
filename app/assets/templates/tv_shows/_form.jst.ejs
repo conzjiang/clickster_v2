@@ -22,7 +22,7 @@
 
   <fieldset>
     <strong>Genre(s)</strong>
-    <ul class="genres">
+    <ul class="genres group">
       <% _(Clickster.GENRES).each(function(genre) { %>
         <li>
           <input id="form_genre_<%= genre.replace(/\//g, "") %>"
@@ -99,7 +99,9 @@
               class="form-input"><%= tv.escape("blurb") %></textarea>
   </fieldset>
 
-  <button class="submit-button"><%= buttonContent %></button>
+  <div class="button-wrapper">
+    <button class="submit-button"><%= buttonContent %></button>
+  </div>
 
   <ul class="errors"></ul>
 </form>

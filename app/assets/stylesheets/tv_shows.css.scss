@@ -89,6 +89,16 @@ a.admin-edit {
     font-family: 'Entypo';
     font-weight: normal;
   }
+
+  @media (min-width: 500px) {
+    &:hover {
+      background: $nav_link_hover;
+    }
+  }
+
+  &:active {
+    box-shadow: none;
+  }
 }
 
 ul.image-tiles {

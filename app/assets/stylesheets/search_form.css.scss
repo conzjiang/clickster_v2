@@ -30,17 +30,19 @@ form.text-search {
 }
 
 // FORM GENRES
-ul.genres > li {
-  display: inline-block;
-  margin: 5px;
-  border-radius: 3px;
-  overflow: hidden;
-}
+ul.genres {
+  li {
+    display: inline-block;
+    margin: 5px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
 
-ul.genres > li > label {
-  display: inline-block;
-  padding: 5px 15px;
-  cursor: pointer;
+  li > label {
+    display: inline-block;
+    padding: 5px 15px;
+    cursor: pointer;
+  }
 }
 
 genre {
@@ -48,15 +50,16 @@ genre {
   background: $genre_color;
 }
 
-ul.genres > li > input[type=checkbox]:checked + label,
-ul.decades > li > input[type=checkbox]:checked + label {
+ul.genres li > input[type=checkbox]:checked + label,
+ul.decades li > input[type=checkbox]:checked + label {
   @extend genre;
 }
 
 @media (min-width: 500px) {
-  ul.genres > li > label:hover,
-  ul.decades > li > label:hover {
-    @extend genre;
+  ul.genres li > label:hover,
+  ul.decades li > label:hover {
+    color: #fff;
+    background: $genre_color;
   }
 }
 

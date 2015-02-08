@@ -1,0 +1,133 @@
+.forms {
+  h1 {
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 32px;
+    line-height: initial;
+  }
+
+  form {
+    max-width: 500px;
+    margin: 50px auto;
+    font-size: 20px;
+  }
+
+  fieldset {
+    margin: 15px 0;
+  }
+
+  fieldset > label,
+  fieldset > strong {
+    display: block;
+  }
+
+  fieldset.error > label {
+    color: #f00;
+  }
+
+  fieldset > label > small {
+    display: block;
+    font-size: 16px;
+  }
+
+  .form-input {
+    display: block;
+    width: 95%;
+    padding: 2.5%;
+    background: #e7e7e7;
+    border-radius: 3px;
+  }
+
+  .form-input:disabled {
+    color: #888;
+    background: #eee;
+  }
+
+  fieldset.error > .form-input {
+    border: 1px solid #f00;
+  }
+
+  @media (min-width: 500px) {
+    .form-input {
+      display: inline-block;
+      padding: 10px 5px;
+    }
+
+    fieldset.error > .form-input {
+      padding: 4px;
+    }
+  }
+
+  .button-wrapper {
+    display: block;
+    text-align: center;
+  }
+
+  button:disabled {
+    background: #ccc;
+    cursor: default;
+  }
+}
+
+.submit-button {
+  display: inline-block;
+  padding: 5px 15px;
+}
+
+.submit-button:active {
+  padding-top: 6px;
+  padding-bottom: 4px;
+}
+
+/* AUTOCOMPLETE FORM */
+form.new-imdb-tv {
+  margin-bottom: 75px;
+
+  input {
+    margin: 15px 0;
+  }
+}
+
+/* NEW FORM */
+form.new-tv {
+  label[for=tv_show_image_url] {
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+
+  img.tv_show_image {
+    display: block;
+    width: auto;
+    max-width: 400px;
+    max-height: 300px;
+    margin: auto;
+  }
+
+  textarea {
+    height: 90px;
+  }
+
+  .genres > li {
+    float: left;
+    margin: 10px 5px;
+  }
+
+  .genres > li > input[type=checkbox] {
+    opacity: 0;
+    position: absolute;
+    top: -20px;
+  }
+
+  .genres label {
+    font-size: 18px;
+    background: #eee;
+  }
+}
+
+button.filepicker-upload {
+  padding: 4px 8px;
+  font-weight: 700;
+  font-size: 12px;
+}

@@ -1,7 +1,7 @@
 <h1><%= genre %></h1>
 
-<ul>
+<ul class="tv-cards group">
   <% _(shows).each(function (tv) { %>
-    <li><a href="#/tv/<%= tv.id %>"><%= tv.get("title") %></a></li>
+    <%= tvCard({ tv: tv }) %>
   <% }) %>
 </ul>

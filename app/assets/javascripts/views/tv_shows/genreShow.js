@@ -9,7 +9,8 @@ Clickster.Views.GenreShowView = Backbone.View.extend({
   render: function () {
     var content = this.template({
       genre: this.genre,
-      shows: Clickster.tvShows.byGenre(this.genre)
+      shows: Clickster.tvShows.byGenre(this.genre),
+      tvCard: JST["tv_shows/miniCard"]
     });
 
     this.$el.html(content);

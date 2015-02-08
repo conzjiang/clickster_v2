@@ -102,10 +102,10 @@ Clickster.Views.TvShowView = Backbone.View.extend({
       status = this.tv.escape("watch_status");
       $button = this.$("li[data-option='" + status + "']");
 
-      $button.addClass("selected");
-      $button.siblings(".selected").removeClass("selected");
+      $button.addClass("on-watchlist");
+      $button.siblings(".on-watchlist").removeClass("on-watchlist");
     } else {
-      this.$("li.list").removeClass("selected");
+      this.$("li.list").removeClass("on-watchlist");
     }
   }
 });

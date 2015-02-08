@@ -251,14 +251,6 @@ ul.tv-results .buttons {
     content: "\2665";
   }
 
-  .on-watchlist:before {
-    color: $watchlist_button;
-  }
-
-  .is-favorite:before {
-    color: $favorite_button;
-  }
-
   .statuses {
     display: none;
     position: absolute;
@@ -317,6 +309,14 @@ ul.tv-results .buttons {
       border-right-color: transparent;
     }
   }
+}
+
+.on-watchlist {
+  color: $watchlist_button !important;
+}
+
+.is-favorite {
+  color: $favorite_button !important;
 }
 
 // USER RESULT CARD

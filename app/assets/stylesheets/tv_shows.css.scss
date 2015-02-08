@@ -47,6 +47,12 @@
       color: #fff;
       background: $genre_color;
       border-radius: 15px;
+
+      @media (min-width: 500px) {
+        &:hover {
+          background: $genre_hover;
+        }
+      }
     }
   }
 
@@ -226,11 +232,6 @@ section.tv-info {
 
     li.favorite:before {
       content: "\2661";
-    }
-
-    li.selected,
-    li.is-favorite {
-      color: #666;
     }
 
     li.is-favorite:before {

@@ -277,12 +277,6 @@ ul.tv-results .buttons {
       font-size: 16px;
       line-height: initial;
       text-align: left;
-
-      @media (min-width: 500px) {
-        &:hover {
-          @extend .choose;
-        }
-      }
     }
 
     li:first-child {
@@ -298,6 +292,13 @@ ul.tv-results .buttons {
     .choose {
       color: #fff;
       background: #000;
+    }
+
+    @media (min-width: 500px) {
+      li:hover {
+        color: #fff;
+        background: #000;
+      }
     }
 
     &.show {

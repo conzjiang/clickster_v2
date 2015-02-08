@@ -4,7 +4,7 @@ module FeedItemSubject
   extend ActiveSupport::Concern
 
   included do
-    has_many :feed_items, as: :subject
+    has_many :feed_items, as: :subject, dependent: :destroy
     after_save :create_feed_items
     after_destroy :purge_quick_switches
   end

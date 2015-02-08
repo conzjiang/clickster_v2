@@ -8,4 +8,10 @@
       <%= tv.escape("title") %>
     </a>
   </h3>
+
+  <ul class="status-buttons group ignore"
+      data-id="<%= tv.id || tv.get("tv_show_id") %>">
+    <li class="favorite"></li>
+    <li class="watchlist"></li>
+  </ul>
 </li>

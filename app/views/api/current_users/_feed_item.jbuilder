@@ -1,3 +1,4 @@
+json.id item.subject_type + item.subject_id.to_s
 json.idol_name item.idol.username
 json.subject_type item.subject_type
 json.message item.message

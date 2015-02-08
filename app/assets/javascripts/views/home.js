@@ -50,13 +50,16 @@ Clickster.Views.HomeView = Backbone.View.extend({
         this.feed.fetchNew();
       }.bind(this), 50000);
 
-      $(window).on("resize", function () {
-        if ($(window).width() > 500) {
-          this.$(".feed").css({ width: this.feed.length * 220 + "px" });
-        } else {
-          this.$(".feed").removeAttr("style");
-        }
-      }.bind(this));
+      this.resizeFeedWrapper();
+      $(window).on("resize", this.resizeFeedWrapper.bind(this));
+    }
+  },
+
+  resizeFeedWrapper: function () {
+    if ($(window).width() > 500) {
+      this.$(".feed").css({ width: this.feed.length * 220 + "px" });
+    } else {
+      this.$(".feed").removeAttr("style");
     }
   },
 

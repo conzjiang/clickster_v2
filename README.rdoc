@@ -16,4 +16,3 @@ New features:
 * Ability to remove image from TV show
 * Find more elegant way to sign in and fetch everything again to get updated data related to current user (ex. tv_show#is_favorite)
 * Restructure styles for statuses strip on TV show view so that scaleAndFade only affects icon and not whole li
-* Feed randomly fetches extra items sometimes

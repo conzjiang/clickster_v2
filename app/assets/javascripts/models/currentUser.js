@@ -3,10 +3,5 @@ Clickster.Models.CurrentUser = Clickster.Models.User.extend({
     this.feed = new Clickster.Collections.Feed();
   },
 
-  url: 'api/current_user',
-
-  tvShows: function () {
-    if (!this.get("is_admin")) return;
-    return Clickster.tvShows.admin();
-  }
+  url: 'api/current_user'
 });

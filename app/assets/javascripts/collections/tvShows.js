@@ -19,13 +19,10 @@ Clickster.Collections.TvShows = Backbone.Collection.extend({
   url: 'api/tv_shows',
 
   admin: function () {
-    var that;
-
-    if (Clickster.currentUser.isNew()) return;
+    var that = this;
 
     if (!this._fetchedAdmin) {
       this._fetchedAdmin = true;
-      that = this;
 
       $.ajax({
         type: "get",
@@ -33,6 +30,7 @@ Clickster.Collections.TvShows = Backbone.Collection.extend({
         dataType: "json",
         success: function (data) {
           that.add(data);
+          that.trigger("sync");
         }
       });
     }

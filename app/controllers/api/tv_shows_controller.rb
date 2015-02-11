@@ -1,5 +1,5 @@
 class Api::TvShowsController < ApplicationController
-  before_action :require_admin, only: [:create, :update]
+  before_action :require_admin, only: [:create, :update, :admin]
   before_action :require_sign_in, only: [:favorite, :watchlist]
 
   def index
@@ -27,7 +27,7 @@ class Api::TvShowsController < ApplicationController
   end
 
   def admin
-    @tv_shows = current_user.tv_shows
+    @tv_shows = current_user.tv_shows.includes(:tv_genres)
     render :index
   end
 

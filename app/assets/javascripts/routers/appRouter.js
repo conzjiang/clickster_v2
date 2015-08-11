@@ -16,7 +16,8 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     'search': 'searchResults',
     'user/edit': 'userEdit',
     'users/:username': 'userShow',
-    'genres/:genre': 'genreShow'
+    'genres/:genre': 'genreShow',
+    '_=_': 'home'
   },
 
   home: function () {

@@ -27,6 +27,26 @@ class User < ActiveRecord::Base
     user.try(:is_password?, password) ? user : nil
   end
 
+  def self.find_or_create_by_omniauth_params(omniauth_hash)
+    uid = omniauth_hash['uid']
+    user = User.find_by(uid: uid)
+    return user if user
+
+    user_info = omniauth_hash['info']
+    user = User.find_by(email: user_info['email'])
+
+    if user
+      user.update!(uid: uid)
+      user
+    else
+      User.create!({
+        username: "#{user_info['nickname']}#{SecureRandom.urlsafe_base64(3)}",
+        email: user_info['email'],
+        uid: uid
+      })
+    end
+  end
+
   def admins?(tv_show)
     tv_shows.pluck(:id).include?(tv_show.id)
   end

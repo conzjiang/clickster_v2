@@ -27,7 +27,10 @@ class SessionsController < ApplicationController
   end
 
   def facebook
-    fail
+    user = User.find_or_create_by_omniauth_params(request.env['omniauth.auth'])
+    sign_in(user)
+    flash[:notice] = "Successfully signed in!"
+    redirect_to root_url
   end
 
   private

@@ -47,8 +47,8 @@ form.sign-in input {
 
 form.sign-in > button {
   width: 260px;
+  margin: 5px 0;
   padding: 10px 20px;
-  font-weight: 700;
   color: #fff;
   background: #EFAE78;
   border-radius: 3px;
@@ -61,4 +61,8 @@ form.sign-in > button:hover {
 form.sign-in > button:active {
   padding-top: 12px;
   padding-bottom: 8px;
+}
+
+form.sign-in > button.facebook-login {
+  background: #3b5998;
 }

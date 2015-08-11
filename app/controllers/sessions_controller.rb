@@ -26,6 +26,10 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
+  def facebook
+    fail
+  end
+
   private
   def user_params
     params[:user][:username] = params[:user][:identifier]

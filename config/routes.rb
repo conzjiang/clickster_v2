@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
 
+  get 'auth/facebook/callback', to: 'sessions#facebook'
+
   namespace :api, defaults: { format: :json } do
     resource :current_user, only: [:show, :update]
     get "current_user/feed", to: "current_users#feed"

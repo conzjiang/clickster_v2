@@ -15,6 +15,7 @@ gem 'bcrypt', require: 'bcrypt'
 gem 'figaro'
 gem 'filepicker-rails'
 gem "activerecord-import"
+gem 'omniauth-facebook'
 
 group :development, :test do
   gem 'factory_girl_rails'

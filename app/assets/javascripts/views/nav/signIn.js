@@ -8,13 +8,14 @@ Clickster.Views.SignInView = Backbone.View.extend({
   template: JST['nav/signIn'],
 
   events: {
-    'click a': 'toggleForm',
+    'click .toggle': 'toggleForm',
     'submit form': 'signInUser'
   },
 
   toggleForm: function (event) {
     var $link = $(event.target);
     event.stopPropagation();
+    event.preventDefault();
 
     if (!$link.hasClass('selected')) {
       this.newUser = !this.newUser;
@@ -62,9 +63,9 @@ Clickster.Views.SignInView = Backbone.View.extend({
     this.$el.html(content);
 
     if (this.newUser) {
-      $linkToSelect = this.$('a.sign-up-link');
+      $linkToSelect = this.$('.sign-up-link');
     } else {
-      $linkToSelect = this.$('a.sign-in-link');
+      $linkToSelect = this.$('.sign-in-link');
     }
 
     $linkToSelect.addClass("selected");

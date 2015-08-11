@@ -12,8 +12,8 @@
   <% if (signedIn) { %>
     <p>You are already signed in!</p>
   <% } else { %>
-    <a class='sign-in-link' href="javascript:void(0)">Sign In</a>
-    <a class='sign-up-link' href="javascript:void(0)">New User</a>
+    <button class='link toggle sign-in-link'>Sign In</button>
+    <button class='link toggle sign-up-link'>New User</button>
 
     <ul class='errors'></ul>
 
@@ -53,7 +53,9 @@
       <input id="user_password" type="password" name="user[password]">
     </fieldset>
 
-    <button>Sign <%= text %></button>
-    <button class="facebook-login">Sign <%= text %> with Facebook</button>
+    <button class="login">Sign <%= text %></button>
+    <a class="facebook-login" href="/auth/facebook">
+      Sign <%= text %> with Facebook
+    </a>
   <% } %>
 </form>

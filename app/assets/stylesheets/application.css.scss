@@ -70,15 +70,25 @@ a {
   text-decoration: none;
 }
 
-button {
+button, .button {
   color: #fff;
   background: $button_color;
   border-radius: 3px;
 }
 
+.link {
+  color: inherit;
+  background: transparent;
+  border-radius: 0;
+}
+
 @media (min-width: 500px) {
   button:hover {
     background: #000;
+  }
+
+  .link:hover {
+    background: none;
   }
 }
 

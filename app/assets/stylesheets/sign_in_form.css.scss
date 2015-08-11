@@ -7,25 +7,25 @@ form.sign-in {
   text-align: center;
 }
 
-form.sign-in > a {
+form.sign-in > .toggle {
   display: inline-block;
   margin: 0 5px;
   padding-bottom: 1px;
   font-size: 24px;
   color: #ccc;
   font-weight: 700;
-}
 
-form.sign-in > a:hover {
-  padding: 0;
-  color: #888;
-  border-bottom: 1px solid #FF0066;
-}
+  &:hover {
+    padding: 0;
+    color: #888;
+    border-bottom: 1px solid #FF0066;
+  }
 
-form.sign-in > a.selected {
-  color: #000;
-  border: 0;
-  cursor: default;
+  &.selected {
+    color: #000;
+    border: 0;
+    cursor: default;
+  }
 }
 
 form.sign-in > fieldset {
@@ -45,24 +45,29 @@ form.sign-in input {
   border-bottom: 1px solid #495A66;
 }
 
-form.sign-in > button {
+form.sign-in > .login,
+form.sign-in > .facebook-login {
+  display: block;
   width: 260px;
   margin: 5px 0;
   padding: 10px 20px;
   color: #fff;
-  background: #EFAE78;
   border-radius: 3px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    padding-top: 12px;
+    padding-bottom: 8px;
+  }
 }
 
-form.sign-in > button:hover {
-  opacity: 0.8;
+form.sign-in > .login {
+  background: #EFAE78;
 }
 
-form.sign-in > button:active {
-  padding-top: 12px;
-  padding-bottom: 8px;
-}
-
-form.sign-in > button.facebook-login {
+form.sign-in > .facebook-login {
   background: #3b5998;
 }

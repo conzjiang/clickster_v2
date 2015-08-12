@@ -7,20 +7,36 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true }
 
   has_many :tv_shows, foreign_key: :admin_id
-  has_many :watchlists, foreign_key: :watcher_id, inverse_of: :watcher,
+  has_many :watchlists,
+    foreign_key: :watcher_id,
+    inverse_of: :watcher,
     dependent: :destroy
   has_many :watchlist_shows, through: :watchlists, source: :tv_show
   has_many :favorites, foreign_key: :favoriter_id, dependent: :destroy
   has_many :favorite_shows, through: :favorites, source: :tv_show
-  has_many :follows, foreign_key: :follower_id, inverse_of: :follower,
+  has_many :follows,
+    foreign_key: :follower_id,
+    inverse_of: :follower,
     dependent: :destroy
   has_many :idols, through: :follows, source: :idol
-  has_many :followings, class_name: "Follow", foreign_key: :idol_id,
+  has_many :followings,
+    class_name: "Follow",
+    foreign_key: :idol_id,
     dependent: :destroy
   has_many :followers, through: :followings
   has_many :feed_items
 
   after_initialize :ensure_session_token
+
+  def self.create_demo_user!(username = nil)
+    username ||= "guest#{SecureRandom.urlsafe_base64(3)}"
+
+    create!({
+      username: username,
+      email: "#{username}@example.com",
+      password: "password"
+    })
+  end
 
   def self.find_by_credentials(identifier, password)
     user = User.where("username = :id OR email = :id", id: identifier).first
@@ -49,6 +65,10 @@ class User < ActiveRecord::Base
 
   def admins?(tv_show)
     tv_shows.pluck(:id).include?(tv_show.id)
+  end
+
+  def favorite!(tv_show)
+    favorites.create!(tv_show: tv_show)
   end
 
   def following?(user)

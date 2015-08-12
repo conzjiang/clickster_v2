@@ -35,11 +35,9 @@ Clickster.Views.SignInView = Backbone.View.extend({
 
     $button.prop("disabled", true).html(buttonText);
 
-    $.ajax({
-      url: $form.attr('action'),
-      type: 'post',
+    Clickster.currentUser.signIn({
+      url: $form.attr("action"),
       data: params,
-      dataType: 'json',
       success: function (data) {
         if (data.newUser) Clickster.searchResults.users.push(data.username);
         window.location.reload();
@@ -54,7 +52,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
 
         that.$("input.first").select();
       }
-    })
+    });
   },
 
   render: function () {

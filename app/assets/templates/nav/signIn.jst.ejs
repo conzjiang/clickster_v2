@@ -1,61 +1,73 @@
-<% var action; %>
-
-<% if (newUser) { %>
-  <% action = '/api/users' %>
-  <% text = 'Up' %>
-<% } else { %>
-  <% text = "In" %>
-  <% action = '/api/session' %>
-<% } %>
-
-<form class="sign-in" action="<%= action %>" method="post">
+<article class="sign-in-container">
   <% if (signedIn) { %>
     <p>You are already signed in!</p>
   <% } else { %>
-    <button class='link toggle sign-in-link'>Sign In</button>
-    <button class='link toggle sign-up-link'>New User</button>
-
-    <ul class='errors'></ul>
+    <% var action; %>
 
     <% if (newUser) { %>
-      <fieldset>
-        <label for="user_email">Email</label>
-        <input class="first"
-               id="user_email"
-               type="email"
-               name="user[email]"
-               autocomplete="off"
-               autocapitalize="off">
-      </fieldset>
-
-      <fieldset>
-        <label for="user_username">Username</label>
-        <input id="user_username"
-               type="text"
-               name="user[username]"
-               autocomplete="off"
-               autocapitalize="off">
-      </fieldset>
+      <% action = '/api/users' %>
+      <% text = 'Up' %>
     <% } else { %>
-      <fieldset>
-        <label for="user_identifier">Username or Email</label>
-        <input class="first"
-               id="user_identifier"
-               type="text"
-               name="user[identifier]"
-               autocomplete="off"
-               autocapitalize="off">
-      </fieldset>
+      <% text = "In" %>
+      <% action = '/api/session' %>
     <% } %>
 
-    <fieldset>
-      <label for="user_password">Password</label>
-      <input id="user_password" type="password" name="user[password]">
-    </fieldset>
+    <div class="sign-in-options">
+      <a class="login-button facebook-login" href="/auth/facebook">
+        Sign <%= text %> with Facebook
+      </a>
 
-    <button class="login">Sign <%= text %></button>
-    <a class="facebook-login" href="/auth/facebook">
-      Sign <%= text %> with Facebook
-    </a>
+      <button class="login-button demo-login">Demo Sign In</button>
+    </div>
+
+    <form class="sign-in-form" action="<%= action %>" method="post">
+      <h2>Sign <%= text %></h2>
+
+      <ul class='errors'></ul>
+
+      <% if (newUser) { %>
+        <fieldset>
+          <label for="user_email">Email</label>
+          <input class="first"
+                 id="user_email"
+                 type="email"
+                 name="user[email]"
+                 autocomplete="off"
+                 autocapitalize="off">
+        </fieldset>
+
+        <fieldset>
+          <label for="user_username">Username</label>
+          <input id="user_username"
+                 type="text"
+                 name="user[username]"
+                 autocomplete="off"
+                 autocapitalize="off">
+        </fieldset>
+      <% } else { %>
+        <fieldset>
+          <label for="user_identifier">Username or Email</label>
+          <input class="first"
+                 id="user_identifier"
+                 type="text"
+                 name="user[identifier]"
+                 autocomplete="off"
+                 autocapitalize="off">
+        </fieldset>
+      <% } %>
+
+      <fieldset>
+        <label for="user_password">Password</label>
+        <input id="user_password" type="password" name="user[password]">
+      </fieldset>
+
+      <button class="login-button login">Sign <%= text %></button>
+    </form>
+
+    <% if (newUser) { %>
+      <button class='link toggle sign-in-link'>Have an Account?</button>
+    <% } else { %>
+      <button class='link toggle sign-up-link'>Create Account</button>
+    <% } %>
   <% } %>
-</form>
+</article>

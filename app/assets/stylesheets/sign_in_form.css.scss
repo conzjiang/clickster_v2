@@ -1,56 +1,17 @@
-/* SIGN IN FORMS */
-form.sign-in {
+.sign-in-container {
   display: block;
   width: 300px;
   margin: auto;
-  padding: 50px 0;
+  padding: 30px 0;
   text-align: center;
 }
 
-form.sign-in > .toggle {
-  display: inline-block;
-  margin: 0 5px;
-  padding-bottom: 1px;
-  font-size: 24px;
-  color: #ccc;
-  font-weight: 700;
-
-  &:hover {
-    padding: 0;
-    color: #888;
-    border-bottom: 1px solid #FF0066;
-  }
-
-  &.selected {
-    color: #000;
-    border: 0;
-    cursor: default;
-  }
-}
-
-form.sign-in > fieldset {
-  margin: 20px 0;
-}
-
-form.sign-in label {
-  display: block;
-}
-
-form.sign-in input {
-  width: 290px;
-  padding: 5px;
-  text-align: center;
-  font-size: 20px;
-  color: #495A66;
-  border-bottom: 1px solid #495A66;
-}
-
-form.sign-in > .login,
-form.sign-in > .facebook-login {
+// SIGN IN BUTTONS
+.sign-in-container .login-button {
   display: block;
   width: 260px;
-  margin: 5px 0;
   padding: 10px 20px;
+  font-size: 16px;
   color: #fff;
   border-radius: 3px;
 
@@ -64,10 +25,53 @@ form.sign-in > .facebook-login {
   }
 }
 
-form.sign-in > .login {
+.login, .demo-login {
   background: #EFAE78;
 }
 
-form.sign-in > .facebook-login {
+.facebook-login {
+  margin: 5px 0;
   background: #3b5998;
+}
+
+.demo-login {
+  margin: 5px 0;
+  text-transform: uppercase;
+}
+
+/* SIGN IN FORM */
+form.sign-in-form {
+  padding: 30px 0;
+
+  > h2 {
+
+  }
+
+  > fieldset {
+    margin: 20px 0;
+  }
+
+  label {
+    display: block;
+    font-size: 16px;
+  }
+
+  input {
+    width: 290px;
+    padding: 5px;
+    text-align: center;
+    font-size: 20px;
+    color: #495A66;
+    border-bottom: 1px solid #495A66;
+  }
+}
+
+// SIGN IN TOGGLE LINK
+.toggle {
+  display: inline-block;
+  font-size: 16px;
+
+  &:hover {
+    border-bottom: 1px solid #FF0066;
+  }
 }

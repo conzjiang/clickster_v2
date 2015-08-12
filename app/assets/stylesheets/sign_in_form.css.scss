@@ -4,39 +4,39 @@
   margin: auto;
   padding: 30px 0;
   text-align: center;
-}
 
-// SIGN IN BUTTONS
-.sign-in-container .login-button {
-  display: block;
-  width: 260px;
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #fff;
-  border-radius: 3px;
+  // SIGN IN BUTTONS
+  .login-button {
+    display: block;
+    width: 260px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 3px;
 
-  &:hover {
-    opacity: 0.8;
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      padding-top: 12px;
+      padding-bottom: 8px;
+    }
   }
 
-  &:active {
-    padding-top: 12px;
-    padding-bottom: 8px;
+  .login, .demo-login {
+    background: #EFAE78;
   }
-}
 
-.login, .demo-login {
-  background: #EFAE78;
-}
+  .facebook-login {
+    margin: 5px 0;
+    background: #3b5998;
+  }
 
-.facebook-login {
-  margin: 5px 0;
-  background: #3b5998;
-}
-
-.demo-login {
-  margin: 5px 0;
-  text-transform: uppercase;
+  .demo-login {
+    margin: 5px 0;
+    text-transform: uppercase;
+  }
 }
 
 /* SIGN IN FORM */

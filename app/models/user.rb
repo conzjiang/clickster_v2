@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
     create!({
       username: username,
       email: "#{username}@example.com",
-      password: "password"
+      password: SecureRandom.urlsafe_base64(6)
     })
   end
 
@@ -58,6 +58,7 @@ class User < ActiveRecord::Base
       User.create!({
         username: "#{user_info['nickname']}#{SecureRandom.urlsafe_base64(3)}",
         email: user_info['email'],
+        password: SecureRandom.urlsafe_base64(6),
         uid: uid
       })
     end

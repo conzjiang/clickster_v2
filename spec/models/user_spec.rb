@@ -55,6 +55,33 @@ describe User do
     end
   end
 
+  describe "::create_demo_user!" do
+    it "creates a new user" do
+      User.create_demo_user!
+      expect(User.count).to eq(1)
+    end
+
+    it "generates username prefixed with `guest` if none given" do
+      user = User.create_demo_user!
+      expect(user.username).to match("guest")
+    end
+
+    it "generates a random password" do
+      user = User.create_demo_user!
+      expect(user.is_password?(nil)).to be false
+    end
+
+    it "uses username if given" do
+      user = User.create_demo_user!("username")
+      expect(user.username).to eq("username")
+    end
+
+    it "generates email as [username]@example.com" do
+      user = User.create_demo_user!("conz")
+      expect(user.email).to eq("conz@example.com")
+    end
+  end
+
   describe "::find_by_credentials" do
     it "searches by username" do
       found_user = User.find_by_credentials(user.username, user.password)

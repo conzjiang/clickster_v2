@@ -85,6 +85,15 @@ describe User do
     end
   end
 
+  describe "#favorite!" do
+    it "creates a favorite for the given tv show" do
+      user.favorite!(tv_show)
+
+      expect(user.favorites).not_to be_empty
+      expect(user.favorite_shows).to include(tv_show)
+    end
+  end
+
   describe "#following?" do
     it "returns true if user is following other user" do
       idol = create(:user)

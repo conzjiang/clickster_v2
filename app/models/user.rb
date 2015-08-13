@@ -72,6 +72,10 @@ class User < ActiveRecord::Base
     favorites.create!(tv_show: tv_show)
   end
 
+  def follow!(user)
+    follows.create!(idol_id: user.id)
+  end
+
   def following?(user)
     follows.exists?(idol_id: user.id)
   end

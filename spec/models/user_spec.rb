@@ -167,6 +167,17 @@ describe User do
     end
   end
 
+  describe "#follow!" do
+    it "creates a follow that represents the user following the given user" do
+      idol = create(:user)
+      user.follow!(idol)
+
+      expect(user.follows).not_to be_empty
+      expect(user.idols).to include(idol)
+      expect(idol.followers).to include(user)
+    end
+  end
+
   describe "#following?" do
     it "returns true if user is following other user" do
       idol = create(:user)

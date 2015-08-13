@@ -72,14 +72,15 @@ describe User do
     end
   end
 
+  let(:tv_show) { create(:tv_show) }
+
   describe "#admins?" do
     it "returns true if current_user admins tv show" do
-      tv_show = create(:tv_show, admin_id: user.id)
-      expect(user.admins?(tv_show)).to be true
+      admin_show = create(:tv_show, admin_id: user.id)
+      expect(user.admins?(admin_show)).to be true
     end
 
     it "returns false if current_user doesn't admin tv show" do
-      tv_show = create(:tv_show)
       expect(user.admins?(tv_show)).to be false
     end
   end
@@ -102,14 +103,12 @@ describe User do
 
   describe "#likes?" do
     it "returns true if user has favorited TV show" do
-      fav_tv_show = create(:tv_show)
-      create(:favorite, favoriter_id: user.id, tv_show_id: fav_tv_show.id)
+      create(:favorite, favoriter_id: user.id, tv_show_id: tv_show.id)
 
-      expect(user.likes?(fav_tv_show)).to be true
+      expect(user.likes?(tv_show)).to be true
     end
 
     it "returns false if user has not favorited TV show" do
-      tv_show = create(:tv_show)
       create(:favorite, favoriter_id: user.id)
 
       expect(user.likes?(tv_show)).to be false
@@ -118,14 +117,12 @@ describe User do
 
   describe "#listed?" do
     it "returns true if user has added TV show to watchlist" do
-      list_show = create(:tv_show)
-      create(:watchlist, watcher_id: user.id, tv_show_id: list_show.id)
+      create(:watchlist, watcher_id: user.id, tv_show_id: tv_show.id)
 
-      expect(user.listed?(list_show)).to be true
+      expect(user.listed?(tv_show)).to be true
     end
 
     it "returns false if user has not added TV show to watchlist" do
-      tv_show = create(:tv_show)
       create(:watchlist, watcher_id: user.id)
 
       expect(user.listed?(tv_show)).to be false

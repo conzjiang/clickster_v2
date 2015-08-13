@@ -72,6 +72,52 @@ describe User do
     end
   end
 
+  describe "::find_or_create_by_omniauth_params" do
+    let(:omniauth_hash) do
+      {
+        "uid" => "abc",
+        "info" => {
+          "email" => "abc@example.com",
+          "nickname" => "abcdef"
+        }
+      }
+    end
+
+    let(:matching_user) do
+      User.find_or_create_by_omniauth_params(omniauth_hash)
+    end
+
+    it "returns the user with the corresponding uid" do
+      user = create(:user, uid: "abc")
+      expect(matching_user).to eq(user)
+    end
+
+    it "returns the user with the corresponding email if uid not found" do
+      user = create(:user, email: "abc@example.com")
+      expect(matching_user).to eq(user)
+    end
+
+    it "updates the user with the given uid if user found with email" do
+      user = create(:user, email: "abc@example.com")
+      expect(matching_user.uid).to eq("abc")
+    end
+
+    context "if no matching user is found" do
+      it "creates a new user with corresponding email and uid" do
+        expect(matching_user.uid).to eq("abc")
+        expect(matching_user.email).to eq("abc@example.com")
+      end
+
+      it "generates a random username based off the given nickname" do
+        expect(matching_user.username).to match("abcdef")
+      end
+
+      it "generates a random password" do
+        expect(matching_user.is_password?(nil)).to be false
+      end
+    end
+  end
+
   let(:tv_show) { create(:tv_show) }
 
   describe "#admins?" do

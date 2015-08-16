@@ -3,10 +3,9 @@ Clickster.Collections.Feed = Backbone.Collection.extend({
   url: "api/current_user/feed",
 
   fetchNew: function () {
-    var lastFetched, that;
+    var lastFetched;
 
     if (!this.isEmpty()) lastFetched = this.last().get("created_at");
-    that = this;
 
     $.ajax({
       type: "get",
@@ -14,9 +13,9 @@ Clickster.Collections.Feed = Backbone.Collection.extend({
       data: { last_fetched: lastFetched },
       dataType: "json",
       success: function (data) {
-        var newModels = that.add(data);
-        that.trigger("update", newModels);
-      }
+        var newModels = this.add(data);
+        this.trigger("update", newModels);
+      }.bind(this)
     });
   }
 });

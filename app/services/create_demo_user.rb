@@ -103,6 +103,8 @@ class CreateDemoUser
       activities += self.class.build_favorites(follower, 1)
     end
 
+    activities << followers.first.follow!(followers.second)
+
     activities.shuffle!
   end
 

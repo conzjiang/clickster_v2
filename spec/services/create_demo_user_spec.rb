@@ -159,20 +159,21 @@ describe CreateDemoUser do
 
     it "creates a random assortment of activities for its followers" do
       follower = create(:user)
-      allow(service).to receive(:followers).and_return([follower])
+      allow(service).to receive(:followers).and_return([
+        follower,
+        create(:user)
+      ])
       allow(CreateDemoUser).to receive(:tv_shows).and_return(tv_shows)
 
       service.set_up_feed_activity!
 
       expect(follower.watchlists).not_to be_empty
       expect(follower.favorites).not_to be_empty
+      expect(follower.idols).not_to be_empty
     end
 
     it "sets the created_at times for the activities to random times" do
-      activities = [Favorite.new, Favorite.new].each do |fav|
-        allow(fav).to receive(:save!)
-      end
-
+      activities = [build(:watchlist), build(:favorite)]
       allow(service).to receive(:follower_activities).and_return(activities)
 
       service.set_up_feed_activity!

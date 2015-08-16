@@ -208,5 +208,9 @@ describe CreateDemoUser do
       expect(service).to receive(:set_up_follows!)
       service.go!
     end
+
+    it "returns the demo user" do
+      expect(service.go!).to eq(demo_user)
+    end
   end
 end

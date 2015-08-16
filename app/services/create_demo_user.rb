@@ -46,6 +46,8 @@ class CreateDemoUser
     create_watchlists!
     create_favorites!
     set_up_follows!
+
+    demo_user
   end
 
   def create_watchlists!

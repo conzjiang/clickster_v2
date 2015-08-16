@@ -10,7 +10,7 @@ class FeedQuery
     @feed_items ||= FeedItem.
       select(select_sql).
       from("(#{recent_feed_items.to_sql}) AS feed_items").
-      joins(:user).
+      joins(:idol).
       joins(left_outer_join_watchlists).
       joins(left_outer_join_favorites).
       joins(left_outer_join_follows).
@@ -34,7 +34,14 @@ class FeedQuery
   def select_sql
     <<-SQL
       feed_items.*,
-      users.username AS idol_name,
+      idols_feed_items.username AS idol_name,
+      (#{subject_name}) AS subject_name,
+      (#{subject_id}) AS subject_id
+    SQL
+  end
+
+  def subject_name
+    <<-SQL
       CASE
         WHEN watchlists.id IS NOT NULL
           THEN watchlists.tv_show_title
@@ -42,14 +49,29 @@ class FeedQuery
           THEN favorites.tv_show_title
         WHEN follows.id IS NOT NULL
           THEN follows.idol_name
-      END AS subject_name
+      END
+    SQL
+  end
+
+  def subject_id
+    <<-SQL
+      CASE
+        WHEN watchlists.id IS NOT NULL
+          THEN watchlists.tv_show_id
+        WHEN favorites.id IS NOT NULL
+          THEN favorites.tv_show_id
+        ELSE feed_items.subject_id
+      END
     SQL
   end
 
   def left_outer_join_watchlists
     watchlists = Watchlist.
-      select("watchlists.*, tv_shows.title AS tv_show_title").
-      joins(:tv_show)
+      joins(:tv_show).
+      select(<<-SQL)
+        watchlists.*,
+        tv_shows.title AS tv_show_title
+      SQL
 
     <<-SQL
       LEFT OUTER JOIN
@@ -62,8 +84,11 @@ class FeedQuery
 
   def left_outer_join_favorites
     favorites = Favorite.
-      select("favorites.*, tv_shows.title AS tv_show_title").
-      joins(:tv_show)
+      joins(:tv_show).
+      select(<<-SQL)
+        favorites.*,
+        tv_shows.title AS tv_show_title
+      SQL
 
     <<-SQL
       LEFT OUTER JOIN

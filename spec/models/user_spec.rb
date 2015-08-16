@@ -26,11 +26,11 @@ describe User do
       expect(user).to be_valid
     end
 
-    it "validates maximum length of 10" do
-      user.username = "constanceee"
+    it "validates maximum length of 12" do
+      user.username = "constanceeeee"
       expect(user).not_to be_valid
 
-      user.username = "constancee"
+      user.username = "constanceeee"
       expect(user).to be_valid
     end
   end

@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   validates :email, :username, presence: true, uniqueness: true
-  validates :username, length: { minimum: 3, maximum: 10 }
+  validates :username, length: { minimum: 3, maximum: 12 }
   validates :password, length: { minimum: 6, allow_nil: true }
 
   has_many :tv_shows, foreign_key: :admin_id

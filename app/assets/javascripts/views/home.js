@@ -40,7 +40,7 @@ Clickster.Views.HomeView = Backbone.View.extend({
       $feed.prepend($item);
     });
 
-    $(".timeago").timeago();
+    this.$(".timeago").timeago();
     this.setFeedUpdateInterval();
   },
 

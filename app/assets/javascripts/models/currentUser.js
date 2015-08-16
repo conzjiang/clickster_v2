@@ -6,10 +6,23 @@ Clickster.Models.CurrentUser = Clickster.Models.User.extend({
   url: 'api/current_user',
 
   signIn: function (options) {
+    var success = options.success;
+    delete options.success;
+
     $.ajax(_.extend({
       url: "api/session",
       type: 'post',
-      dataType: 'json'
+      dataType: 'json',
+      success: function (data) {
+        this.set(data);
+        success && success(data);
+      }.bind(this)
+    }, options));
+  },
+
+  demoSignIn: function (options) {
+    this.signIn(_.extend({
+      url: "api/session/demo"
     }, options));
   }
 });

@@ -9,7 +9,8 @@ Clickster.Views.SignInView = Backbone.View.extend({
 
   events: {
     'click .toggle': 'toggleForm',
-    'submit form': 'signInUser'
+    'submit form': 'signInUser',
+    'click .demo-login': 'signInDemo'
   },
 
   toggleForm: function (event) {
@@ -38,8 +39,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
     Clickster.currentUser.signIn({
       url: $form.attr("action"),
       data: params,
-      success: function (data) {
-        if (data.newUser) Clickster.searchResults.users.push(data.username);
+      success: function () {
         window.location.reload();
       },
       error: function (data) {
@@ -51,6 +51,17 @@ Clickster.Views.SignInView = Backbone.View.extend({
         });
 
         that.$("input.first").select();
+      }
+    });
+  },
+
+  signInDemo: function (e) {
+    var $button = $(e.currentTarget);
+    $button.prop("disabled", true).html("Signing in...");
+
+    Clickster.currentUser.demoSignIn({
+      success: function () {
+        window.location.reload();
       }
     });
   },

@@ -12,4 +12,10 @@ class Api::SessionsController < ApplicationController
       render json: ['Incorrect username/password'], status: 422
     end
   end
+
+  def demo
+    demo_user = CreateDemoUser.go!
+    sign_in(demo_user)
+    render json: demo_user, status: 200
+  end
 end

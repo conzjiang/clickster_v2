@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   put 'profile/update', to: 'users#update', as: 'update_user'
 
   resource :session, only: [:new, :create, :destroy]
-
   get 'auth/facebook/callback', to: 'sessions#facebook'
 
   namespace :api, defaults: { format: :json } do
@@ -18,6 +17,7 @@ Rails.application.routes.draw do
     post "users/:username/follow", to: "users#follow"
 
     resource :session, only: [:create]
+    post 'session/demo', to: 'sessions#demo'
 
     get 'tv_shows/admin', to: 'tv_shows#admin'
     resources :tv_shows, only: [:index, :create, :show, :update]

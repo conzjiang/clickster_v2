@@ -15,9 +15,7 @@
 
   <li>
     <form id="sign-out" action="/session" method="post">
-      <input type="hidden"
-             name="authenticity_token"
-             value="<%= Clickster.formAuth %>">
+      <input type="hidden" name="authenticity_token">
       <input type="hidden" name="_method" value="delete">
       <button class="nav-link"><h2>Sign Out</h2></button>
     </form>

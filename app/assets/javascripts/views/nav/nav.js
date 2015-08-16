@@ -101,6 +101,7 @@ Clickster.Views.Nav = Backbone.View.extend({
     if ($popout.hasClass(options.class)) {
       var popoutView = new options.View();
       this._swapPopout(popoutView);
+      $.rails.refreshCSRFTokens();
     }
   },
 

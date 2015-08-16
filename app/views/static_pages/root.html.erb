@@ -19,7 +19,6 @@
 
 <script>
   $(function () {
-    Clickster.formAuth = $("meta[name=csrf-token]").attr("content");
     Clickster.DECADES = <%= TvDecade.decades_list.to_json.html_safe %>
     Clickster.GENRES = <%= TvGenre.genres_list.to_json.html_safe %>
     Clickster.TV_STATUSES = <%= TvShow.statuses_list.to_json.html_safe %>

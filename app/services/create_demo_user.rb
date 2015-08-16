@@ -1,14 +1,14 @@
 class CreateDemoUser
-  USERNAMES = %w(chipotle coca_cola LeBron i_love_pie dangerous batman)
+  USERNAMES = %w(chipotle coca_cola LeBron ilikepie dangerous batman)
 
   attr_reader :demo_user
 
-  def self.new_demo_user!(username = nil)
-    User.create_demo_user!(username)
-  end
-
   def self.go!
     self.new(new_demo_user!).go!
+  end
+
+  def self.new_demo_user!(username = nil)
+    User.create_demo_user!(username)
   end
 
   def self.tv_shows
@@ -20,7 +20,7 @@ class CreateDemoUser
 
     tv_shows.sample(num).each do |tv|
       watchlists << user.watchlists.new({
-        tv_show: tv,
+        tv_show_id: tv.id,
         status: Watchlist.statuses_list.sample
       })
     end
@@ -32,7 +32,7 @@ class CreateDemoUser
     favorites = []
 
     tv_shows.sample(num).each do |tv|
-      favorites << user.favorites.new(tv_show: tv)
+      favorites << user.favorites.new(tv_show_id: tv.id)
     end
 
     favorites
@@ -68,6 +68,10 @@ class CreateDemoUser
     follow!(followers.last)
   end
 
+  def followers
+    @followers ||= []
+  end
+
   def follow!(user)
     demo_user.follow!(user)
   end
@@ -100,11 +104,8 @@ class CreateDemoUser
     activities.shuffle!
   end
 
-  def followers
-    @followers ||= []
-  end
-
   def random_username
-    "#{USERNAMES.sample}#{SecureRandom.urlsafe_base64(3)}"
+    @usernames ||= USERNAMES.shuffle
+    "#{@usernames.pop}#{SecureRandom.urlsafe_base64(2)}"
   end
 end

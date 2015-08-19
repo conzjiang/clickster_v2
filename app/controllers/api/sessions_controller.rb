@@ -6,7 +6,7 @@ class Api::SessionsController < ApplicationController
     )
 
     if user
-      sign_in(user)
+      sign_in!(user)
       render json: user, status: 200
     else
       render json: ['Incorrect username/password'], status: 422
@@ -15,7 +15,7 @@ class Api::SessionsController < ApplicationController
 
   def demo
     demo_user = CreateDemoUser.go!
-    sign_in(demo_user)
+    sign_in!(demo_user)
     render json: demo_user, status: 200
   end
 end

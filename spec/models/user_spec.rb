@@ -158,6 +158,18 @@ describe User do
     end
   end
 
+  describe "#demo_user?" do
+    it "returns true if username is guest_ & email is username@example.com" do
+      user = User.new(username: "guest345", email: "guest345@example.com")
+      expect(user).to be_demo_user
+    end
+
+    it "returns false if username & email don't match" do
+      user = User.new(username: "guest325", email: "alksjkfjk@example.com")
+      expect(user).not_to be_demo_user
+    end
+  end
+
   describe "#favorite!" do
     it "creates a favorite for the given tv show" do
       user.favorite!(tv_show)
@@ -226,6 +238,56 @@ describe User do
     it "generates a new session token" do
       original_token = user.session_token
       expect(user.reset_session_token!).not_to eq(original_token)
+    end
+  end
+
+  describe "#sign_out!" do
+    context "demo user" do
+      before :each do
+        allow(user).to receive(:demo_user?) { true }
+      end
+
+      it "destroys self" do
+        expect(user).to receive(:destroy!)
+        user.sign_out!
+      end
+
+      it "returns nil" do
+        expect(user.sign_out!).to be_nil
+      end
+    end
+
+    context "regular user" do
+      it "resets its session token" do
+        expect(user).to receive(:reset_session_token!)
+        user.sign_out!
+      end
+
+      it "returns the session token" do
+        allow(user).to receive(:session_token) { "123456" }
+        expect(user.sign_out!).to eq("123456")
+      end
+    end
+  end
+
+  describe "#destroy_followers_for_demo_user" do
+    let(:user) { create(:user) }
+
+    before :each do
+      4.times { create(:user).follow!(user) }
+    end
+
+    it "does nothing if user isn't demo user" do
+      user.destroy!
+
+      expect(User.count).to eq(4)
+    end
+
+    it "destroys the first 3 followers if user is demo user" do
+      allow(user).to receive(:demo_user?).and_return(true)
+      user.destroy!
+
+      expect(User.count).to eq(1)
     end
   end
 end

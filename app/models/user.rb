@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   validates :username, length: { minimum: 3, maximum: 12 }
   validates :password, length: { minimum: 6, allow_nil: true }
 
+  before_destroy :destroy_followers_for_demo_user
+
   has_many :tv_shows, foreign_key: :admin_id
   has_many :watchlists,
     foreign_key: :watcher_id,
@@ -68,6 +70,10 @@ class User < ActiveRecord::Base
     tv_shows.pluck(:id).include?(tv_show.id)
   end
 
+  def demo_user?
+    !!username.match(/^guest/) && email == "#{username}@example.com"
+  end
+
   def favorite!(tv_show)
     favorites.create!(tv_show: tv_show)
   end
@@ -103,7 +109,28 @@ class User < ActiveRecord::Base
     self.session_token
   end
 
+  def sign_out!
+    if demo_user?
+      destroy!
+      nil
+    else
+      reset_session_token!
+    end
+  end
+
   private
+  def destroy_followers_for_demo_user
+    return true unless demo_user?
+
+    User.
+      select("users.*").
+      joins(:follows).
+      where("follows.idol_id = ?", id).
+      order("follows.created_at").
+      limit(3).
+      destroy_all
+  end
+
   def ensure_session_token
     self.session_token ||= SecureRandom.urlsafe_base64(16)
   end

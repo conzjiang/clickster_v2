@@ -96,6 +96,8 @@ class CreateDemoUser
   end
 
   def follower_activities
+    return @activities if @activities
+
     activities = []
 
     followers.each do |follower|
@@ -105,7 +107,7 @@ class CreateDemoUser
 
     activities << followers.first.follow!(followers.second)
 
-    activities.shuffle!
+    @activities = activities.shuffle!
   end
 
   def random_username

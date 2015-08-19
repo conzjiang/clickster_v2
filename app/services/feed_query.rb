@@ -14,7 +14,7 @@ class FeedQuery
       joins(left_outer_join_watchlists).
       joins(left_outer_join_favorites).
       joins(left_outer_join_follows).
-      order(created_at: :desc)
+      order("subject_created_at")
   end
 
   def recent_feed_items
@@ -36,7 +36,8 @@ class FeedQuery
       feed_items.*,
       idols_feed_items.username AS idol_name,
       (#{subject_name}) AS subject_name,
-      (#{subject_id}) AS subject_id
+      (#{subject_id}) AS subject_id,
+      (#{created_at}) AS subject_created_at
     SQL
   end
 
@@ -61,6 +62,19 @@ class FeedQuery
         WHEN favorites.id IS NOT NULL
           THEN favorites.tv_show_id
         ELSE feed_items.subject_id
+      END
+    SQL
+  end
+
+  def created_at
+    <<-SQL
+      CASE
+        WHEN watchlists.id IS NOT NULL
+          THEN watchlists.created_at
+        WHEN favorites.id IS NOT NULL
+          THEN favorites.created_at
+        WHEN follows.id IS NOT NULL
+          THEN follows.created_at
       END
     SQL
   end

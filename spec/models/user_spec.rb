@@ -255,8 +255,6 @@ describe User do
   end
 
   describe "#destroy_followers_for_demo_user" do
-    let(:user) { create(:user) }
-
     before :each do
       4.times { create(:user).follow!(user) }
     end
@@ -272,6 +270,23 @@ describe User do
       user.destroy!
 
       expect(User.count).to eq(1)
+    end
+  end
+
+  describe "#deassociate_admin_tv_shows" do
+    it "does nothing if user isn't admin" do
+      tv_show = create(:tv_show)
+      user.destroy!
+
+      expect(tv_show.admin_id).not_to be_nil
+    end
+
+    it "sets its TV shows' admin_id's to nil upon destruction" do
+      admin = create(:admin)
+      create(:tv_show, admin: admin)
+      admin.destroy!
+
+      expect(TvShow.first.admin_id).to be_nil
     end
   end
 end

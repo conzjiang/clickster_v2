@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true }
 
   before_destroy :destroy_followers_for_demo_user
+  before_destroy :deassociate_admin_tv_shows
 
   has_many :tv_shows, foreign_key: :admin_id
   has_many :watchlists,
@@ -63,7 +64,8 @@ class User < ActiveRecord::Base
         username: temp_username,
         email: user_info['email'],
         password: SecureRandom.urlsafe_base64(6),
-        uid: uid
+        uid: uid,
+        image_url: user_info['image']
       })
     end
   end
@@ -131,6 +133,11 @@ class User < ActiveRecord::Base
       order("follows.created_at").
       limit(3).
       destroy_all
+  end
+
+  def deassociate_admin_tv_shows
+    return true unless is_admin?
+    tv_shows.update_all(admin_id: nil)
   end
 
   def ensure_session_token

@@ -21,8 +21,15 @@ Clickster.Models.CurrentUser = Clickster.Models.User.extend({
   },
 
   demoSignIn: function (options) {
+    var success = options.success;
+    delete options.success;
+
     this.signIn(_.extend({
-      url: "api/session/demo"
+      url: "api/session/demo",
+      success: function (data) {
+        this.isDemoUser = true;
+        success && success(data);
+      }.bind(this)
     }, options));
   }
 });

@@ -17,13 +17,13 @@ class TvShow < ActiveRecord::Base
 
   before_save :set_decades
 
-  scope :decade_search, -> (decade_ids) {
+  scope :decade_search, -> (decade_ids) do
     joins(:tv_decades).where("tv_decades.decade IN (#{decade_ids.join(',')})")
-  }
+  end
 
-  scope :genre_search, -> (genre_ids) {
+  scope :genre_search, -> (genre_ids) do
     joins(:tv_genres).where("tv_genres.genre IN (#{genre_ids.join(',')})")
-  }
+  end
 
   def self.by_genre(genre)
     # raw sql so that `includes` can add another self join

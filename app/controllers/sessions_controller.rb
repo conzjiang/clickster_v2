@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     )
 
     if @user
-      sign_in(@user)
+      sign_in!(@user)
       flash[:notice] = "Successfully signed in!"
       redirect_to root_url
     else
@@ -21,14 +21,14 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    sign_out
+    sign_out!
     flash[:notice] = "Successfully signed out!"
     redirect_to root_url
   end
 
   def facebook
     user = User.find_or_create_by_omniauth_params(request.env['omniauth.auth'])
-    sign_in(user)
+    sign_in!(user)
     flash[:notice] = "Successfully signed in!"
     redirect_to root_url
   end

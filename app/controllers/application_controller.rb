@@ -15,12 +15,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def sign_in(user)
+  def sign_in!(user)
     session[:token] = user.reset_session_token!
   end
 
-  def sign_out
-    session[:token] = nil
+  def sign_out!
+    session[:token] = current_user.try(:sign_out!)
   end
 
   def signed_in?

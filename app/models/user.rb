@@ -57,8 +57,10 @@ class User < ActiveRecord::Base
       user.update!(uid: uid)
       user
     else
+      temp_username = "#{user_info['name'].gsub(" ", "")}#{rand(100)}"
+
       User.create!({
-        username: "#{user_info['nickname']}#{SecureRandom.urlsafe_base64(3)}",
+        username: temp_username,
         email: user_info['email'],
         password: SecureRandom.urlsafe_base64(6),
         uid: uid

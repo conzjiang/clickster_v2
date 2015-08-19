@@ -105,7 +105,7 @@ describe User do
         "uid" => "abc",
         "info" => {
           "email" => "abc@example.com",
-          "nickname" => "abcdef"
+          "name" => "Conz Jiang"
         }
       }
     end
@@ -135,8 +135,8 @@ describe User do
         expect(matching_user.email).to eq("abc@example.com")
       end
 
-      it "generates a random username based off the given nickname" do
-        expect(matching_user.username).to match("abcdef")
+      it "generates a random username by combining given names" do
+        expect(matching_user.username).to match("ConzJiang")
       end
 
       it "generates a random password" do

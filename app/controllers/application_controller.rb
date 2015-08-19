@@ -20,7 +20,8 @@ class ApplicationController < ActionController::Base
   end
 
   def sign_out!
-    session[:token] = current_user.try(:sign_out!)
+    current_user.try(:sign_out!)
+    session[:token] = nil
   end
 
   def signed_in?

@@ -242,31 +242,15 @@ describe User do
   end
 
   describe "#sign_out!" do
-    context "demo user" do
-      before :each do
-        allow(user).to receive(:demo_user?) { true }
-      end
-
-      it "destroys self" do
-        expect(user).to receive(:destroy!)
-        user.sign_out!
-      end
-
-      it "returns nil" do
-        expect(user.sign_out!).to be_nil
-      end
+    it "if demo user, destroys self" do
+      allow(user).to receive(:demo_user?) { true }
+      expect(user).to receive(:destroy!)
+      user.sign_out!
     end
 
-    context "regular user" do
-      it "resets its session token" do
-        expect(user).to receive(:reset_session_token!)
-        user.sign_out!
-      end
-
-      it "returns the session token" do
-        allow(user).to receive(:session_token) { "123456" }
-        expect(user.sign_out!).to eq("123456")
-      end
+    it "if not, resets its session token" do
+      expect(user).to receive(:reset_session_token!)
+      user.sign_out!
     end
   end
 

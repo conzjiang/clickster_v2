@@ -58,7 +58,9 @@ class User < ActiveRecord::Base
       user.update!(uid: uid)
       user
     else
-      temp_username = "#{user_info['name'].gsub(" ", "")}#{rand(100)}"
+      first_name = user_info['first_name'].first(9)
+      last_initial = user_info['last_name'].first
+      temp_username = "#{first_name}#{last_initial}#{rand(100)}"
 
       User.create!({
         username: temp_username,
@@ -68,6 +70,10 @@ class User < ActiveRecord::Base
         image_url: user_info['image']
       })
     end
+  end
+
+  def self.trim_firstname(firstname)
+
   end
 
   def admins?(tv_show)

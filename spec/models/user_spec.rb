@@ -105,7 +105,8 @@ describe User do
         "uid" => "abc",
         "info" => {
           "email" => "abc@example.com",
-          "name" => "Conz Jiang"
+          "first_name" => "Christopher",
+          "last_name" => "Robin"
         }
       }
     end
@@ -135,8 +136,13 @@ describe User do
         expect(matching_user.email).to eq("abc@example.com")
       end
 
-      it "generates a random username by combining given names" do
-        expect(matching_user.username).to match("ConzJiang")
+      it "username from 9 letters of first name & last name's 1st initial" do
+        expect(matching_user.username).to match("ChristophR")
+      end
+
+      it "uses whole first name if first name is shorter than 9 letters" do
+        omniauth_hash['info']['first_name'] = "Joe"
+        expect(matching_user.username).to match("JoeR")
       end
 
       it "generates a random password" do

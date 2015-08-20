@@ -1,9 +1,12 @@
 class User < ActiveRecord::Base
   include BCrypt
+
+  MAX_USERNAME_LENGTH = 11
+
   attr_reader :password
 
   validates :email, :username, presence: true, uniqueness: true
-  validates :username, length: { minimum: 3, maximum: 12 }
+  validates :username, length: { minimum: 3, maximum: MAX_USERNAME_LENGTH }
   validates :password, length: { minimum: 6, allow_nil: true }
 
   before_destroy :destroy_followers_for_demo_user
@@ -46,34 +49,31 @@ class User < ActiveRecord::Base
     user.try(:is_password?, password) ? user : nil
   end
 
-  def self.find_or_create_by_omniauth_params(omniauth_hash)
-    uid = omniauth_hash['uid']
-    user = User.find_by(uid: uid)
+  def self.find_or_create_by_omniauth_params(params)
+    user = User.find_by(uid: params[:id])
     return user if user
 
-    user_info = omniauth_hash['info']
-    user = User.find_by(email: user_info['email'])
+    user = User.find_by(email: params[:email])
 
     if user
-      user.update!(uid: uid)
+      user.update!(uid: params[:id])
       user
     else
-      first_name = user_info['first_name'].first(9)
-      last_initial = user_info['last_name'].first
-      temp_username = "#{first_name}#{last_initial}#{rand(100)}"
-
-      User.create!({
-        username: temp_username,
-        email: user_info['email'],
-        password: SecureRandom.urlsafe_base64(6),
-        uid: uid,
-        image_url: user_info['image']
-      })
+      create_from_omniauth_params!(params)
     end
   end
 
-  def self.trim_firstname(firstname)
+  def self.create_from_omniauth_params!(params)
+    first_name = params[:first_name].first(MAX_USERNAME_LENGTH - 3)
+    last_initial = params[:last_name].first
+    temp_username = "#{first_name}#{last_initial}#{rand(100)}"
 
+    User.create!({
+      username: temp_username,
+      email: params[:email],
+      password: SecureRandom.urlsafe_base64(6),
+      uid: params[:id]
+    })
   end
 
   def admins?(tv_show)

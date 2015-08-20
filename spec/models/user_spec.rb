@@ -26,11 +26,12 @@ describe User do
       expect(user).to be_valid
     end
 
-    it "validates maximum length of 12" do
-      user.username = "constanceeeee"
+    it "validates maximum length of #{User::MAX_USERNAME_LENGTH}" do
+      # max length currently = 11
+      user.username = "constanceeee"
       expect(user).not_to be_valid
 
-      user.username = "constanceeee"
+      user.username = "constanceee"
       expect(user).to be_valid
     end
   end
@@ -99,54 +100,64 @@ describe User do
     end
   end
 
-  describe "::find_or_create_by_omniauth_params" do
-    let(:omniauth_hash) do
+  context "Verifying users with omniauth" do
+    let(:params) do
       {
-        "uid" => "abc",
-        "info" => {
-          "email" => "abc@example.com",
-          "first_name" => "Christopher",
-          "last_name" => "Robin"
-        }
+        id: "abc",
+        email: "abc@example.com",
+        first_name: "Christopher",
+        last_name: "Robin"
       }
     end
 
-    let(:matching_user) do
-      User.find_or_create_by_omniauth_params(omniauth_hash)
-    end
+    describe "::find_or_create_by_omniauth_params" do
+      let(:matching_user) do
+        User.find_or_create_by_omniauth_params(params)
+      end
 
-    it "returns the user with the corresponding uid" do
-      user = create(:user, uid: "abc")
-      expect(matching_user).to eq(user)
-    end
+      it "returns the user with the corresponding uid" do
+        user = create(:user, uid: "abc")
+        expect(matching_user).to eq(user)
+      end
 
-    it "returns the user with the corresponding email if uid not found" do
-      user = create(:user, email: "abc@example.com")
-      expect(matching_user).to eq(user)
-    end
+      it "returns the user with the corresponding email if uid not found" do
+        user = create(:user, email: "abc@example.com")
+        expect(matching_user).to eq(user)
+      end
 
-    it "updates the user with the given uid if user found with email" do
-      user = create(:user, email: "abc@example.com")
-      expect(matching_user.uid).to eq("abc")
-    end
-
-    context "if no matching user is found" do
-      it "creates a new user with corresponding email and uid" do
+      it "updates the user with the given uid if user found with email" do
+        user = create(:user, email: "abc@example.com")
         expect(matching_user.uid).to eq("abc")
-        expect(matching_user.email).to eq("abc@example.com")
       end
 
-      it "username from 9 letters of first name & last name's 1st initial" do
-        expect(matching_user.username).to match("ChristophR")
+      context "if no matching user is found" do
+        it "creates a new user with corresponding email and uid" do
+          expect(User).to(
+            receive(:create_from_omniauth_params!).
+              with(params).and_call_original
+          )
+
+          expect(matching_user.uid).to eq("abc")
+          expect(matching_user.email).to eq("abc@example.com")
+        end
+      end
+    end
+
+    describe "::create_from_omniauth_params!" do
+      let(:new_user) { User.create_from_omniauth_params!(params) }
+
+      it "creates a new user" do
+        expect { new_user }.to change { User.count }.by(1)
       end
 
-      it "uses whole first name if first name is shorter than 9 letters" do
-        omniauth_hash['info']['first_name'] = "Joe"
-        expect(matching_user.username).to match("JoeR")
+      it "gets its email and uid from params" do
+        expect(new_user.email).to eq(params[:email])
+        expect(new_user.uid).to eq(params[:id])
       end
 
-      it "generates a random password" do
-        expect(matching_user.is_password?(nil)).to be false
+      it "is assigned a temporary username and password" do
+        expect(new_user.username).not_to be_nil
+        expect(new_user.is_password?(nil)).to be false
       end
     end
   end

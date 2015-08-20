@@ -9,8 +9,9 @@ Clickster.Views.SignInView = Backbone.View.extend({
 
   events: {
     'click .toggle': 'toggleForm',
-    'submit form': 'signInUser',
-    'click .demo-login': 'signInDemo'
+    'click .facebook-login': 'fbLogin',
+    'click .demo-login': 'signInDemo',
+    'submit form': 'signInUser'
   },
 
   toggleForm: function (event) {
@@ -19,45 +20,32 @@ Clickster.Views.SignInView = Backbone.View.extend({
     this.render();
   },
 
-  signInUser: function (event) {
-    event.preventDefault();
-    var $form = $(event.currentTarget);
-    var params = $form.serializeJSON();
-    var that = this;
-    var buttonText = "Signing ";
-    var $button = $form.find("button");
-    var originalButtonText = $button.text();
+  fbLogin: function (e) {
+    $(e.currentTarget).prop("disabled", true).html("Signing in...");
 
-    if (this.newUser) {
-      buttonText += "up...";
-    } else {
-      buttonText += "in...";
-    }
+    FB.login(this._requestCredsFromFacebook.bind(this), {
+      scope: 'public_profile,email'
+    });
+  },
 
-    $button.prop("disabled", true).html(buttonText);
-
-    Clickster.currentUser.signIn({
-      url: $form.attr("action"),
-      data: params,
-      success: function () {
-        window.location.reload();
-      },
-      error: function (data) {
-        that.$('.errors').empty();
-        $button.prop("disabled", false).html(originalButtonText);
-
-        _(data.responseJSON).each(function (error) {
-          that.$('.errors').append('<li>' + error + '</li>');
-        });
-
-        that.$("input.first").select();
-      }
+  _requestCredsFromFacebook: function () {
+    FB.api('/me', function (data) {
+      Clickster.currentUser.signIn({
+        url: "/api/session/facebook",
+        data: { facebook: data },
+        success: function (resp) {
+          if (resp.reload) {
+            window.location.reload();
+          } else {
+            Backbone.history.navigate("facebook", { trigger: true });
+          }
+        }
+      });
     });
   },
 
   signInDemo: function (e) {
-    var $button = $(e.currentTarget);
-    $button.prop("disabled", true).html("Signing in...");
+    $(e.currentTarget).prop("disabled", true).html("Signing in...");
 
     Clickster.currentUser.demoSignIn({
       success: function () {
@@ -66,19 +54,76 @@ Clickster.Views.SignInView = Backbone.View.extend({
     });
   },
 
-  render: function () {
-    var signedIn = !!Clickster.currentUser.id;
-    var that = this;
-    var $linkToSelect;
+  signInUser: function (event) {
+    event.preventDefault();
+    var $form = $(event.currentTarget);
 
+    this.disableButton();
+
+    Clickster.currentUser.signIn({
+      url: $form.attr("action"),
+      data: $form.serializeJSON(),
+      success: function () {
+        window.location.reload();
+      },
+      error: function (data) {
+        this.enableButton();
+        this.renderErrors(data.responseJSON);
+        this.$("input.first").select();
+      }.bind(this)
+    });
+  },
+
+  disableButton: function () {
+    if (this.newUser) {
+      this.setButton("Signing up...", true);
+    } else {
+      this.setButton("Signing in...", true);
+    }
+  },
+
+  enableButton: function () {
+    if (this.newUser) {
+      this.setButton("Sign up", false);
+    } else {
+      this.setButton("Sign in", false);
+    }
+  },
+
+  setButton: function (text, disabled) {
+    this.$(".login").prop("disabled", disabled).html(text);
+  },
+
+  renderErrors: function (errors) {
+    this.$('.errors').empty();
+
+    _(data.responseJSON).each(function (error) {
+      this.$('.errors').append('<li>' + error + '</li>');
+    }.bind(this));
+  },
+
+  render: function () {
     var content = this.template({
       newUser: this.newUser,
-      signedIn: signedIn
+      signedIn: !!Clickster.currentUser.id
     });
 
     this.$el.html(content);
     this.$("input.first").focus();
+    this.initializeFbLogin();
 
     return this;
+  },
+
+  initializeFbLogin: function () {
+    if (this.init) return;
+
+    this.init = true;
+    $.ajaxSetup({ cache: true });
+
+    FB.init({
+      appId: Clickster.FbAppId,
+      version: 'v2.3'
+    });
   }
 });

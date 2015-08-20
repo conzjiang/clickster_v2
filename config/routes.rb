@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
     resource :session, only: [:create]
     post 'session/demo', to: 'sessions#demo'
+    post 'session/facebook', to: 'sessions#facebook'
 
     get 'tv_shows/admin', to: 'tv_shows#admin'
     resources :tv_shows, only: [:index, :create, :show, :update]

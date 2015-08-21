@@ -112,6 +112,6 @@ class CreateDemoUser
 
   def random_username
     @usernames ||= USERNAMES.shuffle
-    "#{@usernames.pop}#{SecureRandom.urlsafe_base64(2)}"
+    "#{@usernames.pop}#{rand(100)}"
   end
 end

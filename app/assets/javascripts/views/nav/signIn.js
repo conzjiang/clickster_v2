@@ -34,9 +34,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
         url: "/api/session/facebook",
         data: { facebook: data },
         success: function (resp) {
-          if (resp.reload) {
-            window.location.reload();
-          } else {
+          if (resp.facebook) {
             Backbone.history.navigate("facebook", { trigger: true });
           }
         }
@@ -46,12 +44,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
 
   signInDemo: function (e) {
     $(e.currentTarget).prop("disabled", true).html("Signing in...");
-
-    Clickster.currentUser.demoSignIn({
-      success: function () {
-        window.location.reload();
-      }
-    });
+    Clickster.currentUser.demoSignIn();
   },
 
   signInUser: function (event) {
@@ -63,9 +56,6 @@ Clickster.Views.SignInView = Backbone.View.extend({
     Clickster.currentUser.signIn({
       url: $form.attr("action"),
       data: $form.serializeJSON(),
-      success: function () {
-        window.location.reload();
-      },
       error: function (data) {
         this.enableButton();
         this.renderErrors(data.responseJSON);

@@ -99,6 +99,6 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     options.view.ellipsis();
     options.view.$(".timeago").timeago();
     Clickster.eventManager.trigger("offSearch");
-    this.$rootEl.scrollTop(0);
+    $("main").scrollTop(0);
   }
 });

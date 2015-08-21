@@ -1,8 +1,4 @@
 Clickster.Views.FacebookProfileView = Backbone.View.extend({
-  initialize: function () {
-    this.listenTo(Clickster.currentUser, "sync", this.render);
-  },
-
   template: JST["users/fb_prof"],
 
   className: "forms",
@@ -11,7 +7,8 @@ Clickster.Views.FacebookProfileView = Backbone.View.extend({
     "keypress #user_username": "checkUsernameLength",
     "keyup #user_username": "maybeRemoveWarning",
     "blur #user_username": "validateUsername",
-    "click .filepicker-upload": "uploadProfPic"
+    "click .filepicker-upload": "uploadProfPic",
+    "submit form": "saveUser"
   },
 
   checkUsernameLength: function (e) {
@@ -74,9 +71,20 @@ Clickster.Views.FacebookProfileView = Backbone.View.extend({
     }.bind(this));
   },
 
+  saveUser: function (e) {
+    var params = $(e.currentTarget).serializeJSON().user;
+    e.preventDefault();
+
+    Clickster.currentUser.save(params, {
+      success: function () {
+        Backbone.history.navigate("", { trigger: true });
+      }
+    });
+  },
+
   render: function () {
     var content = this.template({ user: Clickster.currentUser });
     this.$el.html(content);
     return this;
   }
-})
+});

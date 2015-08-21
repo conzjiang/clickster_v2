@@ -1,4 +1,6 @@
 class Api::CurrentUsersController < ApplicationController
+  wrap_parameters false
+
   def feed
     @feed_items = FeedQuery.new(current_user, params[:last_fetched]).feed_items
   end
@@ -30,7 +32,7 @@ class Api::CurrentUsersController < ApplicationController
 
   private
   def user_params
-    params.require(:current_user).permit(:email, :image_url)
+    params.require(:current_user).permit(:username, :email, :image_url)
   end
 
   def validate_password

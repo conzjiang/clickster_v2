@@ -15,6 +15,7 @@ Clickster.Models.CurrentUser = Clickster.Models.User.extend({
       dataType: 'json',
       success: function (data) {
         this.set(data);
+        this.trigger("sync");
         success && success(data);
       }.bind(this)
     }, options));
@@ -31,5 +32,9 @@ Clickster.Models.CurrentUser = Clickster.Models.User.extend({
         success && success(data);
       }.bind(this)
     }, options));
+  },
+
+  toJSON: function () {
+    return { current_user: _.clone(this.attributes) };
   }
 });

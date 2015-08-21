@@ -70,5 +70,9 @@ Clickster.Models.User = Backbone.Model.extend({
 
   watchNum: function () {
     return this.watchlists("Watching").length;
+  },
+
+  toJSON: function () {
+    return { user: _.clone(this.attributes) };
   }
 });

@@ -13,6 +13,6 @@ class FeedItem < ActiveRecord::Base
       subject.idol.username
     end
 
-    idol.username + message + subject_name
+    "#{idol.username} #{message} #{subject_name}"
   end
 end

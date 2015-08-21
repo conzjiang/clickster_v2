@@ -49,7 +49,7 @@ def factory_name(instance)
 end
 
 RSpec::Matchers.define :validate_scoped_uniqueness_of do |user_id, scope|
-  # need to associate with actual user so shoulda's matcher doesn't work
+  # need to associate with actual user so shoulda-matcher doesn't work
   match do |subject|
     user = create(:user)
     factory = factory_name(subject)
@@ -85,16 +85,21 @@ shared_examples "a feed item subject" do
       expect(follower.feed_items).not_to be_empty
     end
 
-    it "doesn't create any feed items if watcher has no followers" do
+    it "doesn't create any new feed items if watcher has no followers" do
       Follow.destroy_all
-      create(subject, user_id => user.id)
-      expect(FeedItem.all).to be_empty
+      activity = create(subject, user_id => user.id)
+
+      if subject == :follow
+        expect(activity.feed_items.count).to eq(1)
+      else
+        expect(activity.feed_items).to be_empty
+      end
     end
 
     it "destroys associated feed items on destruction" do
       new_subject = create(subject, user_id => user.id)
       new_subject.destroy!
-      expect(FeedItem.all).to be_empty
+      expect(new_subject.feed_items).to be_empty
     end
   end
 end

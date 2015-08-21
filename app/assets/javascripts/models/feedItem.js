@@ -1,18 +1,22 @@
 Clickster.Models.FeedItem = Backbone.Model.extend({
-  initialize: function () {
-    this.setUrls();
+  subjectName: function () {
+    if (this.aboutCurrentUser()) {
+      return "you";
+    } else {
+      return this.escape("subject_name");
+    }
   },
 
-  setUrls: function () {
-    this.setIdolUrl();
-    this.setSubjectUrl();
+  aboutCurrentUser: function () {
+    return this.get('subject_type') === 'Follow' &&
+      this.get("subject_name") === Clickster.currentUser.get("username");
   },
 
-  setIdolUrl: function () {
-    this.idolUrl = "#/users/" + this.escape("idol_name");
+  idolUrl: function () {
+    return "#/users/" + this.escape("idol_name");
   },
 
-  setSubjectUrl: function () {
+  subjectUrl: function () {
     var subjectType, subjectPath;
 
     switch(this.get("subject_type")) {
@@ -27,6 +31,6 @@ Clickster.Models.FeedItem = Backbone.Model.extend({
         break;
     }
 
-    this.subjectUrl = "#/" + subjectType + "/" + subjectPath;
+    return "#/" + subjectType + "/" + subjectPath;
   }
 })

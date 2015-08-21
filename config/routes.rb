@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get "current_user/feed", to: "current_users#feed"
 
     resources :users, only: [:create]
+    get 'username', to: 'users#username'
     get 'users/:username', to: 'users#show'
     post "users/:username/follow", to: "users#follow"
 

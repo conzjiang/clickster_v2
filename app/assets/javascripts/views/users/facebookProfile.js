@@ -9,29 +9,60 @@ Clickster.Views.FacebookProfileView = Backbone.View.extend({
 
   events: {
     "keypress #user_username": "checkUsernameLength",
-    "keyup #user_username": "removeUsernameWarning",
+    "keyup #user_username": "maybeRemoveWarning",
+    "blur #user_username": "validateUsername",
     "click .filepicker-upload": "uploadProfPic"
   },
 
   checkUsernameLength: function (e) {
-    var $input = $(e.currentTarget);
     var maxLength = Clickster.MAX_USERNAME_LENGTH;
 
-    if ($input.val().length > maxLength) {
+    if ($(e.currentTarget).val().length > maxLength) {
       e.preventDefault();
-      $input.addClass("warning");
-      $input.next().
-        addClass("warning").
-        html("Maximum " + maxLength + " characters");
+      this.usernameWarning("Maximum " + maxLength + " characters");
     }
   },
 
-  removeUsernameWarning: function (e) {
+  usernameWarning: function (message) {
+    var $input = this.$("#user_username");
+    $input.addClass("warning");
+    $input.next().addClass("warning").html(message);
+  },
+
+  maybeRemoveWarning: function (e) {
     var $input = $(e.currentTarget);
-    if ($input.val().length <= Clickster.MAX_USERNAME_LENGTH) {
-      this.$(".warning").removeClass("warning");
-      $input.next().html(".");
+
+    $input.removeClass("success");
+    $input.next().removeClass("success").html(".");
+
+    if ($(e.currentTarget).val().length <= Clickster.MAX_USERNAME_LENGTH) {
+      this.removeUsernameWarning();
     }
+  },
+
+  removeUsernameWarning: function () {
+    this.$(".warning").removeClass("warning");
+    this.$("#user_username").next().html(".");
+  },
+
+  validateUsername: function (e) {
+    var $input = $(e.currentTarget);
+
+    $.ajax({
+      method: "get",
+      url: "/api/username",
+      data: { username: $input.val() },
+      dataType: "json",
+      success: function () {
+        $input.addClass("success");
+        $input.next().
+          addClass("success").
+          html("Nice to meet you, " + $input.val() + "!");
+      },
+      error: function () {
+        this.usernameWarning("Username has already been taken!");
+      }.bind(this)
+    });
   },
 
   uploadProfPic: function (e) {

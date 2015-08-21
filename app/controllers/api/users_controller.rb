@@ -10,6 +10,14 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def username
+    if User.exists?(username: params[:username])
+      render json: {}, status: 422
+    else
+      head :no_content
+    end
+  end
+
   def show
     @user = User.includes(watchlists: :tv_show, favorites: :tv_show)
                 .find_by_username(params[:username])

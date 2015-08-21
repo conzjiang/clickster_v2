@@ -1,0 +1,31 @@
+<h1>Give Yourself a Username!</h1>
+
+<form class="edit-facebook-user" action="/profile/update" method="post">
+  <input type="hidden" name="_method" value="put">
+  <input type="hidden" name="authenticity_token" value="">
+
+  <fieldset>
+    <label for="user_username">Username (max 11 characters)</label>
+    <input
+      id="user_username"
+      class="form-input"
+      type="text"
+      name="user[username]">
+    <strong>.</strong>
+  </fieldset>
+
+  <fieldset>
+    <label for="user_image_url">
+      Profile Pic
+      <button type="button" class="filepicker-upload">Upload</button>
+    </label>
+
+    <figure class="profile-pic-upload">
+      <img id="user_image_url" src="">
+    </figure>
+  </fieldset>
+
+  <div class="button-wrapper">
+    <button class="submit-button">Save</button>
+  </div>
+</form>

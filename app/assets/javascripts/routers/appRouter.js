@@ -17,7 +17,8 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     'user/edit': 'userEdit',
     'users/:username': 'userShow',
     'genres/:genre': 'genreShow',
-    '_=_': 'home'
+    '_=_': 'home',
+    'facebook': 'facebookProfile'
   },
 
   home: function () {
@@ -75,6 +76,11 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     this._swapRootEl(genreShowView);
   },
 
+  facebookProfile: function () {
+    var facebookProfView = new Clickster.Views.FacebookProfileView();
+    this._swapRootEl(facebookProfView);
+  },
+
   _swapRootEl: function (view) {
     this._swapView({
       currentView: "root",
@@ -93,6 +99,6 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     options.view.ellipsis();
     options.view.$(".timeago").timeago();
     Clickster.eventManager.trigger("offSearch");
-    $("main").scrollTop(0);
+    this.$rootEl.scrollTop(0);
   }
 });

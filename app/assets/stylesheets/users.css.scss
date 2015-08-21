@@ -1,3 +1,22 @@
+// EDIT FB USER FORM
+.edit-facebook-user {
+  > fieldset {
+    margin: 50px 0;
+  }
+
+  strong {
+    display: block;
+    margin: 5px 0;
+    font-size: 14px;
+    color: transparent;
+  }
+
+  .warning {
+    color: #f00;
+  }
+}
+
+// USER SHOW
 .user-show > header {
   position: relative;
   width: 100%;
@@ -131,19 +150,20 @@
   label {
     font-size: 14px;
   }
+}
 
-  figure {
-    display: block;
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    border: 10px solid #ccc;
-    border-radius: 60px;
-    overflow: hidden;
-  }
+figure.profile-pic-upload {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  border: 10px solid #ccc;
+  border-radius: 60px;
+  overflow: hidden;
 
-  img {
+  > img {
     width: 100px;
     height: auto;
   }
 }
+

@@ -19,6 +19,7 @@
 
 <script>
   $(function () {
+    Clickster.MAX_USERNAME_LENGTH = <%= User::MAX_USERNAME_LENGTH %>;
     Clickster.FbAppId = "<%= ENV['FB_APP_ID'] %>";
     Clickster.DECADES = <%= TvDecade.decades_list.to_json.html_safe %>
     Clickster.GENRES = <%= TvGenre.genres_list.to_json.html_safe %>

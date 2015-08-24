@@ -18,46 +18,48 @@
     </fieldset>
   </div>
 
-  <div class="form-section">
-    <h3>Update Your Email</h3>
+  <% if (!user.get("isDemoUser")) { %>
+    <div class="form-section">
+      <h3>Update Your Email</h3>
 
-    <fieldset>
-      <label for="user_email">Email</label>
-      <input id="user_email"
-             class="form-input"
-             type="email"
-             name="user[email]"
-             value="<%= user.escape("email") %>">
-    </fieldset>
-  </div>
+      <fieldset>
+        <label for="user_email">Email</label>
+        <input id="user_email"
+               class="form-input"
+               type="email"
+               name="user[email]"
+               value="<%= user.escape("email") %>">
+      </fieldset>
+    </div>
 
-  <div class="form-section">
-    <h3>Update Your Password</h3>
+    <div class="form-section">
+      <h3>Update Your Password</h3>
 
-    <fieldset>
-      <label for="user_password">Enter your current password</label>
-      <input id="user_password"
-             class="form-input"
-             type="password"
-             name="user[password]">
-    </fieldset>
+      <fieldset>
+        <label for="user_password">Enter your current password</label>
+        <input id="user_password"
+               class="form-input"
+               type="password"
+               name="user[password]">
+      </fieldset>
 
-    <fieldset>
-      <label for="user_new_password">New Password</label>
-      <input id="user_new_password"
-             class="form-input"
-             type="password"
-             name="user[new_password]">
-    </fieldset>
+      <fieldset>
+        <label for="user_new_password">New Password</label>
+        <input id="user_new_password"
+               class="form-input"
+               type="password"
+               name="user[new_password]">
+      </fieldset>
 
-    <fieldset>
-      <label for="user_password_confirmation">Confirm Password</label>
-      <input id="user_password_confirmation"
-             class="form-input"
-             type="password"
-             name="user[password_confirmation]">
-    </fieldset>
-  </div>
+      <fieldset>
+        <label for="user_password_confirmation">Confirm Password</label>
+        <input id="user_password_confirmation"
+               class="form-input"
+               type="password"
+               name="user[password_confirmation]">
+      </fieldset>
+    </div>
+  <% } %>
 
   <div class="button-wrapper">
     <button class="submit-button">Update Profile</button>

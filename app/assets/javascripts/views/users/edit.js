@@ -14,14 +14,12 @@ Clickster.Views.UserEditView = Backbone.View.extend({
   },
 
   uploadPic: function (e) {
-    var that = this;
-
     e.preventDefault();
 
     filepicker.pick(Clickster.filepickerOptions, function (blob) {
-      that.user.set("image_url", blob.url);
-      that.$("img").attr("src", blob.url);
-    });
+      this.user.set("image_url", blob.url);
+      this.$("img").attr("src", blob.url);
+    }.bind(this));
   },
 
   updateProfile: function (e) {

@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   end
 
   def admins?(tv_show)
-    tv_shows.pluck(:id).include?(tv_show.id)
+    tv_shows.map(&:id).include?(tv_show.id)
   end
 
   def demo_user?

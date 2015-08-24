@@ -1,75 +1,38 @@
 Clickster.Views.HomeView = Backbone.TvCardView.extend({
   initialize: function () {
-    this.feed = Clickster.currentUser.feed;
-
+    this.listenTo(Clickster.tvShows, "sync", this.render);
     this.listenTo(Clickster.currentUser, "sync", this.render);
-    this.listenTo(this.feed, "update", this.renderFeed);
   },
 
   template: JST['home'],
 
   render: function () {
-    var currentShows, signedIn, content;
-
-    currentShows = Clickster.tvShows.current();
-    signedIn = Clickster.currentUser.signedIn();
-    content = this.template({
-      signedIn: signedIn,
-      shows: currentShows
+    var content = this.template({
+      signedIn: Clickster.currentUser.signedIn()
     });
 
     this.$el.html(content);
-    this.renderCards(currentShows);
 
-    if (signedIn) {
-      this.feed.isEmpty() ?
-        this.feed.fetchNew() : this.renderFeed(this.feed.models);
-    }
+    this.renderFeed();
+    this.renderCards(Clickster.tvShows.current());
 
     return this;
   },
 
   onRender: function () {
-    this.$(".timeago").timeago();
+    this.feedView && this.feedView.onRender && this.feedView.onRender();
   },
 
   renderFeed: function (items) {
-    var itemTemplate = JST["feedItem"],
-        $feed = this.$(".feed");
+    if (!Clickster.currentUser.signedIn()) return;
+    if (this.feedView) this.feedView.remove();
 
-    _(items).each(function (feedItem) {
-      var $item = itemTemplate({ item: feedItem });
-      $feed.prepend($item);
-    });
-
-    this.$(".timeago").timeago();
-    this.setFeedUpdateInterval();
-  },
-
-  setFeedUpdateInterval: function () {
-    if (!this.interval) {
-      this.interval = setInterval(function () {
-        this.feed.fetchNew();
-      }.bind(this), 50000);
-
-      this.resizeFeedWrapper();
-      $(window).on("resize", this.resizeFeedWrapper.bind(this));
-    }
-  },
-
-  resizeFeedWrapper: function () {
-    if ($(window).width() > 500) {
-      this.$(".feed").css({ width: this.feed.length * 220 + "px" });
-    } else {
-      this.$(".feed").removeAttr("style");
-    }
+    this.feedView = new Clickster.Views.FeedView();
+    this.$("#feed").html(this.feedView.render().$el);
   },
 
   remove: function () {
-    if (this.interval) {
-      clearInterval(this.interval);
-      $(window).off("resize");
-    }
-    Backbone.View.prototype.remove.call(this);
+    this.feedView && this.feedView.remove();
+    return Backbone.View.prototype.remove.call(this);
   }
 });

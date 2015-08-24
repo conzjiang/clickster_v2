@@ -1,10 +1,9 @@
 Clickster.Routers.AppRouter = Backbone.Router.extend({
   initialize: function (options) {
-    this.$rootEl = options.$rootEl;
+    this.$rootEl = $(options.rootEl);
     this.currentViews = {};
 
-    var navbarView = new Clickster.Views.Nav({ el: options.$navbar });
-    navbarView.render();
+    new Clickster.Views.Nav({ el: options.navbar }).render();
   },
 
   routes: {
@@ -23,34 +22,34 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
 
   home: function () {
     var homeView = new Clickster.Views.HomeView();
-    this._swapRootEl(homeView);
+    this._swapView(homeView);
   },
 
   tvIndex: function () {
     var indexView = new Clickster.Views.TvIndexView();
-    this._swapRootEl(indexView);
+    this._swapView(indexView);
   },
 
   newTv: function () {
     var newTvView = new Clickster.Views.NewTvView({ action: "new" });
-    this._swapRootEl(newTvView);
+    this._swapView(newTvView);
   },
 
   tvShow: function (id) {
     var tv = Clickster.tvShows.getOrFetch(id);
     var tvShowView = new Clickster.Views.TvShowView({ tv: tv });
-    this._swapRootEl(tvShowView);
+    this._swapView(tvShowView);
   },
 
   editTv: function (id) {
     var tv = Clickster.tvShows.getOrFetch(id);
     var editTvView = new Clickster.Views.NewTvView({ tv: tv, action: "edit" });
-    this._swapRootEl(editTvView);
+    this._swapView(editTvView);
   },
 
   searchResults: function (data) {
     var searchView = new Clickster.Views.SearchResultsView({ params: data });
-    this._swapRootEl(searchView);
+    this._swapView(searchView);
   },
 
   userShow: function (username) {
@@ -63,41 +62,31 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     }
 
     var userView = new Clickster.Views.UserShowView({ user: user });
-    this._swapRootEl(userView);
+    this._swapView(userView);
   },
 
   userEdit: function () {
     var userEditView = new Clickster.Views.UserEditView();
-    this._swapRootEl(userEditView);
+    this._swapView(userEditView);
   },
 
   genreShow: function (genre) {
     var genreShowView = new Clickster.Views.GenreShowView({ genre: genre });
-    this._swapRootEl(genreShowView);
+    this._swapView(genreShowView);
   },
 
   facebookProfile: function () {
     var facebookProfView = new Clickster.Views.FacebookProfileView();
-    this._swapRootEl(facebookProfView);
+    this._swapView(facebookProfView);
   },
 
-  _swapRootEl: function (view) {
-    this._swapView({
-      currentView: "root",
-      view: view,
-      $el: this.$rootEl
-    });
-  },
+  _swapView: function (view) {
+    this._currentView && this._currentView.remove();
+    this._currentView = view;
 
-  _swapView: function (options) {
-    var currentView = this.currentViews[options.currentView];
-    currentView && currentView.remove();
+    this.$rootEl.html(view.render().$el);
+    view.onRender && view.onRender();
 
-    this.currentViews[options.currentView] = options.view;
-
-    options.$el.html(options.view.render().$el);
-    options.view.ellipsis();
-    options.view.$(".timeago").timeago();
     Clickster.eventManager.trigger("offSearch");
     $("main").scrollTop(0);
   }

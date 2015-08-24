@@ -28,9 +28,9 @@
     Clickster.genreExceptions = <%= @genre_exceptions.to_json.html_safe %>
 
     Clickster.initialize({
-      $navbar: $("nav"),
-      $rootEl: $(".main"),
-      $banner: $(".banner")
+      navbar: "nav",
+      rootEl: ".main",
+      banner: ".banner"
     });
 
     <% if signed_in? %>

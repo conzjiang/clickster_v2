@@ -1,6 +1,5 @@
 Clickster.EventManager = function (options) {
   _.extend(this, Backbone.Events);
-  this.$el = options.$el;
   this.clickNamespace = 0;
 
   this.on("signIn", this.signInError, this);
@@ -13,7 +12,7 @@ Clickster.EventManager.prototype.signInError = function () {
 };
 
 Clickster.EventManager.prototype.showError = function (message) {
-  var viewportTop = $("main").scrollTop()
+  var viewportTop = $("main").scrollTop();
   this.$el.addClass("show").css({ top: (viewportTop - 50) + "px" });
   this.$el.html(message);
 

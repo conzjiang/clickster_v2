@@ -25,7 +25,7 @@ Clickster.Views.Nav = Backbone.View.extend({
   toggleSearch: function () {
     var options = {
       View: Clickster.Views.SearchFormView,
-      class: "search"
+      className: "search"
     };
 
     this.$el.removeClass("relative");
@@ -51,7 +51,7 @@ Clickster.Views.Nav = Backbone.View.extend({
   toggleMenu: function () {
     var options = {
       View: Clickster.Views.DropdownView,
-      class: "dropdown"
+      className: "dropdown"
     };
 
     this._togglePopout(options);
@@ -60,14 +60,16 @@ Clickster.Views.Nav = Backbone.View.extend({
   toggleSignIn: function () {
     var options = {
       View: Clickster.Views.SignInView,
-      class: "sign-in"
+      className: "sign-in"
     };
 
     this._togglePopout(options);
   },
 
   render: function () {
-    var content = this.template({ signedIn: Clickster.currentUser.signedIn() });
+    var content = this.template({
+      signedIn: Clickster.currentUser.signedIn()
+    });
     this.$el.html(content);
 
     if (Clickster.currentUser.signedIn()) {
@@ -93,13 +95,15 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   _togglePopout: function (options) {
     var $popout = this.$(".pop-out");
-    $popout.removeClass(minusClass(options.class)).toggleClass(options.class);
+
+    $popout.removeClass(minusClass(options.className)).
+      toggleClass(options.className);
+
     this._closeSearch();
 
-    if ($popout.hasClass(options.class)) {
+    if ($popout.hasClass(options.className)) {
       var popoutView = new options.View();
       this._swapPopout(popoutView);
-      $.rails.refreshCSRFTokens();
     }
   },
 
@@ -107,7 +111,7 @@ Clickster.Views.Nav = Backbone.View.extend({
     if (this._currentPopout) this._currentPopout.remove();
     this._currentPopout = view;
     this.$(".pop-out").append(view.render().$el);
-    view.$("input.first").focus();
+    view.onRender && view.onRender();
 
     setTimeout(function () {
       this.$(".pop-out").addClass("transition");

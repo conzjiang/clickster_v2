@@ -31,6 +31,11 @@ Clickster.Views.HomeView = Backbone.View.extend({
     return this;
   },
 
+  onRender: function () {
+    this.ellipsis();
+    this.$(".timeago").timeago();
+  },
+
   renderFeed: function (items) {
     var itemTemplate = JST["feedItem"],
         $feed = this.$(".feed");

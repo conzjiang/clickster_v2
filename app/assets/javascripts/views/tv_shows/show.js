@@ -89,9 +89,9 @@ Clickster.Views.TvShowView = Backbone.View.extend({
 
   setFavorite: function () {
     if (this.tv.get("is_favorite")) {
-      this.$(".favorite").addClass("is-favorite");
+      this.$(".favorite").addClass("icon-full-heart is-favorite");
     } else {
-      this.$(".favorite").removeClass("is-favorite");
+      this.$(".favorite").removeClass("icon-full-heart is-favorite");
     }
   },
 

@@ -89,7 +89,7 @@ Clickster.Views.Nav = Backbone.View.extend({
         "background-image": "url('" + imageUrl + "')"
       });
     } else {
-      this.$(".profile-button").addClass("no-image");
+      this.$(".profile-button").addClass("icon-no-user-image");
     }
   },
 

@@ -12,11 +12,11 @@
 
   <h1><%= user.escape("username") %></h1>
 
-  <p class="watching">
+  <p class="watching icon-watchlist">
     Watching <%= Utils.pluralize(user.watchNum(), "show") %>
   </p>
 
-  <p class="favorites">
+  <p class="favorites icon-full-heart">
     <%= Utils.pluralize(user.favoriteCount(), "favorite show") %>
   </p>
 

@@ -119,15 +119,11 @@ button.nav {
 button.nav:before {
   position: absolute;
   left: 0;
-  font-family: "Entypo";
-  font-weight: normal;
-  font-size: 70px;
+  font-size: 40px;
 }
 
 button.open-search:before {
-  content: "\1F50D";
-  top: 5px;
-  left: 2px;
+  margin: 0;
 }
 
 button.profile-button {
@@ -136,10 +132,9 @@ button.profile-button {
   background-size: cover;
 }
 
-button.no-image:before {
-  content: "\1F464";
-  top: -11px;
-  font-size: 65px;
+button.profile-button:before {
+  top: 0;
+  margin: 0;
 }
 
 @media (min-width: 500px) {
@@ -149,12 +144,12 @@ button.no-image:before {
   }
 
   button.nav:before {
-    font-size: 60px;
+    font-size: 36px;
   }
 
   button.open-search:before {
-    top: 0;
-    left: 0;
+    top: 11px;
+    left: -4px;
   }
 
   button.profile-button {
@@ -163,11 +158,9 @@ button.no-image:before {
     background-size: cover;
   }
 
-  button.no-image:before {
-    content: "\1F464";
-    position: absolute;
-    top: -13px;
-    left: -2px;
+  button.profile-button:before {
+    top: -3px;
+    left: -3px;
   }
 }
 

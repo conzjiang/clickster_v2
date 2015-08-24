@@ -62,10 +62,6 @@
     right: 20px;
     font-size: 24px;
     vertical-align: middle;
-
-    &:before {
-      font-size: 32px;
-    }
   }
 
   @media (min-width: 500px) {
@@ -90,10 +86,10 @@ a.admin-edit {
   text-shadow: none;
 
   &:before {
-    content: "\1F511";
-    margin-right: 3px;
-    font-family: 'Entypo';
-    font-weight: normal;
+    position: relative;
+    bottom: 2px;
+    margin-left: 0;
+    font-size: 16px;
   }
 
   @media (min-width: 500px) {
@@ -202,40 +198,13 @@ section.tv-info {
       position: absolute;
       top: 3px;
       width: 100%;
-      font-family: "Entypo";
-      font-size: 45px;
-    }
-
-    li:before {
-      z-index: 1;
-    }
-
-    li[data-option='Watching']:before {
-      content: "\2016";
-    }
-
-    li[data-option='Plan to Watch']:before {
-      content: "\25B6";
-    }
-
-    li[data-option='Completed']:before {
-      content: "\25A0";
-    }
-
-    li[data-option='Dropped']:before {
-      content: "\23ED";
+      margin: 0;
+      text-align: center;
+      font-size: 36px;
     }
 
     li.favorite {
       border-left: 1px solid #ccc;
-    }
-
-    li.favorite:before {
-      content: "\2661";
-    }
-
-    li.is-favorite:before {
-      content: "\2665";
     }
 
     .warning {

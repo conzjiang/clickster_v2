@@ -11,21 +11,11 @@
  * file per style scope.
  *
  *= require_self
+ *= require entypo
  *= require_tree .
  */
 
 @import "utils/variables";
-
-@font-face {
-  font-family: 'Entypo';
-  src:font-url('entypo/entypo.eot');
-  src:font-url('entypo/entypo.eot?#iefix') format('embedded-opentype'),
-    font-url('entypo/entypo.svg') format('svg'),
-    font-url('entypo/entypo.woff') format('woff'),
-    font-url('entypo/entypo.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
 
 html, body, h1, h2, h3, h4, form, fieldset, ul, li, section, article, div,
 input, button, textarea, p, a, main, figure, figcaption, label, b, strong,

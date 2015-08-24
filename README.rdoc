@@ -7,6 +7,13 @@ New features:
 * More optimized search queries!
 
 == TODO
+* Orphan Black mobile rendering
+* Show followers
+* 'See more' link for mobile view of feed
+* Refactor FB sign-in to its own view
+* Refactor feed into its own view
+
+== Nice to have
 
 * Boyer-Moore algorithm for faster search lookup
 * Search for "Law & Order: Special Victims Unit" with `SVU` keyword

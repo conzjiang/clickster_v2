@@ -1,10 +1,8 @@
-Clickster.Views.HomeView = Backbone.View.extend({
+Clickster.Views.HomeView = Backbone.TvCardView.extend({
   initialize: function () {
     this.feed = Clickster.currentUser.feed;
-    this.useTvCards();
 
     this.listenTo(Clickster.currentUser, "sync", this.render);
-    this.listenTo(Clickster.tvShows, "sync", this.render);
     this.listenTo(this.feed, "update", this.renderFeed);
   },
 
@@ -32,7 +30,6 @@ Clickster.Views.HomeView = Backbone.View.extend({
   },
 
   onRender: function () {
-    this.ellipsis();
     this.$(".timeago").timeago();
   },
 

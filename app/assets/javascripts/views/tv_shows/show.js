@@ -31,9 +31,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   },
 
   authenticate: function (callback) {
-    var signedIn = !!Clickster.currentUser.id;
-
-    if (signedIn) {
+    if (Clickster.currentUser.signedIn()) {
       callback.call(this);
     } else {
       this.warning();

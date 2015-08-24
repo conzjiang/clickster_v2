@@ -39,11 +39,9 @@ Clickster.Views.Nav = Backbone.View.extend({
   },
 
   chooseMenu: function () {
-    var signedIn = !!Clickster.currentUser.id;
-
     this.$el.addClass("relative");
 
-    if (signedIn) {
+    if (Clickster.currentUser.signedIn()) {
       this.toggleMenu();
     } else {
       this.toggleSignIn();
@@ -69,11 +67,10 @@ Clickster.Views.Nav = Backbone.View.extend({
   },
 
   render: function () {
-    var signedIn = !!Clickster.currentUser.id;
-    var content = this.template({ signedIn: signedIn });
+    var content = this.template({ signedIn: Clickster.currentUser.signedIn() });
     this.$el.html(content);
 
-    if (signedIn) {
+    if (Clickster.currentUser.signedIn()) {
       this.$(".tv-hamburger").addClass("signed-in");
       this._renderProfileImage();
     }

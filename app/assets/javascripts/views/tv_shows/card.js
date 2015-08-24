@@ -48,9 +48,7 @@ Clickster.Views.TvCardView = Backbone.View.extend({
   },
 
   authenticate: function (callback) {
-    var signedIn = !!Clickster.currentUser.id;
-
-    if (signedIn) {
+    if (Clickster.currentUser.signedIn()) {
       callback.call(this);
     } else {
       Clickster.eventManager.trigger("signIn");

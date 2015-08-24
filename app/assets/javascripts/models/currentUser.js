@@ -38,6 +38,10 @@ Clickster.Models.CurrentUser = Clickster.Models.User.extend({
     }, options));
   },
 
+  signedIn: function () {
+    return !this.isNew();
+  },
+
   toJSON: function () {
     return { current_user: _.clone(this.attributes) };
   }

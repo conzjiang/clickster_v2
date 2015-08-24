@@ -95,7 +95,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
   render: function () {
     var content = this.template({
       newUser: this.newUser,
-      signedIn: !!Clickster.currentUser.id
+      signedIn: Clickster.currentUser.signedIn()
     });
 
     this.$el.html(content);

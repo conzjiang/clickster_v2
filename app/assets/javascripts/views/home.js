@@ -14,7 +14,7 @@ Clickster.Views.HomeView = Backbone.View.extend({
     var currentShows, signedIn, content;
 
     currentShows = Clickster.tvShows.current();
-    signedIn = !!Clickster.currentUser.id;
+    signedIn = Clickster.currentUser.signedIn();
     content = this.template({
       signedIn: signedIn,
       shows: currentShows

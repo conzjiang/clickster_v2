@@ -1,14 +1,8 @@
-<li data-id="<%= tv.id || tv.get("tv_show_id") %>">
-  <a class="image-block" href="#/tv/<%= tv.id || tv.get("tv_show_id") %>">
-    <img src="<%= tv.escape("image_url") %>">
-  </a>
+<a class="image-block" href="#/tv/<%= tvId %>">
+  <img src="<%= tv.escape("image_url") %>">
+</a>
 
-  <h3>
-    <a href="#/tv/<%= tv.id || tv.get("tv_show_id") %>">
-      <%= tv.escape("title") %>
-    </a>
-  </h3>
+<h3><a href="#/tv/<%= tvId %>"><%= tv.escape("title") %></a></h3>
 
-  <strong class="watchlist"></strong>
-  <strong class="favorite icon-full-heart"></strong>
-</li>
+<strong class="watchlist"></strong>
+<strong class="favorite icon-full-heart"></strong>

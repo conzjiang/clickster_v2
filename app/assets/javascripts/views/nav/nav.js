@@ -72,6 +72,7 @@ Clickster.Views.Nav = Backbone.View.extend({
 
     if (Clickster.currentUser.signedIn()) {
       this.$(".tv-hamburger").addClass("signed-in");
+      this.$(".nav-triangle").addClass("signed-in");
       this._renderProfileImage();
     }
 

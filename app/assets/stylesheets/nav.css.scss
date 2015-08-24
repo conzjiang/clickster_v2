@@ -342,6 +342,10 @@ article.pop-out.search {
     right: calc(85px - 2.5%);
   }
 
+  > div.nav-triangle.signed-in {
+    right: calc(145px - 2.5%);
+  }
+
   @media (min-width: 500px) {
     > div.nav-triangle {
       display: none;

@@ -5,3 +5,4 @@ user = User.includes(
 
 json.extract! user, :id, :username, :email, :is_admin, :image_url
 json.partial! user, partial: '/api/users/user', as: :user
+json.isDemoUser user.demo_user?

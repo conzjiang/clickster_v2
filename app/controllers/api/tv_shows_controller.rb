@@ -99,8 +99,17 @@ class Api::TvShowsController < ApplicationController
 
   def tv_params
     params.require(:tv_show).permit(
-      :title, :start_year, :end_year, :status, :imdb_id, :rating, :blurb,
-      :num_seasons, :network, :image_url, genres: []
+      :title,
+      :start_year,
+      :end_year,
+      :status,
+      :imdb_id,
+      :rating,
+      :blurb,
+      :num_seasons,
+      :network,
+      :image_url,
+      genres: []
     )
   end
 end

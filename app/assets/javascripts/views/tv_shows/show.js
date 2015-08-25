@@ -1,9 +1,7 @@
 Clickster.Views.TvShowView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
-
     this.listenTo(this.tv, "sync", this.render);
-    this.listenTo(Clickster.currentUser, "sync", this.render);
   },
 
   className: "tv-show max",
@@ -16,26 +14,27 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   },
 
   toggleWatchlist: function (event) {
-    this.authenticate(function () {
-      var $button = $(event.target),
-          status = $button.data("option"),
-          that = this;
+    if (!this.authenticate()) return;
 
-      this.tv.addToWatchlist({
-        data: { status: status },
-        success: function () {
-          $button.scaleAndFade(that.setWatchlistStatus.bind(that));
-        }
-      });
+    var $button = $(event.currentTarget);
+
+    this.tv.addToWatchlist({
+      data: {
+        status: $button.data("option")
+      },
+      success: function () {
+        this.toggleButton($button, this.setWatchlistStatus);
+      }.bind(this)
     });
   },
 
-  authenticate: function (callback) {
+  authenticate: function () {
     if (Clickster.currentUser.signedIn()) {
-      callback.call(this);
-    } else {
-      this.warning();
+      return true;
     }
+
+    this.warning();
+    return false;
   },
 
   warning: function () {
@@ -47,20 +46,26 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     }, 2000);
   },
 
-  toggleFavorite: function (e) {
-    var that = this,
-        toggleButton = function () {
-          that.$(".favorite").scaleAndFade(that.setFavorite.bind(that));
-        };
+  toggleButton: function ($button, callback) {
+    $button.scaleAndFade(callback.bind(this));
+  },
 
-    this.authenticate(function () {
-      this.tv.favorite({ success: toggleButton });
+  toggleFavorite: function (e) {
+    if (!this.authenticate()) return;
+
+    this.tv.favorite({
+      success: function () {
+        this.toggleButton(this.$(".favorite"), this.setFavorite);
+      }.bind(this)
     });
   },
 
   render: function () {
-    var isAdmin = this.tv.get("belongs_to_admin");
-    var content = this.template({ tv: this.tv, isAdmin: isAdmin });
+    var content = this.template({
+      tv: this.tv,
+      isAdmin: this.tv.get("belongs_to_admin")
+    });
+
     this.$el.html(content);
     this.setImage();
     this.setFavorite();
@@ -94,11 +99,9 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   },
 
   setWatchlistStatus: function () {
-    var status, $button;
-
     if (this.tv.get("on_watchlist")) {
-      status = this.tv.escape("watch_status");
-      $button = this.$("li[data-option='" + status + "']");
+      var status = this.tv.escape("watch_status");
+      var $button = this.$("li[data-option='" + status + "']");
 
       $button.addClass("on-watchlist");
       $button.siblings(".on-watchlist").removeClass("on-watchlist");

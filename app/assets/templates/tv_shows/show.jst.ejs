@@ -49,7 +49,7 @@
       <label>Stats</label>
       <ul class="stats-info">
         <li>
-          <%= tv.get("status") %>
+          <%= tv.escape("status") %>
         </li>
 
         <li>
@@ -61,15 +61,15 @@
           <%= Utils.pluralize(tv.get("num_seasons"), "season") %>
         </li>
 
-        <% var endYear = tv.get("end_year") %>
-        <% if (!endYear) endYear = "present" %>
         <li>
-          <strong>from</strong> <%= tv.get("start_year") %> - <%= endYear %>
+          <strong>from</strong>
+          <%= tv.escape("start_year") %> -
+          <%= tv.escape("end_year") || "present" %>
         </li>
       </ul>
 
       <aside>
-        <label>IMDb Rating</label> <%= tv.get("rating") %>
+        <label>IMDb Rating</label> <%= tv.escape("rating") %>
       </aside>
     </article>
   </div>

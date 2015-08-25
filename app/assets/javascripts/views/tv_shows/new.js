@@ -27,12 +27,6 @@ Clickster.Views.NewTvView = Backbone.View.extend({
     event.preventDefault();
 
     var title = $(event.target).serializeJSON().title;
-    var params = {
-      plot: "short",
-      r: "json",
-      t: title,
-      type: "series"
-    };
     var that = this;
 
     if (Clickster.searchResults.include(title)) {
@@ -45,30 +39,37 @@ Clickster.Views.NewTvView = Backbone.View.extend({
 
     $.ajax({
       type: "get",
-      url: "http://omdbapi.com",
-      data: params,
+      url: "//omdbapi.com",
+      data: {
+        plot: "short",
+        r: "json",
+        t: title,
+        type: "series"
+      },
       dataType: "json",
       success: function (data) {
         if (data.Response === "False") {
           that._updateSearchStatus("No results!");
         } else {
-          that.tv.setYears(data.Year);
-          that.tv.setGenres(data.Genre);
-
-          var attrs = {
-            blurb: data.Plot,
-            title: data.Title,
-            imdb_id: data.imdbID,
-            rating: data.imdbRating
-          };
-
-          that.tv.set(attrs);
+          that.setAttrs(data);
           that._updateSearchStatus("Found!");
         }
       },
       error: function () {
         that._updateSearchStatus("No results!");
       }
+    });
+  },
+
+  setAttrs: function (data) {
+    this.tv.setYears(data.Year);
+    this.tv.setGenres(data.Genre);
+
+    this.tv.set({
+      blurb: data.Plot,
+      title: data.Title,
+      imdb_id: data.imdbID,
+      rating: data.imdbRating
     });
   },
 
@@ -89,7 +90,10 @@ Clickster.Views.NewTvView = Backbone.View.extend({
       return this;
     }
 
-    var content = this.template({ tv: this.tv, action: this.action });
+    var content = this.template({
+      tv: this.tv
+    });
+
     this.$el.html(content);
     this.$el.append(this.form().render().$el);
 
@@ -98,10 +102,10 @@ Clickster.Views.NewTvView = Backbone.View.extend({
 
   remove: function () {
     this.form().remove();
-    return Backbone.View.prototype.remove.apply(this);
+    Backbone.View.prototype.remove.call(this);
   },
 
-  _updateSearchStatus: function (status) {
-    this.$("p.search-status").html(status);
+  _updateSearchStatus: function (searchStatus) {
+    this.$("p.search-status").html(searchStatus);
   }
 });

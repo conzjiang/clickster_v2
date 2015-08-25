@@ -32,30 +32,34 @@ Clickster.Views.TvFormView = Backbone.View.extend({
 
   render: function () {
     var content = this.template(this.values);
-    var that = this;
-
     this.$el.html(content);
 
-    _(this.tv.get("genres")).each(function (genre) {
-      var urlsafeGenre = genre.replace(/\//g, "");
-      that.$("#form_genre_" + urlsafeGenre).prop("checked", true);
-    });
-
-    this.$("option[value='" + this.tv.get("status") + "']").
-      prop("selected", true);
+    this.selectGenres();
+    this.selectStatus();
 
     return this;
   },
 
+  selectGenres: function () {
+    _(this.tv.get("genres")).each(function (genre) {
+      var urlsafeGenre = genre.replace(/\//g, "");
+      this.$("#form_genre_" + urlsafeGenre).prop("checked", true);
+    }.bind(this));
+  },
+
+  selectStatus: function () {
+    this.$("option[value='" + this.tv.get("status") + "']").
+      prop("selected", true);
+  },
+
   uploadImage: function (event) {
-    var that = this;
     event.preventDefault();
 
     filepicker.pick(Clickster.filepickerOptions, function (blob) {
-      that.$("#tv_show_image_url").removeClass("show").val("");
-      that.tv.set("image_url", blob.url);
-      that.previewImage(blob.url);
-    });
+      this.$("#tv_show_image_url").removeClass("show").val("");
+      this.tv.set("image_url", blob.url);
+      this.previewImage(blob.url);
+    }.bind(this));
   },
 
   previewImage: function (url) {
@@ -72,38 +76,33 @@ Clickster.Views.TvFormView = Backbone.View.extend({
   },
 
   saveTV: function (event) {
-    var tvParams, that;
+    var tvParams;
 
     event.preventDefault();
     tvParams = $(event.target).serializeJSON().tv_show;
-    if (!tvParams.image_url) delete tvParams.image_url;
+    if (tvParams.image_url === "") delete tvParams.image_url;
 
     this.$(".error").removeClass("error");
     this.$(":input").prop("disabled", true);
-    that = this;
 
     this.tv.save(tvParams, {
       wait: true,
-      success: function () {
-        this.success(this.tv.isNew());
-      }.bind(this),
+      success: this.success.bind(this),
       error: function (attrs, data) {
-        this.renderErrors(attrs, data);
+        this.renderErrors(data.responseJSON);
       }.bind(this)
     });
   },
 
-  success: function (isNew) {
-    if (isNew) {
-      Clickster.tvShows.add(this.tv, { wait: true });
+  success: function () {
+    if (this.tv.isNew()) {
       Clickster.searchResults.addTextResult(this.tv);
     }
 
     Backbone.history.navigate("tv/" + this.tv.id, { trigger: true });
   },
 
-  renderErrors: function (attrs, data) {
-    var errors = data.responseJSON;
+  renderErrors: function (errors) {
     var $errorDisplay = this.$(".errors");
 
     $errorDisplay.empty();

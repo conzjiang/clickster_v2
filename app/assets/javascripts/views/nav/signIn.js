@@ -36,15 +36,19 @@ Clickster.Views.SignInView = Backbone.View.extend({
         success: function (resp) {
           if (resp.facebook) {
             Backbone.history.navigate("facebook", { trigger: true });
+          } else {
+            this.reloadPage();
           }
-        }
+        }.bind(this)
       });
     });
   },
 
   signInDemo: function (e) {
     $(e.currentTarget).prop("disabled", true).html("Signing in...");
-    Clickster.currentUser.demoSignIn();
+    Clickster.currentUser.demoSignIn({
+      success: this.reloadPage.bind(this)
+    });
   },
 
   signInUser: function (event) {
@@ -56,12 +60,19 @@ Clickster.Views.SignInView = Backbone.View.extend({
     Clickster.currentUser.signIn({
       url: $form.attr("action"),
       data: $form.serializeJSON(),
+      success: this.reloadPage.bind(this),
       error: function (data) {
         this.enableButton();
         this.renderErrors(data.responseJSON);
         this.$("input.first").select();
       }.bind(this)
     });
+  },
+
+  reloadPage: function () {
+    if (window.location.hash) {
+      window.location.reload();
+    }
   },
 
   disableButton: function () {
@@ -107,7 +118,6 @@ Clickster.Views.SignInView = Backbone.View.extend({
 
   onRender: function () {
     this.$("input.first").focus();
-    $.rails.refreshCSRFTokens();
   },
 
   initializeFbLogin: function () {

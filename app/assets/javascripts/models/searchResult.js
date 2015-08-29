@@ -1,12 +1,35 @@
 Clickster.Models.SearchResult = Backbone.Model.extend({
+  parse: function (resp) {
+    this.tvResults().set(resp.tv_results);
+    this.userResults().set(resp.user_results);
+
+    delete resp.tv_results;
+    delete resp.user_results;
+
+    return this;
+  },
+
+  tvResults: function () {
+    if (!this._tvResults) {
+      this._tvResults = new Clickster.Collections.TvShows();
+    }
+
+    return this._tvResults;
+  },
+
+  userResults: function () {
+    if (!this._userResults) {
+      this._userResults = new Clickster.Collections.Users();
+    }
+
+    return this._userResults;
+  },
+
   runQuery: function () {
-    $.ajax({
-      type: "get",
-      url: this.url(),
+    this.fetch({
       data: this.get("params"),
-      dataType: "json",
-      success: function (data) {
-        this.set("results", Clickster.tvShows.add(data));
+      success: function () {
+        this.set({ showUsers: false });
       }.bind(this)
     });
 
@@ -14,30 +37,20 @@ Clickster.Models.SearchResult = Backbone.Model.extend({
   },
 
   sortBy: function (comparator) {
-    return _(this.get('results')).sortBy(comparator);
+    return this.tvResults().sort(comparator);
   },
 
   textSearch: function (options) {
-    var tvIds = options.tvIds, userIds = options.userIds;
-    var results = {};
-    var callback = function (data) {
-      results.text = true;
-      results.tvResults = Clickster.tvShows.add(data.tv_results);
-      results.userResults = Clickster.users.add(data.user_results, {
-        parse: true
-      });
-
-      this.set("results", results);
+    var callback = function () {
+      this.set({ showUsers: true });
     }.bind(this);
 
-    $.ajax({
-      type: "get",
+    this.fetch({
       url: this.url() + "/ids",
       data: {
-        tv_ids: tvIds,
-        user_ids: userIds
+        tv_ids: options.tvIds,
+        user_ids: options.userIds
       },
-      dataType: "json",
       success: callback,
       error: callback
     });

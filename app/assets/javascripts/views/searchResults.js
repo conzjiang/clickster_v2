@@ -16,50 +16,36 @@ Clickster.Views.SearchResultsView = Backbone.TvCardView.extend({
   },
 
   sort: function (e) {
-    var comparator, results, compareFunc, sortedResults;
+    var comparator;
 
     e.preventDefault();
-    comparator = this.sort = $(e.target).serializeJSON().sort;
-    results = this.model.get("results");
+    comparator = this.comparator = $(e.target).serializeJSON().sort;
 
     switch (comparator) {
       case "A-Z":
-        compareFunc = Clickster.tvShows.comparator;
+        this.model.sortBy(Clickster.tvShows.comparator);
         break;
       case "Rating":
-        compareFunc = function (model) {
+        this.model.sortBy(function (model) {
           return -model.get("rating");
-        };
+        });
         break;
     };
-
-    if (Array.isArray(results)) {
-      sortedResults = _(results).sortBy(compareFunc);
-    } else {
-      sortedResults = results;
-      sortedResults.tvResults = _(results.tvResults).sortBy(compareFunc);
-    }
-
-    this.model.set("results", sortedResults);
   },
 
   render: function () {
-    var results, twoPlyResults, content;
-
     this.removeSubviews();
 
-    results = this.model.get("results");
-    twoPlyResults = results && results.text;
-    content = this.template({
-      results: results,
-      twoPlyResults: twoPlyResults
+    var content = this.template({
+      showUsers: this.model.get("showUsers"),
+      tvResults: this.model.tvResults(),
+      userResults: this.model.userResults()
     });
 
     this.$el.html(content);
-    if (results) this.renderResults();
 
-    if (this.sort) {
-      this.$("option[value='" + this.sort + "']").prop("selected", true);
+    if (this.comparator) {
+      this.$("option[value='" + this.comparator + "']").prop("selected", true);
     }
 
     return this;

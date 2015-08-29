@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
     get 'genres/:genre', to: "tv_shows#genre"
 
-    get 'search', to: 'searches#get'
-    get 'search/ids', to: "searches#ids"
+    get 'search', to: 'searches#by_genre_and_decade'
+    get 'search/ids', to: "searches#by_ids"
   end
 end

@@ -1,5 +1,5 @@
 class Api::SearchesController < ApplicationController
-  def get
+  def by_genre_and_decade
     results = TvShow
 
     if decade_params
@@ -16,17 +16,21 @@ class Api::SearchesController < ApplicationController
       results = results.where(status: [0, 1])
     end
 
-    render json: results
+    render json: { tv_results: results }
   end
 
-  def ids
-    tv_ids = params[:tv_ids]
-    user_ids = params[:user_ids]
+  def by_ids
+    tv_ids = params[:tv_ids] || []
+    user_ids = params[:user_ids] || []
+    watching = Watchlist.where(status: "Watching")
 
-    @tv_results = tv_ids ? TvShow.find(tv_ids) : []
-    @user_results = user_ids ? User.
-      includes(watchlists: :tv_show, favorites: :tv_show).
-      find(user_ids) : []
+    @tv_results = TvShow.find(tv_ids)
+    @user_results = User.
+      select("users.*, COUNT(DISTINCT watchlists.id) AS watch_count, COUNT(DISTINCT favorites.id) AS favorite_count").
+      joins("LEFT OUTER JOIN (#{watching.to_sql}) AS watchlists ON watchlists.watcher_id = users.id").
+      joins("LEFT OUTER JOIN favorites ON favorites.favoriter_id = users.id").
+      group("users.id").
+      find(user_ids)
 
     render :text
   end

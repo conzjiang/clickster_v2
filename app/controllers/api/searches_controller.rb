@@ -9,23 +9,16 @@ class Api::SearchesController < ApplicationController
   end
 
   def by_ids
-    tv_ids = params[:tv_ids] || []
-    user_ids = params[:user_ids] || []
-    watching = Watchlist.where(status: "Watching")
+    search = SearchByIds.new(params)
+    @tv_results = search.tv_results
+    @user_results = search.user_results
 
-    @tv_results = TvShow.find(tv_ids)
-    @user_results = User.
-      select("users.*, COUNT(DISTINCT watchlists.id) AS watch_count, COUNT(DISTINCT favorites.id) AS favorite_count").
-      joins("LEFT OUTER JOIN (#{watching.to_sql}) AS watchlists ON watchlists.watcher_id = users.id").
-      joins("LEFT OUTER JOIN favorites ON favorites.favoriter_id = users.id").
-      group("users.id").
-      find(user_ids)
-
-    render :text
+    render :search
   end
 
   private
   def set_user
+    return unless signed_in?
     @user = User.includes(:watchlists, :favorites).find(current_user.id)
   end
 end

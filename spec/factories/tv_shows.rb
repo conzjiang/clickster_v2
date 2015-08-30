@@ -3,5 +3,20 @@ FactoryGirl.define do
     title { Faker::Company.name }
     image_url { Faker::Internet.url }
     association :admin, factory: :user
+
+    transient do
+      with_genres false
+      with_decades false
+    end
+
+    after(:build) do |tv_show, eval|
+      eval.with_genres.try(:each) do |genre|
+        tv_show.tv_genres.new(genre: genre)
+      end
+
+      eval.with_decades.try(:each) do |decade|
+        tv_show.tv_decades.new(decade: decade)
+      end
+    end
   end
 end

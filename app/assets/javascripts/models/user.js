@@ -1,19 +1,11 @@
 Clickster.Models.User = Backbone.Model.extend({
-  initialize: function (options) {
-    if (options) this.set("username", options.username);
-  },
-
   url: function () {
     return '/api/users/' + this.get("username");
   },
 
-  favoriteCount: function () {
-    return this.favorites().length;
-  },
-
   favorites: function () {
     if (!this._favorites) {
-      this._favorites = new Clickster.Collections.Lists([], { user: this });
+      this._favorites = new Clickster.Collections.TvShows([], { user: this });
     }
 
     return this._favorites;
@@ -56,7 +48,7 @@ Clickster.Models.User = Backbone.Model.extend({
 
   watchlists: function (status) {
     if (!this._watchlists) {
-      this._watchlists = new Clickster.Collections.Lists([], { user: this });
+      this._watchlists = new Clickster.Collections.TvShows([], { user: this });
     }
 
     if (status) {
@@ -66,10 +58,6 @@ Clickster.Models.User = Backbone.Model.extend({
     }
 
     return this._watchlists;
-  },
-
-  watchNum: function () {
-    return this.watchlists("Watching").length;
   },
 
   toJSON: function () {

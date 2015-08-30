@@ -1,20 +1,5 @@
-json.tv_results @tv_results do |tv_show|
-  json.extract! tv_show, :id, :title, :image_url, :rating, :blurb
-
-  if signed_in?
-    user = (@user || current_user)
-
-    json.is_favorite user.likes?(tv_show)
-
-    on_watchlist = user.listed?(tv_show)
-    json.on_watchlist on_watchlist
-
-    if on_watchlist
-      json.watch_status(
-        user.watchlists.find { |list| list.tv_show_id == tv_show.id }.status
-      )
-    end
-  end
+json.tv_results @tv_results do |tv|
+  json.partial! "api/tv_shows/tv_card", tv_show: tv, current_user: @user
 end
 
 json.user_results @user_results do |user|

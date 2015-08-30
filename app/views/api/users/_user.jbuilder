@@ -1,5 +1,17 @@
-json.watchlists user.watchlists, partial: 'api/lists/watchlist', as: :watchlist
-json.favorites user.favorites, partial: 'api/lists/favorite', as: :favorite
+json.watchlists user.watchlist_shows do |tv|
+  json.extract! tv, :id, :title
+end
 
-json.is_following current_user.following?(user)
+json.favorites user.favorite_shows do |tv|
+  json.extract! tv, :id, :title
+end
+
+json.is_following do
+  if !signed_in? || current_user == user
+    false
+  else
+    current_user.following?(user)
+  end
+end
+
 json.is_current_user current_user == user

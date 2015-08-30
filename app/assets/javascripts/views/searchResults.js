@@ -4,12 +4,14 @@ Clickster.Views.SearchResultsView = Backbone.TvCardView.extend({
       this.model = Clickster.searchResults.getOrFetch(options.params);
     }
 
-    this.listenTo(this.model, "change", this.render);
+    this.listenTo(this.model, "sync", this.render);
+    this.listenTo(this.model.tvResults(), "sort", this.render);
   },
 
   className: "search-results",
 
   template: JST["searches/results"],
+  userTemplate: JST["searches/user"],
 
   events: {
     "submit form": "sort"
@@ -17,7 +19,6 @@ Clickster.Views.SearchResultsView = Backbone.TvCardView.extend({
 
   sort: function (e) {
     var comparator;
-
     e.preventDefault();
     comparator = this.comparator = $(e.target).serializeJSON().sort;
 
@@ -43,6 +44,7 @@ Clickster.Views.SearchResultsView = Backbone.TvCardView.extend({
     });
 
     this.$el.html(content);
+    this.renderResults();
 
     if (this.comparator) {
       this.$("option[value='" + this.comparator + "']").prop("selected", true);
@@ -52,21 +54,13 @@ Clickster.Views.SearchResultsView = Backbone.TvCardView.extend({
   },
 
   renderResults: function () {
-    var results, twoPlyResults, tvResults, userCardTemplate, that;
+    this.renderCards(this.model.tvResults());
+    this._renderUserResults();
+  },
 
-    results = this.model.get("results");
-    tvResults = results.tvResults || results;
-    this.renderCards(tvResults);
-
-    twoPlyResults = results && results.text;
-
-    if (twoPlyResults) {
-      that = this;
-      userCardTemplate = JST["searches/user"];
-
-      results.userResults.forEach(function (user) {
-        that.$("ul.user-results").append(userCardTemplate({ user: user }));
-      });
-    }
+  _renderUserResults: function () {
+    this.model.userResults().each(function (user) {
+      this.$("ul.user-results").append(this.userTemplate({ user: user }));
+    }.bind(this));
   }
 });

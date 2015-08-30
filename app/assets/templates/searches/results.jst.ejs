@@ -13,11 +13,11 @@
   <button>Go</button>
 </form>
 
-<% if (twoPlyResults) { %>
+<% if (showUsers) { %>
   <article class="results">
     <h2>TV Show Results</h2>
 
-    <% if (results.tvResults.length) { %>
+    <% if (tvResults.length) { %>
       <ul class="tv-results group"></ul>
     <% } else { %>
       <p class="none">No results!</p>
@@ -27,14 +27,14 @@
   <article class="results">
     <h2>User Results</h2>
 
-    <% if (results.userResults.length) { %>
+    <% if (userResults.length) { %>
       <ul class="user-results group"></ul>
     <% } else { %>
       <p class="none">No results!</p>
     <% } %>
   </article>
 
-<% } else if (results && results.length) { %>
+<% } else if (tvResults.length) { %>
   <ul class="tv-results group"></ul>
 <% } else { %>
   <p class="none">No results!</p>

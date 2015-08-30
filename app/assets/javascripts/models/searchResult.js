@@ -37,7 +37,8 @@ Clickster.Models.SearchResult = Backbone.Model.extend({
   },
 
   sortBy: function (comparator) {
-    return this.tvResults().sort(comparator);
+    this.tvResults().comparator = comparator;
+    return this.tvResults().sort();
   },
 
   textSearch: function (options) {

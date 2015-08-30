@@ -76,6 +76,42 @@ class User < ActiveRecord::Base
     })
   end
 
+  def self.find_with_watch_and_favorite_count(id)
+    select(select_watch_and_favorite_count).
+      joins(watchlists_join).
+      joins(favorites_join).
+      group("users.id").
+      find(id)
+  end
+
+  def self.select_watch_and_favorite_count
+    <<-SQL
+      users.*,
+      COUNT(DISTINCT watchlists.id) AS watch_count,
+      COUNT(DISTINCT favorites.id) AS favorite_count
+    SQL
+  end
+
+  def self.watchlists_join
+    watching = Watchlist.where(status: "Watching")
+
+    <<-SQL
+      LEFT OUTER JOIN
+        (#{watching.to_sql}) AS watchlists
+      ON
+        watchlists.watcher_id = users.id
+    SQL
+  end
+
+  def self.favorites_join
+    <<-SQL
+      LEFT OUTER JOIN
+        favorites
+      ON
+        favorites.favoriter_id = users.id
+    SQL
+  end
+
   def admins?(tv_show)
     tv_shows.map(&:id).include?(tv_show.id)
   end
@@ -93,7 +129,7 @@ class User < ActiveRecord::Base
   end
 
   def following?(user)
-    follows.exists?(idol_id: user.id)
+    follows.map(&:idol_id).include?(user.id)
   end
 
   def is_password?(password)
@@ -101,11 +137,11 @@ class User < ActiveRecord::Base
   end
 
   def likes?(tv_show)
-    self.favorites.map(&:tv_show_id).to_a.include?(tv_show.id)
+    favorites.map(&:tv_show_id).include?(tv_show.id)
   end
 
   def listed?(tv_show)
-    self.watchlists.map(&:tv_show_id).to_a.include?(tv_show.id)
+    watchlists.map(&:tv_show_id).include?(tv_show.id)
   end
 
   def password=(password)

@@ -162,6 +162,19 @@ describe User do
     end
   end
 
+  describe "::find_with_watch_and_favorite_count" do
+    let(:user_with_counts) { User.find_with_watch_and_favorite_count(user.id) }
+
+    it "appends watch_count attribute to user" do
+      expect(user_with_counts.watch_count).to eq(0)
+    end
+
+    it "appends favorite_count attribute to user" do
+      2.times { create(:favorite, favoriter: user) }
+      expect(user_with_counts.favorite_count).to eq(2)
+    end
+  end
+
   let(:tv_show) { create(:tv_show) }
 
   describe "#admins?" do

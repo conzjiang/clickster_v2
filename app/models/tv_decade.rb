@@ -10,6 +10,6 @@ class TvDecade < ActiveRecord::Base
   end
 
   def self.get_ids(decade_years)
-    self.decades.values_at(*decade_years).compact
+    decades.values_at(*decade_years).compact
   end
 end

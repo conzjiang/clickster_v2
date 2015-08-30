@@ -6,14 +6,14 @@ class TvGenre < ActiveRecord::Base
   belongs_to :tv_show
 
   def self.genres_list
-    self.genres.keys
+    genres.keys
   end
 
   def self.top_level_genres
-    self.genres_list.first(10)
+    genres_list.first(10)
   end
 
   def self.get_ids(genre_names)
-    self.genres.values_at(*genre_names).compact
+    genres.values_at(*genre_names).compact
   end
 end

@@ -4,6 +4,8 @@ Clickster.Views.SearchResultsView = Backbone.TvCardView.extend({
       this.model = Clickster.searchResults.getOrFetch(options.params);
     }
 
+    this.comparator = "alpha";
+
     this.listenTo(this.model, "sync", this.render);
     this.listenTo(this.model.tvResults(), "sort", this.render);
   },
@@ -14,19 +16,18 @@ Clickster.Views.SearchResultsView = Backbone.TvCardView.extend({
   userTemplate: JST["searches/user"],
 
   events: {
-    "submit form": "sort"
+    "change input[type=radio]": "sort"
   },
 
   sort: function (e) {
-    var comparator;
     e.preventDefault();
-    comparator = this.comparator = $(e.target).serializeJSON().sort;
+    this.comparator = $(e.currentTarget).serializeJSON().sort;
 
-    switch (comparator) {
-      case "A-Z":
+    switch (this.comparator) {
+      case "alpha":
         this.model.sortBy(Clickster.tvShows.comparator);
         break;
-      case "Rating":
+      case "rating":
         this.model.sortBy(function (model) {
           return -model.get("rating");
         });
@@ -45,10 +46,7 @@ Clickster.Views.SearchResultsView = Backbone.TvCardView.extend({
 
     this.$el.html(content);
     this.renderResults();
-
-    if (this.comparator) {
-      this.$("option[value='" + this.comparator + "']").prop("selected", true);
-    }
+    this.$("#sort_by_" + this.comparator).prop("checked", true);
 
     return this;
   },

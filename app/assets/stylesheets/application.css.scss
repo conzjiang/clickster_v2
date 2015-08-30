@@ -122,8 +122,9 @@ p.error {
 
 // BANNER
 .banner {
-  display: none;
-  position: absolute;
+  display: block;
+  position: fixed;
+  top: -50px;
   left: 0;
   width: 100%;
   padding: 10px;
@@ -135,7 +136,7 @@ p.error {
   transition: top 0.5s;
 
   &.show {
-    display: block;
+    top: 0;
   }
 }
 

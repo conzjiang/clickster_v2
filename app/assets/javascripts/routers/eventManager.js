@@ -1,6 +1,7 @@
 Clickster.EventManager = function (options) {
   _.extend(this, Backbone.Events);
   this.clickNamespace = 0;
+  this.$el = options.$el;
 
   this.on("signIn", this.signInError, this);
   this.on("search", this.openSearch, this);
@@ -12,22 +13,22 @@ Clickster.EventManager.prototype.signInError = function () {
 };
 
 Clickster.EventManager.prototype.showError = function (message) {
-  var viewportTop = $("main").scrollTop();
-  this.$el.addClass("show").css({ top: (viewportTop - 50) + "px" });
+  this.$el.addClass("show");
   this.$el.html(message);
 
-  setTimeout(function () {
-    this.$el.css({ top: viewportTop + "px" });
-  }.bind(this), 100);
+  $("main").on("scroll.onError", function (e) {
+    if ($(e.currentTarget).scrollTop() === 0) {
+      this.removeError();
+    }
+  }.bind(this));
 
-  setTimeout(function () {
-    this.$el.css({ top: (viewportTop - 50) + "px" });
+  setTimeout(this.removeError.bind(this), 2000);
+};
 
-    this.$el.one("transitionend", function () {
-      this.$el.removeClass("show");
-      this.$el.removeAttr("style");
-    }.bind(this));
-  }.bind(this), 2000);
+Clickster.EventManager.prototype.removeError = function () {
+  this.$el.removeClass("show");
+  this.$el.empty();
+  $("main").off("scroll.onError");
 };
 
 Clickster.EventManager.prototype.openSearch = function () {

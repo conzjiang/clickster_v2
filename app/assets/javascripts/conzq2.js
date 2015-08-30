@@ -12,7 +12,7 @@ window.Clickster = {
       services: ["COMPUTER", "URL"]
     };
 
-    this.eventManager = new Clickster.EventManager({ el: options.banner });
+    this.eventManager = new Clickster.EventManager({ $el: $(options.banner) });
 
     new Clickster.Routers.AppRouter(options);
     Backbone.history.start();

@@ -24,10 +24,10 @@ Clickster.Collections.SearchResults = Backbone.Collection.extend({
     var model;
 
     if (!result) {
-      if (/text=/.test(params)) {
-        var searchTerm = params.split(/text=/).slice(-1)[0].replace(/\+/g, " ");
+      if (/query=/.test(params)) {
+        var searchTerm = params.split(/query=/).slice(-1)[0].replace(/\+/g, " ");
         var idData = this.processText(searchTerm);
-        model = new this.model({ params: "text=" + searchTerm });
+        model = new this.model({ params: "query=" + searchTerm });
         result = this.add(model).textSearch(idData);
 
       } else {

@@ -1,22 +1,11 @@
 class Api::SearchesController < ApplicationController
+  before_action :set_user
+
   def by_genre_and_decade
-    results = TvShow
+    search = GenreAndDecadeSearch.new(params).go
+    @tv_results = search.tv_results
 
-    if decade_params
-      decade_ids = TvDecade.get_ids(decade_params)
-      results = results.decade_search(decade_ids)
-    end
-
-    if genre_params
-      genre_ids = TvGenre.get_ids(genre_params)
-      results = results.genre_search(genre_ids)
-    end
-
-    if status
-      results = results.where(status: [0, 1])
-    end
-
-    render json: { tv_results: results }
+    render :search
   end
 
   def by_ids
@@ -36,15 +25,7 @@ class Api::SearchesController < ApplicationController
   end
 
   private
-  def decade_params
-    params.require(:query).permit(decades: [])[:decades]
-  end
-
-  def genre_params
-    params.require(:query).permit(genres: [])[:genres]
-  end
-
-  def status
-    params.require(:query).permit(:status)[:status]
+  def set_user
+    @user = User.includes(:watchlists, :favorites).find(current_user.id)
   end
 end

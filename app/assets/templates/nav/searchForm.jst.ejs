@@ -17,35 +17,37 @@
   <h2>Discover</h2>
 
   <ul class="decades group">
-    <% _(Clickster.DECADES).each(function(decade) { %>
+    <% for (var decade in Clickster.DECADES) { %>
+      <% var decadeId = Clickster.DECADES[decade] %>
       <li>
         <input id="decade_<%= decade %>"
                type="checkbox"
                name="decades[]"
-               value="<%= decade %>">
+               value="<%= decadeId %>">
         <label for="decade_<%= decade %>">'<%= decade %>s</label>
       </li>
-    <% }) %>
+    <% } %>
 
     <li>
       <input id="decade_current"
              type="checkbox"
-             name="status"
-             value="Current">
+             name="current"
+             value="true">
       <label for="decade_current">Today</label>
     </li>
   </ul>
 
   <ul class="genres group">
-    <% _(Clickster.GENRES).each(function(genre) { %>
+    <% for (var genre in Clickster.GENRES) { %>
+      <% var genreId = Clickster.GENRES[genre] %>
       <li>
         <input id="genre_<%= genre %>"
                type="checkbox"
                name="genres[]"
-               value="<%= genre %>">
+               value="<%= genreId %>">
         <label for="genre_<%= genre %>"><%= genre %></label>
       </li>
-    <% }) %>
+    <% } %>
   </ul>
 
   <button>Search</button>

@@ -19,13 +19,14 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(watchlists: :tv_show, favorites: :tv_show)
-                .find_by_username(params[:username])
+    @user = User.
+      with_watch_and_favorite_count.
+      find_by_username(params[:username])
 
     if @user
       render :show
     else
-      render json: "User not found", status: 404
+      render json: {}, status: 404
     end
   end
 

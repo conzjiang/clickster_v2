@@ -9,9 +9,11 @@ class Api::SearchesController < ApplicationController
   end
 
   def by_ids
-    search = SearchByIds.new(params)
-    @tv_results = search.tv_results
-    @user_results = search.user_results
+    params[:tv_ids] ||= []
+    params[:user_ids] ||= []
+
+    @tv_results = Tv.find(params[:tv_ids])
+    @user_results = User.with_watch_and_favorite_count.find(params[:user_ids])
 
     render :search
   end

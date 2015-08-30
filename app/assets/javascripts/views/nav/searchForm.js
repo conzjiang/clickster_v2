@@ -4,42 +4,36 @@ Clickster.Views.SearchFormView = Backbone.View.extend({
   template: JST["nav/searchForm"],
 
   events: {
-    "click input[name=query]": "expandInput",
-    "blur input[name=query]": "revertInput",
-    "submit form.search": "textSearch",
-    "submit form.discover": "runQuery",
+    "click .text-search-input": "expandInput",
+    "blur .text-search-input": "revertInput",
+    "submit form": "search",
     "touchmove label": "removeHover"
   },
 
-  expandInput: function (event) {
-    $(event.target).addClass("open");
-    $(event.target).val("");
+  expandInput: function (e) {
+    $(e.currentTarget).addClass("open");
+    $(e.currentTarget).val("");
   },
 
-  revertInput: function (event) {
-    $(event.target).removeClass("open");
+  revertInput: function (e) {
+    $(e.currentTarget).removeClass("open");
   },
 
-  textSearch: function (event) {
-    event.preventDefault();
-    var searchTerm = this.$("input").val().replace(/\s/g, "+");
+  search: function (e) {
+    e.preventDefault();
+    $(e.currentTarget).find("button").prop("disabled", true);
 
-    this._closeMenu();
-    Backbone.history.navigate("search?text=" + searchTerm, {
-      trigger: true
-    });
+    setTimeout(function () {
+      this._closeMenu();
+
+      Backbone.history.navigate("search?" + $(e.currentTarget).serialize(), {
+        trigger: true
+      });
+    }.bind(this), 500);
   },
 
-  runQuery: function (event) {
-    event.preventDefault();
-    var params = $(event.target).serialize();
-
-    Backbone.history.navigate("search?" + params, { trigger: true });
-    this._closeMenu();
-  },
-
-  removeHover: function () {
-    var $label = $(event.target);
+  removeHover: function (e) {
+    var $label = $(e.currentTarget);
 
     if (!$label.siblings("input[type=checkbox]").is(":checked")) {
       $label.css("background", "#ccc");

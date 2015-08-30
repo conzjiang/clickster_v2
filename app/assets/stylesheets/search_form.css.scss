@@ -8,25 +8,47 @@ form.text-search {
     margin-bottom: 10px;
   }
 
-  > input {
-    display: block;
-    width: 75%;
-    max-width: 200px;
-    padding: 5px;
-    background: #ccc;
-    opacity: 0.5;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: width 0.5s, max-width 0.5s;
-    box-sizing: border-box;
-  }
-
-  > input.open {
+  > fieldset {
     width: 100%;
-    max-width: 340px;
+  }
+}
+
+.text-search-input {
+  display: block;
+  float: left;
+  width: 75%;
+  max-width: 210px;
+  padding: 5px;
+  background: #ccc;
+  opacity: 0.5;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: width 0.5s;
+  box-sizing: border-box;
+
+  &.open {
+    width: calc(100% - 45px);
+    max-width: 100%;
     opacity: 1;
     cursor: auto;
+
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
+
+  &.open + .submit-text-search {
+    display: block;
+  }
+}
+
+.submit-text-search {
+  display: none;
+  float: left;
+  width: 45px;
+  height: 34px;
+  text-align: center;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 // FORM GENRES

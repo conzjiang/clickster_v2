@@ -1,9 +1,16 @@
 <form class="search text-search">
   <h2>Search</h2>
-  <input type="text"
-         name="query"
-         autocomplete="off"
-         placeholder="for TV shows or users">
+
+  <fieldset class="group">
+    <input
+      class="text-search-input"
+      type="text"
+      name="query"
+      autocomplete="off"
+      placeholder="for TV shows or users">
+
+    <button class="submit-text-search icon-search"></button>
+  </fieldset>
 </form>
 
 <form class="search discover">
@@ -14,7 +21,7 @@
       <li>
         <input id="decade_<%= decade %>"
                type="checkbox"
-               name="query[decades][]"
+               name="decades[]"
                value="<%= decade %>">
         <label for="decade_<%= decade %>">'<%= decade %>s</label>
       </li>
@@ -23,7 +30,7 @@
     <li>
       <input id="decade_current"
              type="checkbox"
-             name="query[status]"
+             name="status"
              value="Current">
       <label for="decade_current">Today</label>
     </li>
@@ -34,7 +41,7 @@
       <li>
         <input id="genre_<%= genre %>"
                type="checkbox"
-               name="query[genres][]"
+               name="genres[]"
                value="<%= genre %>">
         <label for="genre_<%= genre %>"><%= genre %></label>
       </li>

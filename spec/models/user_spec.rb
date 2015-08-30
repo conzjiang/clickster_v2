@@ -162,8 +162,8 @@ describe User do
     end
   end
 
-  describe "::find_with_watch_and_favorite_count" do
-    let(:user_with_counts) { User.find_with_watch_and_favorite_count(user.id) }
+  describe "::with_watch_and_favorite_count" do
+    let(:user_with_counts) { User.with_watch_and_favorite_count.find(user.id) }
 
     it "appends watch_count attribute to user" do
       expect(user_with_counts.watch_count).to eq(0)

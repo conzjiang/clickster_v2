@@ -76,12 +76,11 @@ class User < ActiveRecord::Base
     })
   end
 
-  def self.find_with_watch_and_favorite_count(id)
+  def self.with_watch_and_favorite_count
     select(select_watch_and_favorite_count).
       joins(watchlists_join).
       joins(favorites_join).
-      group("users.id").
-      find(id)
+      group("users.id")
   end
 
   def self.select_watch_and_favorite_count

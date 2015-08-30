@@ -39,43 +39,43 @@ Clickster.Views.TvCardView = Backbone.View.extend({
   },
 
   toggleWatchlist: function () {
-    this.authenticate(function () {
-      if (!this.settingStatus) {
-        this.$(".statuses").toggleClass("show");
-        this.setClickHandler();
-      }
-    });
+    if (!this.authenticate()) return;
+
+    if (!this.settingStatus) {
+      this.$(".statuses").toggleClass("show");
+      this.setClickHandler();
+    }
   },
 
-  authenticate: function (callback) {
+  authenticate: function () {
     if (Clickster.currentUser.signedIn()) {
-      callback.call(this);
-    } else {
-      Clickster.eventManager.trigger("signIn");
+      return true;
     }
+
+    Clickster.eventManager.trigger("signIn");
+    return false;
   },
 
   setClickHandler: function () {
-    if (this.$(".statuses").hasClass("show")) {
-      Clickster.eventManager.clickOut({
-        isOutside: function ($target) {
-          var outside = !$target.closest(".statuses").length,
-              otherPopout = $target.is(".watchlist") &&
-                ($target.data("id") !== this.tv.id);
+    if (!this.$(".statuses").hasClass("show")) return;
 
-          return outside || otherPopout;
-        }.bind(this),
+    Clickster.eventManager.clickOut({
+      isOutside: function ($target) {
+        var outside = !$target.closest(".statuses").length,
+            otherPopout = $target.is(".watchlist") &&
+              ($target.data("id") !== this.tv.id);
 
-        callback: function () {
-          this.$(".statuses").removeClass("show");
-        }.bind(this)
-      });
-    }
+        return outside || otherPopout;
+      }.bind(this),
+
+      callback: function () {
+        this.$(".statuses").removeClass("show");
+      }.bind(this)
+    });
   },
 
   setStatus: function (e) {
-    var $status = $(e.target),
-        that = this;
+    var $status = $(e.currentTarget), that = this;
 
     this.settingStatus = true;
 
@@ -92,28 +92,13 @@ Clickster.Views.TvCardView = Backbone.View.extend({
   },
 
   toggleFavorite: function () {
-    var options = {
+    if (!this.authenticate()) return;
+
+    this.tv.favorite({
       success: function () {
         this.$(".favorite").scaleAndFade();
       }.bind(this)
-    };
-
-    this.authenticate(function () {
-      this.tv.favorite(options);
     });
-  },
-
-  feedback: function (message, options) {
-    var $feedback;
-
-    this.$(".feedback").addClass("show").html(message);
-    if (options) this.$(".feedback").addClass(options.class);
-
-    $feedback = this.$(".feedback");
-
-    setTimeout(function () {
-      $feedback.removeClass("show");
-    }, 1000);
   },
 
   render: function () {
@@ -135,14 +120,11 @@ Clickster.Views.TvCardView = Backbone.View.extend({
   },
 
   setWatchlistStatus: function () {
-    var status, $option;
-
     if (this.tv.get("on_watchlist")) {
       this.$(".watchlist").addClass("on-watchlist");
 
-      status = this.tv.get("watch_status");
-      $option = this.$(".status[data-option='" + status + "']");
-      $option.addClass("choose");
+      var status = this.tv.get("watch_status");
+      this.$(".status[data-option='" + status + "']").addClass("choose");
     } else {
       this.$(".watchlist").removeClass("on-watchlist");
       this.$(".choose").removeClass("choose");

@@ -11,8 +11,13 @@
     </h3>
 
     <ul class="stats group">
-      <li class="icon-watchlist"><%= user.escape("watch_count") %></li>
-      <li class="icon-full-heart"><%= user.escape("favorite_count") %></li>
+      <li class="watchlist icon-watchlist">
+        <%= user.escape("watch_count") %>
+      </li>
+
+      <li class="favorite icon-full-heart">
+        <%= user.escape("favorite_count") %>
+      </li>
     </ul>
   </div>
 </li>

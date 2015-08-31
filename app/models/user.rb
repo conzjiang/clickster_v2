@@ -83,34 +83,6 @@ class User < ActiveRecord::Base
       group("users.id")
   end
 
-  def self.select_watch_and_favorite_count
-    <<-SQL
-      users.*,
-      COUNT(DISTINCT watchlists.id) AS watch_count,
-      COUNT(DISTINCT favorites.id) AS favorite_count
-    SQL
-  end
-
-  def self.watchlists_join
-    watching = Watchlist.where(status: "Watching")
-
-    <<-SQL
-      LEFT OUTER JOIN
-        (#{watching.to_sql}) AS watchlists
-      ON
-        watchlists.watcher_id = users.id
-    SQL
-  end
-
-  def self.favorites_join
-    <<-SQL
-      LEFT OUTER JOIN
-        favorites
-      ON
-        favorites.favoriter_id = users.id
-    SQL
-  end
-
   def admins?(tv_show)
     tv_shows.map(&:id).include?(tv_show.id)
   end
@@ -163,7 +135,55 @@ class User < ActiveRecord::Base
     end
   end
 
+  def watchlist_shows_with_statuses
+    return @shows if @shows
+
+    @shows = TvShow.
+      select("tv_shows.*, watchlists.status AS watch_status_idx").
+      joins(<<-SQL)
+        JOIN
+          (#{Watchlist.where(watcher_id: id).to_sql}) AS watchlists
+        ON
+          watchlists.tv_show_id = tv_shows.id
+      SQL
+
+    @shows.each do |tv|
+      tv.define_singleton_method(:watch_status) do
+        Watchlist.statuses_list[watch_status_idx]
+      end
+    end
+  end
+
   private
+
+  def self.select_watch_and_favorite_count
+    <<-SQL
+      users.*,
+      COUNT(DISTINCT watchlists.id) AS watch_count,
+      COUNT(DISTINCT favorites.id) AS favorite_count
+    SQL
+  end
+
+  def self.watchlists_join
+    watching = Watchlist.where(status: "Watching")
+
+    <<-SQL
+      LEFT OUTER JOIN
+        (#{watching.to_sql}) AS watchlists
+      ON
+        watchlists.watcher_id = users.id
+    SQL
+  end
+
+  def self.favorites_join
+    <<-SQL
+      LEFT OUTER JOIN
+        favorites
+      ON
+        favorites.favoriter_id = users.id
+    SQL
+  end
+
   def destroy_followers_for_demo_user
     return true unless demo_user?
 

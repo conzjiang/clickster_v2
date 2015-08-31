@@ -284,6 +284,27 @@ describe User do
     end
   end
 
+  describe "#watchlist_shows_with_statuses" do
+    let!(:watchlist_shows) do
+      (0..2).map do
+        create(:watchlist, watcher: user, status: "Watching").tv_show
+      end
+    end
+
+    before :each do
+      create(:tv_show)
+    end
+
+    it "returns the user's watchlist shows" do
+      expect(user.watchlist_shows_with_statuses).to eq(watchlist_shows)
+    end
+
+    it "appends a watch_status attribute to each TV show" do
+      watchlist_show = user.watchlist_shows_with_statuses.first
+      expect(watchlist_show.watch_status).to eq("Watching")
+    end
+  end
+
   describe "#destroy_followers_for_demo_user" do
     before :each do
       4.times { create(:user).follow!(user) }

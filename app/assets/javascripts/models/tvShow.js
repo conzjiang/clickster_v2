@@ -11,7 +11,7 @@ Clickster.Models.TvShow = Backbone.Model.extend({
       success: function (data) {
         var watchlists = Clickster.currentUser.watchlists();
         data.on_watchlist ? watchlists.add(this) : watchlists.remove(this);
-        if (options && options.success) options.success(data);
+        if (options.success) options.success(data);
       }.bind(this)
     });
   },

@@ -1,21 +1,16 @@
 Clickster.Views.MiniCardView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
-    this.$el.data("id", this.tvId());
+    this.$el.data("id", this.tv.id);
   },
 
   template: JST["tv_shows/miniCard"],
 
   tagName: "li",
 
-  tvId: function () {
-    return this.tv.id || this.tv.get("tv_show_id");
-  },
-
   render: function () {
     var content = this.template({
-      tv: this.tv,
-      tvId: this.tvId()
+      tv: this.tv
     });
 
     this.$el.html(content);

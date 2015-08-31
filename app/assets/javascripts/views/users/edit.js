@@ -24,7 +24,6 @@ Clickster.Views.UserEditView = Backbone.View.extend({
 
   updateProfile: function (e) {
     var params = $(e.target).serializeJSON().user;
-    var passwordFields = ["password", "new_password", "password_confirmation"];
     var that = this;
 
     e.preventDefault();
@@ -33,13 +32,9 @@ Clickster.Views.UserEditView = Backbone.View.extend({
 
     this.user.save(params, {
       success: function (data) {
-        var username = that.user.get("username");
-
-        _(passwordFields).each(function (field) {
-          that.user.unset(field);
+        Backbone.history.navigate("users/" + that.user.get("username"), {
+          trigger: true
         });
-
-        Backbone.history.navigate("users/" + username, { trigger: true });
       },
       error: function (model, data) {
         that.$(":input").prop("disabled", false);

@@ -12,7 +12,7 @@ class Api::CurrentUsersController < ApplicationController
   end
 
   def update
-    if params[:password].present?
+    if password_params[:password].present?
       return if !validate_password
     end
 
@@ -35,10 +35,18 @@ class Api::CurrentUsersController < ApplicationController
     params.require(:current_user).permit(:username, :email, :image_url)
   end
 
+  def password_params
+    params.require(:current_user).permit(
+      :password,
+      :new_password,
+      :password_confirmation
+    )
+  end
+
   def validate_password
-    password = params[:password]
-    new_password = params[:new_password]
-    password_confirmation = params[:password_confirmation]
+    password = password_params[:password]
+    new_password = password_params[:new_password]
+    password_confirmation = password_params[:password_confirmation]
 
     return true unless new_password.present?
 

@@ -30,6 +30,20 @@ Clickster.Models.CurrentUser = Clickster.Models.User.extend({
     }, options));
   },
 
+  passwordFields: ["password", "new_password", "password_confirmation"],
+
+  save: function (attrs, options) {
+    var success = Utils.success(options);
+
+    return Clickster.Models.User.prototype.save.call(this, attrs, _.extend({
+      method: "put",
+      success: function (model, data) {
+        _(this.passwordFields).each(this.unset.bind(this));
+        success && success(model, data);
+      }.bind(this)
+    }, options));
+  },
+
   signedIn: function () {
     return !!this.get("username");
   },

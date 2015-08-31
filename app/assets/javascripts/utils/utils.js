@@ -1,6 +1,19 @@
 (function (root) {
   var Utils = root.Utils = root.Utils || {};
 
+
+  Utils.success = function (options) {
+    var success;
+
+    if (options && options.success) {
+      success = options.success;
+      delete options.success;
+    }
+
+    return success;
+  };
+
+
   Utils.capitalize = function (string) {
     var firstLetter = string.charAt(0).toUpperCase();
     return firstLetter + string.slice(1);

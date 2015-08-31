@@ -29,6 +29,7 @@ class Api::CurrentUsersController < ApplicationController
   end
 
   def validate_password
+    return if password_params.blank?
     password = ValidatePassword.new(current_user, password_params).go
     render json: password.error, status: 422 if !password.valid?
   end

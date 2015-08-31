@@ -1,9 +1,9 @@
-var allClasses = "search sign-in dropdown transition";
-var minusClass = function (popOutClass) {
-  var classes = allClasses.split(" ");
+Clickster.allClasses = "search sign-in dropdown transition";
+Clickstser.minusClass = function (popOutClass) {
+  var classes = this.allClasses.split(" ");
   var classIndex = classes.indexOf(popOutClass);
 
-  classes.splice(classIndex, 1)
+  classes.splice(classIndex, 1);
   return classes.join(" ");
 };
 
@@ -23,14 +23,13 @@ Clickster.Views.Nav = Backbone.View.extend({
   },
 
   toggleSearch: function () {
-    var options = {
-      View: Clickster.Views.SearchFormView,
-      className: "search"
-    };
-
     this.$el.removeClass("relative");
 
-    this._togglePopout(options);
+    this._togglePopout({
+      View: Clickster.Views.SearchFormView,
+      className: "search"
+    });
+
     this._bindCoverClick();
   },
 
@@ -46,6 +45,14 @@ Clickster.Views.Nav = Backbone.View.extend({
       this._closePopout();
       this._closeSearch();
     }.bind(this));
+  },
+
+  _closePopout: function () {
+    this.$(".pop-out").removeClass(Clickster.allClasses);
+  },
+
+  _closeSearch: function () {
+    Clickster.eventManager.trigger("offSearch");
   },
 
   goToProfile: function () {
@@ -66,21 +73,64 @@ Clickster.Views.Nav = Backbone.View.extend({
   },
 
   toggleMenu: function () {
-    var options = {
+    this._togglePopout({
       View: Clickster.Views.DropdownView,
       className: "dropdown"
-    };
+    });
+  },
 
-    this._togglePopout(options);
+  _togglePopout: function (options) {
+    var $popout = this.$(".pop-out");
+
+    $popout.
+      removeClass(Clickster.minusClass(options.className)).
+      toggleClass(options.className);
+
+    this._closeSearch();
+
+    if ($popout.hasClass(options.className)) {
+      var popoutView = new options.View();
+      this._swapPopout(popoutView);
+    }
+  },
+
+  _swapPopout: function (view) {
+    if (this._currentPopout) this._currentPopout.remove();
+    this._currentPopout = view;
+    this.$(".pop-out").append(view.render().$el);
+    view.onRender && view.onRender();
+
+    setTimeout(function () {
+      this.$(".pop-out").addClass("transition");
+    }.bind(this), 0);
   },
 
   toggleSignIn: function () {
-    var options = {
+    this._togglePopout({
       View: Clickster.Views.SignInView,
       className: "sign-in"
-    };
+    });
+  },
 
-    this._togglePopout(options);
+  _setUpClickListener: function () {
+    var that = this;
+    var firstClick = true;
+
+    $("body").on("click", function (event) {
+      if (firstClick) {
+        firstClick = false;
+        return;
+      }
+      var $target = $(event.target);
+      var otherNav = $target.closest(".nav-link").length;
+      var clickedDropdown = !!$target.closest(".dropdown").length;
+      var outsideNav = !$target.closest("nav").length;
+
+      if (otherNav || clickedDropdown || outsideNav) {
+        that._closePopout();
+        $(this).off("click");
+      }
+    });
   },
 
   render: function () {
@@ -110,64 +160,9 @@ Clickster.Views.Nav = Backbone.View.extend({
     }
   },
 
-  _togglePopout: function (options) {
-    var $popout = this.$(".pop-out");
-
-    $popout.
-      removeClass(minusClass(options.className)).
-      toggleClass(options.className);
-
-    this._closeSearch();
-
-    if ($popout.hasClass(options.className)) {
-      var popoutView = new options.View();
-      this._swapPopout(popoutView);
-    }
-  },
-
-  _swapPopout: function (view) {
-    if (this._currentPopout) this._currentPopout.remove();
-    this._currentPopout = view;
-    this.$(".pop-out").append(view.render().$el);
-    view.onRender && view.onRender();
-
-    setTimeout(function () {
-      this.$(".pop-out").addClass("transition");
-    }.bind(this), 0);
-  },
-
-  _setUpClickListener: function () {
-    var that = this;
-    var firstClick = true;
-
-    $("body").on("click", function (event) {
-      if (firstClick) {
-        firstClick = false;
-        return;
-      }
-      var $target = $(event.target);
-      var otherNav = $target.closest(".nav-link").length;
-      var clickedDropdown = !!$target.closest(".dropdown").length;
-      var outsideNav = !$target.closest("nav").length;
-
-      if (otherNav || clickedDropdown || outsideNav) {
-        that._closePopout();
-        $(this).off("click");
-      }
-    });
-  },
-
-  _closePopout: function () {
-    this.$(".pop-out").removeClass(allClasses);
-  },
-
-  _closeSearch: function () {
-    Clickster.eventManager.trigger("offSearch");
-  },
-
   remove: function () {
     if (this._currentPopout) this._currentPopout.remove();
     $("body").off("click");
-    return Backbone.View.prototype.remove.apply(this);
+    Backbone.View.prototype.remove.call(this);
   }
 });

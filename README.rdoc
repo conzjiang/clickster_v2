@@ -13,6 +13,10 @@ New features:
 * Refactor FB sign-in to its own view
 * Refactor feed into its own view
 
+== To refactor
+* Utils.renderErrors -> View prototype
+* filepicker uploads -> View prototype
+
 == Nice to have
 
 * Boyer-Moore algorithm for faster search lookup

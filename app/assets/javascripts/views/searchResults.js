@@ -1,4 +1,4 @@
-Clickster.Views.SearchResultsView = Backbone.TvCardView.extend({
+Clickster.Views.SearchResultsView = Backbone.TvCardsView.extend({
   initialize: function (options) {
     if (options.params && !options.model) {
       this.model = Clickster.searchResults.getOrFetch(options.params);

@@ -1,4 +1,4 @@
-Backbone.TvCardView = Backbone.View.extend({
+Backbone.TvCardsView = Backbone.View.extend({
   subviews: function () {
     this._subviews = this._subviews || [];
     return this._subviews;

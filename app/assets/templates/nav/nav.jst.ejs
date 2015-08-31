@@ -1,7 +1,7 @@
 <h1><a class="logo" href="#">Clickster</a></h1>
 
 <ul class="links group">
-  <li class="surf">
+  <li class="nav-link surf">
     <button class="nav open-search icon-search" type="button"></button>
     <a class="nav" href="javascript:void(0)">Surf</a>
   </li>
@@ -10,13 +10,13 @@
     <% var username = Clickster.currentUser.escape("username") %>
     <% var url = "#/users/" + username %>
 
-    <li class="profile">
+    <li class="nav-link profile">
       <button class="nav profile-button" type="button"></button>
       <a class="nav" href="<%= url %>"><%= username %></a>
     </li>
   <% } %>
 
-  <li class="guide">
+  <li class="nav-link guide">
     <button class="tv-hamburger"><span class="antenna"></span></button>
     <a class="nav" href="javascript:void(0)">
       <% if (signedIn) { %>

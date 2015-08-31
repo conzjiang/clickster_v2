@@ -31,6 +31,21 @@ Clickster.Views.Nav = Backbone.View.extend({
     this.$el.removeClass("relative");
 
     this._togglePopout(options);
+    this._bindCoverClick();
+  },
+
+  _bindCoverClick: function () {
+    var firstClick;
+
+    $(".cover").one("click", function () {
+      if (!firstClick) {
+        firstClick = true;
+        return;
+      }
+
+      this._closePopout();
+      this._closeSearch();
+    }.bind(this));
   },
 
   goToProfile: function () {
@@ -46,6 +61,8 @@ Clickster.Views.Nav = Backbone.View.extend({
     } else {
       this.toggleSignIn();
     }
+
+    this._setUpClickListener();
   },
 
   toggleMenu: function () {
@@ -96,7 +113,8 @@ Clickster.Views.Nav = Backbone.View.extend({
   _togglePopout: function (options) {
     var $popout = this.$(".pop-out");
 
-    $popout.removeClass(minusClass(options.className)).
+    $popout.
+      removeClass(minusClass(options.className)).
       toggleClass(options.className);
 
     this._closeSearch();
@@ -116,8 +134,6 @@ Clickster.Views.Nav = Backbone.View.extend({
     setTimeout(function () {
       this.$(".pop-out").addClass("transition");
     }.bind(this), 0);
-
-    this._setUpClickListener();
   },
 
   _setUpClickListener: function () {
@@ -130,16 +146,19 @@ Clickster.Views.Nav = Backbone.View.extend({
         return;
       }
       var $target = $(event.target);
-      var otherNav = $target.is(".profile-button") || $target.is(".logo");
+      var otherNav = $target.closest(".nav-link").length;
       var clickedDropdown = !!$target.closest(".dropdown").length;
       var outsideNav = !$target.closest("nav").length;
 
       if (otherNav || clickedDropdown || outsideNav) {
-        that.$(".pop-out").removeClass(allClasses);
-        that._closeSearch();
+        that._closePopout();
         $(this).off("click");
       }
     });
+  },
+
+  _closePopout: function () {
+    this.$(".pop-out").removeClass(allClasses);
   },
 
   _closeSearch: function () {

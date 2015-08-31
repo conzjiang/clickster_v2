@@ -53,14 +53,8 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   userShow: function (username) {
-    var user;
-
-    if (Clickster.currentUser.get("username") === username) {
-      user = Clickster.currentUser;
-    } else {
-      user = new Clickster.Models.User({ username: username });
-      user.fetch();
-    }
+    var user = new Clickster.Models.User({ username: username });
+    user.fetch();
 
     var userView = new Clickster.Views.UserShowView({ user: user });
     this._swapView(userView);

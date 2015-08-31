@@ -98,7 +98,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
   renderErrors: function (errors) {
     this.$('.errors').empty();
 
-    _(errors).each(function (error) {
+    _(errors || ["Something went wrong."]).each(function (error) {
       this.$('.errors').append('<li>' + error + '</li>');
     }.bind(this));
   },

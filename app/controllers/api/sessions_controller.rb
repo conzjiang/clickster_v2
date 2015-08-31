@@ -7,7 +7,7 @@ class Api::SessionsController < ApplicationController
 
     if @user
       sign_in!(@user)
-      render 'api/users/show'
+      render 'api/current_users/show'
     else
       render json: ['Incorrect username/password'], status: 422
     end
@@ -16,12 +16,12 @@ class Api::SessionsController < ApplicationController
   def demo
     @user = CreateDemoUser.go!
     sign_in!(@user)
-    render 'api/users/show'
+    render 'api/current_users/show'
   end
 
   def facebook
     @user = User.find_or_create_by_omniauth_params(params[:facebook])
     sign_in!(@user)
-    render 'api/users/show'
+    render 'api/current_users/show'
   end
 end

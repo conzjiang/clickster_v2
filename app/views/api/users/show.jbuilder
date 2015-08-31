@@ -1,4 +1,4 @@
-json.extract! @user, :id, :username, :image_url
+json.extract! @user, :username, :image_url
 json.partial! @user, partial: 'api/users/user', as: :user
 
 if @user.created_at > 1.minute.ago

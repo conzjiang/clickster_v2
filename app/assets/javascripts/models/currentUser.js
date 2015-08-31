@@ -6,8 +6,9 @@ Clickster.Models.CurrentUser = Clickster.Models.User.extend({
   url: 'api/current_user',
 
   signIn: function (options) {
+    var success;
     if (options) {
-      var success = options.success;
+      success = options.success;
       delete options.success;
     }
 
@@ -30,7 +31,7 @@ Clickster.Models.CurrentUser = Clickster.Models.User.extend({
   },
 
   signedIn: function () {
-    return !this.isNew();
+    return !!this.get("username");
   },
 
   toJSON: function () {

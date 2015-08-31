@@ -1,8 +1,2 @@
-user = User.includes(
-  watchlists: :tv_show,
-  favorites: :tv_show
-).find(current_user.id)
-
-json.extract! user, :id, :username, :email, :is_admin, :image_url
-json.partial! user, partial: '/api/users/user', as: :user
-json.isDemoUser user.demo_user?
+json.extract! current_user, :username, :image_url, :email, :is_admin
+json.isDemoUser current_user.demo_user?

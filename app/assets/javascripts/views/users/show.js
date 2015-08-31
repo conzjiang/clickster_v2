@@ -50,7 +50,7 @@ Clickster.Views.UserShowView = Backbone.View.extend({
   },
 
   error: function () {
-    this.$el.html("User not found");
+    this.$el.removeClass("max").html(JST["404"]());
   },
 
   renderImageTiles: function () {

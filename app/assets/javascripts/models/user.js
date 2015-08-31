@@ -52,8 +52,8 @@ Clickster.Models.User = Backbone.Model.extend({
     }
 
     if (status) {
-      return this._watchlists.filter(function (watchlist) {
-        return watchlist.get("status") === status;
+      return this._watchlists.filter(function (tv) {
+        return tv.get("watch_status") === status;
       });
     }
 

@@ -12,7 +12,7 @@ class Api::SearchesController < ApplicationController
     params[:tv_ids] ||= []
     params[:user_ids] ||= []
 
-    @tv_results = Tv.find(params[:tv_ids])
+    @tv_results = TvShow.find(params[:tv_ids])
     @user_results = User.with_watch_and_favorite_count.find(params[:user_ids])
 
     render :search

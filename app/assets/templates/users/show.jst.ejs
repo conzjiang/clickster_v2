@@ -13,11 +13,11 @@
   <h1><%= user.escape("username") %></h1>
 
   <p class="watching icon-watchlist">
-    Watching <%= Utils.pluralize(user.watchNum(), "show") %>
+    Watching <%= Utils.pluralize(user.get("watch_count"), "show") %>
   </p>
 
   <p class="favorites icon-full-heart">
-    <%= Utils.pluralize(user.favoriteCount(), "favorite show") %>
+    <%= Utils.pluralize(user.get("favorite_count"), "favorite show") %>
   </p>
 
   <button type="button" class="follow"></button>
@@ -31,14 +31,14 @@
   <% _(allStatuses).each(function (status) { %>
     <article class="list">
       <% var listItems = user.watchlists(status) %>
-      <% if (status === "Favorites") listItems = user.favorites().models %>
+      <% if (status === "Favorites") listItems = user.favorites() %>
 
       <h2><%= status %> (<%= listItems.length %>)</h2>
 
       <% if (listItems.length) { %>
         <ul class="tv-cards group">
-          <% _(listItems).each(function (item) { %>
-            <%= tvCard({ tv: item }) %>
+          <% listItems.forEach(function (item) { %>
+            <li><%= tvCard({ tv: item }) %></li>
           <% }) %>
         </ul>
       <% } else { %>

@@ -1,9 +1,10 @@
-json.watchlists user.watchlist_shows do |tv|
-  json.extract! tv, :id, :title
+json.watchlists user.watchlist_shows_with_statuses do |tv|
+  json.extract! tv, :id, :title, :image_url
+  json.watch_status tv.watch_status
 end
 
 json.favorites user.favorite_shows do |tv|
-  json.extract! tv, :id, :title
+  json.extract! tv, :id, :title, :image_url
 end
 
 json.is_following do
@@ -15,3 +16,5 @@ json.is_following do
 end
 
 json.is_current_user current_user == user
+json.watch_count user.watch_count
+json.favorite_count user.favorite_count

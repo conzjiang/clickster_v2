@@ -2,7 +2,7 @@ Clickster.Views.UserShowView = Backbone.View.extend({
   initialize: function (options) {
     this.user = options.user;
     this.listenTo(this.user, "sync", this.render);
-    this.listenTo(this.user, "notFound", this.error);
+    this.listenTo(this.user, "error", this.error);
   },
 
   className: "user-show max",
@@ -14,40 +14,37 @@ Clickster.Views.UserShowView = Backbone.View.extend({
   },
 
   toggleFollow: function () {
-    var message, followCallback;
+    var message;
 
-    message = this.user.get("is_following") ? "Unfollowing..." : "Following...";
+    if (this.user.get("is_following")) {
+      message = "Unfollowing...";
+    } else {
+      message = "Following...";
+    }
 
     this.$(".follow").html(message).prop("disabled", true);
 
-    followCallback = function () {
-      this.$(".follow").prop("disabled", false);
-      this.setFollowStatus();
-    }.bind(this);
-
     this.user.follow({
       success: function () {
-        setTimeout(followCallback, 1000);
-      }
+        setTimeout(function () {
+          this.$(".follow").prop("disabled", false);
+          this.setFollowStatus();
+        }.bind(this), 1000);
+      }.bind(this)
     });
   },
 
   render: function () {
-    var allStatuses = Clickster.LIST_STATUSES.concat(["Favorites"]);
     var content = this.template({
       user: this.user,
-      allStatuses: allStatuses,
+      allStatuses: Clickster.LIST_STATUSES.concat(["Favorites"]),
       tvCard: JST["tv_shows/miniCard"]
     });
 
-    if (this.user.notFound) {
-      this.error();
-    } else {
-      this.$el.html(content);
-      this.renderImageTiles();
-      this.setFollowStatus();
-      this.ellipsis();
-    }
+    this.$el.html(content);
+    this.renderImageTiles();
+    this.setFollowStatus();
+    this.ellipsis();
 
     return this;
   },

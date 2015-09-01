@@ -25,6 +25,22 @@ Clickster.Models.User = Backbone.Model.extend({
     });
   },
 
+  followers: function () {
+    if (!this._followers) {
+      this._followers = new Clickster.Collections.Users();
+    }
+
+    return this._followers;
+  },
+
+  idols: function () {
+    if (!this._idols) {
+      this._idols = new Clickster.Collections.Users();
+    }
+
+    return this._idols;
+  },
+
   parse: function (response) {
     if (response.watchlists) {
       this.watchlists().set(response.watchlists);
@@ -34,6 +50,16 @@ Clickster.Models.User = Backbone.Model.extend({
     if (response.favorites) {
       this.favorites().set(response.favorites);
       delete response.favorites;
+    }
+
+    if (response.followers) {
+      this.followers().set(response.followers);
+      delete response.followers;
+    }
+
+    if (response.idols) {
+      this.idols().set(response.idols);
+      delete response.idols;
     }
 
     return response;

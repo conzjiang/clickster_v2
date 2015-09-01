@@ -28,6 +28,19 @@
 </header>
 
 <section class="lists main-content">
+  <form class="inner-nav">
+    <fieldset>
+      <input id="watchlists" type="radio" name="goTo" value="watchlists">
+      <label for="watchlists">Watchlists</label>
+    </fieldset>
+
+    <fieldset>
+      <input id="followers" type="radio" name="goTo" value="followers">
+      <label for="followers">Followers</label>
+    </fieldset>
+  </form>
+
+
   <% _(allStatuses).each(function (status) { %>
     <article class="list">
       <% var listItems = user.watchlists(status) %>

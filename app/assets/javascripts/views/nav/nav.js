@@ -1,5 +1,5 @@
 Clickster.allClasses = "search sign-in dropdown transition";
-Clickstser.minusClass = function (popOutClass) {
+Clickster.minusClass = function (popOutClass) {
   var classes = this.allClasses.split(" ");
   var classIndex = classes.indexOf(popOutClass);
 

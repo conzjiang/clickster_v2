@@ -48,9 +48,7 @@
 
     this.$ellipse = this.$(el || ".content");
     if (!this.$ellipse.length) return;
-    if (!this.ellipsing) return;
 
-    this.ellipsing = true;
     this.$ellipse.ellipsis();
 
     _.extend(this, {

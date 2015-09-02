@@ -4,7 +4,9 @@ class CreateDemoUser
   attr_reader :demo_user
 
   def self.go!
-    self.new(new_demo_user!).go!
+    self.new(new_demo_user!({
+      image_url: "guest#{rand(5) + 1}.jpg"
+    })).go!
   end
 
   def self.new_demo_user!(attrs = {})
@@ -90,10 +92,10 @@ class CreateDemoUser
   private
 
   def create_follower!
-    username = random_username
+    username = usernames.pop
 
     follower = self.class.new_demo_user!({
-      username: username,
+      username: "#{username}#{rand(100)}",
       image_url: "#{username}.jpg"
     })
 
@@ -116,8 +118,7 @@ class CreateDemoUser
     @activities = activities.shuffle!
   end
 
-  def random_username
+  def usernames
     @usernames ||= USERNAMES.shuffle
-    "#{@usernames.pop}#{rand(100)}"
   end
 end

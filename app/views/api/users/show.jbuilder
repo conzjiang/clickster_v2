@@ -1,4 +1,5 @@
-json.extract! @user, :username, :image_url
+json.extract! @user, :username
+json.image_url asset_path(@user.image_url)
 
 json.watchlists @user.watchlist_shows_with_statuses do |tv|
   json.extract! tv, :id, :title, :image_url

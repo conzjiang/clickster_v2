@@ -34,14 +34,13 @@ class User < ActiveRecord::Base
 
   after_initialize :ensure_session_token
 
-  def self.create_demo_user!(username = nil)
-    username ||= "guest#{SecureRandom.urlsafe_base64(3)}"
+  def self.create_demo_user!(attrs = {})
+    attrs[:username] ||= "guest#{SecureRandom.urlsafe_base64(3)}"
 
     create!({
-      username: username,
-      email: "#{username}@example.com",
+      email: "#{attrs[:username]}@example.com",
       password: SecureRandom.urlsafe_base64(6)
-    })
+    }.merge!(attrs))
   end
 
   def self.find_by_credentials(identifier, password)

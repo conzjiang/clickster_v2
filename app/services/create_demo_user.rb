@@ -7,8 +7,8 @@ class CreateDemoUser
     self.new(new_demo_user!).go!
   end
 
-  def self.new_demo_user!(username = nil)
-    User.create_demo_user!(username)
+  def self.new_demo_user!(attrs = {})
+    User.create_demo_user!(attrs)
   end
 
   def self.tv_shows
@@ -90,7 +90,10 @@ class CreateDemoUser
   private
 
   def create_follower!
-    follower = self.class.new_demo_user!(random_username)
+    follower = self.class.new_demo_user!({
+      username: random_username
+    })
+
     follower.follow!(demo_user)
     follower
   end

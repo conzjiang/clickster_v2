@@ -8,9 +8,14 @@ describe CreateDemoUser do
       CreateDemoUser.new_demo_user!
     end
 
-    it "creates a new demo user with username if given" do
-      expect(User).to receive(:create_demo_user!).with("abc")
-      CreateDemoUser.new_demo_user!("abc")
+    it "creates a new demo user with attributes if given" do
+      expect(User).to receive(:create_demo_user!).with({
+        image_url: "abc"
+      })
+
+      CreateDemoUser.new_demo_user!({
+        image_url: "abc"
+      })
     end
   end
 
@@ -184,11 +189,15 @@ describe CreateDemoUser do
 
   describe "#set_up_follows!" do
     it "creates follows for the demo user" do
+      allow(service).to receive(:set_up_feed_activity!)
+
       expect(service).to receive(:create_followers!)
       service.set_up_follows!
     end
 
     it "sets up feed activity for the demo user" do
+      allow(service).to receive(:create_followers!)
+
       expect(service).to receive(:set_up_feed_activity!)
       service.set_up_follows!
     end

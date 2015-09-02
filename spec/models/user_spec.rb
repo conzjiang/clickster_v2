@@ -72,13 +72,21 @@ describe User do
       expect(user.is_password?(nil)).to be false
     end
 
-    it "uses username if given" do
-      user = User.create_demo_user!("username")
+    it "uses attributes if given" do
+      user = User.create_demo_user!({
+        username: "username",
+        image_url: "abc"
+      })
+
       expect(user.username).to eq("username")
+      expect(user.image_url).to eq("abc")
     end
 
     it "generates email as [username]@example.com" do
-      user = User.create_demo_user!("conz")
+      user = User.create_demo_user!({
+        username: "conz"
+      })
+
       expect(user.email).to eq("conz@example.com")
     end
   end

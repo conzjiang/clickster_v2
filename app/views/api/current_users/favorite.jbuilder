@@ -1,1 +1,0 @@
-json.partial! 'api/lists/favorite', favorite: @favorite

@@ -27,7 +27,7 @@ Clickster.Views.UserEditView = Backbone.View.extend({
     var that = this;
 
     e.preventDefault();
-    if (!this._validatePassword(params)) return;
+    if (params && !this._validatePassword(params)) return;
     this.$(":input").prop("disabled", true);
 
     this.user.save(params, {

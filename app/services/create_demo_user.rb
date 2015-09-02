@@ -90,8 +90,11 @@ class CreateDemoUser
   private
 
   def create_follower!
+    username = random_username
+
     follower = self.class.new_demo_user!({
-      username: random_username
+      username: username,
+      image_url: "#{username}.jpg"
     })
 
     follower.follow!(demo_user)

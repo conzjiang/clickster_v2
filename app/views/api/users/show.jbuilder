@@ -10,12 +10,10 @@ json.favorites @user.favorite_shows do |tv|
   json.extract! tv, :id, :title, :image_url
 end
 
-json.is_following do
-  if !signed_in? || current_user == @user
-    false
-  else
-    current_user.following?(@user)
-  end
+if !signed_in? || current_user == @user
+  json.is_following false
+else
+  json.is_following current_user.following?(@user)
 end
 
 json.is_current_user current_user == @user

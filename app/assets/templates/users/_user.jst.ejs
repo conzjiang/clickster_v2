@@ -1,0 +1,23 @@
+<li class="group">
+  <a class="image-block" href="#/users/<%= user.escape("username") %>">
+    <img src="<%= user.escape("image_url") %>">
+  </a>
+
+  <div class="content ignore">
+    <h3>
+      <a href="#/users/<%= user.escape("username") %>">
+        <%= user.escape("username") %>
+      </a>
+    </h3>
+
+    <ul class="stats group">
+      <li class="watchlist icon-watchlist">
+        <%= user.escape("watch_count") %>
+      </li>
+
+      <li class="favorite icon-full-heart">
+        <%= user.escape("favorite_count") %>
+      </li>
+    </ul>
+  </div>
+</li>

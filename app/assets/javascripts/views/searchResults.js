@@ -13,7 +13,7 @@ Clickster.Views.SearchResultsView = Backbone.TvCardsView.extend({
   className: "search-results",
 
   template: JST["searches/results"],
-  userTemplate: JST["searches/user"],
+  userTemplate: JST["users/_user"],
 
   events: {
     "change input[type=radio]": "sort"

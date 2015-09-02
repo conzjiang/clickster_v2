@@ -9,8 +9,8 @@ if signed_in?
   if on_watchlist
     json.watch_status(
       current_user.watchlists.find do |list|
-        list.tv_show_id == tv_show.id }.status
-      end
+        list.tv_show_id == tv_show.id
+      end.status
     )
   end
 end

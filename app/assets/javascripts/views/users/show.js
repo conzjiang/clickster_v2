@@ -1,6 +1,8 @@
 Clickster.Views.UserShowView = Backbone.View.extend({
   initialize: function (options) {
     this.user = options.user;
+    this.selected = "Watchlists";
+
     this.listenTo(this.user, "sync", this.render);
     this.listenTo(this.user, "error", this.error);
   },
@@ -8,9 +10,12 @@ Clickster.Views.UserShowView = Backbone.View.extend({
   className: "user-show max",
 
   template: JST["users/show"],
+  watchlistsTemplate: JST["users/_watchlists"],
+  followersTemplate: JST["users/_followers"],
 
   events: {
-    "click .follow": "toggleFollow"
+    "click .follow": "toggleFollow",
+    "change input[type=radio]": "displayList"
   },
 
   toggleFollow: function () {
@@ -34,17 +39,20 @@ Clickster.Views.UserShowView = Backbone.View.extend({
     });
   },
 
+  displayList: function (e) {
+    this.selected = $(e.currentTarget).val();
+    this.renderSelected();
+  },
+
   render: function () {
     var content = this.template({
-      user: this.user,
-      allStatuses: Clickster.LIST_STATUSES.concat(["Favorites"]),
-      tvCard: JST["tv_shows/miniCard"]
+      user: this.user
     });
 
     this.$el.html(content);
     this.renderImageTiles();
     this.setFollowStatus();
-    this.ellipsis();
+    this.renderSelected();
 
     return this;
   },
@@ -78,5 +86,32 @@ Clickster.Views.UserShowView = Backbone.View.extend({
     } else {
       this.$(".follow").removeClass("is-following").html("Follow");
     }
+  },
+
+  renderSelected: function () {
+    this["render" + this.selected]();
+  },
+
+  renderWatchlists: function () {
+    var content = this.watchlistsTemplate({
+      user: this.user,
+      allStatuses: Clickster.LIST_STATUSES.concat(["Favorites"]),
+      tvCard: JST["tv_shows/miniCard"]
+    });
+
+    this.$(".lists").html(content);
+    this.ellipsis();
+  },
+
+  renderFollowers: function () {
+    var content = this.followersTemplate({
+      follows: {
+        Following: this.user.idols(),
+        Followers: this.user.followers()
+      },
+      userCard: JST["users/_user"]
+    });
+
+    this.$(".lists").html(content);
   }
 });

@@ -27,36 +27,16 @@
   <% } %>
 </header>
 
-<section class="lists main-content">
-  <form class="inner-nav">
-    <fieldset>
-      <input id="watchlists" type="radio" name="goTo" value="watchlists">
-      <label for="watchlists">Watchlists</label>
-    </fieldset>
+<form class="inner-nav">
+  <fieldset>
+    <input id="watchlists" type="radio" name="goTo" value="Watchlists">
+    <label for="watchlists">Watchlists</label>
+  </fieldset>
 
-    <fieldset>
-      <input id="followers" type="radio" name="goTo" value="followers">
-      <label for="followers">Followers</label>
-    </fieldset>
-  </form>
+  <fieldset>
+    <input id="followers" type="radio" name="goTo" value="Followers">
+    <label for="followers">Followers</label>
+  </fieldset>
+</form>
 
-
-  <% _(allStatuses).each(function (status) { %>
-    <article class="list">
-      <% var listItems = user.watchlists(status) %>
-      <% if (status === "Favorites") listItems = user.favorites() %>
-
-      <h2><%= status %> (<%= listItems.length %>)</h2>
-
-      <% if (listItems.length) { %>
-        <ul class="tv-cards group">
-          <% listItems.forEach(function (item) { %>
-            <li><%= tvCard({ tv: item }) %></li>
-          <% }) %>
-        </ul>
-      <% } else { %>
-        None!
-      <% } %>
-    </article>
-  <% }) %>
-</section>
+<section class="lists main-content"></section>

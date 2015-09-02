@@ -1,0 +1,18 @@
+<% _(allStatuses).each(function (status) { %>
+  <article class="list">
+    <% var listItems = user.watchlists(status) %>
+    <% if (status === "Favorites") listItems = user.favorites() %>
+
+    <h2><%= status %> (<%= listItems.length %>)</h2>
+
+    <% if (listItems.length) { %>
+      <ul class="tv-cards group">
+        <% listItems.forEach(function (item) { %>
+          <li><%= tvCard({ tv: item }) %></li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      None!
+    <% } %>
+  </article>
+<% }) %>

@@ -1,0 +1,17 @@
+<% for (var title in follows) { %>
+  <article class="list">
+    <% var followings = follows[title] %>
+
+    <h2><%= title %> (<%= followings.length %>)</h2>
+
+    <% if (followings.length) { %>
+      <ul class="tv-cards group">
+        <% followings.forEach(function (follow) { %>
+          <%= userCard({ user: follow }) %>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      None!
+    <% } %>
+  </article>
+<% } %>

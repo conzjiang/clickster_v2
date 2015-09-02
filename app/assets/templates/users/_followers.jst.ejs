@@ -5,7 +5,7 @@
     <h2><%= title %> (<%= followings.length %>)</h2>
 
     <% if (followings.length) { %>
-      <ul class="tv-cards group">
+      <ul class="user-cards group">
         <% followings.forEach(function (follow) { %>
           <%= userCard({ user: follow }) %>
         <% }) %>

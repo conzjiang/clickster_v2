@@ -248,15 +248,6 @@ section.tv-info {
       box-sizing: border-box;
     }
 
-    label {
-      display: block;
-      margin-bottom: 15px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #666;
-      text-transform: uppercase;
-    }
-
     ul.stats-info {
       line-height: 1.5;
     }
@@ -269,12 +260,21 @@ section.tv-info {
     ul.stats-info strong {
       font-size: 16px;
     }
+  }
 
-    aside {
-      display: block;
-      margin: 30px;
-      margin-bottom: 0;
-      font-size: 22px;
-    }
+  .rating {
+    display: block;
+    margin: 30px;
+    margin-bottom: 0;
+    font-size: 22px;
+  }
+
+  .stats-label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
   }
 }

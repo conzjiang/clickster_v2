@@ -42,11 +42,12 @@
       </ul>
 
       <span class="warning">You must be logged in to do that!</span>
+
       <p class="blurb"><%= tv.escape("blurb") %></p>
     </article>
 
     <article class="stats">
-      <label>Stats</label>
+      <label class="stats-label">Stats</label>
       <ul class="stats-info">
         <li>
           <%= tv.escape("status") %>
@@ -68,9 +69,10 @@
         </li>
       </ul>
 
-      <aside>
-        <label>IMDb Rating</label> <%= tv.escape("rating") %>
-      </aside>
+      <dl class="rating">
+        <dt class="stats-label">IMDb Rating</dt>
+        <dd><%= tv.escape("rating") %></dd>
+      </dl>
     </article>
   </div>
 </section>

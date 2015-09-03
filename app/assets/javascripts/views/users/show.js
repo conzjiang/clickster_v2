@@ -1,7 +1,7 @@
 Clickster.Views.UserShowView = Backbone.View.extend({
   initialize: function (options) {
     this.user = options.user;
-    this.selected = "Watchlists";
+    this.selected = options.selected || "Watchlists";
 
     this.listenTo(this.user, "sync", this.render);
     this.listenTo(this.user, "error", this.error);
@@ -51,6 +51,7 @@ Clickster.Views.UserShowView = Backbone.View.extend({
 
     this.$el.html(content);
     this.renderImageTiles();
+    this.setImageSize();
     this.setFollowStatus();
     this.renderSelected();
 
@@ -78,6 +79,21 @@ Clickster.Views.UserShowView = Backbone.View.extend({
     });
   },
 
+  setImageSize: function () {
+    var img = new Image();
+    var $image = this.$("#user-image");
+
+    img.onload = function () {
+      if (this.width > this.height) {
+        $image.addClass("big-width");
+      } else {
+        $image.addClass("big-height");
+      }
+    };
+
+    img.src = this.user.get("image_url");
+  },
+
   setFollowStatus: function () {
     if (this.user.get("is_following")) {
       this.$(".follow").addClass("is-following").html("Following");
@@ -90,6 +106,7 @@ Clickster.Views.UserShowView = Backbone.View.extend({
 
   renderSelected: function () {
     this["render" + this.selected]();
+    this.$("#" + this.selected).prop("checked", true);
   },
 
   renderWatchlists: function () {
@@ -101,6 +118,8 @@ Clickster.Views.UserShowView = Backbone.View.extend({
 
     this.$(".lists").html(content);
     this.ellipsis();
+
+    Backbone.history.navigate("users/" + this.user.get("username"));
   },
 
   renderFollowers: function () {
@@ -113,5 +132,9 @@ Clickster.Views.UserShowView = Backbone.View.extend({
     });
 
     this.$(".lists").html(content);
+
+    Backbone.history.navigate(
+      "users/" + this.user.get("username") + "/followers"
+    );
   }
 });

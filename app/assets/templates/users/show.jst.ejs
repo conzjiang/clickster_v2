@@ -7,7 +7,7 @@
   </ul>
 
   <figure>
-    <img src="<%= user.escape("image_url") %>">
+    <img id="user-image" src="<%= user.escape("image_url") %>">
   </figure>
 
   <h1><%= user.escape("username") %></h1>
@@ -29,13 +29,13 @@
 
 <form class="inner-nav">
   <fieldset>
-    <input id="watchlists" type="radio" name="goTo" value="Watchlists" checked>
-    <label for="watchlists">Watchlists</label>
+    <input id="Watchlists" type="radio" name="goTo" value="Watchlists">
+    <label for="Watchlists">Watchlists</label>
   </fieldset>
 
   <fieldset>
-    <input id="followers" type="radio" name="goTo" value="Followers">
-    <label for="followers">Followers</label>
+    <input id="Followers" type="radio" name="goTo" value="Followers">
+    <label for="Followers">Followers</label>
   </fieldset>
 </form>
 

@@ -1,6 +1,7 @@
 <li class="group">
-  <a class="image-block" href="#/users/<%= user.escape("username") %>">
-    <img src="<%= user.escape("image_url") %>">
+  <a class="image-block"
+    href="#/users/<%= user.escape("username") %>"
+    style="background-image: url(<%= user.escape("image_url") %>)">
   </a>
 
   <div class="content ignore">

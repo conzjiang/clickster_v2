@@ -5,9 +5,7 @@ Backbone.MiniCardsView = Backbone.View.extend({
   },
 
   renderMiniCards: function () {
-    this.removeSubviews();
-
-    this.tvShows().forEach(function (tv) {
+    this.collection.forEach(function (tv) {
       var tvView = new Clickster.Views.MiniCardView({ tv: tv });
       this.$(".tv-cards").append(tvView.render().$el);
       this.subviews().push(tvView);
@@ -23,7 +21,5 @@ Backbone.MiniCardsView = Backbone.View.extend({
     this.subviews().forEach(function (subview) {
       subview.remove();
     });
-
-    this._subviews = [];
   }
 });

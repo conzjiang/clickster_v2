@@ -1,7 +1,6 @@
 Clickster.Routers.AppRouter = Backbone.Router.extend({
   initialize: function (options) {
     this.$rootEl = $(options.rootEl);
-    this.currentViews = {};
 
     new Clickster.Views.Nav({ el: options.navbar }).render();
   },
@@ -36,7 +35,16 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   tvIndex: function () {
-    var indexView = new Clickster.Views.TvIndexView();
+    var adminShows = new Clickster.Collections.TvShows([], {
+      url: 'api/tv_shows/admin'
+    });
+
+    adminShows.fetch();
+
+    var indexView = new Clickster.Views.TvIndexView({
+      collection: adminShows
+    });
+
     this._swapView(indexView);
   },
 

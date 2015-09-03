@@ -16,28 +16,6 @@ Clickster.Collections.TvShows = Backbone.Collection.extend({
 
   model: Clickster.Models.TvShow,
 
-  admin: function () {
-    var that = this;
-
-    if (!this._fetchedAdmin) {
-      this._fetchedAdmin = true;
-
-      $.ajax({
-        type: "get",
-        url: this.url + "/admin",
-        dataType: "json",
-        success: function (data) {
-          that.add(data);
-          that.trigger("sync");
-        }
-      });
-    }
-
-    return this.filter(function (tv) {
-      return tv.get("belongs_to_admin");
-    });
-  },
-
   byGenre: function (genre) {
     var that = this;
 
@@ -55,16 +33,5 @@ Clickster.Collections.TvShows = Backbone.Collection.extend({
     }
 
     return _(this._requestedGenres[genre]).sortBy(this.comparator);
-  },
-
-  current: function () {
-    if (!this._requested) {
-      this._requested = true;
-      this.fetch();
-    }
-
-    return this.filter(function (tv) {
-      return tv.get("status") === "Currently Airing";
-    });
   }
 });

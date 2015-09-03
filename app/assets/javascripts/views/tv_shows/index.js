@@ -1,14 +1,10 @@
 Clickster.Views.TvIndexView = Backbone.MiniCardsView.extend({
   initialize: function () {
+    this.listenTo(this.collection, "sync", this.render);
     this.listenTo(Clickster.currentUser, "sync", this.render);
-    this.listenTo(Clickster.tvShows, "sync", this.render);
   },
 
   template: JST["tv_shows/index"],
-
-  tvShows: function () {
-    return Clickster.tvShows.admin();
-  },
 
   render: function () {
     if (Clickster.currentUser.get("is_admin")) {

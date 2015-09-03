@@ -6,18 +6,12 @@ Backbone.TvCardsView = Backbone.View.extend({
 
   renderCards: function () {
     this.collection.each(function (tv) {
-      this.addSubview({
-        $container: this.$("ul.tv-results"),
-        view: new Clickster.Views.TvCardView({ tv: tv })
-      });
+      var tvView = new Clickster.Views.TvCardView({ tv: tv });
+      this.$("ul.tv-results").append(tvView.render().$el);
+      this.subviews().push(tvView);
     }.bind(this));
 
     this.ellipsis();
-  },
-
-  addSubview: function (options) {
-    options.$container.append(options.view.render().$el);
-    this.subviews().push(options.view);
   },
 
   removeSubviews: function () {
@@ -28,6 +22,6 @@ Backbone.TvCardsView = Backbone.View.extend({
 
   remove: function () {
     this.removeSubviews();
-    return Backbone.View.prototype.remove.call(this);
+    Backbone.View.prototype.remove.call(this);
   }
 });

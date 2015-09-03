@@ -33,6 +33,6 @@ Clickster.Views.HomeView = Backbone.TvCardsView.extend({
 
   remove: function () {
     this.feedView && this.feedView.remove();
-    return Backbone.View.prototype.remove.call(this);
+    Backbone.View.prototype.remove.call(this);
   }
 });

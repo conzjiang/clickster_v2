@@ -16,7 +16,6 @@ New features:
 * filepicker uploads -> View prototype
 * Number to text conversion in Utils -> Clickster service object
 * FB sign-in -> own view
-* Feed -> own view
 
 == Nice to have
 

@@ -29,24 +29,26 @@
 
 <section class="tv-info main-content group">
   <div class="wrapper group">
-    <article class="info">
-      <ul class="statuses group">
-        <% _(Clickster.LIST_STATUSES).each(function (status) { %>
-          <li class="list icon-<%= Utils.hyphenate(status) %>"
-              data-option="<%= status %>">
-            <%= status %>
-          </li>
-        <% }) %>
+    <section class="tv-show-left">
+      <article class="info">
+        <ul class="statuses group">
+          <% _(Clickster.LIST_STATUSES).each(function (status) { %>
+            <li class="list icon-<%= Utils.hyphenate(status) %>"
+                data-option="<%= status %>">
+              <%= status %>
+            </li>
+          <% }) %>
 
-        <li class="favorite icon-empty-heart"><strong></strong>Favorite</li>
-      </ul>
+          <li class="favorite icon-empty-heart"><strong></strong>Favorite</li>
+        </ul>
 
-      <span class="warning">You must be logged in to do that!</span>
+        <span class="warning">You must be logged in to do that!</span>
 
-      <p class="blurb"><%= tv.escape("blurb") %></p>
-    </article>
+        <p class="blurb"><%= tv.escape("blurb") %></p>
+      </article>
+    </section>
 
-    <article class="stats">
+    <aside class="stats">
       <label class="stats-label">Stats</label>
       <ul class="stats-info">
         <li>
@@ -73,6 +75,6 @@
         <dt class="stats-label">IMDb Rating</dt>
         <dd><%= tv.escape("rating") %></dd>
       </dl>
-    </article>
+    </aside>
   </div>
 </section>

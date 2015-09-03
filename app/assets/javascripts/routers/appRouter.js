@@ -70,7 +70,10 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   searchResults: function (data) {
-    var searchView = new Clickster.Views.SearchResultsView({ params: data });
+    var searchView = new Clickster.Views.SearchResultsView({
+      model: Clickster.searchResults.getOrFetch(data)
+    });
+
     this._swapView(searchView);
   },
 

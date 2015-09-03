@@ -1,10 +1,7 @@
 Clickster.Views.SearchResultsView = Backbone.TvCardsView.extend({
-  initialize: function (options) {
-    if (options.params && !options.model) {
-      this.model = Clickster.searchResults.getOrFetch(options.params);
-    }
-
+  initialize: function () {
     this.comparator = "alpha";
+    this.collection = this.model.tvResults();
 
     this.listenTo(this.model, "sync", this.render);
     this.listenTo(this.model.tvResults(), "sort", this.render);
@@ -52,7 +49,7 @@ Clickster.Views.SearchResultsView = Backbone.TvCardsView.extend({
   },
 
   renderResults: function () {
-    this.renderCards(this.model.tvResults());
+    this.renderCards();
     this._renderUserResults();
   },
 

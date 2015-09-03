@@ -12,6 +12,7 @@ class TvShow < ActiveRecord::Base
   has_many :tv_decades, dependent: :destroy
   has_many :tv_genres, dependent: :destroy
   has_many :watchlists, dependent: :destroy
+  has_many :watchers, through: :watchlists
   has_many :favorites, dependent: :destroy
   has_many :favoriters, through: :favorites
 

@@ -23,7 +23,7 @@ class Api::TvShowsController < ApplicationController
   end
 
   def show
-    @tv_show = TvShow.find(params[:id])
+    @tv_show = TvShowInfo.new(TvShow.find(params[:id]), current_user.try(:id))
   end
 
   def admin

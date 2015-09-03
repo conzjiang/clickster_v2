@@ -21,11 +21,13 @@
   $(function () {
     Clickster.MAX_USERNAME_LENGTH = <%= User::MAX_USERNAME_LENGTH %>;
     Clickster.FbAppId = "<%= ENV['FB_APP_ID'] %>";
-    Clickster.DECADES = <%= TvDecade.decades.to_json.html_safe %>
-    Clickster.GENRES = <%= TvGenre.genres.to_json.html_safe %>
-    Clickster.TV_STATUSES = <%= TvShow.statuses_list.to_json.html_safe %>
-    Clickster.LIST_STATUSES = <%= Watchlist.statuses_list.to_json.html_safe %>
-    Clickster.genreExceptions = <%= @genre_exceptions.to_json.html_safe %>
+    Clickster.DECADES = <%= TvDecade.decades.to_json.html_safe %>;
+    Clickster.GENRES = <%= TvGenre.genres.to_json.html_safe %>;
+    Clickster.TV_STATUSES = <%= TvShow.statuses_list.to_json.html_safe %>;
+    Clickster.LIST_STATUSES = <%= Watchlist.statuses_list.to_json.html_safe %>;
+    Clickster.genreExceptions = <%= @genre_exceptions.to_json.html_safe %>;
+    Clickster.STATUS_MESSAGES =
+      <%= Watchlist::STATUS_MESSAGES.to_json.html_safe %>;
 
     Clickster.initialize({
       navbar: "nav",

@@ -3,6 +3,13 @@ class Watchlist < ActiveRecord::Base
 
   enum status: ["Watching", "Plan to Watch", "Completed", "Dropped"]
 
+  STATUS_MESSAGES = {
+    "Watching" => "is watching",
+    "Plan to Watch" => "plans to watch",
+    "Completed" => "has finished watching",
+    "Dropped" => "stopped watching"
+  }
+
   validates :watcher_id, uniqueness: { scope: :tv_show_id }
   validates :status, :watcher, presence: true
 
@@ -14,16 +21,7 @@ class Watchlist < ActiveRecord::Base
   end
 
   def feed_message
-    case status
-    when "Watching"
-      "is watching"
-    when "Plan to Watch"
-      "plans to watch"
-    when "Completed"
-      "has finished watching"
-    when "Dropped"
-      "stopped watching"
-    end
+    STATUS_MESSAGES[status]
   end
 
   def user

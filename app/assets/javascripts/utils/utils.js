@@ -55,6 +55,25 @@
     return singular + "s";
   };
 
+  var VERBS = {
+    is: "are",
+    has: "have"
+  };
+
+  Utils.pluralizeVerb = function (num, verbPhrase) {
+    var phrase = verbPhrase.split(" ");
+
+    if (num !== 1) {
+      if (VERBS[phrase[0]]) {
+        phrase[0] = VERBS[phrase[0]];
+      } else {
+        phrase[0] = phrase[0].slice(0, -1);
+      }
+    }
+
+    return phrase.join(" ");
+  };
+
   Utils.random = function (max) {
     return Math.floor(Math.random() * max);
   };

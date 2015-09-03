@@ -70,6 +70,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     this.setImage();
     this.setFavorite();
     this.setWatchlistStatus();
+    this.renderFollowerInfo();
 
     return this;
   },
@@ -108,5 +109,20 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     } else {
       this.$("li.list").removeClass("on-watchlist");
     }
+  },
+
+  renderFollowerInfo: function () {
+    this.followerInfoView && this.followerInfoView.remove();
+
+    this.followerInfoView = new Clickster.Views.FollowerInfoView({
+      tv: this.tv
+    });
+
+    this.$(".follower-info").html(this.followerInfoView.render().$el);
+  },
+
+  remove: function () {
+    this.followerInfoView && this.followerInfoView.remove();
+    Backbone.View.prototype.remove.call(this);
   }
 });

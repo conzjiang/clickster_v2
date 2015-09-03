@@ -18,7 +18,10 @@ class TvShowInfo
     return nil unless signed_in?
     return @watchers if @watchers
 
-    @watchers = tv_show.watchers.sort_by do |watcher|
+    @watchers = tv_show.watchers.
+      select("users.*, watchlists.status AS watch_status").
+      sort_by do |watcher|
+
       if current_user == watcher
         0
       elsif current_user.following?(watcher)

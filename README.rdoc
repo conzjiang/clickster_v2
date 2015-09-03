@@ -25,4 +25,3 @@ New features:
 * Ugh, can't find a nice way to render title block above rating in search results
 * Simulate latency on search/sign-in/etc so that the processes don't feel so abrupt
 * Ability to remove image from TV show
-* Restructure styles for statuses strip on TV show view so that scaleAndFade only affects icon and not whole li

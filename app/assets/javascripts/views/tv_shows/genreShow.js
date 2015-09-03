@@ -10,7 +10,6 @@ Clickster.Views.GenreShowView = Backbone.MiniCardsView.extend({
     var content = this.template({ genre: this.genre });
     this.$el.html(content);
     this.renderMiniCards();
-
     return this;
   },
 

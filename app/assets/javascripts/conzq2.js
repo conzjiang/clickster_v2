@@ -5,7 +5,6 @@ window.Clickster = {
   Routers: {},
   initialize: function(options) {
     this.currentUser = new Clickster.Models.CurrentUser();
-    this.tvShows = new Clickster.Collections.TvShows();
 
     this.filepickerOptions = {
       mimetype: "image/*",

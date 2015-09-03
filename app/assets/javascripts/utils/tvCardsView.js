@@ -4,8 +4,8 @@ Backbone.TvCardsView = Backbone.View.extend({
     return this._subviews;
   },
 
-  renderCards: function (tvs) {
-    tvs.forEach(function (tv) {
+  renderCards: function () {
+    this.collection.each(function (tv) {
       this.addSubview({
         $container: this.$("ul.tv-results"),
         view: new Clickster.Views.TvCardView({ tv: tv })

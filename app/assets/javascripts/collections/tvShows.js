@@ -1,6 +1,6 @@
 Clickster.Collections.TvShows = Backbone.Collection.extend({
-  initialize: function (options) {
-    if (options) this.user = options.user;
+  initialize: function (models, options) {
+    this.url = options.url;
     this._requestedGenres = {};
   },
 
@@ -15,8 +15,6 @@ Clickster.Collections.TvShows = Backbone.Collection.extend({
   },
 
   model: Clickster.Models.TvShow,
-
-  url: 'api/tv_shows',
 
   admin: function () {
     var that = this;
@@ -44,21 +42,19 @@ Clickster.Collections.TvShows = Backbone.Collection.extend({
     var that = this;
 
     if (!this._requestedGenres[genre]) {
-      this._requestedGenres[genre] = true;
+      this._requestedGenres[genre] = [];
 
       $.ajax({
         type: "get",
         url: "api/genres/" + Utils.hyphenate(genre),
         dataType: "json",
         success: function (data) {
-          that.add(data);
-        }
+          this._requestedGenres[genre] = that.add(data);
+        }.bind(this)
       });
     }
 
-    return this.filter(function (tv) {
-      return tv.belongsTo(genre);
-    });
+    return _(this._requestedGenres[genre]).sortBy(this.comparator);
   },
 
   current: function () {

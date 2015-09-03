@@ -22,7 +22,16 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   home: function () {
-    var homeView = new Clickster.Views.HomeView();
+    var currentShows = new Clickster.Collections.TvShows([], {
+      url: 'api/tv_shows'
+    });
+
+    currentShows.fetch();
+
+    var homeView = new Clickster.Views.HomeView({
+      collection: currentShows
+    });
+
     this._swapView(homeView);
   },
 

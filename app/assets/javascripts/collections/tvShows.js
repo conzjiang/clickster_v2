@@ -70,21 +70,5 @@ Clickster.Collections.TvShows = Backbone.Collection.extend({
     return this.filter(function (tv) {
       return tv.get("status") === "Currently Airing";
     });
-  },
-
-  getOrFetch: function (id) {
-    var tv = this.get(id);
-    var that = this;
-
-    if (!tv) {
-      tv = new this.model({ id: id });
-      tv.fetch({
-        success: function () {
-          that.add(tv);
-        }
-      });
-    }
-
-    return tv;
   }
 });

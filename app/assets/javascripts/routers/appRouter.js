@@ -103,7 +103,17 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   genreShow: function (genre) {
-    var genreShowView = new Clickster.Views.GenreShowView({ genre: genre });
+    var genreShows = new Clickster.Collections.TvShows([], {
+      url: 'api/genres/' + genre
+    });
+
+    genreShows.fetch();
+
+    var genreShowView = new Clickster.Views.GenreShowView({
+      collection: genreShows,
+      genre: Utils.dehyphenate(genre)
+    });
+
     this._swapView(genreShowView);
   },
 

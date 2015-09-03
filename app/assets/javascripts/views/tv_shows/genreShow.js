@@ -1,7 +1,7 @@
 Clickster.Views.GenreShowView = Backbone.MiniCardsView.extend({
   initialize: function (options) {
-    this.genre = Utils.dehyphenate(options.genre);
-    this.listenTo(Clickster.tvShows, "add", this.render);
+    this.genre = options.genre;
+    this.listenTo(this.collection, "sync", this.render);
   },
 
   template: JST["tv_shows/genreShow"],
@@ -11,9 +11,5 @@ Clickster.Views.GenreShowView = Backbone.MiniCardsView.extend({
     this.$el.html(content);
     this.renderMiniCards();
     return this;
-  },
-
-  tvShows: function () {
-    return Clickster.tvShows.byGenre(this.genre);
   }
 });

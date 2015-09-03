@@ -79,6 +79,12 @@ class Api::TvShowsController < ApplicationController
     render json: { on_watchlist: on_watchlist, watch_status: status }
   end
 
+  def watchers
+    @tv_show = Watchers.new(params.merge({
+      current_user_id: current_user.try(:id)
+    }))
+  end
+
   private
   def process_genre(genre)
     GenreService.new(genre).process

@@ -1,4 +1,4 @@
-<% _(allStatuses).each(function (status) { %>
+<% _(Clickster.ALL_LIST_STATUSES).each(function (status) { %>
   <article class="list">
     <% var listItems = user.watchlists(status) %>
     <% if (status === "Favorites") listItems = user.favorites() %>

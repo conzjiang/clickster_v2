@@ -25,6 +25,7 @@
     Clickster.GENRES = <%= TvGenre.genres.to_json.html_safe %>;
     Clickster.TV_STATUSES = <%= TvShow.statuses_list.to_json.html_safe %>;
     Clickster.LIST_STATUSES = <%= Watchlist.statuses_list.to_json.html_safe %>;
+    Clickster.ALL_LIST_STATUSES = Clickster.LIST_STATUSES.concat(["Favorites"]);
     Clickster.genreExceptions = <%= @genre_exceptions.to_json.html_safe %>;
     Clickster.STATUS_MESSAGES =
       <%= Watchlist::STATUS_MESSAGES.to_json.html_safe %>;

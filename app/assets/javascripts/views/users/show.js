@@ -112,7 +112,6 @@ Clickster.Views.UserShowView = Backbone.View.extend({
   renderWatchlists: function () {
     var content = this.watchlistsTemplate({
       user: this.user,
-      allStatuses: Clickster.LIST_STATUSES.concat(["Favorites"]),
       tvCard: JST["tv_shows/miniCard"]
     });
 

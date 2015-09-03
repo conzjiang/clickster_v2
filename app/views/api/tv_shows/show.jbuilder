@@ -15,6 +15,7 @@ json.extract!(
 
 json.partial! "api/tv_shows/tv_show", tv_show: @tv_show
 json.genres @tv_show.genres
+json.belongs_to_admin current_user.admins?(@tv_show)
 
 json.watchers @tv_show.watchers do |watcher|
   json.extract! watcher, :id, :username, :image_url

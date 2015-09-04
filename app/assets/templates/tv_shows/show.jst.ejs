@@ -58,7 +58,10 @@
                 type="radio"
                 name="list-status"
                 value="<%= status %>">
-              <label for="<%= statusId %>"><%= status %></label>
+              <label for="<%= statusId %>">
+                <%= status %>
+                (<%= tv.watchCounts()[status] %>)
+              </label>
             </fieldset>
           <% }) %>
         </form>

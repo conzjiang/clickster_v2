@@ -39,6 +39,15 @@ Clickster.Models.TvShow = Backbone.Model.extend({
     });
   },
 
+  parse: function (resp) {
+    if (resp.watch_counts) {
+      this.setWatchCounts(resp.watch_counts);
+      delete resp.watch_counts;
+    }
+
+    return resp;
+  },
+
   setGenres: function (genreStr) {
     var genres = genreStr.split(", ");
     var that = this;
@@ -60,6 +69,10 @@ Clickster.Models.TvShow = Backbone.Model.extend({
     });
   },
 
+  setWatchCounts: function (watchCounts) {
+    this._watchCounts = watchCounts;
+  },
+
   setYears: function (yearStr) {
     var years = yearStr.split("–");
     this.set("start_year", parseInt(years[0]));
@@ -73,6 +86,10 @@ Clickster.Models.TvShow = Backbone.Model.extend({
 
   toJSON: function () {
     return { tv_show: _.clone(this.attributes) };
+  },
+
+  watchCounts: function () {
+    return this._watchCounts || {};
   },
 
   watchers: function (watchStatus) {

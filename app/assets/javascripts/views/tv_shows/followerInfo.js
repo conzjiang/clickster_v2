@@ -35,8 +35,9 @@ Clickster.Views.FollowerInfoView = Backbone.View.extend({
       header += " and " + idolCount + " of your idols ";
     }
 
-    header += Utils.pluralizeVerb(idolCount, this.headerVerb) + " this.";
-
-    this.$("h3").html(header);
+    if (header) {
+      header += Utils.pluralizeVerb(idolCount, this.headerVerb) + " this.";
+      this.$("h3").html(header);
+    }
   }
 });

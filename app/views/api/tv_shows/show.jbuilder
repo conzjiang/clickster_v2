@@ -16,3 +16,4 @@ json.extract!(
 json.partial! "api/tv_shows/tv_show", tv_show: @tv_show
 json.genres @tv_show.genres
 json.belongs_to_admin current_user.admins?(@tv_show)
+json.watch_counts @tv_show.watch_counts

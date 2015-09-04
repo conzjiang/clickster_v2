@@ -8,12 +8,7 @@ class Watchers
   def watchers
     return @watchers if @watchers
 
-    @watchers = tv_show.watchers.where({
-      watchlists: {
-        status: Watchlist.statuses[params[:status]]
-      }
-    })
-
+    @watchers = _watchers
     sort_watchers! if signed_in?
     @watchers
   end
@@ -26,6 +21,16 @@ class Watchers
   attr_writer :watching_idols_count
 
   private
+  def _watchers
+    watchlist_status = Watchlist.statuses[params[:status]]
+
+    if watchlist_status
+      tv_show.watchers.where({ watchlists: { status: watchlist_status } })
+    else
+      tv_show.favoriters
+    end
+  end
+
   def current_user
     return nil unless signed_in?
     @current_user ||= User.includes(:follows).find(params[:current_user_id])

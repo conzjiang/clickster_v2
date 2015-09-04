@@ -48,8 +48,19 @@ describe Watchers do
       end
     end
 
-    it "returns the tv_show watchers of the corresponding status" do
+    it "returns the tv_show watchers if watchlist status" do
       expect(get_watchers.watchers.sort).to eq(plan_to_watch.sort)
+    end
+
+    it "returns the tv_show favorites if favorites status" do
+      get_watchers = Watchers.new({
+        status: "Favorites",
+        id: tv_show.id
+      })
+
+      create(:favorite, favoriter: current_user, tv_show: tv_show)
+
+      expect(get_watchers.watchers).to eq([current_user])
     end
 
     context "when signed in" do

@@ -55,7 +55,7 @@ Clickster.Views.SearchResultsView = Backbone.TvCardsView.extend({
 
   _renderUserResults: function () {
     this.model.userResults().each(function (user) {
-      this.$("ul.user-results").append(this.userTemplate({ user: user }));
+      this.$("ul.user-cards").append(this.userTemplate({ user: user }));
     }.bind(this));
   }
 });

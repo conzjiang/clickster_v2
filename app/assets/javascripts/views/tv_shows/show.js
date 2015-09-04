@@ -11,7 +11,8 @@ Clickster.Views.TvShowView = Backbone.View.extend({
 
   events: {
     "click li.list": "toggleWatchlist",
-    "click li.favorite": "toggleFavorite"
+    "click li.favorite": "toggleFavorite",
+    "change input[type=radio]": "displayFollowerInfo"
   },
 
   toggleWatchlist: function (event) {
@@ -59,6 +60,10 @@ Clickster.Views.TvShowView = Backbone.View.extend({
         this.toggleButton(this.$(".favorite"), this.setFavorite);
       }.bind(this)
     });
+  },
+
+  displayFollowerInfo: function (e) {
+    this.renderFollowerInfo($(e.currentTarget).val());
   },
 
   render: function () {
@@ -124,6 +129,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     }
 
     this.renderFollowerInfo(watchStatus);
+    this.$("#" + Utils.hyphenate(watchStatus)).prop("checked", true);
   },
 
   renderFollowerInfo: function (watchStatus) {

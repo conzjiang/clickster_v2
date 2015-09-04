@@ -209,6 +209,10 @@ form.inner-nav {
   display: block;
   text-align: center;
 
+  &.small {
+    font-size: 12px;
+  }
+
   > h3 {
     font-weight: 300;
   }

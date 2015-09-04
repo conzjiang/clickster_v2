@@ -47,7 +47,22 @@
         <p class="blurb"><%= tv.escape("blurb") %></p>
       </article>
 
-      <article class="follower-info"></article>
+      <article class="follower-info">
+        <form class="inner-nav small">
+          <% _(Clickster.ALL_LIST_STATUSES).each(function (status) { %>
+            <% var statusId = Utils.hyphenate(status.toLowerCase()) %>
+
+            <fieldset>
+              <input
+                id="<%= statusId %>"
+                type="radio"
+                name="list-status"
+                value="<%= status %>">
+              <label for="<%= statusId %>"><%= status %></label>
+            </fieldset>
+          <% }) %>
+        </form>
+      </article>
     </section>
 
     <aside class="stats">

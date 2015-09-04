@@ -41,6 +41,10 @@ Clickster.Models.User = Backbone.Model.extend({
     return this._idols;
   },
 
+  isCurrentUser: function () {
+    return this.get("username") === Clickster.currentUser.get("username");
+  },
+
   parse: function (response) {
     if (response.watchlists) {
       this.watchlists().set(response.watchlists);

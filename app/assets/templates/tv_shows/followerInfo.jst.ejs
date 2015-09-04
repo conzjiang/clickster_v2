@@ -1,12 +1,3 @@
-<% var idolCount = watchers.length %>
+<h3></h3>
 
-<h3>
-  <% if (watchers[0] &&
-    watchers[0].get("username") === Clickster.currentUser.get("username")) { %>
-    You and
-    <% idolCount-- %>
-  <% } %>
-
-  <%= idolCount %> of your idols
-  <%= Utils.pluralizeVerb(watchers.length, status) %> this.
-</h3>
+<%= watchers.map(function(user) { return user.escape('username')}).join(", ") %>

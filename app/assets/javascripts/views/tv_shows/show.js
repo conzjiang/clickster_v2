@@ -2,6 +2,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
     this.listenTo(this.tv, "sync", this.render);
+    this.listenTo(Clickster.currentUser, "sync", this.setUpFollowerInfo);
   },
 
   className: "tv-show max",
@@ -70,7 +71,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     this.setImage();
     this.setFavorite();
     this.setWatchlistStatus();
-    this.renderFollowerInfo();
+    this.setUpFollowerInfo();
 
     return this;
   },
@@ -111,14 +112,29 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     }
   },
 
-  renderFollowerInfo: function () {
+  setUpFollowerInfo: function () {
+    if (!Clickster.currentUser.signedIn()) return;
+
+    var watchStatus;
+
+    if (this.tv.get("is_favorite")) {
+      watchStatus = "Favorites";
+    } else {
+      watchStatus = this.tv.escape("watch_status") || "Watching";
+    }
+
+    this.renderFollowerInfo(watchStatus);
+  },
+
+  renderFollowerInfo: function (watchStatus) {
     this.followerInfoView && this.followerInfoView.remove();
 
     this.followerInfoView = new Clickster.Views.FollowerInfoView({
-      tv: this.tv
+      tv: this.tv,
+      watchStatus: watchStatus
     });
 
-    this.$(".follower-info").html(this.followerInfoView.render().$el);
+    this.$(".follower-info").append(this.followerInfoView.render().$el);
   },
 
   remove: function () {

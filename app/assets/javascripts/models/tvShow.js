@@ -39,15 +39,6 @@ Clickster.Models.TvShow = Backbone.Model.extend({
     });
   },
 
-  parse: function (response) {
-    if (response.watchers) {
-      this.watchers().set(response.watchers);
-      delete response.watchers;
-    }
-
-    return response;
-  },
-
   setGenres: function (genreStr) {
     var genres = genreStr.split(", ");
     var that = this;
@@ -85,16 +76,17 @@ Clickster.Models.TvShow = Backbone.Model.extend({
   },
 
   watchers: function (watchStatus) {
-    if (!this._watchers) {
-      this._watchers = new Clickster.Collections.Users();
-    }
+    this._watchers = this._watchers || {};
 
-    if (watchStatus) {
-      return this._watchers.filter(function (user) {
-        return user.get("watch_status") === watchStatus;
+    if (!this._watchers[watchStatus]) {
+      this._watchers[watchStatus] = new Clickster.Collections.Watchers([], {
+        tv: this,
+        watchStatus: watchStatus
       });
+
+      this._watchers[watchStatus].fetch();
     }
 
-    return this._watchers;
+    return this._watchers[watchStatus];
   }
 });

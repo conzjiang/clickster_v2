@@ -25,12 +25,13 @@ Clickster.Views.FollowerInfoView = Backbone.View.extend({
     if (this.watchers.length === 0 || !Clickster.currentUser.signedIn()) return;
     var header = "";
     var idolCount = this.watchers.idolCount;
+    var pluralizeNum = idolCount;
 
     if (this.watchers.first().isCurrentUser()) {
       header += "You ";
-      idolCount && idolCount--;
 
       if (idolCount) {
+        pluralizeNum++;
         header += "and "
       }
     }
@@ -40,7 +41,7 @@ Clickster.Views.FollowerInfoView = Backbone.View.extend({
     }
 
     if (header) {
-      header += Utils.pluralizeVerb(idolCount, this.headerVerb) + " this.";
+      header += Utils.pluralizeVerb(pluralizeNum, this.headerVerb) + " this.";
       this.$("h3").html(header);
     }
   }

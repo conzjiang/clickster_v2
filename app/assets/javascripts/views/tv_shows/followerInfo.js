@@ -3,7 +3,7 @@ Clickster.Views.FollowerInfoView = Backbone.View.extend({
     this.tv = options.tv;
     this.watchStatus = options.watchStatus;
     this.watchers = this.tv.watchers(this.watchStatus);
-    this.headerVerb = Clickster.STATUS_MESSAGES[this.watchStatus];
+    this.headerVerb = Clickster.STATUS_MESSAGES[this.watchStatus] || "likes";
 
     this.listenTo(this.watchers, "sync", this.render);
   },
@@ -24,15 +24,19 @@ Clickster.Views.FollowerInfoView = Backbone.View.extend({
   buildHeader: function () {
     if (this.watchers.length === 0 || !Clickster.currentUser.signedIn()) return;
     var header = "";
-    var idolCount = this.watchers.watching_idols_count;
+    var idolCount = this.watchers.idolCount;
 
     if (this.watchers.first().isCurrentUser()) {
       header += "You ";
-      idolCount--;
+      idolCount && idolCount--;
+
+      if (idolCount) {
+        header += "and "
+      }
     }
 
     if (idolCount) {
-      header += " and " + idolCount + " of your idols ";
+      header += idolCount + " of your idols ";
     }
 
     if (header) {

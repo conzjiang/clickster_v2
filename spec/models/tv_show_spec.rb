@@ -93,4 +93,20 @@ describe TvShow do
       expect(tv_show.decades(true)).to eq(["80", "90"])
     end
   end
+
+  describe "#watch_counts" do
+    it "returns a hash of statuses (including Favorites) and # of watchers" do
+      tv_show = create(:tv_show)
+      create(:watchlist, tv_show: tv_show, status: "Watching")
+      create(:favorite, tv_show: tv_show)
+
+      expect(tv_show.watch_counts).to eq({
+        "Watching" => 1,
+        "Plan to Watch" => 0,
+        "Completed" => 0,
+        "Dropped" => 0,
+        "Favorites" => 1
+      })
+    end
+  end
 end

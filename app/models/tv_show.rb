@@ -60,7 +60,23 @@ class TvShow < ActiveRecord::Base
     self.tv_genres(reload).map(&:genre)
   end
 
+  def watch_counts
+    watch_counts = {}
+    tv_watchlists = watchlists.group_by(&:status)
+
+    Watchlist.statuses_list.each do |status|
+      watch_counts[status] = tv_watchlists[status].try(:count) || 0
+    end
+
+    add_favorites(watch_counts)
+    watch_counts
+  end
+
   private
+  def add_favorites(watch_counts)
+    watch_counts["Favorites"] = favorites.count
+  end
+
   def decade_range
     decade_range = [self.start_year, self.end_year || Date.current.year]
 

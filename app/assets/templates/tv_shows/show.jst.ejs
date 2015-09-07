@@ -47,7 +47,7 @@
         <p class="blurb"><%= tv.escape("blurb") %></p>
       </article>
 
-      <article class="follower-info">
+      <article class="watchers-container">
         <form class="inner-nav small">
           <% _(Clickster.ALL_LIST_STATUSES).each(function (status) { %>
             <% var statusId = Utils.hyphenate(status) %>

@@ -12,7 +12,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   events: {
     "click li.list": "toggleWatchlist",
     "click li.favorite": "toggleFavorite",
-    "change input[type=radio]": "displayFollowerInfo"
+    "change input[type=radio]": "displayWatchers"
   },
 
   toggleWatchlist: function (event) {
@@ -62,8 +62,8 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     });
   },
 
-  displayFollowerInfo: function (e) {
-    this.renderFollowerInfo($(e.currentTarget).val());
+  displayWatchers: function (e) {
+    this.renderWatchers($(e.currentTarget).val());
   },
 
   render: function () {
@@ -76,7 +76,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     this.setImage();
     this.setFavorite();
     this.setWatchlistStatus();
-    this.setUpFollowerInfo();
+    this.setUpWatchersView();
 
     return this;
   },
@@ -117,9 +117,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
     }
   },
 
-  setUpFollowerInfo: function () {
-    if (!Clickster.currentUser.signedIn()) return;
-
+  setUpWatchersView: function () {
     var watchStatus;
 
     if (this.tv.get("is_favorite")) {
@@ -128,23 +126,23 @@ Clickster.Views.TvShowView = Backbone.View.extend({
       watchStatus = this.tv.escape("watch_status") || "Watching";
     }
 
-    this.renderFollowerInfo(watchStatus);
+    this.renderWatchers(watchStatus);
     this.$("#" + Utils.hyphenate(watchStatus)).prop("checked", true);
   },
 
-  renderFollowerInfo: function (watchStatus) {
-    this.followerInfoView && this.followerInfoView.remove();
+  renderWatchers: function (watchStatus) {
+    this.watchersView && this.watchersView.remove();
 
-    this.followerInfoView = new Clickster.Views.FollowerInfoView({
+    this.watchersView = new Clickster.Views.WatchersView({
       tv: this.tv,
       watchStatus: watchStatus
     });
 
-    this.$(".follower-info").append(this.followerInfoView.render().$el);
+    this.$(".watchers-container").append(this.watchersView.render().$el);
   },
 
   remove: function () {
-    this.followerInfoView && this.followerInfoView.remove();
+    this.watchersView && this.watchersView.remove();
     Backbone.View.prototype.remove.call(this);
   }
 });

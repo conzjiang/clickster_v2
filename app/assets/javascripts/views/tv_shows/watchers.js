@@ -1,4 +1,4 @@
-Clickster.Views.FollowerInfoView = Backbone.View.extend({
+Clickster.Views.WatchersView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
     this.watchStatus = options.watchStatus;
@@ -8,7 +8,7 @@ Clickster.Views.FollowerInfoView = Backbone.View.extend({
     this.listenTo(this.watchers, "sync", this.render);
   },
 
-  template: JST["tv_shows/followerInfo"],
+  template: JST["tv_shows/watchers"],
 
   className: "watchers",
 

@@ -1,0 +1,48 @@
+.watchers {
+  padding: 10px;
+  border: 1px solid #ccc;
+
+  > h3 {
+    margin: 10px 0;
+    font-weight: 300;
+    font-size: 16px;
+  }
+}
+
+.watchers-list {
+  margin: 10px 0;
+
+  > li {
+    float: left;
+    margin: 0 2px;
+  }
+}
+
+.tool-tip {
+  position: relative;
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-size: cover;
+  background-color: #ccc;
+
+  &:hover {
+    z-index: 2;
+  }
+
+  &:hover:before {
+    content: attr(data-user);
+    position: absolute;
+    top: 52px;
+    left: 25px;
+    transform: translateX(-50%);
+
+    display: inline-block;
+    padding: 2px 5px;
+    font-size: 12px;
+    color: #f7f7f7;
+    background: #666;
+    border-radius: 2px;
+  }
+}

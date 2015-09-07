@@ -10,19 +10,28 @@ Clickster.Views.FollowerInfoView = Backbone.View.extend({
 
   template: JST["tv_shows/followerInfo"],
 
+  className: "watchers",
+
   render: function () {
     var content = this.template({
       watchers: this.watchers
     });
 
     this.$el.html(content);
-    this.buildHeader();
+    this.renderHeader();
 
     return this;
   },
 
+  renderHeader: function () {
+    if (this.watchers.length === 0) {
+      this.$("h3").html("No one " + this.headerVerb + " this.");
+    } else if (Clickster.currentUser.signedIn()) {
+      this.buildHeader();
+    }
+  },
+
   buildHeader: function () {
-    if (this.watchers.length === 0 || !Clickster.currentUser.signedIn()) return;
     var header = "";
     var idolCount = this.watchers.idolCount;
     var pluralizeNum = idolCount;

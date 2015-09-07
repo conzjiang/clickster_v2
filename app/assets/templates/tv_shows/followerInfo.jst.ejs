@@ -1,3 +1,12 @@
 <h3></h3>
 
-<%= watchers.map(function(user) { return user.escape('username')}).join(", ") %>
+<ul class="watchers-list group">
+  <% watchers.each(function (user) { %>
+    <li>
+      <a href="#/users/<%= user.escape("username") %>"
+        data-user="<%= user.escape("username") %>"
+        class="tool-tip"
+        style="background-image:url(<%= user.escape("image_url") %>)"></a>
+    </li>
+  <% }) %>
+</ul>

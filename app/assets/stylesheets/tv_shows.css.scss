@@ -189,7 +189,7 @@ section.tv-info {
       background: #ccc;
     }
 
-    > li {
+    li {
       position: relative;
       float: left;
       width: 20%;
@@ -202,7 +202,7 @@ section.tv-info {
       box-sizing: border-box;
     }
 
-    > li:before {
+    li:before {
       display: block;
       position: absolute;
       top: 3px;

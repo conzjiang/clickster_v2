@@ -1,6 +1,7 @@
 Clickster.Views.TvCardView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
+
     this.listenTo(this.tv, "change:is_favorite", this.setFavorite);
     this.listenTo(this.tv, "change:watch_status", this.setWatchlistStatus);
   },

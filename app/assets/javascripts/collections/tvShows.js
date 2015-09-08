@@ -1,4 +1,6 @@
 Clickster.Collections.TvShows = Backbone.Collection.extend({
+  model: Clickster.Models.TvShow,
+
   initialize: function (models, options) {
     this.url = options && options.url;
   },

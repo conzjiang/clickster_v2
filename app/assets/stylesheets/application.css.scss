@@ -61,7 +61,8 @@ a {
 }
 
 .underline:hover {
-  border-bottom: 3px solid $nav_link_hover;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
 }
 
 button, .button {
@@ -273,5 +274,9 @@ footer {
 
   a {
     font-weight: 700;
+
+    &:hover {
+      border-bottom-color: $nav_link_hover;
+    }
   }
 }

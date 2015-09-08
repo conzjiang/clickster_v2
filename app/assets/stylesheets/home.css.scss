@@ -1,3 +1,5 @@
+@import "utils/variables";
+
 .home-section {
   margin-bottom: 50px;
 }
@@ -49,5 +51,11 @@
       padding: 20px;
       box-sizing: content-box;
     }
+  }
+}
+
+.feed-item-link {
+  &:hover {
+    border-bottom-color: $not_signed_in;
   }
 }

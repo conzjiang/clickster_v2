@@ -1,8 +1,10 @@
 <li>
   <p>
-    <a href="<%= item.idolUrl() %>"><%= item.escape("idol_name") %></a>
+    <a class="feed-item-link underline"
+      href="<%= item.idolUrl() %>"><%= item.escape("idol_name") %></a>
     <%= item.escape("message") %>
-    <a href="<%= item.subjectUrl() %>"><%= item.subjectName() %></a>
+    <a class="feed-item-link underline"
+      href="<%= item.subjectUrl() %>"><%= item.subjectName() %></a>
   </p>
 
   <time class="timeago" datetime="<%= item.get("created_at") %>"></time>

@@ -57,7 +57,8 @@
 
   var VERBS = {
     is: "are",
-    has: "have"
+    has: "have",
+    stopped: "stopped"
   };
 
   Utils.pluralizeVerb = function (num, verbPhrase) {

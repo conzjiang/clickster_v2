@@ -47,25 +47,7 @@
         <p class="blurb"><%= tv.escape("blurb") %></p>
       </article>
 
-      <article class="watchers-container">
-        <form class="inner-nav small">
-          <% _(Clickster.ALL_LIST_STATUSES).each(function (status) { %>
-            <% var statusId = Utils.hyphenate(status) %>
-
-            <fieldset>
-              <input
-                id="<%= statusId %>"
-                type="radio"
-                name="list-status"
-                value="<%= status %>">
-              <label for="<%= statusId %>">
-                <%= status %>
-                (<%= tv.watchCounts()[status] %>)
-              </label>
-            </fieldset>
-          <% }) %>
-        </form>
-      </article>
+      <article class="watchers-container"></article>
     </section>
 
     <aside class="stats">

@@ -126,8 +126,8 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     this._currentView && this._currentView.remove();
     this._currentView = view;
 
-    this.$rootEl.html(view.render().$el);
-    view.onRender && view.onRender();
+    this.$rootEl.html(view.$el);
+    view.render();
 
     Clickster.eventManager.trigger("offSearch");
     $("main").scrollTop(0);

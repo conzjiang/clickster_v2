@@ -20,12 +20,10 @@ Clickster.Views.DropdownView = Backbone.View.extend({
     });
 
     this.$el.html(content);
+    $.rails.refreshCSRFTokens();
+
     if (isAdmin) this.$(".dropdown").addClass("admin");
 
     return this;
-  },
-
-  onRender: function () {
-    $.rails.refreshCSRFTokens();
   }
 });

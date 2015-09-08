@@ -116,10 +116,6 @@ Clickster.Views.SignInView = Backbone.View.extend({
     return this;
   },
 
-  onRender: function () {
-    this.$("input.first").focus();
-  },
-
   initializeFbLogin: function () {
     if (this.init) return;
 

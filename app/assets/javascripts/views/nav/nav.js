@@ -97,8 +97,8 @@ Clickster.Views.Nav = Backbone.View.extend({
   _swapPopout: function (view) {
     if (this._currentPopout) this._currentPopout.remove();
     this._currentPopout = view;
-    this.$(".pop-out").append(view.render().$el);
-    view.onRender && view.onRender();
+    this.$(".pop-out").append(view.$el);
+    view.render();
 
     setTimeout(function () {
       this.$(".pop-out").addClass("transition");

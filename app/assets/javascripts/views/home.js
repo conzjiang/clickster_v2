@@ -19,10 +19,6 @@ Clickster.Views.HomeView = Backbone.TvCardsView.extend({
     return this;
   },
 
-  onRender: function () {
-    this.feedView && this.feedView.onRender && this.feedView.onRender();
-  },
-
   renderFeed: function (items) {
     if (!Clickster.currentUser.signedIn()) return;
     if (this.feedView) this.feedView.remove();

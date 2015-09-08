@@ -6,6 +6,7 @@ Clickster.Views.WatchersView = Backbone.View.extend({
     this.headerVerb = Clickster.STATUS_MESSAGES[this.watchStatus] || "likes";
 
     this.listenTo(this.watchers, "sync", this.render);
+    this.listenTo(Clickster.currentUser, "sync", this.renderHeader);
   },
 
   template: JST["tv_shows/watchers"],

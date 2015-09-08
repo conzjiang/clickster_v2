@@ -1,8 +1,12 @@
 Clickster.Views.TvShowView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
+
     this.listenTo(this.tv, "sync", this.render);
-    this.listenTo(Clickster.currentUser, "sync", this.setUpFollowerInfo);
+    this.listenTo(this.tv, "watchCounts", function () {
+      this.renderWatchCounts();
+      this.renderWatchers();
+    });
   },
 
   className: "tv-show max",
@@ -25,7 +29,10 @@ Clickster.Views.TvShowView = Backbone.View.extend({
         status: $button.data("option")
       },
       success: function () {
-        this.toggleButton($button, this.setWatchlistStatus);
+        this.toggleButton($button, function () {
+          this.setWatchlistStatus();
+          this.tv.fetchWatchCounts();
+        });
       }.bind(this)
     });
   },
@@ -57,13 +64,17 @@ Clickster.Views.TvShowView = Backbone.View.extend({
 
     this.tv.favorite({
       success: function () {
-        this.toggleButton(this.$(".favorite"), this.setFavorite);
+        this.toggleButton(this.$(".favorite"), function () {
+          this.setFavorite();
+          this.tv.fetchWatchCounts();
+        });
       }.bind(this)
     });
   },
 
   displayWatchers: function (e) {
-    this.renderWatchers($(e.currentTarget).val());
+    this.watchStatus = $(e.currentTarget).val();
+    this.renderWatchers();
   },
 
   render: function () {
@@ -118,24 +129,34 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   },
 
   setUpWatchersView: function () {
-    var watchStatus;
-
-    if (this.tv.get("is_favorite")) {
-      watchStatus = "Favorites";
-    } else {
-      watchStatus = this.tv.escape("watch_status") || "Watching";
-    }
-
-    this.renderWatchers(watchStatus);
-    this.$("#" + Utils.hyphenate(watchStatus)).prop("checked", true);
+    this.setInitialWatchStatus();
+    this.renderWatchCounts();
+    this.renderWatchers();
   },
 
-  renderWatchers: function (watchStatus) {
+  setInitialWatchStatus: function () {
+    if (this.tv.get("is_favorite")) {
+      this.watchStatus = "Favorites";
+    } else {
+      this.watchStatus = this.tv.escape("watch_status") || "Watching";
+    }
+  },
+
+  renderWatchCounts: function () {
+    var watchCounts = JST["tv_shows/_watchCounts"]({
+      tv: this.tv
+    });
+
+    this.$(".watchers-container").html(watchCounts);
+    this.$("#" + Utils.hyphenate(this.watchStatus)).prop("checked", true);
+  },
+
+  renderWatchers: function () {
     this.watchersView && this.watchersView.remove();
 
     this.watchersView = new Clickster.Views.WatchersView({
       tv: this.tv,
-      watchStatus: watchStatus
+      watchStatus: this.watchStatus
     });
 
     this.$(".watchers-container").append(this.watchersView.render().$el);

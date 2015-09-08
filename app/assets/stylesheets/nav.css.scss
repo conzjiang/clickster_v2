@@ -203,18 +203,28 @@ button.tv-hamburger {
   &:before {
     content: "";
     left: 6px;
+    -webkit-transform: skewX(30deg);
+    -ms-transform: skewX(30deg);
     transform: skewX(30deg);
   }
 
   > span.antenna {
     left: 18px;
+    -webkit-transform: skewX(-30deg);
+    -ms-transform: skewX(-30deg);
     transform: skewX(-30deg);
   }
 
   &.signed-in {
     border-color: $nav_link_color;
-    &:after { background: $nav_link_color; }
-    &:before, span.antenna { border-color: $nav_link_color; }
+
+    &:after {
+      background: $nav_link_color;
+    }
+
+    &:before, span.antenna {
+      border-color: $nav_link_color;
+    }
   }
 }
 
@@ -250,11 +260,15 @@ button.tv-hamburger {
     &:before {
       content: "";
       left: 5px;
+      -webkit-transform: skewX(30deg);
+      -ms-transform: skewX(30deg);
       transform: skewX(30deg);
     }
 
     > span.antenna {
       left: 13px;
+      -webkit-transform: skewX(-30deg);
+      -ms-transform: skewX(-30deg);
       transform: skewX(-30deg);
     }
   }

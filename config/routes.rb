@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     post 'tv_shows/:id/favorite', to: "tv_shows#favorite"
     post 'tv_shows/:id/watchlist', to: "tv_shows#watchlist"
     get 'tv_shows/:id/watchers', to: 'tv_shows#watchers'
+    get 'tv_shows/:id/watch_counts', to: 'tv_shows#watch_counts'
 
     get 'genres/:genre', to: "tv_shows#genre"
 

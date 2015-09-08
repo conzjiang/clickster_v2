@@ -39,6 +39,19 @@ Clickster.Models.TvShow = Backbone.Model.extend({
     });
   },
 
+  fetchWatchCounts: function () {
+    $.ajax({
+      method: "GET",
+      url: this.url() + "/watch_counts",
+      dataType: "json",
+      success: function (data) {
+        this.setWatchCounts(data.watch_counts);
+        this._watchers = {};
+        this.trigger("watchCounts");
+      }.bind(this)
+    });
+  },
+
   parse: function (resp) {
     if (resp.watch_counts) {
       this.setWatchCounts(resp.watch_counts);

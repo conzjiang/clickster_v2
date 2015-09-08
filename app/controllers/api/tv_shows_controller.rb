@@ -85,6 +85,11 @@ class Api::TvShowsController < ApplicationController
     }))
   end
 
+  def watch_counts
+    tv_show = TvShow.find(params[:id])
+    render json: { watch_counts: tv_show.watch_counts }
+  end
+
   private
   def process_genre(genre)
     GenreService.new(genre).process

@@ -236,6 +236,10 @@ ul.tv-results .buttons {
     font-size: 20px;
     color: #aaa;
     cursor: pointer;
+
+    &:hover {
+      color: #666;
+    }
   }
 
   .statuses {

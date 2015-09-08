@@ -56,7 +56,11 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   },
 
   toggleButton: function ($button, callback) {
-    $button.scaleAndFade(callback.bind(this));
+    if ($(window).width() < 500) {
+      callback.call(this);
+    } else {
+      $button.scaleAndFade(callback.bind(this));
+    }
   },
 
   toggleFavorite: function (e) {

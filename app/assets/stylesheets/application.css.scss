@@ -19,7 +19,7 @@
 
 html, body, h1, h2, h3, h4, form, fieldset, ul, li, section, article, div,
 input, button, textarea, p, a, main, figure, figcaption, label, b, strong,
-select, aside, dl, dt, dd {
+select, aside, dl, dt, dd, footer, small {
   margin: 0;
   padding: 0;
   border: 0;
@@ -58,6 +58,10 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.underline:hover {
+  border-bottom: 3px solid $nav_link_hover;
 }
 
 button, .button {
@@ -239,5 +243,35 @@ form.inner-nav {
     color: #666;
     background: #ccc;
     cursor: pointer;
+  }
+}
+
+// FOOTER
+footer {
+  width: 100%;
+  text-align: center;
+  color: #f7f7f7;
+  background: $header_color;
+}
+
+.footer-info {
+  width: 100%;
+  padding: 50px 30px;
+  box-sizing: border-box;
+
+  @media (min-width: 500px) {
+    max-width: 1000px;
+    margin: auto;
+    padding: 50px;
+  }
+
+  > small {
+    display: block;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+
+  a {
+    font-weight: 700;
   }
 }

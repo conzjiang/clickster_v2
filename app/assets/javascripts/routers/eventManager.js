@@ -64,3 +64,11 @@ Clickster.EventManager.prototype.clickOut = function (options) {
 Clickster.EventManager.prototype.offClick = function (clickNamespace) {
   $("body").off(clickNamespace);
 };
+
+Clickster.EventManager.prototype.onResize = function (callback, view) {
+  $(window).on("resize." + view.cid, callback.bind(view));
+};
+
+Clickster.EventManager.prototype.offResize = function (view) {
+  $(window).off("resize." + view.cid);
+};

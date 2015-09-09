@@ -30,7 +30,7 @@
   <fieldset>
     <strong>Genre(s)</strong>
     <ul class="genres group">
-      <% _(Clickster.GENRES).each(function(genre) { %>
+      <% for (var genre in Clickster.GENRES) { %>
         <li>
           <input id="form_genre_<%= genre.replace(/\//g, "") %>"
                  type="checkbox"
@@ -40,7 +40,7 @@
             <%= genre %>
           </label>
         </li>
-      <% }) %>
+      <% } %>
     </ul>
   </fieldset>
 

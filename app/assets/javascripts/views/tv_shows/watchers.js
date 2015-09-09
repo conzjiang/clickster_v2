@@ -26,11 +26,11 @@ Clickster.Views.WatchersView = Backbone.View.extend({
   },
 
   renderHeader: function () {
-    if (this.watchers.length === 0) {
-      this.$("h3").html("No one " + this.headerVerb + " this.");
-    } else if (Clickster.currentUser.signedIn()) {
-      this.buildHeader();
+    if (this.watchers.length === 0 || !Clickster.currentUser.signedIn()) {
+      return;
     }
+
+    this.buildHeader();
   },
 
   buildHeader: function () {

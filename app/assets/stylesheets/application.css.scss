@@ -241,9 +241,13 @@ form.inner-nav {
   label {
     display: block;
     padding: 5px 10px;
-    color: #666;
+    color: #eee;
     background: #ccc;
     cursor: pointer;
+
+    &:hover {
+      background: #aaa;
+    }
   }
 
   select {

@@ -245,6 +245,39 @@ form.inner-nav {
     background: #ccc;
     cursor: pointer;
   }
+
+  select {
+    position: relative;
+    z-index: 1;
+
+    display: block;
+    padding: 5px 10px;
+    padding-right: 20px;
+    color: #fff;
+    background: transparent;
+    border-radius: 0;
+    cursor: pointer;
+  }
+
+  .select-wrapper {
+    position: relative;
+    color: #fff;
+    background: $genre_color;
+
+    > .illusion {
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 100%;
+
+      &:after {
+        content: "\25BE";
+        position: absolute;
+        top: 3px;
+        right: 6px;
+      }
+    }
+  }
 }
 
 // FOOTER

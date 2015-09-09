@@ -5,6 +5,7 @@ Clickster.Views.UserShowView = Backbone.View.extend({
 
     this.listenTo(this.user, "sync", this.render);
     this.listenTo(this.user, "error", this.error);
+    this.listenTo(Clickster.currentUser, "sync", this.setFollowStatus);
   },
 
   className: "user-show max",
@@ -80,6 +81,8 @@ Clickster.Views.UserShowView = Backbone.View.extend({
   },
 
   setImageSize: function () {
+    if (!this.user.get("image_url")) return;
+
     var img = new Image();
     var $image = this.$("#user-image");
 
@@ -99,8 +102,10 @@ Clickster.Views.UserShowView = Backbone.View.extend({
       this.$(".follow").addClass("is-following").html("Following");
     } else if (this.user.get("is_current_user")) {
       this.$(".follow").addClass("me");
-    } else {
+    } else if (Clickster.currentUser.signedIn()) {
       this.$(".follow").removeClass("is-following").html("Follow");
+    } else {
+      this.$(".follow").remove();
     }
   },
 

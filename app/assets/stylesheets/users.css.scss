@@ -83,7 +83,11 @@
     border-radius: 0;
   }
 
-  .is-following {
+  button:hover {
+    background: #eee;
+  }
+
+  button.is-following {
     background: #fff;
   }
 

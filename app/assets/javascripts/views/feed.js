@@ -42,7 +42,7 @@ Clickster.Views.FeedView = Backbone.View.extend({
     }.bind(this), 50000);
 
     this.resizeFeedWrapper();
-    $(window).on("resize", this.resizeFeedWrapper.bind(this));
+    Clickster.eventManager.onResize(this.resizeFeedWrapper, this);
   },
 
   resizeFeedWrapper: function () {
@@ -58,7 +58,7 @@ Clickster.Views.FeedView = Backbone.View.extend({
   remove: function () {
     if (this.interval) {
       clearInterval(this.interval);
-      $(window).off("resize");
+      Clickster.eventManager.offResize(this);
     }
 
     Backbone.View.prototype.remove.call(this);

@@ -49,10 +49,20 @@
     hue += 30;
   }
 
+  var NOUNS = {
+    person: "people"
+  };
+
   Utils.pluralize = function (num, word) {
-    var singular = num + " " + word;
-    if (num === 1) return singular;
-    return singular + "s";
+    if (num === 1) {
+      return num + " " + word;
+    }
+
+    if (NOUNS[word]) {
+      return num + " " + NOUNS[word];
+    } else {
+      return num + " " + word + "s";
+    }
   };
 
   var VERBS = {

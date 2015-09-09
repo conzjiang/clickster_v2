@@ -15,7 +15,8 @@ Clickster.Views.WatchersView = Backbone.View.extend({
 
   render: function () {
     var content = this.template({
-      watchers: this.watchers
+      watchers: this.watchers,
+      headerVerb: this.headerVerb
     });
 
     this.$el.html(content);

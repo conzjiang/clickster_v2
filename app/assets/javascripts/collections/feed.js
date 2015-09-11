@@ -21,6 +21,7 @@ Clickster.Collections.Feed = Backbone.Collection.extend({
   parseNew: function (resp) {
     if (resp.recommendations) {
       this.recommendations().set(resp.recommendations);
+      this.recommendations().hasIdols = resp.has_idols;
       this.trigger("empty");
       return;
     }

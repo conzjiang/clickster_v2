@@ -1,0 +1,13 @@
+<div id="recommendations">
+  <h3>No activity!</h3>
+
+  <h4>Why don't you check out what some of these users are up to?</h4>
+
+  <ul class="user-recomms group">
+    <% recommendations.each(function (user) { %>
+      <li style="background-image: url(<%= user.escape("image_url") %>)"
+        data-user="<%= user.escape("username") %>">
+      </li>
+    <% }) %>
+  </ul>
+</div>

@@ -4,25 +4,26 @@ Clickster.Views.FeedView = Backbone.View.extend({
   initialize: function () {
     this.feed = Clickster.currentUser.feed;
     this.listenTo(this.feed, "updated", this.renderFeedItems);
+    this.listenToOnce(this.feed, "empty", this.displayRecommendations);
   },
 
   template: JST["feed"],
   itemTemplate: JST["feedItem"],
+  recommendationsTemplate: JST["feedRecommendations"],
 
   render: function () {
     var content = this.template();
     this.$el.html(content);
 
-    if (this.feed.isEmpty()) {
-      this.feed.fetchNew();
-    } else {
-      this.renderFeedItems();
-    }
+    this.renderFeedItems();
+    this.feed.fetchNew();
 
     return this;
   },
 
   renderFeedItems: function (items) {
+    this.$("#recommendations").remove();
+
     var $feed = this.$(".feed");
     items = items || this.feed;
 
@@ -53,6 +54,16 @@ Clickster.Views.FeedView = Backbone.View.extend({
     } else {
       this.$(".feed").removeAttr("style");
     }
+  },
+
+  displayRecommendations: function () {
+    if (!this.feed.isEmpty()) return;
+
+    var recommendations = this.recommendationsTemplate({
+      recommendations: this.feed.recommendations()
+    });
+
+    this.$(".feed-wrapper").append(recommendations);
   },
 
   remove: function () {

@@ -14,9 +14,25 @@ Clickster.Collections.Feed = Backbone.Collection.extend({
       url: this.url,
       data: { last_fetched: lastFetched },
       dataType: "json",
-      success: function (newModels) {
-        this.trigger("updated", this.add(newModels));
-      }.bind(this)
+      success: this.parseNew.bind(this)
     });
+  },
+
+  parseNew: function (resp) {
+    if (resp.recommendations) {
+      this.recommendations().set(resp.recommendations);
+      this.trigger("empty");
+      return;
+    }
+
+    this.trigger("updated", this.add(resp.new_items));
+  },
+
+  recommendations: function () {
+    if (!this._recommendations) {
+      this._recommendations = new Clickster.Collections.Users();
+    }
+
+    return this._recommendations;
   }
 });

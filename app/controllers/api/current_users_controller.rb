@@ -4,6 +4,7 @@ class Api::CurrentUsersController < ApplicationController
 
   def feed
     @feed_items = FeedQuery.new(current_user, params[:last_fetched]).feed_items
+    @recommendations = User.recently_active(5) if @feed_items.empty?
   end
 
   def show

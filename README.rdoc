@@ -9,6 +9,7 @@ New features:
 == TODO
 * Orphan Black mobile rendering
 * 'See more' link for mobile view of feed
+* If idol starts following you, duplicate feed items created for the follow
 
 == To refactor
 * Utils.renderErrors -> View prototype

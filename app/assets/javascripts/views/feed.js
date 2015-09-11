@@ -26,13 +26,25 @@ Clickster.Views.FeedView = Backbone.View.extend({
 
     var $feed = this.$(".feed");
     items = items || this.feed;
+    if (items.length === 0) return;
 
     items.forEach(function (feedItem) {
       $feed.prepend(this.itemTemplate({ item: feedItem }));
     }.bind(this));
 
+    this.trimItems();
     this.$(".timeago").timeago();
     this.bindFeedEvents();
+  },
+
+  trimItems: function () {
+    var $feedItems = this.$(".feed").children();
+
+    if ($feedItems.length > Clickster.NUM_TO_DISPLAY) {
+      for (var i = $feedItems.length; i > Clickster.NUM_TO_DISPLAY; i--) {
+        $feedItems.eq(i - 1).remove();
+      }
+    }
   },
 
   bindFeedEvents: function () {

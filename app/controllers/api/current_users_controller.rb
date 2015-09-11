@@ -1,5 +1,5 @@
 class Api::CurrentUsersController < ApplicationController
-  NUM_ITEMS_TO_DISPLAY = 5
+  NUM_ITEMS_TO_DISPLAY = 3
 
   wrap_parameters false
   before_action :validate_password, only: :update

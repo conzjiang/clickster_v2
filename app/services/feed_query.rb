@@ -7,29 +7,38 @@ class FeedQuery
   end
 
   def feed_items
+    return @recent_feed_items if @recent_feed_items
+
+    @recent_feed_items = _all_feed_items
+
+    if last_fetched
+      @recent_feed_items = _all_feed_items.where(created_after_last_fetched, {
+        last_fetched: last_fetched + 1.second
+      })
+    end
+
+    @recent_feed_items
+  end
+
+  private
+  def created_after_last_fetched
+    <<-SQL
+      watchlists.created_at > :last_fetched
+        OR favorites.created_at > :last_fetched
+        OR follows.created_at > :last_fetched
+    SQL
+  end
+
+  def _all_feed_items
     @feed_items ||= FeedItem.
       select(select_sql).
-      from("(#{recent_feed_items.to_sql}) AS feed_items").
+      from("(#{FeedItem.where(user_id: user.id).to_sql}) AS feed_items").
       joins(:idol).
       joins(left_outer_join_watchlists).
       joins(left_outer_join_favorites).
       joins(left_outer_join_follows).
       order("subject_created_at")
   end
-
-  def recent_feed_items
-    return @recent_feed_items if @recent_feed_items
-
-    feed_items = FeedItem.where(user_id: user.id)
-
-    if last_fetched
-      feed_items = feed_items.where("created_at > ?", last_fetched + 1.second)
-    end
-
-    @recent_feed_items = feed_items
-  end
-
-  private
 
   def select_sql
     <<-SQL

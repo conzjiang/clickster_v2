@@ -108,6 +108,35 @@ describe User do
     end
   end
 
+  describe "::recently_active" do
+    it "returns the users who have watchlist activity in the past day" do
+      active_user = create(:user)
+      not_active_user = create(:user)
+      create(:watchlist, watcher: active_user)
+      create(:watchlist, watcher: not_active_user, created_at: 2.days.ago)
+
+      expect(User.recently_active).to eq([active_user])
+    end
+
+    it "can take a limit" do
+      active_users = []
+
+      5.times do
+        user = create(:user)
+        create(:watchlist, watcher: user)
+        active_users << user
+      end
+
+      expect(User.recently_active(3).count).to eq(3)
+    end
+
+    it "if no recent activity, returns the most recently created users" do
+      users = (1..3).to_a.map { create(:user) }
+
+      expect(User.recently_active.sort).to eq(users.sort)
+    end
+  end
+
   context "Verifying users with omniauth" do
     let(:params) do
       {

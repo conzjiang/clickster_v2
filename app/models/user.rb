@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
   has_many :followers, through: :followings
   has_many :feed_items
 
+  has_many :activity,
+    class_name: "FeedItem",
+    foreign_key: :idol_id
+
   after_initialize :ensure_session_token
 
   def self.create_demo_user!(attrs = {})
@@ -73,6 +77,16 @@ class User < ActiveRecord::Base
       password: SecureRandom.urlsafe_base64(6),
       uid: params[:id]
     })
+  end
+
+  def self.recently_active(limit = nil)
+    recent = joins(:watchlists).
+      where("watchlists.created_at > ?", 1.day.ago).
+      limit(limit)
+
+    return recent unless recent.empty?
+
+    order(created_at: :desc).limit(limit)
   end
 
   def self.with_watch_and_favorite_count

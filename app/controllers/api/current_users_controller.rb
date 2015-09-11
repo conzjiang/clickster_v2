@@ -1,10 +1,18 @@
 class Api::CurrentUsersController < ApplicationController
+  NUM_ITEMS_TO_DISPLAY = 5
+
   wrap_parameters false
   before_action :validate_password, only: :update
 
   def feed
-    @feed_items = FeedQuery.new(current_user, params[:last_fetched]).feed_items
-    @recommendations = User.recently_active(5) if @feed_items.empty?
+    @feed_items = FeedQuery.new(
+        current_user,
+        params[:last_fetched]
+      ).feed_items.limit(NUM_ITEMS_TO_DISPLAY).to_a
+
+    if @feed_items.empty?
+      @recommendations = User.recently_active(NUM_ITEMS_TO_DISPLAY)
+    end
   end
 
   def show

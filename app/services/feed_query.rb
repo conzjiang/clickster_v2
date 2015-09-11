@@ -37,7 +37,7 @@ class FeedQuery
       joins(left_outer_join_watchlists).
       joins(left_outer_join_favorites).
       joins(left_outer_join_follows).
-      order("subject_created_at")
+      order("subject_created_at DESC")
   end
 
   def select_sql

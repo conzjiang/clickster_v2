@@ -2,6 +2,10 @@ Clickster.Collections.Feed = Backbone.Collection.extend({
   model: Clickster.Models.FeedItem,
   url: "api/current_user/feed",
 
+  comparator: function (model) {
+    return Date.parse(model.get("created_at"));
+  },
+
   fetchNew: function () {
     var lastFetched;
 

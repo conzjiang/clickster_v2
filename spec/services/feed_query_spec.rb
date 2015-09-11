@@ -51,14 +51,14 @@ describe FeedQuery do
       expect(feed_items.last(2).sort).to eq(service.feed_items.sort)
     end
 
-    it "sorts by subject_created_at" do
+    it "sorts by most recent subject_created_at" do
       watchlist2 = create(:watchlist, created_at: 5.minutes.ago)
-      watchlist1 = create(:watchlist, created_at: 10.minutes.ago)
-      watchlist3 = create(:watchlist)
+      watchlist3 = create(:watchlist, created_at: 10.minutes.ago)
+      watchlist1 = create(:watchlist)
 
       feed_item2 = create(:feed_item, user: user, subject: watchlist2)
-      feed_item1 = create(:feed_item, user: user, subject: watchlist1)
       feed_item3 = create(:feed_item, user: user, subject: watchlist3)
+      feed_item1 = create(:feed_item, user: user, subject: watchlist1)
 
       expect(service.feed_items).to eq([feed_item1, feed_item2, feed_item3])
     end
@@ -129,9 +129,9 @@ describe FeedQuery do
         follow = create(:follow, idol: create(:user, username: "conz"))
         create(:feed_item, user: user, subject: follow)
 
-        expect(service.feed_items.first.subject_name).to eq("Twin Peaks")
+        expect(service.feed_items.first.subject_name).to eq("conz")
         expect(service.feed_items.second.subject_name).to eq("ABC")
-        expect(service.feed_items.third.subject_name).to eq("conz")
+        expect(service.feed_items.third.subject_name).to eq("Twin Peaks")
       end
     end
   end

@@ -1,15 +1,15 @@
 Clickster.FEED_CARD_SIZE = 220;
 
-Clickster.Views.FeedView = Backbone.View.extend({
+Clickster.Views.FeedItemsListView = Backbone.View.extend({
   initialize: function () {
     this.feed = Clickster.currentUser.feed;
     this.listenTo(this.feed, "updated", this.renderFeedItems);
     this.listenToOnce(this.feed, "empty", this.displayRecommendations);
   },
 
-  template: JST["feed"],
-  itemTemplate: JST["feedItem"],
-  recommendationsTemplate: JST["feedRecommendations"],
+  template: JST["feed/itemsList"],
+  itemTemplate: JST["feed/item"],
+  recommendationsTemplate: JST["feed/recommendations"],
 
   render: function () {
     var content = this.template();

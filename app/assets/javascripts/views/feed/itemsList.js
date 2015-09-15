@@ -63,19 +63,6 @@ Clickster.Views.FeedItemsListView = Backbone.View.extend({
     this.interval = setInterval(function () {
       this.feed.fetchNew();
     }.bind(this), 50000);
-
-    this.resizeFeedWrapper();
-    Clickster.eventManager.onResize(this.resizeFeedWrapper, this);
-  },
-
-  resizeFeedWrapper: function () {
-    if ($(window).width() > 500) {
-      this.$(".feed").css({
-        width: this.feed.length * Clickster.FEED_CARD_SIZE + "px"
-      });
-    } else {
-      this.$(".feed").removeAttr("style");
-    }
   },
 
   displayRecommendations: function () {
@@ -91,7 +78,6 @@ Clickster.Views.FeedItemsListView = Backbone.View.extend({
   remove: function () {
     if (this.interval) {
       clearInterval(this.interval);
-      Clickster.eventManager.offResize(this);
     }
 
     Backbone.View.prototype.remove.call(this);

@@ -32,9 +32,19 @@ Clickster.Views.FeedView = Backbone.View.extend({
       $feed.prepend(this.itemTemplate({ item: feedItem }));
     }.bind(this));
 
+    this.addLink();
     this.trimItems();
     this.$(".timeago").timeago();
     this.bindFeedEvents();
+  },
+
+  addLink: function () {
+    this.$(".see-more").remove();
+
+    if (this.feed.length) {
+      var link = "<a href=\"#/feed\" class=\"see-more\">View all</a>";
+      this.$(".feed-wrapper").append(link);
+    }
   },
 
   trimItems: function () {

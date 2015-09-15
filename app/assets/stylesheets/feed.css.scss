@@ -42,7 +42,7 @@
 }
 
 .feed {
-  li {
+  > li {
     width: 100%;
     margin: 10px 0;
     padding: 15px;
@@ -69,13 +69,38 @@
   }
 
   @media (min-width: 500px) {
-    li {
+    float: left;
+
+    > li {
       width: 158px;
       height: 68px;
       float: left;
       margin: 10px;
       padding: 20px;
       box-sizing: content-box;
+    }
+  }
+}
+
+a.see-more {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 14px;
+  text-align: center;
+  color: #888;
+  background: #eee;
+
+  @media (min-width: 500px) {
+    width: 158px;
+    height: 68px;
+    float: left;
+    margin: 10px;
+    padding: 20px;
+    box-sizing: content-box;
+
+    &:hover {
+      background: #fff;
     }
   }
 }

@@ -17,7 +17,8 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     'users/:username': 'userShow',
     'genres/:genre': 'genreShow',
     '_=_': 'home',
-    'facebook': 'facebookProfile'
+    'facebook': 'facebookProfile',
+    'feed': 'feed'
   },
 
   home: function () {
@@ -120,6 +121,11 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   facebookProfile: function () {
     var facebookProfView = new Clickster.Views.FacebookProfileView();
     this._swapView(facebookProfView);
+  },
+
+  feed: function () {
+    var feedView = new Clickster.Views.FeedIndexView();
+    this._swapView(feedView);
   },
 
   _swapView: function (view) {

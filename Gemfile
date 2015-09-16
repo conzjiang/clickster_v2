@@ -13,9 +13,10 @@ gem 'spring',        group: :development
 gem 'backbone-on-rails'
 gem 'bcrypt', require: 'bcrypt'
 gem 'figaro'
-gem 'filepicker-rails'
 gem "activerecord-import"
 gem 'omniauth-facebook'
+gem 'paperclip'
+gem 'aws-sdk'
 
 group :development, :test do
   gem 'factory_girl_rails'

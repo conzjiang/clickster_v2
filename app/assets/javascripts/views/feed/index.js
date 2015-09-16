@@ -40,6 +40,8 @@ Clickster.Views.FeedIndexView = Backbone.View.extend({
     this.$(".feed-index-list").prepend(this.itemTemplate({
       item: item
     }));
+
+    this.$(".timeago").timeago();
   },
 
   displayRecommendations: function () {

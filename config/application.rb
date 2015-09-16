@@ -33,8 +33,6 @@ module Conzq2
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
-    config.filepicker_rails.api_key = ENV["FILEPICKER_KEY"]
-
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
     config.paperclip_defaults = {

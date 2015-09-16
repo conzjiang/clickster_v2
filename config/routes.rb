@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resource :current_user, only: [:show, :update]
-    get "current_user/feed", to: "current_users#feed"
+    resource :feed, only: [:new, :show]
 
     resources :users, only: [:create]
     get 'username', to: 'users#username'

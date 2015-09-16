@@ -1,4 +1,4 @@
-json.new_items @feed_items, partial: "api/current_users/feed_item", as: :item
+json.new_items @feed_items, partial: "api/feeds/feed_item", as: :item
 
 if @recommendations
   json.recommendations @recommendations do |user|

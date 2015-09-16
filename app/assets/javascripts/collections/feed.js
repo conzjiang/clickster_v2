@@ -1,6 +1,6 @@
 Clickster.Collections.Feed = Backbone.Collection.extend({
   model: Clickster.Models.FeedItem,
-  url: "api/current_user/feed",
+  url: "api/feed",
 
   comparator: function (model) {
     return Date.parse(model.get("created_at"));
@@ -15,11 +15,15 @@ Clickster.Collections.Feed = Backbone.Collection.extend({
 
     $.ajax({
       method: "get",
-      url: this.url,
+      url: this.url + "/new",
       data: { last_fetched: lastFetched },
       dataType: "json",
       success: this.parseNew.bind(this)
     });
+  },
+
+  parse: function (resp) {
+    return resp.new_items;
   },
 
   parseNew: function (resp) {

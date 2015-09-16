@@ -3,7 +3,7 @@ Clickster.FEED_CARD_SIZE = 220;
 Clickster.Views.FeedItemsListView = Backbone.View.extend({
   initialize: function () {
     this.feed = Clickster.currentUser.feed;
-    this.listenTo(this.feed, "updated", this.renderFeedItems);
+    this.listenTo(this.feed, "newItem", this.renderFeedItem);
     this.listenToOnce(this.feed, "empty", this.displayRecommendations);
   },
 
@@ -15,33 +15,24 @@ Clickster.Views.FeedItemsListView = Backbone.View.extend({
     var content = this.template();
     this.$el.html(content);
 
-    this.renderFeedItems();
+    this.feed.each(this.renderFeedItem.bind(this));
     this.feed.fetchNew();
+    this.bindFeedEvents();
 
     return this;
   },
 
-  renderFeedItems: function (items) {
+  renderFeedItem: function (item) {
     this.$("#recommendations").remove();
-
-    var $feed = this.$(".feed");
-    items = items || this.feed;
-    if (items.length === 0) return;
-
-    items.forEach(function (feedItem) {
-      $feed.prepend(this.itemTemplate({ item: feedItem }));
-    }.bind(this));
+    this.$(".feed").prepend(this.itemTemplate({ item: item }));
 
     this.addLink();
     this.trimItems();
     this.$(".timeago").timeago();
-    this.bindFeedEvents();
   },
 
   addLink: function () {
-    this.$(".see-more").remove();
-
-    if (this.feed.length) {
+    if (!this.$(".see-more").length && this.feed.length) {
       var link = "<a href=\"#/feed\" class=\"see-more\">View all</a>";
       this.$(".feed-wrapper").append(link);
     }

@@ -31,8 +31,9 @@ Clickster.Collections.Feed = Backbone.Collection.extend({
     }
 
     if (resp.new_items.length) {
-      this.add(resp.new_items);
-      this.trigger("updated", this.slice(-resp.new_items.length));
+      this.add(resp.new_items).forEach(function (item) {
+        this.trigger("newItem", item);
+      }.bind(this));
     }
   },
 

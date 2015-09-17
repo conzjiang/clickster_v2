@@ -5,6 +5,13 @@ class User < ActiveRecord::Base
 
   attr_reader :password
 
+  has_attached_file :image, styles: {
+    thumb: '50x50#',
+    profile: '150x150#'
+  }
+
+  validates_attachment :image, content_type: /\Aimage\/.*\Z/
+
   validates :email, :username, presence: true, uniqueness: true
   validates :username, length: { minimum: 3, maximum: MAX_USERNAME_LENGTH }
   validates :password, length: { minimum: 6, allow_nil: true }

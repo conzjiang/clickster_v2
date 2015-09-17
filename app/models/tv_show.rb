@@ -1,6 +1,14 @@
 class TvShow < ActiveRecord::Base
   enum status: ['Currently Airing', 'Current', 'Ended', 'Cancelled']
 
+  has_attached_file :image, styles: {
+    result: '250',
+    mini: '140x140#',
+    block: 'x400'
+  }
+
+  validates_attachment :image, content_type: /\Aimage\/.*\Z/
+
   validates :title, :image_url, presence: true
   validates :imdb_id, allow_nil: true, uniqueness: {
     message: "Series already exists in the database"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811180505) do
+ActiveRecord::Schema.define(version: 20150916200300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20150811180505) do
   add_index "tv_genres", ["tv_show_id", "genre"], name: "index_tv_genres_on_tv_show_id_and_genre", unique: true, using: :btree
 
   create_table "tv_shows", force: true do |t|
-    t.string   "title",       null: false
+    t.string   "title",              null: false
     t.text     "blurb"
     t.integer  "num_seasons"
     t.integer  "start_year"
@@ -79,20 +79,28 @@ ActiveRecord::Schema.define(version: 20150811180505) do
     t.string   "imdb_id"
     t.string   "network"
     t.string   "image_url"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "tv_shows", ["title"], name: "index_tv_shows_on_title", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                           null: false
-    t.string   "username",                        null: false
+    t.string   "email",                              null: false
+    t.string   "username",                           null: false
     t.string   "password_digest"
     t.string   "session_token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_admin",        default: false
+    t.boolean  "is_admin",           default: false
     t.string   "image_url"
     t.string   "uid"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
     profile: '150x150#'
   }
 
-  validates_attachment :image, content_type: /\Aimage\/.*\Z/
+  validates_attachment :image, content_type: { content_type: /\Aimage\/.*\Z/ }
 
   validates :email, :username, presence: true, uniqueness: true
   validates :username, length: { minimum: 3, maximum: MAX_USERNAME_LENGTH }

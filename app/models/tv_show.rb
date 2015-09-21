@@ -7,9 +7,11 @@ class TvShow < ActiveRecord::Base
     block: 'x400'
   }
 
-  validates_attachment :image, content_type: { content_type: /\Aimage\/.*\Z/ }
+  validates_attachment :image,
+    presence: true,
+    content_type: { content_type: /\Aimage\/.*\Z/ }
 
-  validates :title, :image_url, presence: true
+  validates :title, presence: true
   validates :imdb_id, allow_nil: true, uniqueness: {
     message: "Series already exists in the database"
   }

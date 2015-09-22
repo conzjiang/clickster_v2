@@ -377,4 +377,18 @@ describe User do
       expect(TvShow.first.admin_id).to be_nil
     end
   end
+
+  describe "#get_default_image" do
+    it "returns the matching image_url if demo user's friend" do
+      stub_const("CreateDemoUser::USERNAMES", %w(batman robin))
+      batman = build(:user, username: "batman13")
+
+      expect(batman.image.url).to eq('batman.jpg')
+    end
+
+    it "returns a guest image_url otherwise (id % 5 + 1)" do
+      user = build(:user, id: 4)
+      expect(user.image.url).to eq('guest5.jpg')
+    end
+  end
 end

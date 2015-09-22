@@ -5,10 +5,12 @@ class User < ActiveRecord::Base
 
   attr_reader :password
 
-  has_attached_file :image, styles: {
-    thumb: '50x50#',
-    profile: '150x150#'
-  }
+  has_attached_file :image,
+    default_url: :get_default_image,
+    styles: {
+      thumb: '50x50#',
+      profile: '150x150#'
+    }
 
   validates_attachment :image, content_type: { content_type: /\Aimage\/.*\Z/ }
 
@@ -223,5 +225,12 @@ class User < ActiveRecord::Base
 
   def ensure_session_token
     self.session_token ||= SecureRandom.urlsafe_base64(16)
+  end
+
+  def get_default_image
+    demo_friend = CreateDemoUser::USERNAMES.find { |name| username.match(name) }
+    return "#{demo_friend}.jpg" if demo_friend
+
+    "guest#{id % 5 + 1}.jpg"
   end
 end

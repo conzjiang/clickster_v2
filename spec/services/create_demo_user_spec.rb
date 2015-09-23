@@ -10,11 +10,11 @@ describe CreateDemoUser do
 
     it "creates a new demo user with attributes if given" do
       expect(User).to receive(:create_demo_user!).with({
-        image_url: "abc"
+        username: "abc"
       })
 
       CreateDemoUser.new_demo_user!({
-        image_url: "abc"
+        username: "abc"
       })
     end
   end

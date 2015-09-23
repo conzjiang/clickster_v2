@@ -4,9 +4,7 @@ class CreateDemoUser
   attr_reader :demo_user
 
   def self.go!
-    self.new(new_demo_user!({
-      image_url: "guest#{rand(5) + 1}.jpg"
-    })).go!
+    self.new(new_demo_user!).go!
   end
 
   def self.new_demo_user!(attrs = {})
@@ -95,8 +93,7 @@ class CreateDemoUser
     username = usernames.pop
 
     follower = self.class.new_demo_user!({
-      username: "#{username}#{rand(100)}",
-      image_url: "#{username}.jpg"
+      username: "#{username}#{rand(100)}"
     })
 
     follower.follow!(demo_user)

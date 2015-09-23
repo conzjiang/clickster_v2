@@ -13,7 +13,7 @@ describe FeedItem do
         :feed_item,
         idol: user,
         subject: build(:watchlist, tv_show_id: tv_show.id),
-        message: " is now watching "
+        message: "is now watching"
       )
 
       expect(feed_item.feed_message).to eq("conz is now watching Blue")

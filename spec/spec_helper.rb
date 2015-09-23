@@ -83,8 +83,9 @@ shared_examples "a feed item subject" do
 
   context "after save" do
     it "creates feed items for its user's followers after save" do
-      create(subject, user_id => user.id)
-      expect(follower.feed_items).not_to be_empty
+      expect do
+        create(subject, user_id => user.id)
+      end.to change { follower.feed_items.count }.by(1)
     end
 
     it "doesn't create any new feed items if watcher has no followers" do

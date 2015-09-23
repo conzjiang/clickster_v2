@@ -75,11 +75,11 @@ describe User do
     it "uses attributes if given" do
       user = User.create_demo_user!({
         username: "username",
-        image_url: "abc"
+        password_digest: "abc"
       })
 
       expect(user.username).to eq("username")
-      expect(user.image_url).to eq("abc")
+      expect(user.password_digest).to eq("abc")
     end
 
     it "generates email as [username]@example.com" do

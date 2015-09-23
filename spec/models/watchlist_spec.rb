@@ -19,10 +19,12 @@ describe Watchlist do
     let(:follower) { create(:user) }
     let(:user) { watcher }
 
-    it "destroys any feed items that were created within the minute" do
+    it "replaces old feed items w/ new ones when updating within the minute" do
       watchlist = create(:watchlist, watcher_id: watcher.id, status: 1)
-      watchlist.update!(status: 0)
-      expect(FeedItem.count).to eq(1)
+
+      expect do
+        watchlist.update!(status: 0)
+      end.to change { FeedItem.count }.by(0)
     end
 
     it "doesn't destroy any that were created more than a minute ago" do
@@ -32,9 +34,7 @@ describe Watchlist do
         watchlist = create(:watchlist, watcher_id: watcher.id, status: 1)
       end
 
-      watchlist.update!(status: 0)
-
-      expect(FeedItem.count).to eq(2)
+      expect { watchlist.update!(status: 0) }.to change { FeedItem.count }.by(1)
     end
   end
 end

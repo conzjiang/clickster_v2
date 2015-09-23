@@ -116,7 +116,10 @@ describe FeedQuery do
         follow = create(:follow, created_at: time)
         create(:feed_item, user: user, subject: follow)
 
-        expect(service.feed_items.first.subject_created_at).to eq(time)
+        subject_created_at = service.feed_items.first.subject_created_at
+        subject_created_at = subject_created_at.change(usec: 0)
+
+        expect(subject_created_at).to eq(time.change(usec: 0))
       end
 
       it "handles mixed feed item subjects correctly" do

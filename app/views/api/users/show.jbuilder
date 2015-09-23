@@ -1,13 +1,15 @@
 json.extract! @user, :username
-json.image_url asset_path(@user.image_url)
+json.image_url asset_path(@user.image.url(:profile))
 
 json.watchlists @user.watchlist_shows_with_statuses do |tv|
-  json.extract! tv, :id, :title, :image_url
+  json.extract! tv, :id, :title
+  json.image_url asset_path(tv.image.url(:mini))
   json.watch_status tv.watch_status
 end
 
 json.favorites @user.favorite_shows do |tv|
-  json.extract! tv, :id, :title, :image_url
+  json.extract! tv, :id, :title
+  json.image_url asset_path(tv.image.url(:mini))
 end
 
 if !signed_in? || current_user == @user

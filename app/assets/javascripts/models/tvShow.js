@@ -68,14 +68,12 @@ Clickster.Models.TvShow = Backbone.Model.extend({
     this.set("genres", []);
 
     _(genres).each(function (genre) {
-      var tvGenre;
+      var tvGenre, dbGenre;
 
-      if (Clickster.GENRES.indexOf(genre) === -1) {
-        tvGenre = _(Clickster.GENRES).find(function (dbGenre) {
-          return dbGenre.match(genre);
-        });
-      } else {
+      if (Utils.isGenre(genre)) {
         tvGenre = genre;
+      } else {
+        tvGenre = Utils.matchGenre(genre);
       }
 
       if (tvGenre) that.get("genres").push(tvGenre);

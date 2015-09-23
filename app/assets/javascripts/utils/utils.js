@@ -25,6 +25,20 @@
     return Utils.capitalize(hyphenated.replace(/-/g, " "));
   };
 
+  Utils.isGenre = function (genre) {
+    return _.contains(_.keys(Clickster.GENRES), genre);
+  };
+
+  Utils.matchGenre = function (genre) {
+    var dbGenre;
+
+    for (dbGenre in Clickster.GENRES) {
+      if (dbGenre.match(genre)) {
+        return dbGenre;
+      }
+    }
+  };
+
   Utils.hyphenate = function (string) {
     return string.toLowerCase().replace(/[\s\/]/g, "-");
   };

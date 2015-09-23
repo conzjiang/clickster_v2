@@ -9,6 +9,7 @@ New features:
 == TODO
 * If idol starts following you, duplicate feed items created for the follow
 * 404 page doesn't stretch footer to the bottom of the page
+* Upon signing in, watchlist statuses not rendering on index
 
 == To refactor
 * Utils.renderErrors -> View prototype

@@ -7,9 +7,8 @@ New features:
 * More optimized search queries!
 
 == TODO
-* Orphan Black mobile rendering
-* 'See more' link for mobile view of feed
 * If idol starts following you, duplicate feed items created for the follow
+* 404 page doesn't stretch footer to the bottom of the page
 
 == To refactor
 * Utils.renderErrors -> View prototype
@@ -22,6 +21,4 @@ New features:
 * Boyer-Moore algorithm for faster search lookup
 * Search for "Law & Order: Special Victims Unit" with `SVU` keyword
 * Going back when search form is open keeps search bar on the page
-* Ugh, can't find a nice way to render title block above rating in search results
 * Simulate latency on search/sign-in/etc so that the processes don't feel so abrupt
-* Ability to remove image from TV show

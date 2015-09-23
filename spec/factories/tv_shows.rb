@@ -1,7 +1,12 @@
 FactoryGirl.define do
   factory :tv_show do
     title { Faker::Company.name }
-    image_url { Faker::Internet.url }
+
+    # attributes needed for required image
+    image_file_name 'blank.jpg'
+    image_content_type 'image/jpg'
+    image_file_size 1
+
     association :admin, factory: :user
 
     transient do

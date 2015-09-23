@@ -22,3 +22,4 @@ New features:
 * Search for "Law & Order: Special Victims Unit" with `SVU` keyword
 * Going back when search form is open keeps search bar on the page
 * Simulate latency on search/sign-in/etc so that the processes don't feel so abrupt
+* Checkmark for Following on user show page

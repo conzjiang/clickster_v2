@@ -14,15 +14,15 @@
 
   <fieldset>
     <label for="tv_show_image_url">
-      Image
-      <button type="button" class="filepicker-upload">Upload</button>
-      or <a href="#" class="image-url">add image URL</a>
+      Image or
+      <button type="button" class="link image-url">add image URL</button>
     </label>
+    <input id="tv_show_image" type="file">
 
     <input id="tv_show_image_url"
            class="form-input"
            type="text"
-           name="tv_show[image_url]">
+           name="tv_show[image]">
 
     <img class="tv_show_image" src="<%= tv.get("image_url") %>">
   </fieldset>

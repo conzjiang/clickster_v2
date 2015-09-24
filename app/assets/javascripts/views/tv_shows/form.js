@@ -8,8 +8,8 @@ Clickster.Views.TvFormView = Backbone.View.extend({
   template: JST["tv_shows/_form"],
 
   events: {
-    "click .filepicker-upload": "uploadImage",
-    "click .image-url": "inputImageUrl",
+    "click .image-upload": "uploadImage",
+    "click .image-url": "toggleImageInput",
     "change #tv_show_image_url": "updateImage",
     "submit .new-tv": "saveTV"
   },
@@ -66,9 +66,15 @@ Clickster.Views.TvFormView = Backbone.View.extend({
     this.$("img").attr("src", url);
   },
 
-  inputImageUrl: function (e) {
-    e.preventDefault();
-    this.$("#tv_show_image_url").addClass("show").focus();
+  toggleImageInput: function (e) {
+    if ($(e.currentTarget).text() === "add image URL") {
+      $(e.currentTarget).text("upload image");
+    } else {
+      $(e.currentTarget).text("add image URL");
+    }
+
+    this.$("#tv_show_image").toggleClass("hide");
+    this.$("#tv_show_image_url").toggleClass("show").focus();
   },
 
   updateImage: function (e) {

@@ -7,7 +7,7 @@ Clickster.Views.FacebookProfileView = Backbone.View.extend({
     "keypress #user_username": "checkUsernameLength",
     "keyup #user_username": "maybeRemoveWarning",
     "blur #user_username": "validateUsername",
-    "click .filepicker-upload": "uploadProfPic",
+    "click .image-upload": "uploadProfPic",
     "submit form": "saveUser"
   },
 

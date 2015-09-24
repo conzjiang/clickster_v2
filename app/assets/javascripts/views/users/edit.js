@@ -9,7 +9,7 @@ Clickster.Views.UserEditView = Backbone.View.extend({
   template: JST["users/edit"],
 
   events: {
-    "click .filepicker-upload": "uploadPic",
+    "click .image-upload": "uploadPic",
     "submit form": "updateProfile"
   },
 

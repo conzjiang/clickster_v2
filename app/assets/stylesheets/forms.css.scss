@@ -17,7 +17,7 @@
   }
 
   fieldset {
-    margin: 15px 0;
+    margin: 30px 0;
   }
 
   fieldset > label,
@@ -87,7 +87,7 @@
 form.new-imdb-tv {
   margin-bottom: 75px;
 
-  input {
+  input, button {
     margin: 15px 0;
   }
 }
@@ -95,17 +95,19 @@ form.new-imdb-tv {
 /* NEW FORM */
 form.new-tv {
   label[for=tv_show_image_url] {
-    margin-right: 5px;
     margin-bottom: 5px;
   }
 
-  a.image-url {
-    font-size: 18px;
+  .image-url {
     color: $button_color;
   }
 
-  a.image-url:hover {
+  .image-url:hover {
     text-decoration: underline;
+  }
+
+  #tv_show_image {
+    font-size: 14px;
   }
 
   #tv_show_image_url {
@@ -145,7 +147,7 @@ form.new-tv {
   }
 }
 
-button.filepicker-upload {
+button.image-upload {
   padding: 4px 8px;
   font-weight: 700;
   font-size: 12px;

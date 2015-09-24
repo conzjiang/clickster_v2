@@ -9,29 +9,36 @@ Clickster.Views.UserEditView = Backbone.View.extend({
   template: JST["users/edit"],
 
   events: {
-    "click .image-upload": "uploadPic",
+    "change #user_profile_pic": "uploadPic",
     "submit form": "updateProfile"
   },
 
   uploadPic: function (e) {
-    e.preventDefault();
+    var file = e.currentTarget.files[0];
+    var reader = new FileReader();
 
-    filepicker.pick(Clickster.filepickerOptions, function (blob) {
-      this.user.set("image_url", blob.url);
-      this.$("img").attr("src", blob.url);
-    }.bind(this));
+    reader.onloadend = function () {
+      this.user.set("image", reader.result);
+      this.$("img").attr("src", reader.result);
+      Utils.adjustImage(reader.result, this.$("img"));
+    }.bind(this);
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      this.$("img").attr("src", "");
+    }
   },
 
   updateProfile: function (e) {
-    var params = $(e.target).serializeJSON().user;
+    var params = $(e.currentTarget).serializeJSON().user;
     var that = this;
 
     e.preventDefault();
     if (params && !this._validatePassword(params)) return;
-    this.$(":input").prop("disabled", true);
 
     this.user.save(params, {
-      success: function (data) {
+      success: function () {
         Backbone.history.navigate("users/" + that.user.get("username"), {
           trigger: true
         });
@@ -41,6 +48,8 @@ Clickster.Views.UserEditView = Backbone.View.extend({
         that._displayErrors(data.responseJSON);
       }
     });
+
+    this.$(":input").prop("disabled", true);
   },
 
   render: function () {

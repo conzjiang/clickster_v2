@@ -124,13 +124,13 @@
 }
 
 img.big-height {
-  width: 100%;
-  height: auto;
+  width: 100% !important;
+  height: auto !important;
 }
 
 img.big-width {
-  width: auto;
-  height: 100%;
+  width: auto !important;
+  height: 100% !important;
 }
 
 // USER EDIT PAGE

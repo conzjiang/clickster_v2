@@ -82,19 +82,7 @@ Clickster.Views.UserShowView = Backbone.View.extend({
 
   setImageSize: function () {
     if (!this.user.get("image_url")) return;
-
-    var img = new Image();
-    var $image = this.$("#user-image");
-
-    img.onload = function () {
-      if (this.width > this.height) {
-        $image.addClass("big-width");
-      } else {
-        $image.addClass("big-height");
-      }
-    };
-
-    img.src = this.user.get("image_url");
+    Utils.adjustImage(this.user.get("image_url"));
   },
 
   setFollowStatus: function () {

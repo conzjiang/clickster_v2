@@ -7,13 +7,14 @@
     <h3>Update Your Profile Pic</h3>
 
     <fieldset>
-      <label for="user_profile_pic">
+      <label>
         Profile Pic
-        <button type="button" class="image-upload">Upload</button>
       </label>
 
+      <input id="user_profile_pic" type="file" name="user[image]">
+
       <figure class="profile-pic-upload">
-        <img src="<%= user.escape("image_url") %>">
+        <img src="<%= user.escape("profile_size_image_url") %>">
       </figure>
     </fieldset>
   </div>

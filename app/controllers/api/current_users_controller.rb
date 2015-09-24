@@ -21,11 +21,11 @@ class Api::CurrentUsersController < ApplicationController
 
   private
   def user_params
-    params.require(:current_user).permit(:email, :image_url)
+    params.require(:current_user).permit(:email, :image)
   end
 
   def validate_password
-    return if password_params.blank?
+    return if password_params.values.all?(&:blank?)
     password = ValidatePassword.new(current_user, password_params).go
     render json: password.error, status: 422 if !password.valid?
   end

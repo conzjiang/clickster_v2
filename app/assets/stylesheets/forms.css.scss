@@ -106,10 +106,6 @@ form.new-tv {
     text-decoration: underline;
   }
 
-  #tv_show_image {
-    font-size: 14px;
-  }
-
   #tv_show_image_url {
     display: none;
   }
@@ -147,9 +143,7 @@ form.new-tv {
   }
 }
 
-button.image-upload {
-  padding: 4px 8px;
-  font-weight: 700;
-  font-size: 12px;
-  vertical-align: middle;
+// USER FORM
+#user_profile_pic {
+  margin-bottom: 5px;
 }

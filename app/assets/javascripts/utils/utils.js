@@ -13,6 +13,19 @@
     return success;
   };
 
+  Utils.adjustImage = function (imageUrl, $image) {
+    var img = new Image();
+
+    img.onload = function () {
+      if (this.width > this.height) {
+        $image.addClass("big-width");
+      } else {
+        $image.addClass("big-height");
+      }
+    };
+
+    img.src = imageUrl;
+  };
 
   Utils.capitalize = function (string) {
     var firstLetter = string.charAt(0).toUpperCase();

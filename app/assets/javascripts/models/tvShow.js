@@ -53,6 +53,8 @@ Clickster.Models.TvShow = Backbone.Model.extend({
   },
 
   parse: function (resp) {
+    delete resp.image;
+
     if (resp.watch_counts) {
       this.setWatchCounts(resp.watch_counts);
       delete resp.watch_counts;

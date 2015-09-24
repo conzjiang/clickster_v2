@@ -119,7 +119,7 @@ class Api::TvShowsController < ApplicationController
       :blurb,
       :num_seasons,
       :network,
-      :image_url,
+      :image,
       genres: []
     )
   end

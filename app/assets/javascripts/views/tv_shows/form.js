@@ -1,21 +1,21 @@
 Clickster.Views.TvFormView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
-    this.values = this.setValues(options.action);
+    this.action = options.action;
     this.listenTo(this.tv, "change", this.render);
   },
 
   template: JST["tv_shows/_form"],
 
   events: {
-    "click .image-upload": "uploadImage",
     "click .image-url": "toggleImageInput",
+    "change #tv_show_image": "uploadImage",
     "change #tv_show_image_url": "updateImage",
     "submit .new-tv": "saveTV"
   },
 
-  setValues: function (action) {
-    if (action === "new") {
+  values: function () {
+    if (this.action === "new") {
       return {
         tv: this.tv,
         formHeader: "Add Manually",
@@ -31,7 +31,7 @@ Clickster.Views.TvFormView = Backbone.View.extend({
   },
 
   render: function () {
-    var content = this.template(this.values);
+    var content = this.template(this.values());
     this.$el.html(content);
 
     this.selectGenres();
@@ -52,14 +52,21 @@ Clickster.Views.TvFormView = Backbone.View.extend({
       prop("selected", true);
   },
 
-  uploadImage: function (event) {
-    event.preventDefault();
+  uploadImage: function (e) {
+    var file = e.currentTarget.files[0];
+    var reader = new FileReader();
 
-    filepicker.pick(Clickster.filepickerOptions, function (blob) {
+    reader.onloadend = function () {
+      this.previewImage(reader.result);
       this.$("#tv_show_image_url").removeClass("show").val("");
-      this.tv.set("image_url", blob.url);
-      this.previewImage(blob.url);
-    }.bind(this));
+      this.tv.set("image", reader.result);
+    }.bind(this);
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      this.previewImage("");
+    }
   },
 
   previewImage: function (url) {
@@ -78,45 +85,62 @@ Clickster.Views.TvFormView = Backbone.View.extend({
   },
 
   updateImage: function (e) {
-    this.previewImage($(e.target).val());
+    this.previewImage($(e.currentTarget).val());
+    this.image = null;
   },
 
-  saveTV: function (event) {
+  saveTV: function (e) {
     var tvParams;
 
-    event.preventDefault();
-    tvParams = $(event.target).serializeJSON().tv_show;
-    if (tvParams.image_url === "") delete tvParams.image_url;
+    e.preventDefault();
 
-    this.$(".error").removeClass("error");
-    this.$(":input").prop("disabled", true);
+    tvParams = $(e.currentTarget).serializeJSON().tv_show;
+    if (tvParams.image === "") delete tvParams.image;
 
     this.tv.save(tvParams, {
       wait: true,
       success: this.success.bind(this),
       error: function (attrs, data) {
+        this.resetForm();
         this.renderErrors(data.responseJSON);
       }.bind(this)
     });
+
+    this.disableForm();
+  },
+
+  disableForm: function () {
+    if (this.$("#tv_show_image_url").val() === "") {
+      this.$imageField = this.$("#tv_show_image_field").html();
+      this.$("#tv_show_image_field").empty();
+    }
+
+    this.$(".error").removeClass("error");
+    this.$(":input").prop("disabled", true);
   },
 
   success: function () {
-    if (this.tv.isNew()) {
+    if (this.action === "new") {
       Clickster.searchResults.addTextResult(this.tv);
     }
 
     Backbone.history.navigate("tv/" + this.tv.id, { trigger: true });
   },
 
-  renderErrors: function (errors) {
-    var $errorDisplay = this.$(".errors");
-
-    $errorDisplay.empty();
+  resetForm: function () {
+    this.$(".errors").empty();
     this.$(":input").prop("disabled", false);
 
+    if (this.$imageField) {
+      this.$("#tv_show_image_field").html(this.$imageField);
+      this.$imageField = null;
+    }
+  },
+
+  renderErrors: function (errors) {
     if (errors.imdb_id || Array.isArray(errors)) {
       var error = errors.imdb_id || errors[0];
-      $errorDisplay.append("<li>" + error + "</li>");
+      this.$(".errors").append("<li>" + error + "</li>");
     } else {
       Utils.renderErrors({
         view: this,

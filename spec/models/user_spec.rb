@@ -18,6 +18,13 @@ describe User do
   it { should have_many(:feed_items) }
 
   describe "#username" do
+    it "doesn't validate length if facebook user" do
+      allow(user).to receive(:facebook_user?) { true }
+      user.username = "a" * (User::MAX_USERNAME_LENGTH + 1)
+
+      expect(user).to be_valid
+    end
+
     it "validates minimum length of 3" do
       user.username = "to"
       expect(user).not_to be_valid

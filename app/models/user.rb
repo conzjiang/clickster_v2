@@ -15,12 +15,13 @@ class User < ActiveRecord::Base
   validates_attachment :image, content_type: { content_type: /\Aimage\/.*\Z/ }
 
   validates :email, presence: true, uniqueness: true
+  validates :username, presence: true
 
   validates :username,
-    presence: true,
-    length: { minimum: 3, maximum: MAX_USERNAME_LENGTH }
+    uniqueness: true,
+    length: { minimum: 3, maximum: MAX_USERNAME_LENGTH },
+    unless: :facebook_user?
 
-  validates :username, uniqueness: true, unless: :facebook_user?
   validates :password, length: { minimum: 6, allow_nil: true }
 
   before_destroy :destroy_followers_for_demo_user
@@ -81,12 +82,8 @@ class User < ActiveRecord::Base
   end
 
   def self.create_from_omniauth_params!(params)
-    first_name = params[:first_name].first(MAX_USERNAME_LENGTH - 3)
-    last_initial = params[:last_name].first
-    temp_username = "#{first_name}#{last_initial}#{rand(100)}"
-
     User.create!({
-      username: temp_username,
+      username: "#{params[:first_name]} #{params[:last_name]}".strip,
       email: params[:email],
       password: SecureRandom.urlsafe_base64(6),
       uid: params[:id]

@@ -19,9 +19,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.
-      with_watch_and_favorite_count.
-      find_by(username: params[:username])
+    @user = User.with_watch_and_favorite_count.find(params[:id])
 
     if @user
       render :show

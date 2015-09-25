@@ -1,7 +1,5 @@
 Clickster.Models.User = Backbone.Model.extend({
-  url: function () {
-    return '/api/users/' + this.get("username");
-  },
+  urlRoot: "api/users",
 
   favorites: function () {
     if (!this._favorites) {

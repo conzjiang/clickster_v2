@@ -43,6 +43,7 @@ class FeedQuery
   def select_sql
     <<-SQL
       feed_items.*,
+      idols_feed_items.id AS idol_id,
       idols_feed_items.username AS idol_name,
       (#{subject_name}) AS subject_name,
       (#{subject_id}) AS subject_id,

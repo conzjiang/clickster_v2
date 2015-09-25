@@ -64,6 +64,13 @@ describe FeedQuery do
     end
 
     context "virtual attributes" do
+      it "has an idol_id attribute" do
+        idol = create(:user, id: 20, username: "conz")
+        create(:feed_item, user: user, idol: idol)
+
+        expect(service.feed_items.first.idol_id).to eq(20)
+      end
+
       it "has an idol_name attribute" do
         idol = create(:user, username: "conz")
         create(:feed_item, user: user, idol: idol)

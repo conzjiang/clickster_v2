@@ -67,6 +67,24 @@ class User < ActiveRecord::Base
     user.try(:is_password?, password) ? user : nil
   end
 
+  def self.find_by_slug(slug)
+    user = find_by(username: slug)
+    return user if user
+
+    match_data = slug.match(/\-(?<id>\d+)$/)
+
+    if match_data
+      user = find_by(id: match_data[:id])
+      return nil if user.nil? || !user.facebook_user?
+
+      if user.username.gsub("-", " ") == slug.split("-")[0..-2].join(" ")
+        return user
+      end
+    end
+
+    nil
+  end
+
   def self.find_or_create_by_omniauth_params(params)
     user = User.find_by(uid: params[:id])
     return user if user

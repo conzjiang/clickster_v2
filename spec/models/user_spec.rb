@@ -130,6 +130,35 @@ describe User do
     end
   end
 
+  describe "::find_by_slug" do
+    it "finds the user with the matching username and id if facebook user" do
+      john = create(:user, username: "john blue", id: 12, uid: "abc")
+      create(:user, username: "john-blue")
+
+      expect(User.find_by_slug("john-blue-12")).to eq(john)
+    end
+
+    it "doesn't confuse username with hyphens as facebook user" do
+      hyphen = create(:user, username: "conz-j-123")
+      create(:user, username: "conz j")
+
+      expect(User.find_by_slug("conz-j-123")).to eq(hyphen)
+    end
+
+    it "doesn't match id slug with non-facebook user" do
+      burgers = create(:user, username: "burgers", id: 1)
+      allow(burgers).to receive(:facebook_user?) { false }
+
+      expect(User.find_by_slug("burgers-1")).to be_nil
+    end
+
+    it "returns nil if no match found" do
+      create(:user)
+
+      expect(User.find_by_slug("tttt-12")).to be_nil
+    end
+  end
+
   describe "::recently_active" do
     it "returns the users who have watchlist activity in the past day" do
       active_user = create(:user)

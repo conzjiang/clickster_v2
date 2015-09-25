@@ -14,8 +14,13 @@ class User < ActiveRecord::Base
 
   validates_attachment :image, content_type: { content_type: /\Aimage\/.*\Z/ }
 
-  validates :email, :username, presence: true, uniqueness: true
-  validates :username, length: { minimum: 3, maximum: MAX_USERNAME_LENGTH }
+  validates :email, presence: true, uniqueness: true
+
+  validates :username,
+    presence: true,
+    length: { minimum: 3, maximum: MAX_USERNAME_LENGTH }
+
+  validates :username, uniqueness: true, unless: :facebook_user?
   validates :password, length: { minimum: 6, allow_nil: true }
 
   before_destroy :destroy_followers_for_demo_user
@@ -111,6 +116,10 @@ class User < ActiveRecord::Base
 
   def demo_user?
     !!username.match(/^guest/) && email == "#{username}@example.com"
+  end
+
+  def facebook_user?
+    uid.present?
   end
 
   def favorite!(tv_show)

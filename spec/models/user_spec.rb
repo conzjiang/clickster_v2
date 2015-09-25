@@ -3,9 +3,9 @@ describe User do
 
   [:email, :username].each do |attribute|
     it { should validate_presence_of(attribute) }
-    it { should validate_uniqueness_of(attribute) }
   end
 
+  it { should validate_uniqueness_of(:email) }
   it { should have_many(:tv_shows) }
   it { should have_many(:watchlists) }
   it { should have_many(:watchlist_shows) }
@@ -33,6 +33,21 @@ describe User do
 
       user.username = "constanceee"
       expect(user).to be_valid
+    end
+
+    context 'uniqueness' do
+      let!(:conz) { create(:user, username: "conz") }
+      let(:conz_dup) { build(:user, username: "conz") }
+
+      it "validates uniqueness if not a facebook user" do
+        allow(conz_dup).to receive(:facebook_user?) { false }
+        expect(conz_dup).not_to be_valid
+      end
+
+      it "doesn't validates uniqueness if facebook user" do
+        allow(conz_dup).to receive(:facebook_user?) { true }
+        expect(conz_dup).to be_valid
+      end
     end
   end
 
@@ -234,6 +249,16 @@ describe User do
     it "returns false if username & email don't match" do
       user = User.new(username: "guest325", email: "alksjkfjk@example.com")
       expect(user).not_to be_demo_user
+    end
+  end
+
+  describe "#facebook_user?" do
+    it "returns true if has a uid" do
+      expect(User.new(uid: 1)).to be_facebook_user
+    end
+
+    it "returns false if doesn't have uid" do
+      expect(User.new).not_to be_facebook_user
     end
   end
 

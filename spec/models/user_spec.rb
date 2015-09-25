@@ -353,6 +353,20 @@ describe User do
     end
   end
 
+  describe "#slug" do
+    let(:user) { User.new(id: 12, username: 'Constance Jiang') }
+
+    it "if facebook user, hyphenates username and appends id at the end" do
+      allow(user).to receive(:facebook_user?) { true }
+      expect(user.slug).to eq('Constance-Jiang-12')
+    end
+
+    it "if not, returns username" do
+      allow(user).to receive(:facebook_user?) { false }
+      expect(user.slug).to eq('Constance Jiang')
+    end
+  end
+
   describe "#watchlist_shows_with_statuses" do
     let!(:watchlist_shows) do
       (0..2).map do

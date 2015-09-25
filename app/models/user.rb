@@ -163,6 +163,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def slug
+    return username unless facebook_user?
+    "#{username.gsub(" ", "-")}-#{id}"
+  end
+
   def watchlist_shows_with_statuses
     return @shows if @shows
 

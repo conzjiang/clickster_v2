@@ -7,12 +7,11 @@
   </li>
 
   <% if (signedIn) { %>
-    <% var username = Clickster.currentUser.escape("username") %>
-    <% var url = "#/users/" + username %>
-
     <li class="nav-link profile">
       <button class="nav profile-button" type="button"></button>
-      <a class="nav" href="<%= url %>"><%= username %></a>
+      <a class="nav" href="<%= user.publicUrl() %>">
+        <%= user.escape("username").split(" ")[0] %>
+      </a>
     </li>
   <% } %>
 

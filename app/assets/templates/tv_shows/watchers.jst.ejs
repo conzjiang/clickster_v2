@@ -7,7 +7,7 @@
 <ul class="watchers-list group">
   <% watchers.each(function (user) { %>
     <li>
-      <a href="#/users/<%= user.escape("username") %>"
+      <a href="<%= user.publicUrl() %>"
         data-user="<%= user.escape("username") %>"
         class="tool-tip"
         style="background-image:url(<%= user.escape("image_url") %>)"></a>

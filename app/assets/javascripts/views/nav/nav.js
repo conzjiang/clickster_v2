@@ -135,6 +135,7 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   render: function () {
     var content = this.template({
+      user: Clickster.currentUser,
       signedIn: Clickster.currentUser.signedIn()
     });
     this.$el.html(content);

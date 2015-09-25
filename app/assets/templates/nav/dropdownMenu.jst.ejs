@@ -8,7 +8,7 @@
 
   <li>
     <a class="nav-link"
-       href="#/users/<%= Clickster.currentUser.escape("username") %>">
+       href="<%= Clickster.currentUser.publicUrl() %>">
       <h2>My Profile</h2>
     </a>
   </li>

@@ -12,7 +12,7 @@
   <ul class="user-recomms group">
     <% recommendations.each(function (user) { %>
       <li>
-        <a href="#/users/<%= user.escape("username") %>"
+        <a href="<%= user.publicUrl() %>"
           style="background-image: url(<%= user.escape("image_url") %>)"
           data-user="<%= user.escape("username") %>">
         </a>

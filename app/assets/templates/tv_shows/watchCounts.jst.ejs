@@ -3,7 +3,7 @@
     <fieldset class="select-wrapper">
       <span class="illusion"></span>
       <select name="list-status">
-        <% _(Clickster.ALL_LIST_STATUSES).each(function (status) { %>
+        <% _(Qliqster.ALL_LIST_STATUSES).each(function (status) { %>
           <option value="<%= status %>">
             <%= status %> (<%= tv.watchCounts()[status] %>)
           </option>
@@ -11,7 +11,7 @@
       </select>
     </fieldset>
   <% } else { %>
-    <% _(Clickster.ALL_LIST_STATUSES).each(function (status) { %>
+    <% _(Qliqster.ALL_LIST_STATUSES).each(function (status) { %>
       <% var statusId = Utils.hyphenate(status) %>
 
       <fieldset>

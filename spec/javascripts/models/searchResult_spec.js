@@ -4,8 +4,8 @@ describe("SearchResult model", function () {
   var result, tvs;
 
   beforeEach(function () {
-    tvs = Clickster.tvShows = new Backbone.Collection();
-    result = new Clickster.Models.SearchResult();
+    tvs = Qliqster.tvShows = new Backbone.Collection();
+    result = new Qliqster.Models.SearchResult();
     result.url = function() { return "/"; };
   });
 
@@ -56,7 +56,7 @@ describe("SearchResult model", function () {
     var users;
 
     beforeEach(function () {
-      users = Clickster.users = new Backbone.Collection();
+      users = Qliqster.users = new Backbone.Collection();
 
       sinon.stub($, "ajax").yieldsTo("success", {
         tv_results: [{ id: 1 }],

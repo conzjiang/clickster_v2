@@ -1,4 +1,4 @@
-Clickster.Views.MiniCardView = Backbone.View.extend({
+Qliqster.Views.MiniCardView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
     this.$el.data("id", this.tv.id);

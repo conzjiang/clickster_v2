@@ -1,14 +1,14 @@
-Clickster.Views.HomeView = Backbone.TvCardsView.extend({
+Qliqster.Views.HomeView = Backbone.TvCardsView.extend({
   initialize: function () {
     this.listenTo(this.collection, "sync", this.render);
-    this.listenTo(Clickster.currentUser, "sync", this.render);
+    this.listenTo(Qliqster.currentUser, "sync", this.render);
   },
 
   template: JST['home'],
 
   render: function () {
     var content = this.template({
-      signedIn: Clickster.currentUser.signedIn()
+      signedIn: Qliqster.currentUser.signedIn()
     });
 
     this.$el.html(content);
@@ -20,10 +20,10 @@ Clickster.Views.HomeView = Backbone.TvCardsView.extend({
   },
 
   renderFeed: function (items) {
-    if (!Clickster.currentUser.signedIn()) return;
+    if (!Qliqster.currentUser.signedIn()) return;
     if (this.feedView) this.feedView.remove();
 
-    this.feedView = new Clickster.Views.FeedItemsListView();
+    this.feedView = new Qliqster.Views.FeedItemsListView();
     this.$("#feed").html(this.feedView.render().$el);
   },
 

@@ -6,7 +6,7 @@ Backbone.TvCardsView = Backbone.View.extend({
 
   renderCards: function () {
     this.collection.each(function (tv) {
-      var tvView = new Clickster.Views.TvCardView({ tv: tv });
+      var tvView = new Qliqster.Views.TvCardView({ tv: tv });
       this.$("ul.tv-results").append(tvView.render().$el);
       this.subviews().push(tvView);
     }.bind(this));

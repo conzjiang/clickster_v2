@@ -1,6 +1,6 @@
-Clickster.Models.CurrentUser = Clickster.Models.User.extend({
+Qliqster.Models.CurrentUser = Qliqster.Models.User.extend({
   initialize: function () {
-    this.feed = new Clickster.Collections.Feed();
+    this.feed = new Qliqster.Collections.Feed();
   },
 
   url: 'api/current_user',
@@ -31,7 +31,7 @@ Clickster.Models.CurrentUser = Clickster.Models.User.extend({
   save: function (attrs, options) {
     var success = Utils.success(options);
 
-    return Clickster.Models.User.prototype.save.call(this, attrs, _.extend({
+    return Qliqster.Models.User.prototype.save.call(this, attrs, _.extend({
       method: "put",
       success: function (model, data) {
         _(this.passwordFields).each(this.unset.bind(this));

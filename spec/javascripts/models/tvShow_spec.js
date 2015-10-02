@@ -4,8 +4,8 @@ describe("TvShow model", function () {
   var tvShow, user;
 
   beforeEach(function () {
-    tvShow = new Clickster.Models.TvShow({ id: 1 });
-    user = Clickster.currentUser = new Clickster.Models.CurrentUser();
+    tvShow = new Qliqster.Models.TvShow({ id: 1 });
+    user = Qliqster.currentUser = new Qliqster.Models.CurrentUser();
   });
 
   it("initializes genres with an empty array", function () {
@@ -20,7 +20,7 @@ describe("TvShow model", function () {
 
   describe("#setGenres", function () {
     beforeEach(function () {
-      Clickster.GENRES = ["Comedy", "Drama", "Romance", "Sci-Fi/Fantasy"];
+      Qliqster.GENRES = ["Comedy", "Drama", "Romance", "Sci-Fi/Fantasy"];
     });
 
     it("sets its genres based on the given string of genres", function () {

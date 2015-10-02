@@ -1,4 +1,4 @@
-Clickster.Collections.Watchers = Clickster.Collections.Users.extend({
+Qliqster.Collections.Watchers = Qliqster.Collections.Users.extend({
   initialize: function (models, options) {
     this.tv = options.tv;
     this.watchStatus = options.watchStatus;

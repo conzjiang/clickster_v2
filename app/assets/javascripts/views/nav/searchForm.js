@@ -1,4 +1,4 @@
-Clickster.Views.SearchFormView = Backbone.View.extend({
+Qliqster.Views.SearchFormView = Backbone.View.extend({
   className: "content",
 
   template: JST["nav/searchForm"],
@@ -47,10 +47,10 @@ Clickster.Views.SearchFormView = Backbone.View.extend({
   },
 
   _closeMenu: function () {
-    Clickster.currentUser.trigger("sync");
+    Qliqster.currentUser.trigger("sync");
   },
 
   _openSearch: function () {
-    Clickster.eventManager.trigger("search");
+    Qliqster.eventManager.trigger("search");
   }
 });

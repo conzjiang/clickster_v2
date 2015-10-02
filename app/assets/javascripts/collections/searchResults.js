@@ -1,10 +1,10 @@
-Clickster.Collections.SearchResults = Backbone.Collection.extend({
+Qliqster.Collections.SearchResults = Backbone.Collection.extend({
   initialize: function () {
     this.tvShows = Utils.stripAll(JSON.parse($("#tv_shows").html()));
     this.users = Utils.stripAll(JSON.parse($("#users").html()));
   },
 
-  model: Clickster.Models.SearchResult,
+  model: Qliqster.Models.SearchResult,
 
   url: "api/search",
 

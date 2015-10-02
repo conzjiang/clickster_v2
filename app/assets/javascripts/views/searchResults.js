@@ -1,4 +1,4 @@
-Clickster.Views.SearchResultsView = Backbone.TvCardsView.extend({
+Qliqster.Views.SearchResultsView = Backbone.TvCardsView.extend({
   initialize: function () {
     this.comparator = "alpha";
     this.collection = this.model.tvResults();
@@ -22,7 +22,7 @@ Clickster.Views.SearchResultsView = Backbone.TvCardsView.extend({
 
     switch (this.comparator) {
       case "alpha":
-        this.model.sortBy(Clickster.tvShows.comparator);
+        this.model.sortBy(Qliqster.tvShows.comparator);
         break;
       case "rating":
         this.model.sortBy(function (model) {

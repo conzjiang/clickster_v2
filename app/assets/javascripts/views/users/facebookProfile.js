@@ -1,4 +1,4 @@
-Clickster.Views.FacebookProfileView = Backbone.View.extend({
+Qliqster.Views.FacebookProfileView = Backbone.View.extend({
   template: JST["users/fb_prof"],
 
   className: "forms",
@@ -12,7 +12,7 @@ Clickster.Views.FacebookProfileView = Backbone.View.extend({
   },
 
   checkUsernameLength: function (e) {
-    var maxLength = Clickster.MAX_USERNAME_LENGTH;
+    var maxLength = Qliqster.MAX_USERNAME_LENGTH;
 
     if ($(e.currentTarget).val().length > maxLength) {
       e.preventDefault();
@@ -32,7 +32,7 @@ Clickster.Views.FacebookProfileView = Backbone.View.extend({
     $input.removeClass("success");
     $input.next().removeClass("success").html(".");
 
-    if ($(e.currentTarget).val().length <= Clickster.MAX_USERNAME_LENGTH) {
+    if ($(e.currentTarget).val().length <= Qliqster.MAX_USERNAME_LENGTH) {
       this.removeUsernameWarning();
     }
   },
@@ -65,8 +65,8 @@ Clickster.Views.FacebookProfileView = Backbone.View.extend({
   uploadProfPic: function (e) {
     e.preventDefault();
 
-    filepicker.pick(Clickster.filepickerOptions, function (blob) {
-      Clickster.currentUser.set("image_url", blob.url);
+    filepicker.pick(Qliqster.filepickerOptions, function (blob) {
+      Qliqster.currentUser.set("image_url", blob.url);
       this.$("#user_image_url").attr("src", blob.url);
     }.bind(this));
   },
@@ -75,7 +75,7 @@ Clickster.Views.FacebookProfileView = Backbone.View.extend({
     var params = $(e.currentTarget).serializeJSON().user;
     e.preventDefault();
 
-    Clickster.currentUser.save(params, {
+    Qliqster.currentUser.save(params, {
       success: function () {
         Backbone.history.navigate("", { trigger: true });
       }
@@ -83,7 +83,7 @@ Clickster.Views.FacebookProfileView = Backbone.View.extend({
   },
 
   render: function () {
-    var content = this.template({ user: Clickster.currentUser });
+    var content = this.template({ user: Qliqster.currentUser });
     this.$el.html(content);
     return this;
   }

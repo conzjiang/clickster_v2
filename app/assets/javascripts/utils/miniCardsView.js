@@ -6,7 +6,7 @@ Backbone.MiniCardsView = Backbone.View.extend({
 
   renderMiniCards: function () {
     this.collection.forEach(function (tv) {
-      var tvView = new Clickster.Views.MiniCardView({ tv: tv });
+      var tvView = new Qliqster.Views.MiniCardView({ tv: tv });
       this.$(".tv-cards").append(tvView.render().$el);
       this.subviews().push(tvView);
     }.bind(this));

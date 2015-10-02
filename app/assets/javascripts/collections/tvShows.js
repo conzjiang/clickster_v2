@@ -1,5 +1,5 @@
-Clickster.Collections.TvShows = Backbone.Collection.extend({
-  model: Clickster.Models.TvShow,
+Qliqster.Collections.TvShows = Backbone.Collection.extend({
+  model: Qliqster.Models.TvShow,
 
   initialize: function (models, options) {
     this.url = options && options.url;

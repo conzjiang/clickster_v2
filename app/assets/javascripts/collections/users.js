@@ -1,3 +1,3 @@
-Clickster.Collections.Users = Backbone.Collection.extend({
-  model: Clickster.Models.User
+Qliqster.Collections.Users = Backbone.Collection.extend({
+  model: Qliqster.Models.User
 });

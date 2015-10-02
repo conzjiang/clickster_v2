@@ -1,4 +1,4 @@
-Clickster.Models.SearchResult = Backbone.Model.extend({
+Qliqster.Models.SearchResult = Backbone.Model.extend({
   parse: function (resp) {
     this.tvResults().set(resp.tv_results);
     this.userResults().set(resp.user_results);
@@ -11,7 +11,7 @@ Clickster.Models.SearchResult = Backbone.Model.extend({
 
   tvResults: function () {
     if (!this._tvResults) {
-      this._tvResults = new Clickster.Collections.TvShows();
+      this._tvResults = new Qliqster.Collections.TvShows();
     }
 
     return this._tvResults;
@@ -19,7 +19,7 @@ Clickster.Models.SearchResult = Backbone.Model.extend({
 
   userResults: function () {
     if (!this._userResults) {
-      this._userResults = new Clickster.Collections.Users();
+      this._userResults = new Qliqster.Collections.Users();
     }
 
     return this._userResults;

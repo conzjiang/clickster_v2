@@ -1,4 +1,4 @@
-Clickster.Models.TvShow = Backbone.Model.extend({
+Qliqster.Models.TvShow = Backbone.Model.extend({
   initialize: function () {
     if (!this.get("genres")) this.set("genres", []);
   },
@@ -9,7 +9,7 @@ Clickster.Models.TvShow = Backbone.Model.extend({
     this.sendData(this.url() + "/watchlist", {
       data: options.data,
       success: function (data) {
-        var watchlists = Clickster.currentUser.watchlists();
+        var watchlists = Qliqster.currentUser.watchlists();
         data.on_watchlist ? watchlists.add(this) : watchlists.remove(this);
         if (options.success) options.success(data);
       }.bind(this)
@@ -32,7 +32,7 @@ Clickster.Models.TvShow = Backbone.Model.extend({
   favorite: function (options) {
     this.sendData(this.url() + "/favorite", {
       success: function (data) {
-        var favorites = Clickster.currentUser.favorites();
+        var favorites = Qliqster.currentUser.favorites();
         data.is_favorite ? favorites.add(this) : favorites.remove(this);
         if (options && options.success) options.success(data);
       }.bind(this)
@@ -109,7 +109,7 @@ Clickster.Models.TvShow = Backbone.Model.extend({
     this._watchers = this._watchers || {};
 
     if (!this._watchers[watchStatus]) {
-      this._watchers[watchStatus] = new Clickster.Collections.Watchers([], {
+      this._watchers[watchStatus] = new Qliqster.Collections.Watchers([], {
         tv: this,
         watchStatus: watchStatus
       });

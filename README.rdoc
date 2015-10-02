@@ -1,4 +1,4 @@
-This is the new and improved version of Clickster (https://github.com/conzjiang/clickster)!
+This is the new and improved version of Qliqster (https://github.com/conzjiang/clickster)!
 
 New features:
 
@@ -14,7 +14,7 @@ New features:
 == To refactor
 * Utils.renderErrors -> View prototype
 * filepicker uploads -> View prototype
-* Number to text conversion in Utils -> Clickster service object
+* Number to text conversion in Utils -> Qliqster service object
 * FB sign-in -> own view
 
 == Nice to have

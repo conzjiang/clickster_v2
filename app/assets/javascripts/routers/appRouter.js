@@ -1,8 +1,8 @@
-Clickster.Routers.AppRouter = Backbone.Router.extend({
+Qliqster.Routers.AppRouter = Backbone.Router.extend({
   initialize: function (options) {
     this.$rootEl = $(options.rootEl);
 
-    new Clickster.Views.Nav({ el: options.navbar }).render();
+    new Qliqster.Views.Nav({ el: options.navbar }).render();
   },
 
   routes: {
@@ -22,13 +22,13 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   home: function () {
-    var currentShows = new Clickster.Collections.TvShows([], {
+    var currentShows = new Qliqster.Collections.TvShows([], {
       url: 'api/tv_shows'
     });
 
     currentShows.fetch();
 
-    var homeView = new Clickster.Views.HomeView({
+    var homeView = new Qliqster.Views.HomeView({
       collection: currentShows
     });
 
@@ -36,13 +36,13 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   tvIndex: function () {
-    var adminShows = new Clickster.Collections.TvShows([], {
+    var adminShows = new Qliqster.Collections.TvShows([], {
       url: 'api/tv_shows/admin'
     });
 
     adminShows.fetch();
 
-    var indexView = new Clickster.Views.TvIndexView({
+    var indexView = new Qliqster.Views.TvIndexView({
       collection: adminShows
     });
 
@@ -50,39 +50,39 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   newTv: function () {
-    var newTvView = new Clickster.Views.NewTvView({ action: "new" });
+    var newTvView = new Qliqster.Views.NewTvView({ action: "new" });
     this._swapView(newTvView);
   },
 
   editTv: function (id) {
-    var tv = new Clickster.Models.TvShow({ id: id });
+    var tv = new Qliqster.Models.TvShow({ id: id });
     tv.fetch();
 
-    var editTvView = new Clickster.Views.NewTvView({ tv: tv, action: "edit" });
+    var editTvView = new Qliqster.Views.NewTvView({ tv: tv, action: "edit" });
     this._swapView(editTvView);
   },
 
   tvShow: function (id) {
-    var tv = new Clickster.Models.TvShow({ id: id });
+    var tv = new Qliqster.Models.TvShow({ id: id });
     tv.fetch();
 
-    var tvShowView = new Clickster.Views.TvShowView({ tv: tv });
+    var tvShowView = new Qliqster.Views.TvShowView({ tv: tv });
     this._swapView(tvShowView);
   },
 
   searchResults: function (data) {
-    var searchView = new Clickster.Views.SearchResultsView({
-      model: Clickster.searchResults.getOrFetch(data)
+    var searchView = new Qliqster.Views.SearchResultsView({
+      model: Qliqster.searchResults.getOrFetch(data)
     });
 
     this._swapView(searchView);
   },
 
   userFollowers: function (username) {
-    var user = new Clickster.Models.User({ username: username });
+    var user = new Qliqster.Models.User({ username: username });
     user.fetch();
 
-    var userView = new Clickster.Views.UserShowView({
+    var userView = new Qliqster.Views.UserShowView({
       user: user,
       selected: "Followers"
     });
@@ -91,26 +91,26 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   userShow: function (username) {
-    var user = new Clickster.Models.User({ username: username });
+    var user = new Qliqster.Models.User({ username: username });
     user.fetch();
 
-    var userView = new Clickster.Views.UserShowView({ user: user });
+    var userView = new Qliqster.Views.UserShowView({ user: user });
     this._swapView(userView);
   },
 
   userEdit: function () {
-    var userEditView = new Clickster.Views.UserEditView();
+    var userEditView = new Qliqster.Views.UserEditView();
     this._swapView(userEditView);
   },
 
   genreShow: function (genre) {
-    var genreShows = new Clickster.Collections.TvShows([], {
+    var genreShows = new Qliqster.Collections.TvShows([], {
       url: 'api/genres/' + genre
     });
 
     genreShows.fetch();
 
-    var genreShowView = new Clickster.Views.GenreShowView({
+    var genreShowView = new Qliqster.Views.GenreShowView({
       collection: genreShows,
       genre: Utils.dehyphenate(genre)
     });
@@ -119,12 +119,12 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   facebookProfile: function () {
-    var facebookProfView = new Clickster.Views.FacebookProfileView();
+    var facebookProfView = new Qliqster.Views.FacebookProfileView();
     this._swapView(facebookProfView);
   },
 
   feed: function () {
-    var feedView = new Clickster.Views.FeedIndexView();
+    var feedView = new Qliqster.Views.FeedIndexView();
     this._swapView(feedView);
   },
 
@@ -135,7 +135,7 @@ Clickster.Routers.AppRouter = Backbone.Router.extend({
     this.$rootEl.html(view.$el);
     view.render();
 
-    Clickster.eventManager.trigger("offSearch");
+    Qliqster.eventManager.trigger("offSearch");
     $("main").scrollTop(0);
   }
 });

@@ -7,8 +7,8 @@ describe("App Router", function () {
     $("#konacha").html("<p id='nav'></p><p id='root'></p>");
     appendToBody("<p id='tv_shows'>[]</p><p id='users'>[]</p>");
 
-    Clickster.currentUser = new Backbone.Model();
-    router = new Clickster.Routers.AppRouter({
+    Qliqster.currentUser = new Backbone.Model();
+    router = new Qliqster.Routers.AppRouter({
       $navbar: $("#nav"),
       $rootEl: $("#root")
     });

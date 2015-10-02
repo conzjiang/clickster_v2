@@ -1,10 +1,10 @@
-Clickster.Views.FeedIndexView = Backbone.View.extend({
+Qliqster.Views.FeedIndexView = Backbone.View.extend({
   initialize: function () {
-    this.feed = Clickster.currentUser.feed;
+    this.feed = Qliqster.currentUser.feed;
     this.feed.fetch();
     this.bindEvents();
 
-    this.listenTo(Clickster.currentUser, 'sync', this.render);
+    this.listenTo(Qliqster.currentUser, 'sync', this.render);
     this.listenTo(this.feed, 'sync', this.render);
     this.listenTo(this.feed, 'newItem', this.renderFeedItem);
     this.listenTo(this.feed, 'empty', this.displayRecommendations);
@@ -15,7 +15,7 @@ Clickster.Views.FeedIndexView = Backbone.View.extend({
   recommendationsTemplate: JST["feed/recommendations"],
 
   render: function () {
-    if (Clickster.currentUser.signedIn()) {
+    if (Qliqster.currentUser.signedIn()) {
       var content = this.template();
       this.$el.html(content);
       this.feed.each(this.renderFeedItem.bind(this));

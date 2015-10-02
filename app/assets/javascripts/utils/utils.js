@@ -33,19 +33,19 @@
   };
 
   Utils.dehyphenate = function (hyphenated) {
-    var exceptions = Clickster.genreExceptions;
+    var exceptions = Qliqster.genreExceptions;
     if (_(exceptions).has(hyphenated)) return exceptions[hyphenated];
     return Utils.capitalize(hyphenated.replace(/-/g, " "));
   };
 
   Utils.isGenre = function (genre) {
-    return _.contains(_.keys(Clickster.GENRES), genre);
+    return _.contains(_.keys(Qliqster.GENRES), genre);
   };
 
   Utils.matchGenre = function (genre) {
     var dbGenre;
 
-    for (dbGenre in Clickster.GENRES) {
+    for (dbGenre in Qliqster.GENRES) {
       if (dbGenre.match(genre)) {
         return dbGenre;
       }

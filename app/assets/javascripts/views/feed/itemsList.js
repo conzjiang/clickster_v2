@@ -1,8 +1,8 @@
-Clickster.FEED_CARD_SIZE = 220;
+Qliqster.FEED_CARD_SIZE = 220;
 
-Clickster.Views.FeedItemsListView = Backbone.View.extend({
+Qliqster.Views.FeedItemsListView = Backbone.View.extend({
   initialize: function () {
-    this.feed = Clickster.currentUser.feed;
+    this.feed = Qliqster.currentUser.feed;
     this.listenTo(this.feed, "newItem", this.renderFeedItem);
     this.listenToOnce(this.feed, "empty", this.displayRecommendations);
   },
@@ -41,8 +41,8 @@ Clickster.Views.FeedItemsListView = Backbone.View.extend({
   trimItems: function () {
     var $feedItems = this.$(".feed").children();
 
-    if ($feedItems.length > Clickster.NUM_TO_DISPLAY) {
-      for (var i = $feedItems.length; i > Clickster.NUM_TO_DISPLAY; i--) {
+    if ($feedItems.length > Qliqster.NUM_TO_DISPLAY) {
+      for (var i = $feedItems.length; i > Qliqster.NUM_TO_DISPLAY; i--) {
         $feedItems.eq(i - 1).remove();
       }
     }

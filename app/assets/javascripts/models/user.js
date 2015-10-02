@@ -1,9 +1,9 @@
-Clickster.Models.User = Backbone.Model.extend({
+Qliqster.Models.User = Backbone.Model.extend({
   urlRoot: "api/users",
 
   favorites: function () {
     if (!this._favorites) {
-      this._favorites = new Clickster.Collections.TvShows();
+      this._favorites = new Qliqster.Collections.TvShows();
     }
 
     return this._favorites;
@@ -25,7 +25,7 @@ Clickster.Models.User = Backbone.Model.extend({
 
   followers: function () {
     if (!this._followers) {
-      this._followers = new Clickster.Collections.Users();
+      this._followers = new Qliqster.Collections.Users();
     }
 
     return this._followers;
@@ -33,14 +33,14 @@ Clickster.Models.User = Backbone.Model.extend({
 
   idols: function () {
     if (!this._idols) {
-      this._idols = new Clickster.Collections.Users();
+      this._idols = new Qliqster.Collections.Users();
     }
 
     return this._idols;
   },
 
   isCurrentUser: function () {
-    return this.get("username") === Clickster.currentUser.get("username");
+    return this.get("username") === Qliqster.currentUser.get("username");
   },
 
   parse: function (response) {
@@ -80,7 +80,7 @@ Clickster.Models.User = Backbone.Model.extend({
 
   watchlists: function (status) {
     if (!this._watchlists) {
-      this._watchlists = new Clickster.Collections.TvShows();
+      this._watchlists = new Qliqster.Collections.TvShows();
     }
 
     if (status) {

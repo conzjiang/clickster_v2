@@ -4,12 +4,12 @@ describe("User edit view", function () {
   var view;
 
   beforeEach(function () {
-    Clickster.currentUser = new Clickster.Models.CurrentUser({
+    Qliqster.currentUser = new Qliqster.Models.CurrentUser({
       id: 1,
       username: "conz"
     });
 
-    view = new Clickster.Views.UserEditView();
+    view = new Qliqster.Views.UserEditView();
   });
 
   describe("#uploadPic", function () {
@@ -18,13 +18,13 @@ describe("User edit view", function () {
     beforeEach(function () {
       event = { preventDefault: function(){} };
       filepicker = { pick: function(){} };
-      Clickster.filepickerOptions = {};
+      Qliqster.filepickerOptions = {};
       sinon.stub(filepicker, "pick").yields({ url: "pic.jpg" });
     });
 
     it("sets the user's image url", function () {
       view.uploadPic(event);
-      expect(Clickster.currentUser.get("image_url")).to.equal("pic.jpg");
+      expect(Qliqster.currentUser.get("image_url")).to.equal("pic.jpg");
     });
 
     it("injects the image into the DOM", function () {
@@ -60,7 +60,7 @@ describe("User edit view", function () {
       view.updateProfile(event);
       server.respond();
 
-      expect(Clickster.currentUser.get("email")).to.equal("conz@example.com");
+      expect(Qliqster.currentUser.get("email")).to.equal("conz@example.com");
     });
 
     it("doesn't save attributes if fails password validation", function () {
@@ -74,7 +74,7 @@ describe("User edit view", function () {
       view.updateProfile(event);
       server.respond();
 
-      expect(Clickster.currentUser.get("email")).to.be.undefined;
+      expect(Qliqster.currentUser.get("email")).to.be.undefined;
     });
 
     it("doesn't set password attributes on user", function () {
@@ -88,7 +88,7 @@ describe("User edit view", function () {
       view.updateProfile(event);
       server.respond();
 
-      expect(Clickster.currentUser.get("password")).to.be.undefined;
+      expect(Qliqster.currentUser.get("password")).to.be.undefined;
     });
 
     it("displays errors when save fails", function () {
@@ -112,8 +112,8 @@ describe("User edit view", function () {
     });
 
     it("doesn't render template when no one is signed in", function () {
-      Clickster.currentUser = new Backbone.Model();
-      view = new Clickster.Views.UserEditView().render();
+      Qliqster.currentUser = new Backbone.Model();
+      view = new Qliqster.Views.UserEditView().render();
 
       expect(view).to.have.content("You must be signed in");
       expect(view).not.to.have.content("Edit Profile");

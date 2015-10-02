@@ -1,5 +1,5 @@
-Clickster.Collections.Feed = Backbone.Collection.extend({
-  model: Clickster.Models.FeedItem,
+Qliqster.Collections.Feed = Backbone.Collection.extend({
+  model: Qliqster.Models.FeedItem,
   url: "api/feed",
 
   comparator: function (model) {
@@ -43,7 +43,7 @@ Clickster.Collections.Feed = Backbone.Collection.extend({
 
   recommendations: function () {
     if (!this._recommendations) {
-      this._recommendations = new Clickster.Collections.Users();
+      this._recommendations = new Qliqster.Collections.Users();
     }
 
     return this._recommendations;

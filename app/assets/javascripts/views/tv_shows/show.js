@@ -1,4 +1,4 @@
-Clickster.Views.TvShowView = Backbone.View.extend({
+Qliqster.Views.TvShowView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
     this.listenTo(this.tv, "sync", this.render);
@@ -32,7 +32,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   },
 
   authenticate: function () {
-    if (Clickster.currentUser.signedIn()) {
+    if (Qliqster.currentUser.signedIn()) {
       return true;
     }
 
@@ -124,7 +124,7 @@ Clickster.Views.TvShowView = Backbone.View.extend({
   renderWatchCounts: function (watchStatus) {
     this.watchCountsView && this.watchCountsView.remove();
 
-    this.watchCountsView = new Clickster.Views.WatchCountsView({
+    this.watchCountsView = new Qliqster.Views.WatchCountsView({
       tv: this.tv,
       watchStatus: this._getInitialWatchStatus()
     });

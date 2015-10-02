@@ -4,15 +4,15 @@ describe("TV show view", function () {
   var view;
 
   beforeEach(function () {
-    var tv = new Clickster.Models.TvShow({ title: "The Comeback" });
-    Clickster.currentUser = new Clickster.Models.CurrentUser({ id: 1 });
-    view = new Clickster.Views.TvShowView({ tv: tv });
+    var tv = new Qliqster.Models.TvShow({ title: "The Comeback" });
+    Qliqster.currentUser = new Qliqster.Models.CurrentUser({ id: 1 });
+    view = new Qliqster.Views.TvShowView({ tv: tv });
   });
 
   describe("#toggleOptions", function () {
     it("doesn't allow toggling if not signed in", function () {
       view.render();
-      Clickster.currentUser = {};
+      Qliqster.currentUser = {};
       view.toggleOptions();
 
       expect(view.$("ul.show")).to.have.length(0);

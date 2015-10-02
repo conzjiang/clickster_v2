@@ -4,10 +4,10 @@ describe("User show view", function () {
   var statuses, conz, view;
 
   beforeEach(function () {
-    Clickster.currentUser = { id: 1 };
-    statuses = Clickster.LIST_STATUSES = ["Watching", "Completed"];
-    conz = new Clickster.Models.User({ id: 1, username: "conz" });
-    view = new Clickster.Views.UserShowView({ user: conz });
+    Qliqster.currentUser = { id: 1 };
+    statuses = Qliqster.LIST_STATUSES = ["Watching", "Completed"];
+    conz = new Qliqster.Models.User({ id: 1, username: "conz" });
+    view = new Qliqster.Views.UserShowView({ user: conz });
   });
 
   it("displays `User not found` message if user not found", function () {
@@ -21,8 +21,8 @@ describe("User show view", function () {
   });
 
   it("does not display Edit link if not current user", function () {
-    conz = new Clickster.Models.User({ id: 2, username: "conz" });
-    view = new Clickster.Views.UserShowView({ user: conz });
+    conz = new Qliqster.Models.User({ id: 2, username: "conz" });
+    view = new Qliqster.Views.UserShowView({ user: conz });
     view.render();
 
     expect(view).to.have.content("conz");

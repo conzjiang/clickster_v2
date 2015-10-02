@@ -30,7 +30,7 @@
   <fieldset>
     <strong>Genre(s)</strong>
     <ul class="genres group">
-      <% for (var genre in Clickster.GENRES) { %>
+      <% for (var genre in Qliqster.GENRES) { %>
         <li>
           <input id="form_genre_<%= genre.replace(/\//g, "") %>"
                  type="checkbox"
@@ -93,7 +93,7 @@
     <select id="tv_show_status" name="tv_show[status]" class="form-input">
       <option></option>
 
-      <% _(Clickster.TV_STATUSES).each(function (status) { %>
+      <% _(Qliqster.TV_STATUSES).each(function (status) { %>
         <option value="<%= status %>"><%= status %></option>
       <% }) %>
     </select>

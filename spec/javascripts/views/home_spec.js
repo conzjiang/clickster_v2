@@ -4,8 +4,8 @@ describe("Home View", function () {
   var view;
 
   beforeEach(function () {
-    Clickster.tvShows = new Clickster.Collections.TvShows();
-    view = new Clickster.Views.HomeView();
+    Qliqster.tvShows = new Qliqster.Collections.TvShows();
+    view = new Qliqster.Views.HomeView();
   });
 
   it("renders the currently airing shows", function () {

@@ -6,7 +6,7 @@ describe("SearchResults collection", function () {
   beforeEach(function () {
     setUpResultsDom();
 
-    results = new Clickster.Collections.SearchResults([
+    results = new Qliqster.Collections.SearchResults([
       { params: "abc", results: [1, 2, 3] }
     ]);
   });
@@ -33,8 +33,8 @@ describe("SearchResults collection", function () {
 
   describe("#getOrFetch", function () {
     before(function () {
-      Clickster.tvShows = new Backbone.Collection();
-      Clickster.users = new Backbone.Collection();
+      Qliqster.tvShows = new Backbone.Collection();
+      Qliqster.users = new Backbone.Collection();
     });
 
     it("returns the result with the specified params", function () {

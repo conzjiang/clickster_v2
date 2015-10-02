@@ -4,7 +4,7 @@ describe("Lists collection", function () {
   var lists;
 
   beforeEach(function () {
-    lists = new Clickster.Collections.Lists([], { user: { id: 1 }});
+    lists = new Qliqster.Collections.Lists([], { user: { id: 1 }});
     lists.add([
       { tv_show_id: 1, status: "Completed" },
       { tv_show_id: 3, status: "Watching" }

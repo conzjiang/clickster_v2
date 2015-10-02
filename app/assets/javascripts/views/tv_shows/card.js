@@ -1,4 +1,4 @@
-Clickster.Views.TvCardView = Backbone.View.extend({
+Qliqster.Views.TvCardView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
 
@@ -49,18 +49,18 @@ Clickster.Views.TvCardView = Backbone.View.extend({
   },
 
   authenticate: function () {
-    if (Clickster.currentUser.signedIn()) {
+    if (Qliqster.currentUser.signedIn()) {
       return true;
     }
 
-    Clickster.eventManager.trigger("signIn");
+    Qliqster.eventManager.trigger("signIn");
     return false;
   },
 
   setClickHandler: function () {
     if (!this.$(".statuses").hasClass("show")) return;
 
-    Clickster.eventManager.clickOut({
+    Qliqster.eventManager.clickOut({
       isOutside: function ($target) {
         var outside = !$target.closest(".statuses").length,
             otherPopout = $target.is(".watchlist") &&

@@ -39,27 +39,27 @@
 
 <script>
   $(function () {
-    Clickster.MAX_USERNAME_LENGTH = <%= User::MAX_USERNAME_LENGTH %>;
-    Clickster.FbAppId = "<%= ENV['FB_APP_ID'] %>";
-    Clickster.DECADES = <%= TvDecade.decades.to_json.html_safe %>;
-    Clickster.GENRES = <%= TvGenre.genres.to_json.html_safe %>;
-    Clickster.TV_STATUSES = <%= TvShow.statuses_list.to_json.html_safe %>;
-    Clickster.LIST_STATUSES = <%= Watchlist.statuses_list.to_json.html_safe %>;
-    Clickster.ALL_LIST_STATUSES = Clickster.LIST_STATUSES.concat(["Favorites"]);
-    Clickster.genreExceptions = <%= @genre_exceptions.to_json.html_safe %>;
-    Clickster.NUM_TO_DISPLAY =
+    Qliqster.MAX_USERNAME_LENGTH = <%= User::MAX_USERNAME_LENGTH %>;
+    Qliqster.FbAppId = "<%= ENV['FB_APP_ID'] %>";
+    Qliqster.DECADES = <%= TvDecade.decades.to_json.html_safe %>;
+    Qliqster.GENRES = <%= TvGenre.genres.to_json.html_safe %>;
+    Qliqster.TV_STATUSES = <%= TvShow.statuses_list.to_json.html_safe %>;
+    Qliqster.LIST_STATUSES = <%= Watchlist.statuses_list.to_json.html_safe %>;
+    Qliqster.ALL_LIST_STATUSES = Qliqster.LIST_STATUSES.concat(["Favorites"]);
+    Qliqster.genreExceptions = <%= @genre_exceptions.to_json.html_safe %>;
+    Qliqster.NUM_TO_DISPLAY =
       <%= Api::FeedsController::NUM_ITEMS_TO_DISPLAY %>;
-    Clickster.STATUS_MESSAGES =
+    Qliqster.STATUS_MESSAGES =
       <%= Watchlist::STATUS_MESSAGES.to_json.html_safe %>;
 
-    Clickster.initialize({
+    Qliqster.initialize({
       navbar: "nav",
       rootEl: ".main",
       banner: ".banner"
     });
 
     <% if signed_in? %>
-    Clickster.currentUser.fetch();
+    Qliqster.currentUser.fetch();
     <% end %>
   });
 </script>

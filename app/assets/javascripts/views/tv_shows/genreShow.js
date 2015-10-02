@@ -1,4 +1,4 @@
-Clickster.Views.GenreShowView = Backbone.MiniCardsView.extend({
+Qliqster.Views.GenreShowView = Backbone.MiniCardsView.extend({
   initialize: function (options) {
     this.genre = options.genre;
     this.listenTo(this.collection, "sync", this.render);

@@ -1,10 +1,10 @@
-Clickster.Views.WatchCountsView = Backbone.View.extend({
+Qliqster.Views.WatchCountsView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
     this.watchStatus = options.watchStatus;
 
     this.listenTo(this.tv, "watchCounts", this.render);
-    Clickster.eventManager.onResize(this.render, this);
+    Qliqster.eventManager.onResize(this.render, this);
   },
 
   tagName: "article",
@@ -37,7 +37,7 @@ Clickster.Views.WatchCountsView = Backbone.View.extend({
   renderWatchers: function () {
     this.watchersView && this.watchersView.remove();
 
-    this.watchersView = new Clickster.Views.WatchersView({
+    this.watchersView = new Qliqster.Views.WatchersView({
       tv: this.tv,
       watchStatus: this.watchStatus
     });
@@ -48,7 +48,7 @@ Clickster.Views.WatchCountsView = Backbone.View.extend({
 
   remove: function () {
     this.watchersView && this.watchersView.remove();
-    Clickster.eventManager.offResize(this);
+    Qliqster.eventManager.offResize(this);
     Backbone.View.prototype.remove.call(this);
   }
 });

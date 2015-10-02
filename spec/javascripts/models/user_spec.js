@@ -4,8 +4,8 @@ describe("User model", function () {
   var userModel, currentUser, user, response;
 
   beforeEach(function () {
-    userModel = Clickster.Models.User;
-    currentUser = Clickster.currentUser = { id: 1 };
+    userModel = Qliqster.Models.User;
+    currentUser = Qliqster.currentUser = { id: 1 };
     user = new userModel({ id: 1, username: "conz" });
     response = {
       watchlists: [
@@ -48,7 +48,7 @@ describe("User model", function () {
   describe("#watchlists & #favorites", function () {
     it("are instances of Lists", function () {
       [user.watchlists(), user.favorites()].forEach(function (collection) {
-        expect(collection).to.be.an.instanceof(Clickster.Collections.Lists);
+        expect(collection).to.be.an.instanceof(Qliqster.Collections.Lists);
       });
     });
 

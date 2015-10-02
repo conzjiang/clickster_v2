@@ -1,5 +1,5 @@
-Clickster.allClasses = "search sign-in dropdown transition";
-Clickster.minusClass = function (popOutClass) {
+Qliqster.allClasses = "search sign-in dropdown transition";
+Qliqster.minusClass = function (popOutClass) {
   var classes = this.allClasses.split(" ");
   var classIndex = classes.indexOf(popOutClass);
 
@@ -7,11 +7,11 @@ Clickster.minusClass = function (popOutClass) {
   return classes.join(" ");
 };
 
-Clickster.Views.Nav = Backbone.View.extend({
+Qliqster.Views.Nav = Backbone.View.extend({
   initialize: function () {
-    Clickster.searchResults = new Clickster.Collections.SearchResults();
+    Qliqster.searchResults = new Qliqster.Collections.SearchResults();
 
-    this.listenTo(Clickster.currentUser, "sync", this.render);
+    this.listenTo(Qliqster.currentUser, "sync", this.render);
   },
 
   template: JST["nav/nav"],
@@ -26,7 +26,7 @@ Clickster.Views.Nav = Backbone.View.extend({
     this.$el.removeClass("relative");
 
     this._togglePopout({
-      View: Clickster.Views.SearchFormView,
+      View: Qliqster.Views.SearchFormView,
       className: "search"
     });
 
@@ -48,22 +48,22 @@ Clickster.Views.Nav = Backbone.View.extend({
   },
 
   _closePopout: function () {
-    this.$(".pop-out").removeClass(Clickster.allClasses);
+    this.$(".pop-out").removeClass(Qliqster.allClasses);
   },
 
   _closeSearch: function () {
-    Clickster.eventManager.trigger("offSearch");
+    Qliqster.eventManager.trigger("offSearch");
   },
 
   goToProfile: function () {
-    var username = Clickster.currentUser.get("username");
+    var username = Qliqster.currentUser.get("username");
     Backbone.history.navigate("users/" + username, { trigger: true });
   },
 
   chooseMenu: function () {
     this.$el.addClass("relative");
 
-    if (Clickster.currentUser.signedIn()) {
+    if (Qliqster.currentUser.signedIn()) {
       this.toggleMenu();
     } else {
       this.toggleSignIn();
@@ -74,7 +74,7 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   toggleMenu: function () {
     this._togglePopout({
-      View: Clickster.Views.DropdownView,
+      View: Qliqster.Views.DropdownView,
       className: "dropdown"
     });
   },
@@ -83,7 +83,7 @@ Clickster.Views.Nav = Backbone.View.extend({
     var $popout = this.$(".pop-out");
 
     $popout.
-      removeClass(Clickster.minusClass(options.className)).
+      removeClass(Qliqster.minusClass(options.className)).
       toggleClass(options.className);
 
     this._closeSearch();
@@ -107,7 +107,7 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   toggleSignIn: function () {
     this._togglePopout({
-      View: Clickster.Views.SignInView,
+      View: Qliqster.Views.SignInView,
       className: "sign-in"
     });
   },
@@ -135,12 +135,12 @@ Clickster.Views.Nav = Backbone.View.extend({
 
   render: function () {
     var content = this.template({
-      user: Clickster.currentUser,
-      signedIn: Clickster.currentUser.signedIn()
+      user: Qliqster.currentUser,
+      signedIn: Qliqster.currentUser.signedIn()
     });
     this.$el.html(content);
 
-    if (Clickster.currentUser.signedIn()) {
+    if (Qliqster.currentUser.signedIn()) {
       this.$(".tv-hamburger").addClass("signed-in");
       this.$(".nav-triangle").addClass("signed-in");
       this._renderProfileImage();
@@ -150,7 +150,7 @@ Clickster.Views.Nav = Backbone.View.extend({
   },
 
   _renderProfileImage: function () {
-    var imageUrl = Clickster.currentUser.escape("image_url");
+    var imageUrl = Qliqster.currentUser.escape("image_url");
 
     if (imageUrl) {
       this.$(".profile-button").css({

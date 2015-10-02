@@ -1,4 +1,4 @@
-Clickster.Views.SignInView = Backbone.View.extend({
+Qliqster.Views.SignInView = Backbone.View.extend({
   initialize: function (options) {
     this.newUser = false;
   },
@@ -30,7 +30,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
 
   _requestCredsFromFacebook: function () {
     FB.api('/me', function (data) {
-      Clickster.currentUser.signIn({
+      Qliqster.currentUser.signIn({
         url: "/api/session/facebook",
         data: { facebook: data },
         success: function (resp) {
@@ -46,7 +46,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
 
   signInDemo: function (e) {
     $(e.currentTarget).prop("disabled", true).html("Signing in...");
-    Clickster.currentUser.demoSignIn({
+    Qliqster.currentUser.demoSignIn({
       success: this.reloadPage.bind(this)
     });
   },
@@ -57,7 +57,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
 
     this.disableButton();
 
-    Clickster.currentUser.signIn({
+    Qliqster.currentUser.signIn({
       url: $form.attr("action"),
       data: $form.serializeJSON(),
       success: this.reloadPage.bind(this),
@@ -106,7 +106,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
   render: function () {
     var content = this.template({
       newUser: this.newUser,
-      signedIn: Clickster.currentUser.signedIn()
+      signedIn: Qliqster.currentUser.signedIn()
     });
 
     this.$el.html(content);
@@ -123,7 +123,7 @@ Clickster.Views.SignInView = Backbone.View.extend({
     $.ajaxSetup({ cache: true });
 
     FB.init({
-      appId: Clickster.FbAppId,
+      appId: Qliqster.FbAppId,
       version: 'v2.3'
     });
   }

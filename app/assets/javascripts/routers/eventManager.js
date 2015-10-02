@@ -1,4 +1,4 @@
-Clickster.EventManager = function (options) {
+Qliqster.EventManager = function (options) {
   _.extend(this, Backbone.Events);
   this.clickNamespace = 0;
   this.$el = options.$el;
@@ -8,11 +8,11 @@ Clickster.EventManager = function (options) {
   this.on("offSearch", this.closeSearch, this);
 };
 
-Clickster.EventManager.prototype.signInError = function () {
+Qliqster.EventManager.prototype.signInError = function () {
   this.showError("Please sign in first.");
 };
 
-Clickster.EventManager.prototype.showError = function (message) {
+Qliqster.EventManager.prototype.showError = function (message) {
   this.$el.addClass("show");
   this.$el.html(message);
 
@@ -25,23 +25,23 @@ Clickster.EventManager.prototype.showError = function (message) {
   setTimeout(this.removeError.bind(this), 2000);
 };
 
-Clickster.EventManager.prototype.removeError = function () {
+Qliqster.EventManager.prototype.removeError = function () {
   this.$el.removeClass("show");
   this.$el.empty();
   $("main").off("scroll.onError");
 };
 
-Clickster.EventManager.prototype.openSearch = function () {
+Qliqster.EventManager.prototype.openSearch = function () {
   $("main").addClass("cover");
   $("main > header").addClass("open-search");
 };
 
-Clickster.EventManager.prototype.closeSearch = function () {
+Qliqster.EventManager.prototype.closeSearch = function () {
   $("main").removeClass("cover");
   $("main > header").removeClass("open-search");
 };
 
-Clickster.EventManager.prototype.clickOut = function (options) {
+Qliqster.EventManager.prototype.clickOut = function (options) {
   var clickNamespace = "click." + this.clickNamespace,
       firstClick = true,
       isOutside = options.isOutside,
@@ -61,14 +61,14 @@ Clickster.EventManager.prototype.clickOut = function (options) {
   });
 };
 
-Clickster.EventManager.prototype.offClick = function (clickNamespace) {
+Qliqster.EventManager.prototype.offClick = function (clickNamespace) {
   $("body").off(clickNamespace);
 };
 
-Clickster.EventManager.prototype.onResize = function (callback, view) {
+Qliqster.EventManager.prototype.onResize = function (callback, view) {
   $(window).on("resize." + view.cid, callback.bind(view));
 };
 
-Clickster.EventManager.prototype.offResize = function (view) {
+Qliqster.EventManager.prototype.offResize = function (view) {
   $(window).off("resize." + view.cid);
 };

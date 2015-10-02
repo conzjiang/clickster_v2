@@ -15,7 +15,7 @@ describe("Search Results view", function () {
       favoriteCount: function() { return 1; }
     });
 
-    Clickster.searchResults = new Clickster.Collections.SearchResults([
+    Qliqster.searchResults = new Qliqster.Collections.SearchResults([
       { params: "decade_ids=6", results: [tv] },
       {
         params: "text=conz",
@@ -25,7 +25,7 @@ describe("Search Results view", function () {
   });
 
   it("initializes with a model matching the given params", function () {
-    var view = new Clickster.Views.SearchResultsView({
+    var view = new Qliqster.Views.SearchResultsView({
       params: "decade_ids=6"
     });
 
@@ -33,7 +33,7 @@ describe("Search Results view", function () {
   });
 
   it("given model always trumps given params", function () {
-    var view = new Clickster.Views.SearchResultsView({
+    var view = new Qliqster.Views.SearchResultsView({
       model: new Backbone.Model({ id : 5 }),
       params: "decade_ids=6"
     });
@@ -43,7 +43,7 @@ describe("Search Results view", function () {
 
   describe("#render", function () {
     it("renders results", function () {
-      var view = new Clickster.Views.SearchResultsView({
+      var view = new Qliqster.Views.SearchResultsView({
         params: "decade_ids=6"
       }).render();
 
@@ -52,7 +52,7 @@ describe("Search Results view", function () {
     });
 
     it("renders two sections when text result", function () {
-      var view = new Clickster.Views.SearchResultsView({
+      var view = new Qliqster.Views.SearchResultsView({
         params: "text=conz"
       }).render();
 

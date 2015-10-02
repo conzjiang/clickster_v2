@@ -1,12 +1,12 @@
-Clickster.Views.WatchersView = Backbone.View.extend({
+Qliqster.Views.WatchersView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
     this.watchStatus = options.watchStatus;
     this.watchers = this.tv.watchers(this.watchStatus);
-    this.headerVerb = Clickster.STATUS_MESSAGES[this.watchStatus] || "likes";
+    this.headerVerb = Qliqster.STATUS_MESSAGES[this.watchStatus] || "likes";
 
     this.listenTo(this.watchers, "sync", this.render);
-    this.listenTo(Clickster.currentUser, "sync", this.renderHeader);
+    this.listenTo(Qliqster.currentUser, "sync", this.renderHeader);
   },
 
   template: JST["tv_shows/watchers"],
@@ -26,7 +26,7 @@ Clickster.Views.WatchersView = Backbone.View.extend({
   },
 
   renderHeader: function () {
-    if (this.watchers.length === 0 || !Clickster.currentUser.signedIn()) {
+    if (this.watchers.length === 0 || !Qliqster.currentUser.signedIn()) {
       return;
     }
 

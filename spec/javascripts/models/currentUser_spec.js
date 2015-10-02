@@ -4,7 +4,7 @@ describe("CurrentUser model", function () {
   var currentUser, response;
 
   beforeEach(function () {
-    currentUser = new Clickster.Models.CurrentUser({ id: 1 });
+    currentUser = new Qliqster.Models.CurrentUser({ id: 1 });
     response = {
       watchlists: [{ id: 1 }],
       tv_shows: [{ id: 3 }, { id: 4 }]
@@ -15,7 +15,7 @@ describe("CurrentUser model", function () {
   });
 
   it("inherits from User model", function () {
-    expect(currentUser).to.be.an.instanceof(Clickster.Models.User);
+    expect(currentUser).to.be.an.instanceof(Qliqster.Models.User);
   });
 
   it("correctly identifies as the current user", function () {

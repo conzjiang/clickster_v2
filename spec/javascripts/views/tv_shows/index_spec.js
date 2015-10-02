@@ -4,13 +4,13 @@ describe("TV index view", function () {
   var view, currentUser;
 
   beforeEach(function () {
-    currentUser = Clickster.currentUser = new Clickster.Models.CurrentUser();
+    currentUser = Qliqster.currentUser = new Qliqster.Models.CurrentUser();
     currentUser.set("is_admin", true);
     currentUser.tvShows = new Backbone.Collection([
       { id: 1, title: "Brooklyn 99" }
     ]);
 
-    view = new Clickster.Views.TvIndexView();
+    view = new Qliqster.Views.TvIndexView();
   });
 
   it("renders TV shows that current user admins", function () {
@@ -21,8 +21,8 @@ describe("TV index view", function () {
   });
 
   it("doesn't render page when current user isn't admin", function () {
-    Clickster.currentUser = new Backbone.Model();
-    view = new Clickster.Views.TvIndexView();
+    Qliqster.currentUser = new Backbone.Model();
+    view = new Qliqster.Views.TvIndexView();
     view.render();
 
     expect(view).to.have.content("You do not have access");

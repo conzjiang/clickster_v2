@@ -1,4 +1,4 @@
-Clickster.Models.FeedItem = Backbone.Model.extend({
+Qliqster.Models.FeedItem = Backbone.Model.extend({
   subjectName: function () {
     if (this.aboutCurrentUser()) {
       return "you";
@@ -9,7 +9,7 @@ Clickster.Models.FeedItem = Backbone.Model.extend({
 
   aboutCurrentUser: function () {
     return this.get('subject_type') === 'Follow' &&
-      this.get("subject_name") === Clickster.currentUser.get("username");
+      this.get("subject_name") === Qliqster.currentUser.get("username");
   },
 
   idolUrl: function () {

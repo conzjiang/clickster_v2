@@ -1,8 +1,8 @@
-Clickster.Views.NewTvView = Backbone.View.extend({
+Qliqster.Views.NewTvView = Backbone.View.extend({
   initialize: function (options) {
-    this.tv = options.tv || new Clickster.Models.TvShow();
+    this.tv = options.tv || new Qliqster.Models.TvShow();
     this.action = options.action;
-    this.listenTo(Clickster.currentUser, "sync", this.render);
+    this.listenTo(Qliqster.currentUser, "sync", this.render);
   },
 
   className: "forms tv-forms",
@@ -29,7 +29,7 @@ Clickster.Views.NewTvView = Backbone.View.extend({
     var title = $(event.target).serializeJSON().title;
     var that = this;
 
-    if (Clickster.searchResults.include(title)) {
+    if (Qliqster.searchResults.include(title)) {
       this._updateSearchStatus("Series already exists in the database!");
       return;
     }
@@ -75,7 +75,7 @@ Clickster.Views.NewTvView = Backbone.View.extend({
 
   form: function () {
     if (!this._form) {
-      this._form = new Clickster.Views.TvFormView({
+      this._form = new Qliqster.Views.TvFormView({
         tv: this.tv,
         action: this.action
       });
@@ -85,7 +85,7 @@ Clickster.Views.NewTvView = Backbone.View.extend({
   },
 
   render: function (status) {
-    if (!Clickster.currentUser.get("is_admin")) {
+    if (!Qliqster.currentUser.get("is_admin")) {
       this.$el.html("You are not allowed to perform this action.");
       return this;
     }

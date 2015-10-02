@@ -1,6 +1,6 @@
-Clickster.Views.UserEditView = Backbone.View.extend({
+Qliqster.Views.UserEditView = Backbone.View.extend({
   initialize: function () {
-    this.user = Clickster.currentUser;
+    this.user = Qliqster.currentUser;
     this.listenTo(this.user, "sync", this.render);
   },
 

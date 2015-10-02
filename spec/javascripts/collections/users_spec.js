@@ -4,8 +4,8 @@ describe("Users collection", function () {
   var users;
 
   beforeEach(function () {
-    Clickster.currentUser = {};
-    users = new Clickster.Collections.Users([
+    Qliqster.currentUser = {};
+    users = new Qliqster.Collections.Users([
       { id: 1, username: "conz" },
       { id: 2, username: "pizza" }
     ]);

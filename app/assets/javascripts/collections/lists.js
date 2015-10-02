@@ -1,4 +1,4 @@
-Clickster.Collections.Lists = Backbone.Collection.extend({
+Qliqster.Collections.Lists = Backbone.Collection.extend({
   initialize: function (models, options) {
     this.user = options.user;
   },
@@ -7,7 +7,7 @@ Clickster.Collections.Lists = Backbone.Collection.extend({
     var toAdd, list,
         add = Backbone.Collection.prototype.add.bind(this);
 
-    if (model instanceof Clickster.Models.TvShow) {
+    if (model instanceof Qliqster.Models.TvShow) {
       if (list = this.getList(model.id)) {
         list.set("status", model.get("watch_status"));
         return;
@@ -34,7 +34,7 @@ Clickster.Collections.Lists = Backbone.Collection.extend({
     var toRemove,
         remove = Backbone.Collection.prototype.remove.bind(this);
 
-    if (model instanceof Clickster.Models.TvShow) {
+    if (model instanceof Qliqster.Models.TvShow) {
       toRemove = this.getList(model.id);
     } else {
       toRemove = model;

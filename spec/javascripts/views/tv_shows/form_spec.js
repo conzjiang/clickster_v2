@@ -4,9 +4,9 @@ describe("TV form view", function () {
   var tv, newView, editView, event;
 
   beforeEach(function () {
-    tv = new Clickster.Models.TvShow({ title: "Broad City" });
-    newView = new Clickster.Views.TvFormView({ tv: tv, action: "new" });
-    editView = new Clickster.Views.TvFormView({ tv: tv, action: "edit" });
+    tv = new Qliqster.Models.TvShow({ title: "Broad City" });
+    newView = new Qliqster.Views.TvFormView({ tv: tv, action: "new" });
+    editView = new Qliqster.Views.TvFormView({ tv: tv, action: "edit" });
     event = { preventDefault: function(){}, target: "form" };
   });
 
@@ -21,7 +21,7 @@ describe("TV form view", function () {
     });
 
     it("preselects genres", function () {
-      Clickster.GENRES = ["Comedy", "Romance", "Drama"];
+      Qliqster.GENRES = ["Comedy", "Romance", "Drama"];
       tv.set("genres", ["Comedy"]);
       newView.render();
 
@@ -30,7 +30,7 @@ describe("TV form view", function () {
     });
 
     it("preselects status", function () {
-      Clickster.TV_STATUSES = ["Current", "Ended"];
+      Qliqster.TV_STATUSES = ["Current", "Ended"];
       tv.set("status", "Ended");
       newView.render();
 
@@ -42,7 +42,7 @@ describe("TV form view", function () {
   describe("#uploadImage", function () {
     beforeEach(function () {
       filepicker = { pick: function(){} };
-      Clickster.filepickerOptions = {};
+      Qliqster.filepickerOptions = {};
       sinon.stub(filepicker, "pick").yields({ url: "pic.jpg" });
     });
 
@@ -75,10 +75,10 @@ describe("TV form view", function () {
 
     beforeEach(function () {
       setUpResultsDom();
-      Clickster.currentUser = { tvShows: new Backbone.Collection() };
-      Clickster.tvShows = new Backbone.Collection();
-      Clickster.searchResults = new Clickster.Collections.SearchResults();
-      tv = newView.tv = new Clickster.Models.TvShow({ title: "Broad City" });
+      Qliqster.currentUser = { tvShows: new Backbone.Collection() };
+      Qliqster.tvShows = new Backbone.Collection();
+      Qliqster.searchResults = new Qliqster.Collections.SearchResults();
+      tv = newView.tv = new Qliqster.Models.TvShow({ title: "Broad City" });
     });
 
     it("adds new model to collections on successful save", function () {
@@ -87,10 +87,10 @@ describe("TV form view", function () {
       appendToBody(newView.render().$el);
       newView.saveTV(event);
       server.respond();
-      searchItem = Clickster.searchResults.tvShows.last();
+      searchItem = Qliqster.searchResults.tvShows.last();
 
-      expect(Clickster.currentUser.tvShows.models).to.contain(tv);
-      expect(Clickster.tvShows.models).to.contain(tv);
+      expect(Qliqster.currentUser.tvShows.models).to.contain(tv);
+      expect(Qliqster.tvShows.models).to.contain(tv);
       expect(searchItem.title).to.equal(tv.get("title"));
     });
 
@@ -102,7 +102,7 @@ describe("TV form view", function () {
       newView.saveTV(event);
       server.respond();
 
-      expect(Clickster.searchResults.tvShows).to.have.length(4);
+      expect(Qliqster.searchResults.tvShows).to.have.length(4);
     });
 
     it("renders errors on failed save", function () {

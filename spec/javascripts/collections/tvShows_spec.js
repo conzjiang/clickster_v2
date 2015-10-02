@@ -4,7 +4,7 @@ describe("TvShows collection", function () {
   var tvs;
 
   beforeEach(function () {
-    tvs = new Clickster.Collections.TvShows([
+    tvs = new Qliqster.Collections.TvShows([
       { id: 1, title: "Brooklyn Nine-Nine", genres: ["Comedy"] },
       { id: 2, title: "Orphan Black", genres: ["Drama"] },
       { id: 3, title: "Arrested Development", genres: ["Comedy"] }

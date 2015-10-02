@@ -1,4 +1,4 @@
-Clickster.Views.DropdownView = Backbone.View.extend({
+Qliqster.Views.DropdownView = Backbone.View.extend({
   template: JST["nav/dropdownMenu"],
 
   className: "content",
@@ -14,7 +14,7 @@ Clickster.Views.DropdownView = Backbone.View.extend({
   },
 
   render: function () {
-    var isAdmin = Clickster.currentUser.get("is_admin");
+    var isAdmin = Qliqster.currentUser.get("is_admin");
     var content = this.template({
       isAdmin: isAdmin
     });

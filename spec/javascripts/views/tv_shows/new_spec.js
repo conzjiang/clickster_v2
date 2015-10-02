@@ -4,13 +4,13 @@ describe("TV new view", function () {
   var NewTvView;
 
   beforeEach(function () {
-    NewTvView = Clickster.Views.NewTvView;
-    Clickster.currentUser = new Backbone.Model({ is_admin: true });
+    NewTvView = Qliqster.Views.NewTvView;
+    Qliqster.currentUser = new Backbone.Model({ is_admin: true });
   });
 
   it("initializes with an empty TV model when not given one", function () {
     var view = new NewTvView({});
-    expect(view.tv).to.be.an.instanceof(Clickster.Models.TvShow);
+    expect(view.tv).to.be.an.instanceof(Qliqster.Models.TvShow);
   });
 
   it("initializes with the given TV model otherwise", function () {
@@ -36,7 +36,7 @@ describe("TV new view", function () {
 
     it("doesn't render template when current user isn't admin", function () {
       var view = new NewTvView({ action: "new" });
-      Clickster.currentUser.set("is_admin", false);
+      Qliqster.currentUser.set("is_admin", false);
       expect(view.render()).to.have.content("You are not allowed");
     });
   });
@@ -47,8 +47,8 @@ describe("TV new view", function () {
     beforeEach(function () {
       setUpResultsDom();
       event = { preventDefault: function(){}, target: ".new-imdb-tv" };
-      Clickster.searchResults = new Clickster.Collections.SearchResults();
-      Clickster.GENRES = ["Comedy", "Romance"];
+      Qliqster.searchResults = new Qliqster.Collections.SearchResults();
+      Qliqster.GENRES = ["Comedy", "Romance"];
 
       view = new NewTvView({ action: "new" });
 

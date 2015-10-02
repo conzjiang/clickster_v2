@@ -1,11 +1,11 @@
-Clickster.Views.UserShowView = Backbone.View.extend({
+Qliqster.Views.UserShowView = Backbone.View.extend({
   initialize: function (options) {
     this.user = options.user;
     this.selected = options.selected || "Watchlists";
 
     this.listenTo(this.user, "sync", this.render);
     this.listenTo(this.user, "error", this.error);
-    this.listenTo(Clickster.currentUser, "sync", this.setFollowStatus);
+    this.listenTo(Qliqster.currentUser, "sync", this.setFollowStatus);
   },
 
   className: "user-show max",
@@ -90,7 +90,7 @@ Clickster.Views.UserShowView = Backbone.View.extend({
       this.$(".follow").addClass("is-following").html("Following");
     } else if (this.user.get("is_current_user")) {
       this.$(".follow").addClass("me");
-    } else if (Clickster.currentUser.signedIn()) {
+    } else if (Qliqster.currentUser.signedIn()) {
       this.$(".follow").removeClass("me is-following").html("Follow");
     } else {
       this.$(".follow").addClass("me");

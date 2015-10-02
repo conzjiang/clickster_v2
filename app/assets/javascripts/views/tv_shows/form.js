@@ -1,4 +1,4 @@
-Clickster.Views.TvFormView = Backbone.View.extend({
+Qliqster.Views.TvFormView = Backbone.View.extend({
   initialize: function (options) {
     this.tv = options.tv;
     this.action = options.action;
@@ -121,7 +121,7 @@ Clickster.Views.TvFormView = Backbone.View.extend({
 
   success: function () {
     if (this.action === "new") {
-      Clickster.searchResults.addTextResult(this.tv);
+      Qliqster.searchResults.addTextResult(this.tv);
     }
 
     Backbone.history.navigate("tv/" + this.tv.id, { trigger: true });

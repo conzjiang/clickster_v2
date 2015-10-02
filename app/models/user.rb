@@ -85,26 +85,26 @@ class User < ActiveRecord::Base
     nil
   end
 
-  def self.find_or_create_by_omniauth_params(params)
-    user = User.find_by(uid: params[:id])
+  def self.find_by_omniauth_params(params)
+    user = find_by(uid: params[:uid])
     return user if user
 
-    user = User.find_by(email: params[:email])
+    user = find_by(email: params[:email])
 
     if user
-      user.update!(uid: params[:id])
+      user.update!(uid: params[:uid])
       user
     else
-      create_from_omniauth_params!(params)
+      nil
     end
   end
 
   def self.create_from_omniauth_params!(params)
     User.create!({
-      username: "#{params[:first_name]} #{params[:last_name]}".strip,
+      username: params[:name].strip,
       email: params[:email],
       password: SecureRandom.urlsafe_base64(6),
-      uid: params[:id]
+      uid: params[:uid]
     })
   end
 

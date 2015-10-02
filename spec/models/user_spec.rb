@@ -191,17 +191,14 @@ describe User do
   context "Verifying users with omniauth" do
     let(:params) do
       {
-        id: "abc",
+        uid: "abc",
         email: "abc@example.com",
-        first_name: "Christopher",
-        last_name: "Robin"
+        name: "Christopher Robin"
       }
     end
 
-    describe "::find_or_create_by_omniauth_params" do
-      let(:matching_user) do
-        User.find_or_create_by_omniauth_params(params)
-      end
+    describe "::find_by_omniauth_params" do
+      let(:matching_user) { User.find_by_omniauth_params(params) }
 
       it "returns the user with the corresponding uid" do
         user = create(:user, uid: "abc")
@@ -218,16 +215,9 @@ describe User do
         expect(matching_user.uid).to eq("abc")
       end
 
-      context "if no matching user is found" do
-        it "creates a new user with corresponding email and uid" do
-          expect(User).to(
-            receive(:create_from_omniauth_params!).
-              with(params).and_call_original
-          )
-
-          expect(matching_user.uid).to eq("abc")
-          expect(matching_user.email).to eq("abc@example.com")
-        end
+      it "returns nil if no matching uid or email" do
+        user = create(:user)
+        expect(matching_user).to be_nil
       end
     end
 
@@ -238,12 +228,13 @@ describe User do
         expect { new_user }.to change { User.count }.by(1)
       end
 
-      it "gets its email and uid from params" do
+      it "gets its email, uid, and username from params" do
         expect(new_user.email).to eq(params[:email])
-        expect(new_user.uid).to eq(params[:id])
+        expect(new_user.uid).to eq(params[:uid])
+        expect(new_user.username).to eq(params[:name])
       end
 
-      it "is assigned a temporary username and password" do
+      it "is assigned a temporary password" do
         expect(new_user.username).not_to be_nil
         expect(new_user.is_password?(nil)).to be false
       end

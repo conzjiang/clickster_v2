@@ -21,31 +21,12 @@ Qliqster.Views.SignInView = Backbone.View.extend({
   },
 
   fbLogin: function (e) {
-    $(e.currentTarget).prop("disabled", true).html("Signing in...");
-
-    FB.login(this._requestCredsFromFacebook.bind(this), {
-      scope: 'public_profile,email'
-    });
-  },
-
-  _requestCredsFromFacebook: function () {
-    FB.api('/me', function (data) {
-      Qliqster.currentUser.signIn({
-        url: "/api/session/facebook",
-        data: { facebook: data },
-        success: function (resp) {
-          if (resp.facebook) {
-            Backbone.history.navigate("facebook", { trigger: true });
-          } else {
-            this.reloadPage();
-          }
-        }.bind(this)
-      });
-    });
+    $(e.currentTarget).html("Signing in...");
   },
 
   signInDemo: function (e) {
     $(e.currentTarget).prop("disabled", true).html("Signing in...");
+
     Qliqster.currentUser.demoSignIn({
       success: this.reloadPage.bind(this)
     });
@@ -111,20 +92,7 @@ Qliqster.Views.SignInView = Backbone.View.extend({
 
     this.$el.html(content);
     this.$("input.first").focus();
-    this.initializeFbLogin();
 
     return this;
-  },
-
-  initializeFbLogin: function () {
-    if (this.init) return;
-
-    this.init = true;
-    $.ajaxSetup({ cache: true });
-
-    FB.init({
-      appId: Qliqster.FbAppId,
-      version: 'v2.3'
-    });
   }
 });

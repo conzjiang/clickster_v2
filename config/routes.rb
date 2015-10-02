@@ -14,8 +14,9 @@ Rails.application.routes.draw do
 
     resources :users, only: [:create]
     get 'username', to: 'users#username'
-    get 'users/:username', to: 'users#show'
-    post "users/:username/follow", to: "users#follow"
+    get 'users/:slug', to: 'users#show'
+    get 'users/id/:id', to: 'users#show'
+    post "users/:slug/follow", to: "users#follow"
 
     resource :session, only: [:create]
     post 'session/demo', to: 'sessions#demo'

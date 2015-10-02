@@ -13,7 +13,7 @@ Qliqster.Models.FeedItem = Backbone.Model.extend({
   },
 
   idolUrl: function () {
-    return "#/users/" + this.escape("idol_id");
+    return "#/users/id/" + this.escape("idol_id");
   },
 
   subjectUrl: function () {

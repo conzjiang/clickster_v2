@@ -19,9 +19,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.with_watch_and_favorite_count.find(params[:id])
-
-    if @user
+    if found_user
       render :show
     else
       render json: {}, status: 404
@@ -44,6 +42,16 @@ class Api::UsersController < ApplicationController
   end
 
   private
+  def found_user
+    user = User.with_watch_and_favorite_count
+
+    if params[:slug]
+      @user = user.find_by_slug(params[:slug])
+    else
+      @user = user.find(params[:id])
+    end
+  end
+
   def user_params
     params.require(:user).permit(:email, :username, :password, :image)
   end

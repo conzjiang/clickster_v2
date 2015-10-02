@@ -13,8 +13,9 @@ Qliqster.Routers.AppRouter = Backbone.Router.extend({
     'tv/:id': 'tvShow',
     'search': 'searchResults',
     'user/edit': 'userEdit',
-    'users/:username/followers': 'userFollowers',
-    'users/:username': 'userShow',
+    'users/id/:id': 'userIdShow',
+    'users/:slug/followers': 'userFollowers',
+    'users/:slug': 'userShow',
     'genres/:genre': 'genreShow',
     '_=_': 'home',
     'facebook': 'facebookProfile',
@@ -78,8 +79,8 @@ Qliqster.Routers.AppRouter = Backbone.Router.extend({
     this._swapView(searchView);
   },
 
-  userFollowers: function (username) {
-    var user = new Qliqster.Models.User({ username: username });
+  userFollowers: function (slug) {
+    var user = new Qliqster.Models.User({ username: slug });
     user.fetch();
 
     var userView = new Qliqster.Views.UserShowView({
@@ -90,8 +91,8 @@ Qliqster.Routers.AppRouter = Backbone.Router.extend({
     this._swapView(userView);
   },
 
-  userShow: function (username) {
-    var user = new Qliqster.Models.User({ username: username });
+  userShow: function (slug) {
+    var user = new Qliqster.Models.User({ username: slug });
     user.fetch();
 
     var userView = new Qliqster.Views.UserShowView({ user: user });
@@ -101,6 +102,14 @@ Qliqster.Routers.AppRouter = Backbone.Router.extend({
   userEdit: function () {
     var userEditView = new Qliqster.Views.UserEditView();
     this._swapView(userEditView);
+  },
+
+  userIdShow: function (id) {
+    var user = new Qliqster.Models.User({ id: id });
+    user.fetch();
+
+    var userView = new Qliqster.Views.UserShowView({ user: user });
+    this._swapView(userView);
   },
 
   genreShow: function (genre) {

@@ -10,7 +10,11 @@ class Api::FeedsController < ApplicationController
       ).feed_items.limit(NUM_ITEMS_TO_DISPLAY).to_a
 
     if @feed_items.empty?
-      @recommendations = User.recently_active(NUM_ITEMS_TO_DISPLAY)
+      @recommendations = User.recently_active(NUM_ITEMS_TO_DISPLAY + 1)
+
+      if @recommendations.include?(current_user)
+        @recommendations = @recommendations - [current_user]
+      end
     end
 
     render :show

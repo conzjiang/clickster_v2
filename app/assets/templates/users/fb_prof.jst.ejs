@@ -1,21 +1,8 @@
-<h1>Give Yourself a Username!</h1>
+<h1>Upload a Profile Pic!</h1>
 
 <form class="edit-facebook-user">
   <fieldset>
-    <label for="user_username">Username (max 11 characters)</label>
-    <input
-      id="user_username"
-      class="form-input"
-      type="text"
-      name="user[username]">
-    <strong>.</strong>
-  </fieldset>
-
-  <fieldset>
-    <label for="user_image_url">
-      Profile Pic
-      <button type="button" class="image-upload">Upload</button>
-    </label>
+    <input id="user_image" type="file">
 
     <figure class="profile-pic-upload">
       <img id="user_image_url" src="">
@@ -23,6 +10,7 @@
   </fieldset>
 
   <div class="button-wrapper">
+    <button class="submit-button skip-button">Skip</button>
     <button class="submit-button">Save</button>
   </div>
 </form>

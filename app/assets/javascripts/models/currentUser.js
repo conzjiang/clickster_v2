@@ -35,6 +35,7 @@ Qliqster.Models.CurrentUser = Qliqster.Models.User.extend({
       method: "put",
       success: function (model, data) {
         _(this.passwordFields).each(this.unset.bind(this));
+        this.unset('image');
         success && success(model, data);
       }.bind(this)
     }, options));

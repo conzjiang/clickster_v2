@@ -33,4 +33,4 @@ Qliqster.Models.FeedItem = Backbone.Model.extend({
 
     return "#/" + subjectType + "/" + subjectPath;
   }
-})
+});

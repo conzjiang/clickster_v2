@@ -83,6 +83,14 @@
   padding-bottom: 4px;
 }
 
+.skip-button {
+  background: #ccc;
+}
+
+.skip-button:hover {
+  background: #aaa;
+}
+
 /* AUTOCOMPLETE FORM */
 form.new-imdb-tv {
   margin-bottom: 75px;

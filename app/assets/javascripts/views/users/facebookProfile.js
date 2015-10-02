@@ -1,85 +1,48 @@
 Qliqster.Views.FacebookProfileView = Backbone.View.extend({
+  initialize: function () {
+    this.user = Qliqster.currentUser;
+  },
+
   template: JST["users/fb_prof"],
 
   className: "forms",
 
   events: {
-    "keypress #user_username": "checkUsernameLength",
-    "keyup #user_username": "maybeRemoveWarning",
-    "blur #user_username": "validateUsername",
-    "click .image-upload": "uploadProfPic",
+    "change #user_image": "uploadProfPic",
     "submit form": "saveUser"
   },
 
-  checkUsernameLength: function (e) {
-    var maxLength = Qliqster.MAX_USERNAME_LENGTH;
-
-    if ($(e.currentTarget).val().length > maxLength) {
-      e.preventDefault();
-      this.usernameWarning("Maximum " + maxLength + " characters");
-    }
-  },
-
-  usernameWarning: function (message) {
-    var $input = this.$("#user_username");
-    $input.addClass("warning");
-    $input.next().addClass("warning").html(message);
-  },
-
-  maybeRemoveWarning: function (e) {
-    var $input = $(e.currentTarget);
-
-    $input.removeClass("success");
-    $input.next().removeClass("success").html(".");
-
-    if ($(e.currentTarget).val().length <= Qliqster.MAX_USERNAME_LENGTH) {
-      this.removeUsernameWarning();
-    }
-  },
-
-  removeUsernameWarning: function () {
-    this.$(".warning").removeClass("warning");
-    this.$("#user_username").next().html(".");
-  },
-
-  validateUsername: function (e) {
-    var $input = $(e.currentTarget);
-
-    $.ajax({
-      method: "get",
-      url: "/api/username",
-      data: { username: $input.val() },
-      dataType: "json",
-      success: function () {
-        $input.addClass("success");
-        $input.next().
-          addClass("success").
-          html("Nice to meet you, " + $input.val() + "!");
-      },
-      error: function () {
-        this.usernameWarning("Username has already been taken!");
-      }.bind(this)
-    });
-  },
-
   uploadProfPic: function (e) {
-    e.preventDefault();
+    var file = e.currentTarget.files[0];
+    var reader = new FileReader();
 
-    filepicker.pick(Qliqster.filepickerOptions, function (blob) {
-      Qliqster.currentUser.set("image_url", blob.url);
-      this.$("#user_image_url").attr("src", blob.url);
-    }.bind(this));
+    reader.onloadend = function () {
+      this.user.set("image", reader.result);
+      this.$("img").attr("src", reader.result);
+      Utils.adjustImage(reader.result, this.$("img"));
+    }.bind(this);
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      this.$("img").attr("src", "");
+    }
   },
 
   saveUser: function (e) {
-    var params = $(e.currentTarget).serializeJSON().user;
     e.preventDefault();
 
-    Qliqster.currentUser.save(params, {
-      success: function () {
-        Backbone.history.navigate("", { trigger: true });
-      }
-    });
+    if (this.user.get('image')) {
+      this.user.save({}, {
+        success: this.navigateToRoot.bind(this)
+      });
+    } else {
+      this.navigateToRoot();
+    }
+  },
+
+  navigateToRoot: function () {
+    Backbone.history.navigate("", { trigger: true });
   },
 
   render: function () {

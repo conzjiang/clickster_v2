@@ -2,22 +2,16 @@
 .edit-facebook-user {
   > fieldset {
     margin: 50px 0;
+    text-align: center;
   }
 
-  strong {
-    display: block;
-    margin: 5px 0;
-    font-size: 14px;
-    color: transparent;
+  input[type=file] {
+    margin-bottom: 30px;
   }
+}
 
-  strong.success {
-    color: inherit;
-  }
-
-  .warning {
-    color: #f00;
-  }
+.skip-button {
+  background: #ccc;
 }
 
 // USER SHOW

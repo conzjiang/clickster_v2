@@ -23,6 +23,8 @@ class Follow < ActiveRecord::Base
 
   private
   def notify_idol
+    return if idol.following?(follower)
+
     idol.feed_items.create!(
       subject: self,
       idol: follower,

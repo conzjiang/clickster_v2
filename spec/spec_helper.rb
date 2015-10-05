@@ -70,6 +70,16 @@ RSpec::Matchers.define :validate_scoped_uniqueness_of do |user_id, scope|
   end
 end
 
+RSpec::Matchers.define :be_uniq do
+  match do |array|
+    array.uniq == array
+  end
+
+  failure_message do |array|
+    "expected #{array} to contain unique elements"
+  end
+end
+
 shared_examples "a feed item subject" do
   before { create(:follow, idol_id: user.id, follower_id: follower.id) }
 

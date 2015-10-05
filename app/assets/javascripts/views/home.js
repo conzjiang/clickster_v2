@@ -24,7 +24,8 @@ Qliqster.Views.HomeView = Backbone.TvCardsView.extend({
     if (this.feedView) this.feedView.remove();
 
     this.feedView = new Qliqster.Views.FeedItemsListView();
-    this.$("#feed").html(this.feedView.render().$el);
+    this.$("#feed").html(this.feedView.$el);
+    this.feedView.render();
   },
 
   remove: function () {

@@ -111,7 +111,9 @@ Qliqster.Views.UserShowView = Backbone.View.extend({
     this.$(".lists").html(content);
     this.ellipsis();
 
-    Backbone.history.navigate(this.user.publicUrl());
+    if (this.user.get('slug')) {
+      Backbone.history.navigate(this.user.publicUrl().replace('#/', ''));
+    }
   },
 
   renderFollowers: function () {
@@ -125,8 +127,10 @@ Qliqster.Views.UserShowView = Backbone.View.extend({
 
     this.$(".lists").html(content);
 
-    Backbone.history.navigate(
-      this.user.publicUrl() + "/followers"
-    );
+    if (this.user.get('slug')) {
+      Backbone.history.navigate(
+        this.user.publicUrl().replace('#/', '') + "/followers"
+      );
+    }
   }
 });

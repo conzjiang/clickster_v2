@@ -1,7 +1,11 @@
 Qliqster.Views.HomeView = Backbone.TvCardsView.extend({
   initialize: function () {
-    this.listenTo(this.collection, "sync", this.render);
-    this.listenTo(Qliqster.currentUser, "sync", this.render);
+    this.listenTo(this.collection, "sync", this.renderCards);
+
+    this.listenToOnce(Qliqster.currentUser, "sync", function () {
+      this.collection.fetch();
+      this.render();
+    });
   },
 
   template: JST['home'],

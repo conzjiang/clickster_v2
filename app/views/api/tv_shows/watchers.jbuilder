@@ -1,5 +1,5 @@
 json.watchers @tv_show.watchers do |watcher|
-  json.extract! watcher, :id, :username
+  json.extract! watcher, :id, :username, :slug
   json.image_url asset_path(watcher.image.url(:thumb))
 end
 

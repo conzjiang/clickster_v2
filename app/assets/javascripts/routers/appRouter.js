@@ -80,7 +80,7 @@ Qliqster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   userFollowers: function (slug) {
-    var user = new Qliqster.Models.User({ username: slug });
+    var user = new Qliqster.Models.User({ slug: slug });
     user.fetch();
 
     var userView = new Qliqster.Views.UserShowView({
@@ -92,7 +92,7 @@ Qliqster.Routers.AppRouter = Backbone.Router.extend({
   },
 
   userShow: function (slug) {
-    var user = new Qliqster.Models.User({ username: slug });
+    var user = new Qliqster.Models.User({ slug: slug });
     user.fetch();
 
     var userView = new Qliqster.Views.UserShowView({ user: user });

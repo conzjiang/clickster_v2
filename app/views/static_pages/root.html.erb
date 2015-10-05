@@ -39,8 +39,6 @@
 
 <script>
   $(function () {
-    Qliqster.MAX_USERNAME_LENGTH = <%= User::MAX_USERNAME_LENGTH %>;
-    Qliqster.FbAppId = "<%= ENV['FB_APP_ID'] %>";
     Qliqster.DECADES = <%= TvDecade.decades.to_json.html_safe %>;
     Qliqster.GENRES = <%= TvGenre.genres.to_json.html_safe %>;
     Qliqster.TV_STATUSES = <%= TvShow.statuses_list.to_json.html_safe %>;

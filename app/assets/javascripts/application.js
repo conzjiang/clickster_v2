@@ -15,10 +15,9 @@
 //= require jquery_ujs
 //= require jquery.serializejson
 //= require jquery.timeago
-//= require filepicker
 //= require underscore
 //= require backbone
-//= require conzq2
+//= require qliqster
 //= require_tree ./utils
 //= require_tree ../templates
 //= require ./models/user

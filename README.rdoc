@@ -7,20 +7,15 @@ New features:
 * More optimized search queries!
 
 == TODO
-* If idol starts following you, duplicate feed items created for the follow
 * 404 page doesn't stretch footer to the bottom of the page
-* Upon signing in, watchlist statuses not rendering on index
 
 == To refactor
 * Utils.renderErrors -> View prototype
-* filepicker uploads -> View prototype
 * Number to text conversion in Utils -> Qliqster service object
-* FB sign-in -> own view
 
 == Nice to have
 
-* Boyer-Moore algorithm for faster search lookup
 * Search for "Law & Order: Special Victims Unit" with `SVU` keyword
+* Boyer-Moore algorithm for faster search lookup
 * Going back when search form is open keeps search bar on the page
-* Simulate latency on search/sign-in/etc so that the processes don't feel so abrupt
 * Checkmark for Following on user show page

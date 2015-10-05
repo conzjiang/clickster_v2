@@ -46,6 +46,7 @@ class CreateDemoUser
     create_watchlists!
     create_favorites!
     set_up_follows!
+    follow_conz!
 
     demo_user
   end
@@ -98,6 +99,11 @@ class CreateDemoUser
 
     follower.follow!(demo_user)
     follower
+  end
+
+  def follow_conz!
+    follow!(User.first)
+    User.first.follow!(demo_user)
   end
 
   def follower_activities

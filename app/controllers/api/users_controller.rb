@@ -27,7 +27,7 @@ class Api::UsersController < ApplicationController
   end
 
   def follow
-    user = User.find_by(username: params[:username])
+    user = User.find_by_slug(params[:slug])
     follow = current_user.follows.find_or_initialize_by(idol_id: user.id)
 
     if follow.persisted?

@@ -1,9 +1,9 @@
 Qliqster.Models.User = Backbone.Model.extend({
   url: function () {
-    if (this.id) {
-      return 'api/users/id/' + this.id;
-    } else {
+    if (this.get('slug')) {
       return 'api/users/' + this.get('slug');
+    } else {
+      return 'api/users/id/' + this.id;
     }
   },
 

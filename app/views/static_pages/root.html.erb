@@ -39,6 +39,7 @@
 
 <script>
   $(function () {
+    Qliqster.DECADES_LIST = <%= TvDecade.decades_list.to_json.html_safe %>;
     Qliqster.DECADES = <%= TvDecade.decades.to_json.html_safe %>;
     Qliqster.GENRES = <%= TvGenre.genres.to_json.html_safe %>;
     Qliqster.TV_STATUSES = <%= TvShow.statuses_list.to_json.html_safe %>;

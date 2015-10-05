@@ -5,14 +5,10 @@
   <link href='http://fonts.googleapis.com/css?family=Roboto:300,700' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
-  <script src="//connect.facebook.net/en_US/sdk.js"></script>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body ontouchstart="">
-  <script>
-    filepicker.setKey("<%= ENV["FILEPICKER_KEY"] %>");
-  </script>
 
   <%= yield %>
 

@@ -78,8 +78,8 @@ Qliqster.Models.User = Backbone.Model.extend({
   },
 
   showImages: function () {
-    var watchlists = this.watchlists().pluck("image_url");
-    var favorites = this.favorites().pluck("image_url");
+    var watchlists = this.watchlists().pluck("result_image_url");
+    var favorites = this.favorites().pluck("result_image_url");
 
     return _.uniq(watchlists.concat(favorites));
   },

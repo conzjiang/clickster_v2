@@ -3,6 +3,7 @@ Qliqster.Views.HomeView = Backbone.TvCardsView.extend({
     this.listenTo(this.collection, "sync", this.renderCards);
 
     this.listenToOnce(Qliqster.currentUser, "sync", function () {
+      this.$('ul.tv-results').empty();
       this.collection.fetch();
       this.render();
     });

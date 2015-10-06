@@ -180,12 +180,6 @@ describe User do
 
       expect(User.recently_active(3).count).to eq(3)
     end
-
-    it "if no recent activity, returns the most recently created users" do
-      users = (1..3).to_a.map { create(:user) }
-
-      expect(User.recently_active.sort).to eq(users.sort)
-    end
   end
 
   context "Verifying users with omniauth" do

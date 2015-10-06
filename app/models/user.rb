@@ -109,13 +109,9 @@ class User < ActiveRecord::Base
   end
 
   def self.recently_active(limit = nil)
-    recent = joins(:watchlists).
+    joins(:watchlists).
       where("watchlists.created_at > ?", 1.day.ago).
       limit(limit)
-
-    return recent unless recent.empty?
-
-    order(created_at: :desc).limit(limit)
   end
 
   def self.with_watch_and_favorite_count

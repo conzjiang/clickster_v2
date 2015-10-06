@@ -10,11 +10,7 @@ class Api::FeedsController < ApplicationController
       ).feed_items.limit(NUM_ITEMS_TO_DISPLAY).to_a
 
     if @feed_items.empty?
-      @recommendations = User.recently_active(NUM_ITEMS_TO_DISPLAY + 1)
-
-      if @recommendations.include?(current_user)
-        @recommendations = @recommendations - [current_user]
-      end
+      @recommendations = recommendations
     end
 
     render :show
@@ -25,6 +21,10 @@ class Api::FeedsController < ApplicationController
   end
 
   private
+  def recommendations
+    FeedRecommendations.new(current_user, NUM_ITEMS_TO_DISPLAY + 1).users
+  end
+
   def require_signed_in!
     unless signed_in?
       render({

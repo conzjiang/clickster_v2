@@ -11,5 +11,10 @@ On the go? No problem! Qliqster is responsively-designed, so you lose nothing of
 
 (Psst, also try out the text search. Notice how `brooklyn 99` brings up `Brooklyn Nine-Nine` as a result.)
 
+# Testing
+Models and Service objects are all unit tested with RSpec.
+  * `spec/models`
+  * `spec/services`
+
 # Fixes in progress
 Projects like these are never considered "finished." Curious about what Conz still has left to do? Check out her [todo list](TODO.md).
